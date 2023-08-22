@@ -8,7 +8,9 @@ public:
 	{
 		return abs(a - b) < EPSILON;
 	}
-	bool equalTuples(Tuples a, Tuples b)
+	// tuples & point & vector
+	template <typename Agent>
+	bool equalTuples(Agent a, Agent b)
 	{
 		return (equalFloat(a.x, b.x) && equalFloat(a.y, b.y) && equalFloat(a.z, b.z) && equalFloat(a.w, b.w));
 	}

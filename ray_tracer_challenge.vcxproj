@@ -107,11 +107,9 @@
     <ClCompile Include="src\comparinator.cpp" />
     <ClCompile Include="src\comparinator_test_unit.cpp" />
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\point.cpp" />
     <ClCompile Include="src\main_test_unit.cpp" />
     <ClCompile Include="src\tuples.cpp" />
     <ClCompile Include="src\tuples_test_unit.cpp" />
-    <ClCompile Include="src\vector.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h" />

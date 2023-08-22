@@ -1,6 +1,4 @@
 #include "pch.h"
-#include "point.cpp"
-#include "vector.cpp"
 #include "comparinator.cpp"
 TEST(CanaryTuples, TestTesting) {
 	EXPECT_EQ(1, 1);
@@ -50,9 +48,25 @@ TEST(TuplesTestAdd, TuplesAdd)
 	//Scenario: Adding two tuples
 	//Given a1 ← tuple(3, -2, 5, 1)
 	//And a2 ← tuple(-2, 3, 1, 0)
+	//Then a1 + a2 = tuple(1, 1, 6, 1)
 	Tuples a = Tuples(3, -2, 5, 1);
 	Tuples b = Tuples(-2, 3, 1, 0);
-	//Then a1 + a2 = tuple(1, 1, 6, 1)
-	Comparinator c = Comparinator();
-	EXPECT_TRUE(c.equalTuples(Tuples(1, 1, 6, 1), a.add(b)));
+	Tuples c = Tuples(1, 1, 6, 1);
+	Comparinator ce = Comparinator();
+	Tuples result = a.add(b);
+	EXPECT_TRUE(ce.equalTuples(c, result));
+}
+
+TEST(TuplesTestSubtract, TupleMinusTupleEqualsTuple)
+{
+	//Scenario: Subtracting two points
+	//Given p1 ← tuple(3, 2, 1, 1)
+	//And p2 ← tuple(5, 6, 7, 1)
+	//Then p1 - p2 = tuple(-2, -4, -6, 0)
+	Tuples a = Tuples(3, 2, 1,1);
+	Tuples b = Tuples(5, 6, 7,1);
+	Tuples c = Tuples(-2, -4, -6,0);
+	Comparinator ce = Comparinator();
+	Tuples result = a.subtract(b);
+	EXPECT_TRUE(ce.equalTuples(c, result));
 }

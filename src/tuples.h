@@ -11,5 +11,17 @@ public:
 	double w;
 	Tuples(double argx, double argy, double argz, double argw);
 	Tuples add(Tuples a);
+	Tuples subtract(Tuples a);
 };
+
+class Point : public Tuples {
+public:
+	Point(double argx, double argy, double argz);
+};
+
+class Vector : public Tuples {
+public:
+	Vector(double argx, double argy, double argz);
+};
+
 #endif
