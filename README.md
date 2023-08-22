@@ -1,11 +1,11 @@
 # ray_tracer
 ## Goals
 ### About
-Ray Tracer implemented in C# following TDD methodology using xUnit
+Ray Tracer implemented in C++ following Test Driven Development methodology using GoogleTest
 ## Design
 ### Tools
-* C#
-* xUnit
+* C++
+* GTest
 * Visual Studio 2022
 * Git
 * Windows 10
