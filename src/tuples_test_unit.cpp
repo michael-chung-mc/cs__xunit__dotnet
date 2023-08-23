@@ -5,7 +5,14 @@ TEST(CanaryTuples, TestTesting) {
 	EXPECT_TRUE(true);
 }
 
-TEST(TuplesTest, WOneIsPoint)
+class TuplesTest : public ::testing::Test {
+protected:
+	//TuplesTest() {}
+	//~TuplesTest() override {}
+	//void SetUp() override { }
+	//void TearDown() override { }
+};
+TEST_F(TuplesTest, WOneIsPoint)
 {
 	Tuples a = Tuples(4.3, -4.2, 3.1, 1.0);
 	EXPECT_EQ(a.x, 4.3);
@@ -24,7 +31,7 @@ TEST(TuplesTest, WOneIsPoint)
 	EXPECT_NE(a.w, av.w);
 }
 
-TEST(TuplesTestVector, WZeroIsVector)
+TEST_F(TuplesTest, WZeroIsVector)
 {
 	Tuples a = Tuples(4.3, -4.2, 3.1, 0.0);
 	EXPECT_EQ(a.x, 4.3);
@@ -43,7 +50,7 @@ TEST(TuplesTestVector, WZeroIsVector)
 	EXPECT_EQ(a.w, av.w);
 }
 
-TEST(TuplesTestAdd, TuplesAdd)
+TEST_F(TuplesTest, TuplesAdd)
 {
 	//Scenario: Adding two tuples
 	//Given a1 ← tuple(3, -2, 5, 1)
@@ -57,15 +64,29 @@ TEST(TuplesTestAdd, TuplesAdd)
 	EXPECT_TRUE(ce.equalTuples(c, result));
 }
 
-TEST(TuplesTestSubtract, TupleMinusTupleEqualsTuple)
+TEST_F(TuplesTest, TupleMinusTupleEqualsTuple)
 {
-	//Scenario: Subtracting two points
+	//Scenario: Subtracting two tuples
 	//Given p1 ← tuple(3, 2, 1, 1)
 	//And p2 ← tuple(5, 6, 7, 1)
 	//Then p1 - p2 = tuple(-2, -4, -6, 0)
 	Tuples a = Tuples(3, 2, 1,1);
 	Tuples b = Tuples(5, 6, 7,1);
 	Tuples c = Tuples(-2, -4, -6,0);
+	Comparinator ce = Comparinator();
+	Tuples result = a.subtract(b);
+	EXPECT_TRUE(ce.equalTuples(c, result));
+}
+
+TEST_F(TuplesTest, PointMinusPointEqualsVector)
+{
+	//Scenario: Subtracting two points
+	//Given p1 ← tuple(3, 2, 1, 1)
+	//And p2 ← tuple(5, 6, 7, 1)
+	//Then p1 - p2 = tuple(-2, -4, -6, 0)
+	Tuples a = Tuples(3, 2, 1, 1);
+	Tuples b = Tuples(5, 6, 7, 1);
+	Tuples c = Tuples(-2, -4, -6, 0);
 	Comparinator ce = Comparinator();
 	Tuples result = a.subtract(b);
 	EXPECT_TRUE(ce.equalTuples(c, result));

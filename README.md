@@ -9,6 +9,9 @@ Ray Tracer implemented in C++ following Test Driven Development methodology usin
 * Visual Studio 2022
 * Git
 * Windows 10
+### Roadmap
+- [ ] Setup Tuples Library
+- [ ] Basic Image Render
 ## Acnowledgements
-"Ray Tracer Challenge" by Jamis Buck
-"VisualStudio.gitignore" by Github
+* "Ray Tracer Challenge" by Jamis Buck
+* "VisualStudio.gitignore" by Github
