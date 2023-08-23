@@ -12,7 +12,7 @@ protected:
 	//void SetUp() override { }
 	//void TearDown() override { }
 };
-TEST_F(TuplesTest, WOneIsPoint)
+TEST_F(TuplesTest, TupleWOneIsPoint)
 {
 	Tuples a = Tuples(4.3, -4.2, 3.1, 1.0);
 	EXPECT_EQ(a.x, 4.3);
@@ -31,7 +31,7 @@ TEST_F(TuplesTest, WOneIsPoint)
 	EXPECT_NE(a.w, av.w);
 }
 
-TEST_F(TuplesTest, WZeroIsVector)
+TEST_F(TuplesTest, TupleWZeroIsVector)
 {
 	Tuples a = Tuples(4.3, -4.2, 3.1, 0.0);
 	EXPECT_EQ(a.x, 4.3);
@@ -50,7 +50,7 @@ TEST_F(TuplesTest, WZeroIsVector)
 	EXPECT_EQ(a.w, av.w);
 }
 
-TEST_F(TuplesTest, TuplesAdd)
+TEST_F(TuplesTest, TuplePlusTupleEqualsTuple)
 {
 	//Scenario: Adding two tuples
 	//Given a1 ← tuple(3, -2, 5, 1)
@@ -78,16 +78,30 @@ TEST_F(TuplesTest, TupleMinusTupleEqualsTuple)
 	EXPECT_TRUE(ce.equalTuples(c, result));
 }
 
-TEST_F(TuplesTest, PointMinusPointEqualsVector)
+TEST_F(TuplesTest, PointMinusVectorEqualsPoint)
 {
 	//Scenario: Subtracting two points
 	//Given p1 ← tuple(3, 2, 1, 1)
 	//And p2 ← tuple(5, 6, 7, 1)
 	//Then p1 - p2 = tuple(-2, -4, -6, 0)
-	Tuples a = Tuples(3, 2, 1, 1);
-	Tuples b = Tuples(5, 6, 7, 1);
-	Tuples c = Tuples(-2, -4, -6, 0);
+	Point a = Point(3, 2, 1);
+	Vector b = Vector(5, 6, 7);
+	Point c = Point(-2, -4, -6);
 	Comparinator ce = Comparinator();
-	Tuples result = a.subtract(b);
+	Point result = a.subtract(b);
+	EXPECT_TRUE(ce.equalTuples(c, result));
+}
+
+TEST_F(TuplesTest, VectorMinusVectorEqualsVector)
+{
+	//Scenario: Subtracting two points
+	//Given p1 ← tuple(3, 2, 1, 1)
+	//And p2 ← tuple(5, 6, 7, 1)
+	//Then p1 - p2 = tuple(-2, -4, -6, 0)
+	Vector a = Vector(3, 2, 1);
+	Vector b = Vector(5, 6, 7);
+	Vector c = Vector(-2, -4, -6);
+	Comparinator ce = Comparinator();
+	Vector result = a.subtract(b);
 	EXPECT_TRUE(ce.equalTuples(c, result));
 }
