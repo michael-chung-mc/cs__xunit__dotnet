@@ -13,8 +13,8 @@ TEST(TestFloatingPointEqual, TestEqualFloat) {
 	EXPECT_FALSE(m.equalFloat(0.00002, .00001));
 }
 
-TEST(TestTuples, TestEqualTuples) {
+TEST(TestTuplesEqual, TestEqualTuples) {
 	Comparinator m = Comparinator();
-	EXPECT_TRUE(m.equalTuples(Tuples(4.3, -4.2, 3.1, 1.0), Tuples(4.3, -4.2, 3.1, 1.0)));
-	EXPECT_FALSE(m.equalTuples(Tuples(4.3, -4.2, 3.1, 1.0), Tuples(4.3, -4.2, 3.0, 1.0)));
+	EXPECT_TRUE(m.equalTuple(Tuple(4.3, -4.2, 3.1, 1.0), Tuple(4.3, -4.2, 3.1, 1.0)));
+	EXPECT_FALSE(m.equalTuple(Tuple(4.3, -4.2, 3.1, 1.0), Tuple(4.3, -4.2, 3.0, 1.0)));
 }

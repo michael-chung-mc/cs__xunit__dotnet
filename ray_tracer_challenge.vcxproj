@@ -108,12 +108,12 @@
     <ClCompile Include="src\comparinator_test_unit.cpp" />
     <ClCompile Include="src\pch.cpp" />
     <ClCompile Include="src\main_test_unit.cpp" />
-    <ClCompile Include="src\tuples.cpp" />
-    <ClCompile Include="src\tuples_test_unit.cpp" />
+    <ClCompile Include="src\tuple.cpp" />
+    <ClCompile Include="src\tuple_test_unit.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h" />
-    <ClInclude Include="src\tuples.h" />
+    <ClInclude Include="src\tuple.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

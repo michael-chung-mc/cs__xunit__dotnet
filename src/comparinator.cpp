@@ -10,7 +10,7 @@ public:
 	}
 	// tuples & point & vector
 	template <typename Agent>
-	bool equalTuples(Agent a, Agent b)
+	bool equalTuple(Agent a, Agent b)
 	{
 		return (equalFloat(a.x, b.x) && equalFloat(a.y, b.y) && equalFloat(a.z, b.z) && equalFloat(a.w, b.w));
 	}
