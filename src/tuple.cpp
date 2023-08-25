@@ -33,6 +33,11 @@ Tuple Tuple::operator-()
 	return Tuple(-x, -y, -z, -w);
 }
 
+Tuple Tuple::operator*(float multiple)
+{
+	return Tuple(x*multiple, y*multiple, z*multiple, w*multiple);
+}
+
 Point::Point(double argx, double argy, double argz) : Tuple(argx, argy, argz, 1.0) {};
 
 Point Point::subtract(Vector a)
@@ -45,4 +50,9 @@ Vector::Vector(double argx, double argy, double argz) : Tuple(argx, argy, argz, 
 Vector Vector::subtract(Vector a)
 {
 	return Vector(x - a.x, y - a.y, z - a.z);
+}
+
+Vector Vector::operator-()
+{
+	return Vector(-x, -y, -z);
 }

@@ -152,3 +152,37 @@ TEST_F(TupleTest, NegateTupleOperator)
 	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.equalTuple(an, c));
 }
+
+TEST_F(TupleTest, NegateVectorOperator)
+{
+	Vector a = Vector(1, -2, 3);
+	Vector an = -a;
+	Vector c = Vector(-1, 2, -3);
+	Comparinator ce = Comparinator();
+	EXPECT_TRUE(ce.equalTuple(an, c));
+}
+
+TEST_F(TupleTest, ScaleTuple)
+{
+	// Scenario: Multiplying a tuple by a scalar
+	// Given a ← tuple(1, -2, 3, -4)
+	// Then a * 3.5 = tuple(3.5, -7, 10.5, -14)
+	Tuple a = Tuple (1, -2, 3, -4);
+	Tuple b = a * 3.5;
+	Tuple c = Tuple(3.5, -7, 10.5, -14);
+	Comparinator ce = Comparinator();
+	EXPECT_TRUE(ce.equalTuple(b, c));
+	EXPECT_TRUE(ce.equalTuple(b, c));
+}
+
+TEST_F(TupleTest, ShrinkTuple)
+{
+	// Scenario: Multiplying a tuple by a fraction
+	// Given a ← tuple(1, -2, 3, -4)
+	// Then a * 0.5 = tuple(0.5, -1, 1.5, -2)
+	Tuple a = Tuple(1, -2, 3, -4);
+	Tuple b = a * 0.5;
+	Tuple c = Tuple(0.5, -1, 1.5, -2);
+	Comparinator ce = Comparinator();
+	EXPECT_TRUE(ce.equalTuple(b, c));
+}

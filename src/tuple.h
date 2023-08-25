@@ -13,13 +13,15 @@ public:
 	virtual Tuple add(Tuple a);
 	virtual Tuple subtract(Tuple a);
 	virtual Tuple negate();
-	virtual Tuple operator-();
+	Tuple operator-();
+	Tuple operator*(float multiple);
 };
 
 class Vector : public Tuple {
 public:
 	Vector(double argx, double argy, double argz);
 	Vector subtract(Vector a);
+	Vector operator-();
 };
 
 class Point : public Tuple {
