@@ -186,3 +186,50 @@ TEST_F(TupleTest, ShrinkTuple)
 	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.equalTuple(b, c));
 }
+
+TEST_F(TupleTest, DivideTuple)
+{
+	// Scenario: Dividing a tuple by a scalar
+	// Given a ← tuple(1, -2, 3, -4)
+	// Then a / 2 = tuple(0.5, -1, 1.5, -2)
+	Tuple a = Tuple(1, -2, 3, -4);
+	Tuple b = a / 2;
+	Tuple c = Tuple(0.5, -1, 1.5, -2);
+	Comparinator ce = Comparinator();
+	EXPECT_TRUE(ce.equalTuple(b, c));
+}
+
+TEST_F(TupleTest, TupleMagnitudeUnit)
+{
+	//Scenario: Computing the magnitude of vector(1, 0, 0)
+	//Given v ← vector(1, 0, 0)
+	//Then magnitude(v) = 1
+	//Scenario : Computing the magnitude of vector(0, 1, 0)
+	//Given v ← vector(0, 1, 0)
+	//Then magnitude(v) = 1
+	//Scenario : Computing the magnitude of vector(0, 0, 1)
+	//Given v ← vector(0, 0, 1)
+	//Then magnitude(v) = 1
+	Vector a = Vector(1, 0, 0);
+	EXPECT_EQ(a.magnitude(), 1);
+	Vector b = Vector(0, 1, 0);
+	EXPECT_EQ(b.magnitude(), 1);
+	Vector c = Vector(0, 0, 1);
+	EXPECT_EQ(c.magnitude(), 1);
+}
+
+TEST_F(TupleTest, TupleMagnitude)
+{
+	//Scenario : Computing the magnitude of vector(1, 2, 3)
+	//Given v ← vector(1, 2, 3)
+	//Then magnitude(v) = √14
+	Comparinator ce = Comparinator();
+	Vector a = Vector(1, 2, 3);
+	float mag = sqrt(14);
+	EXPECT_TRUE(ce.equalFloat(a.magnitude(), mag));
+	//Scenario : Computing the magnitude of vector(-1, -2, -3)
+	//Given v ← vector(-1, -2, -3)
+	//Then magnitude(v) = √14
+	Vector b = Vector(-1, -2, -3);
+	EXPECT_TRUE(ce.equalFloat(b.magnitude(), mag));
+}

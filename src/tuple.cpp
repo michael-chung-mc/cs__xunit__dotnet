@@ -38,6 +38,16 @@ Tuple Tuple::operator*(float multiple)
 	return Tuple(x*multiple, y*multiple, z*multiple, w*multiple);
 }
 
+Tuple Tuple::operator/(float multiple)
+{
+	return Tuple(x / multiple, y / multiple, z / multiple, w / multiple);
+}
+float Tuple::magnitude()
+{
+	return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2));
+}
+
+
 Point::Point(double argx, double argy, double argz) : Tuple(argx, argy, argz, 1.0) {};
 
 Point Point::subtract(Vector a)

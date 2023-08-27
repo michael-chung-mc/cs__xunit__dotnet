@@ -15,6 +15,8 @@ public:
 	virtual Tuple negate();
 	Tuple operator-();
 	Tuple operator*(float multiple);
+	Tuple operator/(float multiple);
+	virtual float magnitude();
 };
 
 class Vector : public Tuple {
