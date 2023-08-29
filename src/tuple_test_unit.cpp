@@ -233,3 +233,28 @@ TEST_F(TupleTest, TupleMagnitude)
 	Vector b = Vector(-1, -2, -3);
 	EXPECT_TRUE(ce.equalFloat(b.magnitude(), mag));
 }
+
+TEST_F(TupleTest, TupleNormalized)
+{
+	Comparinator ce = Comparinator();
+	//Scenario: Normalizing vector(4, 0, 0) gives(1, 0, 0)
+	//Given v ← vector(4, 0, 0)
+	//Then normalize(v) = vector(1, 0, 0)
+	Vector unit = Vector(1, 0, 0);
+	Vector a = Vector(4, 0, 0);
+	Vector norm = a.normalize();
+	EXPECT_TRUE(ce.equalTuple(unit, norm));
+	//Scenario : Normalizing vector(1, 2, 3)
+	//Given v ← vector(1, 2, 3)
+	//Then normalize(v) = approximately vector(1/sqrt(14), 2/sqrt(14), 3/sqrt(14))
+	unit = Vector(1 / std::sqrt(14), 2 / std::sqrt(14), 3 / std::sqrt(14));
+	a = Vector(1, 2, 3);
+	norm = a.normalize();
+	EXPECT_TRUE(ce.equalTuple(unit, norm));
+	//Scenario: The magnitude of a normalized vector
+	//Given v ← vector(1, 2, 3)
+	//When norm ← normalize(v)
+	//Then magnitude(norm) = 1
+	int magnitude = norm.magnitude();
+	EXPECT_EQ(magnitude, 1);
+}
