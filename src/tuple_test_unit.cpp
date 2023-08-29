@@ -1,9 +1,5 @@
 #include "pch.h"
 #include "comparinator.cpp"
-TEST(CanaryTuple, TestTesting) {
-	EXPECT_EQ(1, 1);
-	EXPECT_TRUE(true);
-};
 
 class TupleTest : public ::testing::Test {
 protected:
@@ -12,6 +8,12 @@ protected:
 	//void SetUp() override { }
 	//void TearDown() override { }
 };
+
+TEST_F(TupleTest, CanaryTest) {
+	EXPECT_EQ(1, 1);
+	EXPECT_TRUE(true);
+};
+
 TEST_F(TupleTest, TupleWOneIsPoint)
 {
 	Tuple a = Tuple(4.3, -4.2, 3.1, 1.0);
@@ -61,6 +63,8 @@ TEST_F(TupleTest, TuplePlusTupleEqualsTuple)
 	Tuple c = Tuple(1, 1, 6, 1);
 	Comparinator ce = Comparinator();
 	Tuple result = a.add(b);
+	EXPECT_TRUE(ce.equalTuple(c, result));
+	result = a + b;
 	EXPECT_TRUE(ce.equalTuple(c, result));
 };
 

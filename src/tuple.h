@@ -9,12 +9,14 @@ public:
 	double y;
 	double z;
 	double w;
+	Tuple();
 	Tuple(double argx, double argy, double argz, double argw);
 	Tuple operator-();
 	Tuple operator*(float multiple);
 	Tuple operator/(float multiple);
+	Tuple operator+(Tuple a);
 	virtual Tuple add(Tuple a);
-	virtual Tuple subtract(Tuple a);
+	Tuple subtract(Tuple a);
 	virtual Tuple negate();
 	virtual float magnitude();
 	double dot(Tuple a);
@@ -22,17 +24,22 @@ public:
 
 class Vector : public Tuple {
 public:
+	Vector();
 	Vector(double argx, double argy, double argz);
 	Vector operator-();
-	Vector subtract(Vector a);
+	Vector operator+(Tuple a);
+	Vector operator*(float multiple);
+	Vector subtract(Tuple a);
 	Vector normalize();
 	Vector cross(Vector a);
 };
 
 class Point : public Tuple {
 public:
+	Point();
 	Point(double argx, double argy, double argz);
-	Point subtract(Vector a);
+	Point operator+(Tuple a);
+	Point subtract(Tuple a);
 };
 
 #endif
