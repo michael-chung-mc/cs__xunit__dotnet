@@ -258,3 +258,15 @@ TEST_F(TupleTest, TupleNormalized)
 	int magnitude = norm.magnitude();
 	EXPECT_EQ(magnitude, 1);
 }
+
+TEST_F(TupleTest, TupleDotProduct)
+{
+	//Scenario: The dot product of two tuples
+	//Given a ← vector(1, 2, 3)
+	//And b ← vector(2, 3, 4)
+	//Then dot(a, b) = 20
+	Vector a = Vector(1, 2, 3);
+	Vector b = Vector(2, 3, 4);
+	int dot = a.dot(b);
+	EXPECT_EQ(dot, 20);
+}

@@ -42,6 +42,10 @@ float Tuple::magnitude()
 {
 	return sqrt(pow(x, 2) + pow(y, 2) + pow(z, 2) + pow(w, 2));
 }
+double Tuple::dot(Tuple a)
+{
+	return (x * a.x + y * a.y + z * a.z);
+};
 
 
 Point::Point(double argx, double argy, double argz) : Tuple(argx, argy, argz, 1.0) {};

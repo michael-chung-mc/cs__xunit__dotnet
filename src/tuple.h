@@ -17,6 +17,7 @@ public:
 	virtual Tuple subtract(Tuple a);
 	virtual Tuple negate();
 	virtual float magnitude();
+	double dot(Tuple a);
 };
 
 class Vector : public Tuple {
