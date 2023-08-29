@@ -270,3 +270,21 @@ TEST_F(TupleTest, TupleDotProduct)
 	int dot = a.dot(b);
 	EXPECT_EQ(dot, 20);
 }
+
+TEST_F(TupleTest, TupleCrossProduct)
+{
+	//Scenario: The cross product of two vectors
+	//Given a ← vector(1, 2, 3)
+	//And b ← vector(2, 3, 4)
+	//Then cross(a, b) = vector(-1, 2, -1)
+	//And cross(b, a) = vector(1, -2, 1)
+	Comparinator ce = Comparinator();
+	Vector a = Vector(1, 2, 3);
+	Vector b = Vector(2, 3, 4);
+	Vector ab = a.cross(b);
+	Vector c = Vector(-1, 2, -1);
+	EXPECT_TRUE(ce.equalTuple(ab, c));
+	Vector ba = b.cross(a);
+	c = Vector(1, -2, 1);
+	EXPECT_TRUE(ce.equalTuple(ba, c));
+}

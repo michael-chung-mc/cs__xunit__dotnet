@@ -67,3 +67,7 @@ Vector Vector::normalize()
 {
 	return Vector(x / magnitude(), y / magnitude(), z / magnitude());
 };
+Vector Vector::cross(Vector a)
+{
+	return Vector(y * a.z - z * a.y, z * a.x - x * a.z, x * a.y - y * a.x);
+};

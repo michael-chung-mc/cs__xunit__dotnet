@@ -26,6 +26,7 @@ public:
 	Vector operator-();
 	Vector subtract(Vector a);
 	Vector normalize();
+	Vector cross(Vector a);
 };
 
 class Point : public Tuple {
