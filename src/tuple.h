@@ -1,4 +1,3 @@
-#include "pch.h"
 #pragma once
 #ifndef Tuple_H
 #define Tuple_H

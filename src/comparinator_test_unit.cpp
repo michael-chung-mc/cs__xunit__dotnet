@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "comparinator.cpp"
 
 TEST(CanaryComparinator, TestTesting) {
 	EXPECT_EQ(1, 1);

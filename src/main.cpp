@@ -1,8 +1,7 @@
 #include "pch.h"
-#include <iostream>
 #include "projectile.cpp"
 
-int t()
+int main()
 {
 	int firepower = 50;
 	std::cout << "Firing: " << firepower << std::endl;

@@ -1,5 +1,4 @@
 #include "pch.h"
-#include "comparinator.cpp"
 
 class TupleTest : public ::testing::Test {
 protected:
