@@ -10,8 +10,8 @@ Ray Tracer implemented in C++ following Test Driven Development methodology usin
 * Git
 * Windows 10
 ### Roadmap
-- [x] Setup Tuples Library
-- [ ] Basic Image Render
+- [x] Tuples
+- [ ] Canvas
 ## Acnowledgements
 * "Ray Tracer Challenge" by Jamis Buck
 * "VisualStudio.gitignore" by Github

@@ -3,7 +3,6 @@
   <ItemGroup>
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\pch.cpp" />
-    <ClCompile Include="src\main_test_unit.cpp" />
     <ClCompile Include="src\projectile.cpp" />
     <ClCompile Include="src\comparinator_test_unit.cpp">
       <Filter>components</Filter>
