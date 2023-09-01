@@ -8,3 +8,4 @@
 #include "tuple.h"
 #include "comparinator.h"
 #include "color.h";
+#include "canvas.h"

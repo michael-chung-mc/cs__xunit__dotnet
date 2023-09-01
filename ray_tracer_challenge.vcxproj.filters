@@ -22,6 +22,12 @@
     <ClCompile Include="src\tuple.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="src\canvas_test_unit.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\canvas.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h" />
@@ -32,6 +38,9 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="src\tuple.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\canvas.h">
       <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>

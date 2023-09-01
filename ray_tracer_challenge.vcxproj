@@ -103,6 +103,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\canvas.cpp" />
+    <ClCompile Include="src\canvas_test_unit.cpp" />
     <ClCompile Include="src\color.cpp" />
     <ClCompile Include="src\color_test_unit.cpp" />
     <ClCompile Include="src\comparinator.cpp" />
@@ -129,6 +131,7 @@
     <ClCompile Include="src\tuple_test_unit.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\canvas.h" />
     <ClInclude Include="src\color.h" />
     <ClInclude Include="src\comparinator.h" />
     <ClInclude Include="src\pch.h" />
