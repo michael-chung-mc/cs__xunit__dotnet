@@ -18,14 +18,14 @@ namespace wip__cs__xunit.test
             Assert.Equal(0, res);
         }
         [Fact]
-        public void SumMultiple_3_5_10__Is23()
+        public void SumMultiple_3_5_10_Is23()
         {
             Multiple m = new();
             int res = m.sumMultiple(3, 5, 10);
             Assert.Equal(23, res);
         }
         [Fact]
-        public void SumMultiple_N1_N1_0__IsN1()
+        public void SumMultiple_N1_N1_0_IsN1()
         {
             Multiple m = new();
             int res = m.sumMultiple(-1, -1, 0);
