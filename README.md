@@ -28,7 +28,7 @@
 
 ## Goals
 ### About
-Ray Tracer implemented in C++ following Test Driven Development methodology using GoogleTest
+C++ Practice && Unit Testing with Google Test
 ### Preview
 ## Design
 ### Requirements
