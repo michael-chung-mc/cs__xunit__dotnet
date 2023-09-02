@@ -12,6 +12,9 @@ public:
 	bool isClean();
 	bool inBounds(int x, int y);
 	void setPixel(int x, int y, Color c);
+	void save();
+private:
+	std::string FILENAME = "./data/image.ppm";
 };
 
 #endif

@@ -1,4 +1,6 @@
 #include "pch.h"
+#include <iostream>
+#include <fstream>
 
 Canvas::Canvas(int width, int height) {
 	w = width;
@@ -43,4 +45,13 @@ void Canvas::setPixel(int x, int y, Color c) {
 
 Color Canvas::getPixel(int x, int y) {
 	if (inBounds(x, y)) { return grid[x][y]; }
+}
+
+void Canvas::save() {
+	std::ofstream file;
+	file.open(FILENAME);
+	file << "P3" << std::endl;
+	file << w << " " << h << std::endl;
+	file << "255" << std::endl;
+	file.close();
 }

@@ -41,3 +41,14 @@ TEST_F(CanvasTest, CanvasSetColor)
 	Color test = c.getPixel(2, 3);
 	EXPECT_TRUE(ce.equalTuple(test,red));
 }
+
+TEST_F(CanvasTest, CanvasSave)
+{
+	//Scenario: Writing pixels to a canvas
+	//Given c ← canvas(10, 20)
+	//And red ← color(1, 0, 0)
+	//When write_pixel(c, 2, 3, red)
+	//Then pixel_at(c, 2, 3) = red
+	Canvas c = Canvas(5, 3);
+	c.save();
+}
