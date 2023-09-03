@@ -13,6 +13,9 @@
 #include <iostream>;
 #include <fstream>;
 
-inline std::string getImageFilename() {
+inline std::string getPPMFilename() {
 	return "./data/image.ppm";
+}
+inline int getPPMLineWidth() {
+	return 70;
 }

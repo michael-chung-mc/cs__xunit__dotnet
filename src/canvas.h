@@ -13,6 +13,7 @@ public:
 	bool isClean();
 	bool inBounds(int x, int y);
 	void setPixel(int x, int y, Color c);
+	void fill(Color x);
 	void save();
 };
 

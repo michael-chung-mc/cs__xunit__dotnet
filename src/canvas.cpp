@@ -41,6 +41,16 @@ void Canvas::setPixel(int x, int y, Color c) {
 	if (inBounds(x,y)) { grid[x][y] = c; }
 }
 
+void Canvas::fill(Color x) {
+	for (int i = 0; i < grid.size(); i++)
+	{
+		for (int j = 0; j < grid[i].size(); j++)
+		{
+			setPixel(i, j, x);
+		}
+	}
+}
+
 Color Canvas::getPixel(int x, int y) {
 	if (inBounds(x, y)) { return grid[x][y]; }
 }
@@ -48,26 +58,67 @@ Color Canvas::getPixel(int x, int y) {
 std::string Canvas::getPPM()
 {
 	std::string ppm = "P3\n" + std::to_string(w) + " " + std::to_string(h) + "\n" + "255\n";
-	for (int i = 0; i < grid.size(); i++)
+	std::string buffer = "";
+	int cnr = 0;
+	int cng = 0;
+	int cnb = 0;
+	// width = row & height = column
+	for (int j = 0; j < h; j++)
 	{
-		for (int j = 0; j < grid[0].size(); j++)
+		for (int i = 0; i < w; i++)
 		{
-			int clampedNormalizedRed = std::min((int)std::round((255 * grid[i][j].r)), 255);
-			clampedNormalizedRed = clampedNormalizedRed > 0 ? clampedNormalizedRed : 0;
-			int clampedNormalizedGreen = std::min((int)std::round((255 * grid[i][j].g)), 255);
-			clampedNormalizedGreen = clampedNormalizedGreen > 0 ? clampedNormalizedGreen : 0;
-			int clampedNormalizedBlue = std::min((int)std::round((255 * grid[i][j].b)), 255);
-			clampedNormalizedBlue = clampedNormalizedBlue > 0 ? clampedNormalizedBlue : 0;
-			ppm += std::to_string(clampedNormalizedRed) + ' ' + std::to_string(clampedNormalizedGreen) + ' ' + std::to_string(clampedNormalizedBlue) + ' ';
+			cnr = std::min((int)std::round((255 * grid[i][j].r)), 255);
+			cnr = cnr > 0 ? cnr : 0;
+			std::string clampedNormalizedRed = std::to_string(cnr);
+			if (buffer.size() + clampedNormalizedRed.size() > getPPMLineWidth())
+			{
+				ppm += buffer;
+				ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+				buffer = "\n" + clampedNormalizedRed + " ";
+			}
+			else
+			{
+				buffer += clampedNormalizedRed + " ";
+			}
+			cng = std::min((int)std::round((255 * grid[i][j].g)), 255);
+			cng = cng > 0 ? cng : 0;
+			std::string clampedNormalizedGreen = std::to_string(cng);
+			if (buffer.size() + clampedNormalizedGreen.size() > getPPMLineWidth())
+			{
+				ppm += buffer;
+				ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+				buffer = "\n" + clampedNormalizedGreen + " ";
+			}
+			else
+			{
+				buffer += clampedNormalizedGreen + " ";
+			}
+			cnb = std::min((int)std::round((255 * grid[i][j].b)), 255);
+			cnb = cnb > 0 ? cnb : 0;
+			std::string clampedNormalizedBlue = std::to_string(cnb);
+			if (buffer.size() + clampedNormalizedBlue.size() > getPPMLineWidth())
+			{
+				ppm += buffer;
+				ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+				buffer = "\n" + clampedNormalizedBlue + " ";
+			}
+			else
+			{
+				buffer += clampedNormalizedBlue + " ";
+			}
 		}
+		ppm += buffer;
+		ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+		buffer = "\n";
 	}
 	// cutoff extra whitespace
-	return ppm.substr(0,ppm.size()-1);
+	ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+	return ppm += "\n";
 }
 
 void Canvas::save() {
 	std::ofstream file;
-	file.open(getImageFilename());
+	file.open(getPPMFilename());
 	file << getPPM();
 	file.close();
 }
