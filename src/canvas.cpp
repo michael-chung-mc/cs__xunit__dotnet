@@ -1,6 +1,4 @@
 #include "pch.h"
-#include <iostream>
-#include <fstream>
 
 Canvas::Canvas(int width, int height) {
 	w = width;
@@ -47,11 +45,29 @@ Color Canvas::getPixel(int x, int y) {
 	if (inBounds(x, y)) { return grid[x][y]; }
 }
 
+std::string Canvas::getPPM()
+{
+	std::string ppm = "P3\n" + std::to_string(w) + " " + std::to_string(h) + "\n" + "255\n";
+	for (int i = 0; i < grid.size(); i++)
+	{
+		for (int j = 0; j < grid[0].size(); j++)
+		{
+			int clampedNormalizedRed = std::min((int)std::round((255 * grid[i][j].r)), 255);
+			clampedNormalizedRed = clampedNormalizedRed > 0 ? clampedNormalizedRed : 0;
+			int clampedNormalizedGreen = std::min((int)std::round((255 * grid[i][j].g)), 255);
+			clampedNormalizedGreen = clampedNormalizedGreen > 0 ? clampedNormalizedGreen : 0;
+			int clampedNormalizedBlue = std::min((int)std::round((255 * grid[i][j].b)), 255);
+			clampedNormalizedBlue = clampedNormalizedBlue > 0 ? clampedNormalizedBlue : 0;
+			ppm += std::to_string(clampedNormalizedRed) + ' ' + std::to_string(clampedNormalizedGreen) + ' ' + std::to_string(clampedNormalizedBlue) + ' ';
+		}
+	}
+	// cutoff extra whitespace
+	return ppm.substr(0,ppm.size()-1);
+}
+
 void Canvas::save() {
 	std::ofstream file;
-	file.open(FILENAME);
-	file << "P3" << std::endl;
-	file << w << " " << h << std::endl;
-	file << "255" << std::endl;
+	file.open(getImageFilename());
+	file << getPPM();
 	file.close();
 }

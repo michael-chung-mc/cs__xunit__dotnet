@@ -9,12 +9,11 @@ public:
 	std::vector<std::vector<Color>> grid;
 	Canvas(int width, int height);
 	Color getPixel(int x, int y);
+	std::string getPPM();
 	bool isClean();
 	bool inBounds(int x, int y);
 	void setPixel(int x, int y, Color c);
 	void save();
-private:
-	std::string FILENAME = "./data/image.ppm";
 };
 
 #endif
