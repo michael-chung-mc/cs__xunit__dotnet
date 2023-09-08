@@ -24,6 +24,8 @@ public:
 };
 
 class Simulation {
+private:
+	Canvas c = Canvas(getPPMWidth(), getPPMHeight());
 public:
 	Projectile tick(Environment env, Projectile ball)
 	{
@@ -31,15 +33,18 @@ public:
 		Vector velocity = ball.velocity + env.gravity + env.wind;
 		return Projectile(position, velocity);
 	}
-
 	void fire(int power) {
+		c.fill(Color(1, 1, 1));
 		//Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0)*power).normalize());
-		Projectile b = Projectile(Point(0, 1, 0), Vector(1, 1, 0) * power);
+		Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0).normalize()) * power);
 		Environment e = Environment(Vector(0, -.1, 0), Vector(-.01, 0, 0));
 		while (b.position.y >= 0)
 		{
 			b = tick(e,b);
 			std::cout << "x: " << std::to_string(b.position.x) << " y: " << std::to_string(b.position.y) << " z: " << std::to_string(b.position.z) << " w: " << std::to_string(b.position.w) << std::endl;
+			c.setPixel((int)b.position.x, getPPMHeight() - b.position.y, Color(0, 0, 0));
 		}
+		std::cout << c.getPPM() << std::endl;
+		c.save();
 	}
 };

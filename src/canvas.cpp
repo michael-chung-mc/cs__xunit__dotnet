@@ -117,8 +117,11 @@ std::string Canvas::getPPM()
 }
 
 void Canvas::save() {
-	std::ofstream file;
-	file.open(getPPMFilename());
-	file << getPPM();
+	std::cout << "saving to" << std::endl;
+	std::ofstream file(getPPMFilename());
+	std::string data = getPPM();
+	if (file.is_open()) {
+		file << data;
+	}
 	file.close();
 }
