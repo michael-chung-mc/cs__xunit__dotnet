@@ -5,15 +5,17 @@
 #pragma once
 
 #include "gtest/gtest.h";
-#include "tuple.h";
-#include "comparinator.h";
-#include "color.h";
-#include "canvas.h";
 
 #include <iomanip>;
 #include <ctime>;
 #include <iostream>;
 #include <fstream>;
+
+#include "tuple.h";
+#include "comparinator.h";
+#include "color.h";
+#include "canvas.h";
+#include "matrix.h"
 
 inline std::string getPPMFilename() {
 	std::time_t now = std::time(nullptr);
@@ -26,12 +28,10 @@ inline std::string getPPMFilename() {
 	return path;
 }
 inline int getPPMWidth() {
-	return 40;
-	//return 1920;
+	return 720;
 }
 inline int getPPMHeight() {
-	return 20;
-	//return 1080;
+	return 480;
 }
 inline int getPPMLineWidth() {
 	return 70;

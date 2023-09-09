@@ -44,7 +44,6 @@ public:
 			std::cout << "x: " << std::to_string(b.position.x) << " y: " << std::to_string(b.position.y) << " z: " << std::to_string(b.position.z) << " w: " << std::to_string(b.position.w) << std::endl;
 			c.setPixel((int)b.position.x, getPPMHeight() - b.position.y, Color(0, 0, 0));
 		}
-		std::cout << c.getPPM() << std::endl;
 		c.save();
 	}
 };

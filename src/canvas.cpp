@@ -57,7 +57,8 @@ Color Canvas::getPixel(int x, int y) {
 
 std::string Canvas::getPPM()
 {
-	std::string ppm = "P3\n" + std::to_string(w) + " " + std::to_string(h) + "\n" + "255\n";
+	//std::string ppm = "P3\n" + std::to_string(w) + " " + std::to_string(h) + "\n" + "255\n";
+	std::string* ppm = new std::string("P3\n" + std::to_string(w) + " " + std::to_string(h) + "\n" + "255\n");
 	std::string buffer = "";
 	int cnr = 0;
 	int cng = 0;
@@ -72,8 +73,8 @@ std::string Canvas::getPPM()
 			std::string clampedNormalizedRed = std::to_string(cnr);
 			if (buffer.size() + clampedNormalizedRed.size() > getPPMLineWidth())
 			{
-				ppm += buffer;
-				ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+				*ppm += buffer;
+				*ppm = isspace((*ppm)[(*ppm).size() - 1]) ? (*ppm).substr(0, (*ppm).size() - 1) : *ppm;
 				buffer = "\n" + clampedNormalizedRed + " ";
 			}
 			else
@@ -85,8 +86,8 @@ std::string Canvas::getPPM()
 			std::string clampedNormalizedGreen = std::to_string(cng);
 			if (buffer.size() + clampedNormalizedGreen.size() > getPPMLineWidth())
 			{
-				ppm += buffer;
-				ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+				*ppm += buffer;
+				*ppm = isspace((*ppm)[(*ppm).size() - 1]) ? (*ppm).substr(0, (*ppm).size() - 1) : *ppm;
 				buffer = "\n" + clampedNormalizedGreen + " ";
 			}
 			else
@@ -98,8 +99,8 @@ std::string Canvas::getPPM()
 			std::string clampedNormalizedBlue = std::to_string(cnb);
 			if (buffer.size() + clampedNormalizedBlue.size() > getPPMLineWidth())
 			{
-				ppm += buffer;
-				ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+				*ppm += buffer;
+				*ppm = isspace((*ppm)[(*ppm).size() - 1]) ? (*ppm).substr(0, (*ppm).size() - 1) : *ppm;
 				buffer = "\n" + clampedNormalizedBlue + " ";
 			}
 			else
@@ -107,21 +108,24 @@ std::string Canvas::getPPM()
 				buffer += clampedNormalizedBlue + " ";
 			}
 		}
-		ppm += buffer;
-		ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
+		*ppm += buffer;
+		*ppm = isspace((*ppm)[(*ppm).size() - 1]) ? (*ppm).substr(0, (*ppm).size() - 1) : *ppm;
 		buffer = "\n";
+		//std::cout << "rendered line:" << std::to_string(j) << std::endl;
 	}
 	// cutoff extra whitespace
-	ppm = isspace(ppm[ppm.size() - 1]) ? ppm.substr(0, ppm.size() - 1) : ppm;
-	return ppm += "\n";
+	*ppm = isspace((*ppm)[(*ppm).size() - 1]) ? (*ppm).substr(0, (*ppm).size() - 1) : *ppm;
+	*ppm += "\n";
+	return *ppm;
 }
 
 void Canvas::save() {
-	std::cout << "saving to" << std::endl;
+	std::cout << "saving ..." << std::endl;
 	std::ofstream file(getPPMFilename());
 	std::string data = getPPM();
 	if (file.is_open()) {
 		file << data;
 	}
 	file.close();
+	std::cout << "saved" << std::endl;
 }
