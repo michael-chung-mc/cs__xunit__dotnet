@@ -45,7 +45,8 @@ C++ Practice && Unit Testing with Google Test
 - Ray Tracer implemented in C++ following Test Driven Development methodology using GoogleTest
     - [x] Tuples & Vector & Point & Tuple Operations
     - [x] Color & Color Operations
-    - [ ] Canvas
+    - [x] Canvas
+    - [ ] Matrix
 </details>
 
 ## Usage

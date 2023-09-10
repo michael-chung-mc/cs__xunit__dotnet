@@ -34,6 +34,7 @@ Matrix::Matrix(Matrix& other)
 		for (int j = 0; j < cnum; j++)
 		{
 			this->grid[i][j] = other.grid[i][j];
+			//std::cout << "this: " << grid[i][j] << " other:" << other.grid[i][j] << std::endl;
 		}
 	}
 }
@@ -72,7 +73,7 @@ Matrix& Matrix::operator=(Matrix other)
 	{
 		for (int j = 0; j < cnum; j++)
 		{
-			this->grid[i][j] = 0;
+			this->grid[i][j] = other.grid[i][j];
 		}
 	}
 	return *this;
@@ -80,7 +81,7 @@ Matrix& Matrix::operator=(Matrix other)
 
 bool Matrix::operator==(const Matrix other)
 {
-	//std::cout << "matrix equality" << std::endl;
+	//std::cout << "matrix equality operator" << std::endl;
 	if (other.rnum != rnum || other.cnum != cnum)
 	{
 		return false;
@@ -89,16 +90,78 @@ bool Matrix::operator==(const Matrix other)
 	{
 		for (int j = 0; j < cnum; j++)
 		{
+			//std::cout << "addresses this:" << &grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
+			//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
 			if (other.grid[i][j] != this->grid[i][j])
 			{
 				return false;
 			}
-			//std::cout << &grid[i][j] << std::endl;
-			//std::cout << &other.grid[i][j] << std::endl;
-			//std::cout << "==" << std::endl;
 		}
 	}
 	return true;
+}
+
+bool Matrix::checkEqual(const Matrix other)
+{
+	std::cout << "matrix equality" << std::endl;
+	if (other.rnum != rnum || other.cnum != cnum)
+	{
+		return false;
+	}
+	std::cout << "row == column" << std::endl;
+	for (int i = 0; i < rnum; i++)
+	{
+		for (int j = 0; j < cnum; j++)
+		{
+			//std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
+			//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
+			if (other.grid[i][j] != this->grid[i][j])
+			{
+				return false;
+			}
+		}
+	}
+	return true;
+}
+
+Matrix* Matrix::operator*(const Matrix other)
+{
+	//std::cout << "matrix multiplication" << std::endl;
+	Matrix* result = new Matrix(other.rnum, other.cnum);
+	for (int i = 0; i < result->rnum; i++)
+	{
+		for (int j = 0; j < result->cnum; j++)
+		{
+			double value = 0;
+			for (int k = 0; k < result->cnum; k++)
+			{
+				//std::cout << "i:" << i << "j:" << j << "k:" << k << "=" << grid[i][k] << "*" << other.grid[k][j] << std::endl;
+				value += grid[i][k] * other.grid[k][j];
+			}
+			//std::cout << value << std::endl;
+			result->setRC(i, j, value);
+		}
+	}
+	return result;
+}
+
+Tuple Matrix::operator*(const Tuple other)
+{
+	//std::cout << "matrix tuple multiplication" << std::endl;
+	double pseudoMatrix[4] = {other.x, other.y, other.z, other.w};
+	double results[4];
+	double res = 0;
+	for (int tuple = 0; tuple < 4; tuple++)
+	{
+		res = 0;
+		for (int col = 0; col < cnum; col++)
+		{
+			//std::cout << "i:" << col << "j:" << tuple << "k:" << res << "=" << pseudoMatrix[col] << "*" << grid[tuple][col] << std::endl;
+			res += grid[tuple][col] * pseudoMatrix[col];
+		}
+		results[tuple] = res;
+	}
+	return Tuple(results[0],results[1],results[2],results[3]);
 }
 
 bool Matrix::checkValid(int row, int column)
