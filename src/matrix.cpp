@@ -184,3 +184,14 @@ double Matrix::getRC(int row, int column)
 		return this->grid[row][column];
 	}
 }
+
+IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
+{
+	for (int i = 0; i < rnum; i++)
+	{
+		for (int j = 0; j < cnum; j++)
+		{
+			i==j ? this->grid[i][j] = 1 :  this->grid[i][j] = 0;
+		}
+	}
+}

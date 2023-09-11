@@ -15,3 +15,8 @@ public:
 	void setRC(int row, int column, double value);
 	double getRC(int row, int column);
 };
+
+class IdentityMatrix : public Matrix {
+public:
+	IdentityMatrix(int rows, int columns);
+};

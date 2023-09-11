@@ -250,3 +250,28 @@ TEST_F(MatrixTest, MatrixMultiplicationTuple)
 	Tuple tup2 = Tuple(18, 24, 33, 1);
 	EXPECT_TRUE(ce.equalTuple(res,tup2));
 };
+
+TEST_F(MatrixTest, MatrixMultiplicationIdentity)
+{
+	Comparinator ce = Comparinator();
+	Matrix mx1 = Matrix(4, 4);
+	mx1.setRC(0, 0, 1);
+	mx1.setRC(0, 1, 2);
+	mx1.setRC(0, 2, 3);
+	mx1.setRC(0, 3, 4);
+	mx1.setRC(1, 0, 2);
+	mx1.setRC(1, 1, 4);
+	mx1.setRC(1, 2, 4);
+	mx1.setRC(1, 3, 2);
+	mx1.setRC(2, 0, 8);
+	mx1.setRC(2, 1, 6);
+	mx1.setRC(2, 2, 4);
+	mx1.setRC(2, 3, 1);
+	mx1.setRC(3, 0, 0);
+	mx1.setRC(3, 1, 0);
+	mx1.setRC(3, 2, 0);
+	mx1.setRC(3, 3, 1);
+	IdentityMatrix im = IdentityMatrix(4, 4);
+	Matrix* res = mx1 * im;
+	EXPECT_TRUE(mx1.checkEqual(*res));
+};
