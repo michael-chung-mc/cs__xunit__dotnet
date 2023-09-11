@@ -12,8 +12,9 @@ public:
 	Tuple operator*(const Tuple other);
 	bool checkValid(int row, int column);
 	bool checkEqual(const Matrix other);
-	void setRC(int row, int column, double value);
 	double getRC(int row, int column);
+	void setRC(int row, int column, double value);
+	Matrix* transpose();
 };
 
 class IdentityMatrix : public Matrix {

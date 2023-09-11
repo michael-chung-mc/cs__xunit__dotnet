@@ -251,9 +251,8 @@ TEST_F(MatrixTest, MatrixMultiplicationTuple)
 	EXPECT_TRUE(ce.equalTuple(res,tup2));
 };
 
-TEST_F(MatrixTest, MatrixMultiplicationIdentity)
+TEST_F(MatrixTest, IdentityMatrixMultiplication)
 {
-	Comparinator ce = Comparinator();
 	Matrix mx1 = Matrix(4, 4);
 	mx1.setRC(0, 0, 1);
 	mx1.setRC(0, 1, 2);
@@ -274,4 +273,52 @@ TEST_F(MatrixTest, MatrixMultiplicationIdentity)
 	IdentityMatrix im = IdentityMatrix(4, 4);
 	Matrix* res = mx1 * im;
 	EXPECT_TRUE(mx1.checkEqual(*res));
+};
+
+
+TEST_F(MatrixTest, TransposeMatrix)
+{
+	Matrix mx1 = Matrix(4, 4);
+	mx1.setRC(0, 0, 0);
+	mx1.setRC(0, 1, 9);
+	mx1.setRC(0, 2, 3);
+	mx1.setRC(0, 3, 0);
+	mx1.setRC(1, 0, 9);
+	mx1.setRC(1, 1, 8);
+	mx1.setRC(1, 2, 0);
+	mx1.setRC(1, 3, 8);
+	mx1.setRC(2, 0, 1);
+	mx1.setRC(2, 1, 8);
+	mx1.setRC(2, 2, 5);
+	mx1.setRC(2, 3, 3);
+	mx1.setRC(3, 0, 0);
+	mx1.setRC(3, 1, 0);
+	mx1.setRC(3, 2, 5);
+	mx1.setRC(3, 3, 8);
+	Matrix* res = mx1.transpose();
+	Matrix mx2 = Matrix(4, 4);
+	mx2.setRC(0, 0, 0);
+	mx2.setRC(0, 1, 9);
+	mx2.setRC(0, 2, 1);
+	mx2.setRC(0, 3, 0);
+	mx2.setRC(1, 0, 9);
+	mx2.setRC(1, 1, 8);
+	mx2.setRC(1, 2, 8);
+	mx2.setRC(1, 3, 0);
+	mx2.setRC(2, 0, 3);
+	mx2.setRC(2, 1, 0);
+	mx2.setRC(2, 2, 5);
+	mx2.setRC(2, 3, 5);
+	mx2.setRC(3, 0, 0);
+	mx2.setRC(3, 1, 8);
+	mx2.setRC(3, 2, 3);
+	mx2.setRC(3, 3, 8);
+	EXPECT_TRUE(mx2.checkEqual(*res));
+};
+
+TEST_F(MatrixTest, TransposeIdentityMatrix)
+{
+	IdentityMatrix im = IdentityMatrix(4, 4);
+	Matrix* res = im.transpose();
+	EXPECT_TRUE(im.checkEqual(*res));
 };

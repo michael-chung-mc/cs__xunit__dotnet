@@ -103,18 +103,18 @@ bool Matrix::operator==(const Matrix other)
 
 bool Matrix::checkEqual(const Matrix other)
 {
-	std::cout << "matrix equality" << std::endl;
+	//std::cout << "matrix equality" << std::endl;
 	if (other.rnum != rnum || other.cnum != cnum)
 	{
 		return false;
 	}
-	std::cout << "row == column" << std::endl;
+	//std::cout << "row == column" << std::endl;
 	for (int i = 0; i < rnum; i++)
 	{
 		for (int j = 0; j < cnum; j++)
 		{
-			//std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
-			//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
+			std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
+			std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
 			if (other.grid[i][j] != this->grid[i][j])
 			{
 				return false;
@@ -169,6 +169,14 @@ bool Matrix::checkValid(int row, int column)
 	return row >= 0 && row < rnum && column >= 0 && column < cnum;
 }
 
+double Matrix::getRC(int row, int column)
+{
+	if (checkValid(row, column))
+	{
+		return this->grid[row][column];
+	}
+}
+
 void Matrix::setRC(int row, int column, double value)
 {
 	if (checkValid(row, column))
@@ -177,12 +185,18 @@ void Matrix::setRC(int row, int column, double value)
 	}
 }
 
-double Matrix::getRC(int row, int column)
+Matrix* Matrix::transpose()
 {
-	if (checkValid(row, column))
+	Matrix* copy = new Matrix(cnum, rnum);
+	for (int i = 0; i < copy->rnum; i++)
 	{
-		return this->grid[row][column];
+		for (int j = 0; j < copy->cnum; j++)
+		{
+			copy->setRC(i, j, this->getRC(j, i));
+			//std::cout << "i:" << i << "j:" << j << "now: " << this->getRC(j, i) << "=" << copy->getRC(i, j) << std::endl;
+		}
 	}
+	return copy;
 }
 
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
