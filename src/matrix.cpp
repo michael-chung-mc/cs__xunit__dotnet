@@ -235,6 +235,11 @@ double Matrix::minor(int row, int column)
 	return this->submatrix(row, column)->determinant();
 }
 
+double Matrix::cofactor(int row, int column)
+{
+	return row + column % 2 == 0 ? this->minor(row, column) : -1 * this->minor(row, column);
+}
+
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
 {
 	for (int i = 0; i < rnum; i++)

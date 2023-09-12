@@ -408,3 +408,24 @@ TEST_F(MatrixTest, MatrixMinor)
 	int expected = 25;
 	EXPECT_EQ(res, expected);
 };
+
+TEST_F(MatrixTest, MatrixCofactor)
+{
+
+	Matrix mx1 = Matrix(3, 3);
+	mx1.setRC(0, 0, 3);
+	mx1.setRC(0, 1, 5);
+	mx1.setRC(0, 2, 0);
+	mx1.setRC(1, 0, 2);
+	mx1.setRC(1, 1, -1);
+	mx1.setRC(1, 2, -7);
+	mx1.setRC(2, 0, 6);
+	mx1.setRC(2, 1, -1);
+	mx1.setRC(2, 2, 5);
+	double m1 = mx1.cofactor(0, 0);
+	int even = -12;
+	EXPECT_EQ(m1, even);
+	double m2 = mx1.cofactor(1, 0);
+	int odd = -25;
+	EXPECT_EQ(m2, odd);
+};
