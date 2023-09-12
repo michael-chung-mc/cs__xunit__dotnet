@@ -204,6 +204,32 @@ double Matrix::determinant()
 	return grid[0][0] * grid[1][1] - grid[0][1] * grid[1][0];
 }
 
+Matrix* Matrix::submatrix(int row, int column)
+{
+	Matrix* sub = new Matrix(rnum - 1, cnum - 1);
+	int subrow = 0;
+	int subcol = 0;
+	int i = 0;
+	int j = 0;
+	while (i < rnum)
+	{
+		if (i == row) { i += 1; }
+		j = 0;
+		subcol = 0;
+		while (j < cnum)
+		{
+			if (j == column) { j += 1; }
+			sub->setRC(subrow, subcol, this->getRC(i, j));
+			std::cout << "i:" << subrow << "j:" << subcol << "now: " << this->getRC(i, j) << "=" << sub->getRC(subrow, subcol) << std::endl;
+			j += 1;
+			subcol += 1;
+		}
+		i += 1;
+		subrow += 1;
+	}
+	return sub;
+}
+
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
 {
 	for (int i = 0; i < rnum; i++)
