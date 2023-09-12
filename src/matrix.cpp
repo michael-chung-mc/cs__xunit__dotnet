@@ -199,6 +199,11 @@ Matrix* Matrix::transpose()
 	return copy;
 }
 
+double Matrix::determinant()
+{
+	return grid[0][0] * grid[1][1] - grid[0][1] * grid[1][0];
+}
+
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
 {
 	for (int i = 0; i < rnum; i++)

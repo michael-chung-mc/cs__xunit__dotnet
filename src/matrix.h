@@ -15,6 +15,7 @@ public:
 	double getRC(int row, int column);
 	void setRC(int row, int column, double value);
 	Matrix* transpose();
+	double determinant();
 };
 
 class IdentityMatrix : public Matrix {

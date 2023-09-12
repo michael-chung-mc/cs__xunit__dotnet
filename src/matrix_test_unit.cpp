@@ -322,3 +322,16 @@ TEST_F(MatrixTest, TransposeIdentityMatrix)
 	Matrix* res = im.transpose();
 	EXPECT_TRUE(im.checkEqual(*res));
 };
+
+TEST_F(MatrixTest, MatrixDeterminant)
+{
+	Comparinator ce = Comparinator();
+	Matrix mx1 = Matrix(2, 2);
+	mx1.setRC(0, 0, 1);
+	mx1.setRC(0, 1, 5);
+	mx1.setRC(1, 0, -3);
+	mx1.setRC(1, 1, 2);
+	double res = mx1.determinant();
+	int expected = 17;
+	EXPECT_TRUE(ce.equalFloat(res, expected));
+};
