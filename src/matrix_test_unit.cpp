@@ -390,3 +390,21 @@ TEST_F(MatrixTest, MatrixSub4x4)
 	mx2.setRC(2, 2, 1);
 	EXPECT_TRUE(mx2.checkEqual(*res));
 };
+
+TEST_F(MatrixTest, MatrixMinor)
+{
+
+	Matrix mx1 = Matrix(3, 3);
+	mx1.setRC(0, 0, 3);
+	mx1.setRC(0, 1, 5);
+	mx1.setRC(0, 2, 0);
+	mx1.setRC(1, 0, 2);
+	mx1.setRC(1, 1, -1);
+	mx1.setRC(1, 2, -7);
+	mx1.setRC(2, 0, 6);
+	mx1.setRC(2, 1, -1);
+	mx1.setRC(2, 2, 5);
+	double res = mx1.minor(1, 0);
+	int expected = 25;
+	EXPECT_EQ(res, expected);
+};

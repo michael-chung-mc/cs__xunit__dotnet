@@ -17,6 +17,7 @@ public:
 	Matrix* transpose();
 	double determinant();
 	Matrix* submatrix(int row, int column);
+	double minor(int row, int column);
 };
 
 class IdentityMatrix : public Matrix {

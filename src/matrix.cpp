@@ -230,6 +230,11 @@ Matrix* Matrix::submatrix(int row, int column)
 	return sub;
 }
 
+double Matrix::minor(int row, int column)
+{
+	return this->submatrix(row, column)->determinant();
+}
+
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
 {
 	for (int i = 0; i < rnum; i++)
