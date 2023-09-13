@@ -538,7 +538,7 @@ TEST_F(MatrixTest, MatrixInverse4x4)
 	mx1.setRC(3, 1, -3);
 	mx1.setRC(3, 2, 7);
 	mx1.setRC(3, 3, 4);
-	Matrix* im = mx1.invert();
+	Matrix* imx1 = mx1.invert();
 	Matrix mx2 = Matrix(4, 4);
 	mx2.setRC(0, 0, 0.21805);
 	mx2.setRC(0, 1, 0.45113);
@@ -556,5 +556,17 @@ TEST_F(MatrixTest, MatrixInverse4x4)
 	mx2.setRC(3, 1, -0.81391);
 	mx2.setRC(3, 2, -0.30075);
 	mx2.setRC(3, 3, 0.30639);
-	EXPECT_TRUE(mx2.checkEqual(*im));
+	EXPECT_TRUE(mx2.checkEqual(*imx1));
+	double mx3arr[16] = { 8,-5,9,2,7,5,6,1,-6,0,9,6,-3,0,-9,-4 };
+	Matrix mx3 = Matrix(4, 4, mx3arr);
+	Matrix* imx3 = mx3.invert();
+	double mx3iarr[16] = { -0.15385 , -0.15385 , -0.28205 , -0.53846 , -0.07692 , 0.12308 , 0.02564 , 0.03077 , 0.35897 , 0.35897 , 0.43590 , 0.92308 , -0.69231 , -0.69231 , -0.76923 , -1.92308 };
+	Matrix mx3i = Matrix(4, 4, mx3iarr);
+	EXPECT_TRUE(mx3i.checkEqual(*imx3));
+	double mx4arr[16] = { 9,3,0,9,-5,-2,-6,-3,-4,9,6,4,-7,6,6,2 };
+	Matrix mx4 = Matrix(4, 4, mx4arr);
+	Matrix* imx4 = mx4.invert();
+	double mx4iarr[16] = { -0.04074 , -0.07778 , 0.14444 , -0.22222 , -0.07778 , 0.03333 , 0.36667 , -0.33333 , -0.02901 , -0.14630 , -0.10926 , 0.12963 , 0.17778 , 0.06667 , -0.26667 , 0.33333 };
+	Matrix mx4i = Matrix(4, 4, mx4iarr);
+	EXPECT_TRUE(mx4i.checkEqual(*imx4));
 };
