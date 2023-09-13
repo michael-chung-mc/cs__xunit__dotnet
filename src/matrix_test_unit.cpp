@@ -469,3 +469,43 @@ TEST_F(MatrixTest, MatrixDeteriminant4x4)
 	int expected = -4071;
 	EXPECT_EQ(m1d, expected);
 };
+
+TEST_F(MatrixTest, MatrixInvertibility)
+{
+	Matrix mx1 = Matrix(4, 4);
+	mx1.setRC(0, 0, 6);
+	mx1.setRC(0, 1, 4);
+	mx1.setRC(0, 2, 4);
+	mx1.setRC(0, 3, 4);
+	mx1.setRC(1, 0, 5);
+	mx1.setRC(1, 1, 5);
+	mx1.setRC(1, 2, 7);
+	mx1.setRC(1, 3, 6);
+	mx1.setRC(2, 0, 4);
+	mx1.setRC(2, 1, -9);
+	mx1.setRC(2, 2, 3);
+	mx1.setRC(2, 3, -7);
+	mx1.setRC(3, 0, 9);
+	mx1.setRC(3, 1, 1);
+	mx1.setRC(3, 2, 7);
+	mx1.setRC(3, 3, -6);
+	EXPECT_TRUE(mx1.checkInvertible());
+	Matrix mx2 = Matrix(4, 4);
+	mx2.setRC(0, 0, -4);
+	mx2.setRC(0, 1, 2);
+	mx2.setRC(0, 2, -2);
+	mx2.setRC(0, 3, -3);
+	mx2.setRC(1, 0, 9);
+	mx2.setRC(1, 1, 6);
+	mx2.setRC(1, 2, 2);
+	mx2.setRC(1, 3, 6);
+	mx2.setRC(2, 0, 0);
+	mx2.setRC(2, 1, -5);
+	mx2.setRC(2, 2, 1);
+	mx2.setRC(2, 3, -5);
+	mx2.setRC(3, 0, 0);
+	mx2.setRC(3, 1, 0);
+	mx2.setRC(3, 2, 0);
+	mx2.setRC(3, 3, 0);
+	EXPECT_FALSE(mx2.checkInvertible());
+};

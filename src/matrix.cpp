@@ -163,7 +163,9 @@ Tuple Matrix::operator*(const Tuple other)
 	}
 	return Tuple(results[0],results[1],results[2],results[3]);
 }
-
+bool Matrix::checkInvertible() {
+	return determinant() != 0;
+}
 bool Matrix::checkValid(int row, int column)
 {
 	return row >= 0 && row < rnum && column >= 0 && column < cnum;

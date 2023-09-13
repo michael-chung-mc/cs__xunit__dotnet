@@ -10,6 +10,7 @@ public:
 	bool operator==(const Matrix other);
 	Matrix* operator*(const Matrix other);
 	Tuple operator*(const Tuple other);
+	bool checkInvertible();
 	bool checkValid(int row, int column);
 	bool checkEqual(const Matrix other);
 	double getRC(int row, int column);
