@@ -509,3 +509,43 @@ TEST_F(MatrixTest, MatrixInvertibility)
 	mx2.setRC(3, 3, 0);
 	EXPECT_FALSE(mx2.checkInvertible());
 };
+
+TEST_F(MatrixTest, MatrixInverse4x4)
+{
+	Matrix mx1 = Matrix(4, 4);
+	mx1.setRC(0, 0, -5);
+	mx1.setRC(0, 1, 2);
+	mx1.setRC(0, 2, 6);
+	mx1.setRC(0, 3, -8);
+	mx1.setRC(1, 0, 1);
+	mx1.setRC(1, 1, -5);
+	mx1.setRC(1, 2, 1);
+	mx1.setRC(1, 3, 8);
+	mx1.setRC(2, 0, 7);
+	mx1.setRC(2, 1, 7);
+	mx1.setRC(2, 2, -6);
+	mx1.setRC(2, 3, -7);
+	mx1.setRC(3, 0, 1);
+	mx1.setRC(3, 1, -3);
+	mx1.setRC(3, 2, 7);
+	mx1.setRC(3, 3, 4);
+	Matrix* im = mx1.invert();
+	Matrix mx2 = Matrix(4, 4);
+	mx2.setRC(0, 0, 0.21805);
+	mx2.setRC(0, 1, 0.45113);
+	mx2.setRC(0, 2, 0.24060);
+	mx2.setRC(0, 3, -0.04511);
+	mx2.setRC(1, 0, -0.80827);
+	mx2.setRC(1, 1, -1.45677);
+	mx2.setRC(1, 2, -0.44361);
+	mx2.setRC(1, 3, 0.52068);
+	mx2.setRC(2, 0, -0.07895);
+	mx2.setRC(2, 1, -0.22368);
+	mx2.setRC(2, 2, -0.05263);
+	mx2.setRC(2, 3, 0.19737);
+	mx2.setRC(3, 0, -0.52256);
+	mx2.setRC(3, 1, -0.81391);
+	mx2.setRC(3, 2, -0.30075);
+	mx2.setRC(3, 3, 0.30639);
+	EXPECT_TRUE(mx2.checkEqual(*im));
+};

@@ -108,6 +108,7 @@ bool Matrix::checkEqual(const Matrix other)
 	{
 		return false;
 	}
+	Comparinator ce = Comparinator();
 	//std::cout << "row == column" << std::endl;
 	for (int i = 0; i < rnum; i++)
 	{
@@ -115,7 +116,7 @@ bool Matrix::checkEqual(const Matrix other)
 		{
 			std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
 			std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
-			if (other.grid[i][j] != this->grid[i][j])
+			if (!ce.equalFloat(other.grid[i][j],this->grid[i][j]))
 			{
 				return false;
 			}
@@ -196,8 +197,8 @@ Matrix* Matrix::transpose()
 		{
 			copy->setRC(i, j, this->getRC(j, i));
 			//std::cout << "i:" << i << "j:" << j << "now: " << this->getRC(j, i) << "=" << copy->getRC(i, j) << std::endl;
-		}
-	}
+		};
+	};
 	return copy;
 }
 
@@ -210,8 +211,8 @@ double Matrix::determinant()
 		for (int i = 0; i < cnum; i++)
 		{
 			determinant += cofactor(0, i) * getRC(0, i);
-		}
-	}
+		};
+	};
 	return determinant;
 }
 
@@ -231,7 +232,7 @@ Matrix* Matrix::submatrix(int row, int column)
 		{
 			if (j == column) { j += 1; }
 			sub->setRC(subrow, subcol, this->getRC(i, j));
-			std::cout << "i:" << subrow << "j:" << subcol << "now: " << this->getRC(i, j) << "=" << sub->getRC(subrow, subcol) << std::endl;
+			//std::cout << "i:" << subrow << "j:" << subcol << "now: " << this->getRC(i, j) << "=" << sub->getRC(subrow, subcol) << std::endl;
 			j += 1;
 			subcol += 1;
 		}
@@ -248,7 +249,24 @@ double Matrix::minor(int row, int column)
 
 double Matrix::cofactor(int row, int column)
 {
-	return row + column % 2 == 0 ? this->minor(row, column) : -1 * this->minor(row, column);
+	return (row + column) % 2 == 0 ? this->minor(row, column) : -1 * this->minor(row, column);
+}
+
+Matrix* Matrix::invert()
+{
+	Matrix* inverse = new Matrix(rnum, cnum);
+	if (!checkInvertible()) return inverse;
+	double dm = this->determinant();
+	for (int i = 0; i < this->rnum; i++)
+	{
+		for (int j = 0; j < this->cnum; j++)
+		{
+			double cf = this->cofactor(i, j);
+			inverse->setRC(j, i, cf / dm);
+			std::cout << "j:" << j << "i:" << i << "now: " << cf << "/" << dm << "=" << inverse->getRC(j, i) << std::endl;
+		};
+	};
+	return inverse;
 }
 
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
@@ -257,7 +275,7 @@ IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, col
 	{
 		for (int j = 0; j < cnum; j++)
 		{
-			i==j ? this->grid[i][j] = 1 :  this->grid[i][j] = 0;
-		}
-	}
+			i == j ? this->grid[i][j] = 1 : this->grid[i][j] = 0;
+		};
+	};
 }
