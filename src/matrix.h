@@ -5,6 +5,7 @@ public:
 	int cnum;
 	Matrix(int row, int column);
 	Matrix(Matrix& other);
+	Matrix(int row, int column, double* values);
 	~Matrix();
 	Matrix& operator=(const Matrix other);
 	bool operator==(const Matrix other);

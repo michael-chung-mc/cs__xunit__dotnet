@@ -13,7 +13,7 @@ TEST_F(MatrixTest, CanaryTest) {
 	EXPECT_TRUE(true);
 };
 
-TEST_F(MatrixTest, Matrix4x4)
+TEST_F(MatrixTest, Matrix4x4ctor)
 {
 	Comparinator ce = Comparinator();
 	Matrix mx = Matrix(4,4);
@@ -49,9 +49,12 @@ TEST_F(MatrixTest, Matrix4x4)
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(3, 1), 14.5));
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(3, 2), 15.5));
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(3, 3), 16.5));
+	double arr[16] = { 1,2,3,4,5.5,6.5,7.5,8.5,9,10,11,12,13.5,14.5,15.5,16.5 };
+	Matrix mx2 = Matrix(4, 4, arr);
+	EXPECT_TRUE(mx.checkEqual(mx2));
 };
 
-TEST_F(MatrixTest, Matrix2x2)
+TEST_F(MatrixTest, Matrix2x2ctor)
 {
 	Comparinator ce = Comparinator();
 	Matrix mx = Matrix(2, 2);
@@ -63,9 +66,12 @@ TEST_F(MatrixTest, Matrix2x2)
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 1), 5));
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 0), 1));
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 1), -2));
+	double arr[4] = { -3,5,1,-2 };
+	Matrix mx2 = Matrix(2, 2, arr);
+	EXPECT_TRUE(mx.checkEqual(mx2));
 };
 
-TEST_F(MatrixTest, Matrix3x3)
+TEST_F(MatrixTest, Matrix3x3ctor)
 {
 	Comparinator ce = Comparinator();
 	Matrix mx = Matrix(3, 3);
@@ -87,6 +93,9 @@ TEST_F(MatrixTest, Matrix3x3)
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 0), 0));
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 1), 1));
 	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 2), 1));
+	double arr[9] = { -3,5,0,1,-2,-7,0,1,1 };
+	Matrix mx2 = Matrix(3, 3, arr);
+	EXPECT_TRUE(mx.checkEqual(mx2));
 };
 
 TEST_F(MatrixTest, MatrixComparison4x4to4x4True)

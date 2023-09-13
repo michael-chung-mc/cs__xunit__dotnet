@@ -39,6 +39,24 @@ Matrix::Matrix(Matrix& other)
 	}
 }
 
+Matrix::Matrix(int rows, int columns, double* values)
+{
+	rnum = rows;
+	cnum = columns;
+	this->grid = new double* [rnum];
+	for (int i = 0; i < rnum; i++)
+	{
+		this->grid[i] = new double[cnum];
+	}
+	for (int i = 0; i < rnum; i++)
+	{
+		for (int j = 0; j < cnum; j++)
+		{
+			this->grid[i][j] = values[(i * columns) + j];
+		}
+	}
+}
+
 Matrix::~Matrix()
 {
 	//std::cout << "deleting matrix" << &grid << std::endl;
