@@ -6,12 +6,12 @@ class Comparinator {
 private:
 	float EPSILON = 0.00001;
 public:
-	bool equalFloat(float a, float b);
+	bool checkFloat(float a, float b);
 	// tuples & point & vector
 	template <typename Agent>
-	bool equalTuple(Agent a, Agent b)
+	bool checkTuple(Agent a, Agent b)
 	{
-		return (Comparinator::equalFloat(a.x, b.x) && Comparinator::equalFloat(a.y, b.y) && Comparinator::equalFloat(a.z, b.z) && Comparinator::equalFloat(a.w, b.w));
+		return (Comparinator::checkFloat(a.x, b.x) && Comparinator::checkFloat(a.y, b.y) && Comparinator::checkFloat(a.z, b.z) && Comparinator::checkFloat(a.w, b.w));
 	};
 };
 

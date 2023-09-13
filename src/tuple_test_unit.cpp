@@ -62,9 +62,9 @@ TEST_F(TupleTest, TuplePlusTupleEqualsTuple)
 	Tuple c = Tuple(1, 1, 6, 1);
 	Comparinator ce = Comparinator();
 	Tuple result = a.add(b);
-	EXPECT_TRUE(ce.equalTuple(c, result));
+	EXPECT_TRUE(ce.checkTuple(c, result));
 	result = a + b;
-	EXPECT_TRUE(ce.equalTuple(c, result));
+	EXPECT_TRUE(ce.checkTuple(c, result));
 };
 
 TEST_F(TupleTest, TupleMinusTupleEqualsTuple)
@@ -78,7 +78,7 @@ TEST_F(TupleTest, TupleMinusTupleEqualsTuple)
 	Tuple c = Tuple(-2, -4, -6, 0);
 	Comparinator ce = Comparinator();
 	Tuple result = a.subtract(b);
-	EXPECT_TRUE(ce.equalTuple(c, result));
+	EXPECT_TRUE(ce.checkTuple(c, result));
 };
 
 TEST_F(TupleTest, PointMinusVectorEqualsPoint)
@@ -92,7 +92,7 @@ TEST_F(TupleTest, PointMinusVectorEqualsPoint)
 	Point c = Point(-2, -4, -6);
 	Comparinator ce = Comparinator();
 	Point result = a.subtract(b);
-	EXPECT_TRUE(ce.equalTuple(c, result));
+	EXPECT_TRUE(ce.checkTuple(c, result));
 };
 
 TEST_F(TupleTest, VectorMinusVectorEqualsVector)
@@ -106,7 +106,7 @@ TEST_F(TupleTest, VectorMinusVectorEqualsVector)
 	Vector c = Vector(-2, -4, -6);
 	Comparinator ce = Comparinator();
 	Vector result = a.subtract(b);
-	EXPECT_TRUE(ce.equalTuple(c, result));
+	EXPECT_TRUE(ce.checkTuple(c, result));
 };
 
 TEST_F(TupleTest, ZeroMinusVectorEqualsNegatedVector)
@@ -120,7 +120,7 @@ TEST_F(TupleTest, ZeroMinusVectorEqualsNegatedVector)
 	Vector c = Vector(-1, 2, -3);
 	Comparinator ce = Comparinator();
 	Vector result = a.subtract(b);
-	EXPECT_TRUE(ce.equalTuple(c, result));
+	EXPECT_TRUE(ce.checkTuple(c, result));
 };
 
 TEST_F(TupleTest, NegateTupleMethod)
@@ -132,7 +132,7 @@ TEST_F(TupleTest, NegateTupleMethod)
 	Tuple an = a.negate();
 	Tuple c = Tuple(-1, 2, -3, 4);
 	Comparinator ce = Comparinator();
-	EXPECT_TRUE(ce.equalTuple(an, c));
+	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
 TEST_F(TupleTest, NegateZeroTuple)
@@ -141,7 +141,7 @@ TEST_F(TupleTest, NegateZeroTuple)
 	Tuple an = -a;
 	Tuple c = Tuple(0,0,0,0);
 	Comparinator ce = Comparinator();
-	EXPECT_TRUE(ce.equalTuple(an, c));
+	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
 TEST_F(TupleTest, NegateTupleOperator)
@@ -153,7 +153,7 @@ TEST_F(TupleTest, NegateTupleOperator)
 	Tuple an = -a;
 	Tuple c = Tuple(-1, 2, -3, 4);
 	Comparinator ce = Comparinator();
-	EXPECT_TRUE(ce.equalTuple(an, c));
+	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
 TEST_F(TupleTest, NegateVectorOperator)
@@ -162,7 +162,7 @@ TEST_F(TupleTest, NegateVectorOperator)
 	Vector an = -a;
 	Vector c = Vector(-1, 2, -3);
 	Comparinator ce = Comparinator();
-	EXPECT_TRUE(ce.equalTuple(an, c));
+	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
 TEST_F(TupleTest, ScaleTuple)
@@ -174,8 +174,8 @@ TEST_F(TupleTest, ScaleTuple)
 	Tuple b = a * 3.5;
 	Tuple c = Tuple(3.5, -7, 10.5, -14);
 	Comparinator ce = Comparinator();
-	EXPECT_TRUE(ce.equalTuple(b, c));
-	EXPECT_TRUE(ce.equalTuple(b, c));
+	EXPECT_TRUE(ce.checkTuple(b, c));
+	EXPECT_TRUE(ce.checkTuple(b, c));
 }
 
 TEST_F(TupleTest, ShrinkTuple)
@@ -187,7 +187,7 @@ TEST_F(TupleTest, ShrinkTuple)
 	Tuple b = a * 0.5;
 	Tuple c = Tuple(0.5, -1, 1.5, -2);
 	Comparinator ce = Comparinator();
-	EXPECT_TRUE(ce.equalTuple(b, c));
+	EXPECT_TRUE(ce.checkTuple(b, c));
 }
 
 TEST_F(TupleTest, DivideTuple)
@@ -199,7 +199,7 @@ TEST_F(TupleTest, DivideTuple)
 	Tuple b = a / 2;
 	Tuple c = Tuple(0.5, -1, 1.5, -2);
 	Comparinator ce = Comparinator();
-	EXPECT_TRUE(ce.equalTuple(b, c));
+	EXPECT_TRUE(ce.checkTuple(b, c));
 }
 
 TEST_F(TupleTest, TupleMagnitudeUnit)
@@ -229,12 +229,12 @@ TEST_F(TupleTest, TupleMagnitude)
 	Comparinator ce = Comparinator();
 	Vector a = Vector(1, 2, 3);
 	float mag = sqrt(14);
-	EXPECT_TRUE(ce.equalFloat(a.magnitude(), mag));
+	EXPECT_TRUE(ce.checkFloat(a.magnitude(), mag));
 	//Scenario : Computing the magnitude of vector(-1, -2, -3)
 	//Given v ← vector(-1, -2, -3)
 	//Then magnitude(v) = √14
 	Vector b = Vector(-1, -2, -3);
-	EXPECT_TRUE(ce.equalFloat(b.magnitude(), mag));
+	EXPECT_TRUE(ce.checkFloat(b.magnitude(), mag));
 }
 
 TEST_F(TupleTest, TupleNormalized)
@@ -246,14 +246,14 @@ TEST_F(TupleTest, TupleNormalized)
 	Vector unit = Vector(1, 0, 0);
 	Vector a = Vector(4, 0, 0);
 	Vector norm = a.normalize();
-	EXPECT_TRUE(ce.equalTuple(unit, norm));
+	EXPECT_TRUE(ce.checkTuple(unit, norm));
 	//Scenario : Normalizing vector(1, 2, 3)
 	//Given v ← vector(1, 2, 3)
 	//Then normalize(v) = approximately vector(1/sqrt(14), 2/sqrt(14), 3/sqrt(14))
 	unit = Vector(1 / std::sqrt(14), 2 / std::sqrt(14), 3 / std::sqrt(14));
 	a = Vector(1, 2, 3);
 	norm = a.normalize();
-	EXPECT_TRUE(ce.equalTuple(unit, norm));
+	EXPECT_TRUE(ce.checkTuple(unit, norm));
 	//Scenario: The magnitude of a normalized vector
 	//Given v ← vector(1, 2, 3)
 	//When norm ← normalize(v)
@@ -286,8 +286,8 @@ TEST_F(TupleTest, TupleCrossProduct)
 	Vector b = Vector(2, 3, 4);
 	Vector ab = a.cross(b);
 	Vector c = Vector(-1, 2, -1);
-	EXPECT_TRUE(ce.equalTuple(ab, c));
+	EXPECT_TRUE(ce.checkTuple(ab, c));
 	Vector ba = b.cross(a);
 	c = Vector(1, -2, 1);
-	EXPECT_TRUE(ce.equalTuple(ba, c));
+	EXPECT_TRUE(ce.checkTuple(ba, c));
 }

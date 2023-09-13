@@ -116,7 +116,7 @@ bool Matrix::checkEqual(const Matrix other)
 		{
 			std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
 			std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
-			if (!ce.equalFloat(other.grid[i][j],this->grid[i][j]))
+			if (!ce.checkFloat(other.grid[i][j],this->grid[i][j]))
 			{
 				return false;
 			}

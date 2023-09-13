@@ -39,7 +39,7 @@ TEST_F(CanvasTest, CanvasSetColor)
 	Color red = Color(1, 0, 0);
 	c.setPixel(2, 3, red);
 	Color test = c.getPixel(2, 3);
-	EXPECT_TRUE(ce.equalTuple(test,red));
+	EXPECT_TRUE(ce.checkTuple(test,red));
 }
 
 TEST_F(CanvasTest, CanvasPPM)

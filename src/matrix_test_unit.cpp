@@ -33,22 +33,22 @@ TEST_F(MatrixTest, Matrix4x4)
 	mx.setRC(3, 1, 14.5);
 	mx.setRC(3, 2, 15.5);
 	mx.setRC(3, 3, 16.5);
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 0), 1));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 1), 2));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 2), 3));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 3), 4));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 0), 5.5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 1), 6.5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 2), 7.5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 3), 8.5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(2, 0), 9));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(2, 1), 10));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(2, 2), 11));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(2, 3), 12));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(3, 0), 13.5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(3, 1), 14.5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(3, 2), 15.5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(3, 3), 16.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 0), 1));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 1), 2));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 2), 3));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 3), 4));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 0), 5.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 1), 6.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 2), 7.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 3), 8.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 0), 9));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 1), 10));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 2), 11));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 3), 12));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(3, 0), 13.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(3, 1), 14.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(3, 2), 15.5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(3, 3), 16.5));
 };
 
 TEST_F(MatrixTest, Matrix2x2)
@@ -59,10 +59,10 @@ TEST_F(MatrixTest, Matrix2x2)
 	mx.setRC(0, 1, 5);
 	mx.setRC(1, 0, 1);
 	mx.setRC(1, 1, -2);
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 0), -3));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 1), 5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 0), 1));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 1), -2));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 0), -3));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 1), 5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 0), 1));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 1), -2));
 };
 
 TEST_F(MatrixTest, Matrix3x3)
@@ -78,15 +78,15 @@ TEST_F(MatrixTest, Matrix3x3)
 	mx.setRC(2, 0, 0);
 	mx.setRC(2, 1, 1);
 	mx.setRC(2, 2, 1);
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 0), -3));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 1), 5));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(0, 2), 0));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 0), 1));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 1), -2));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(1, 2), -7));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(2, 0), 0));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(2, 1), 1));
-	EXPECT_TRUE(ce.equalFloat(mx.getRC(2, 2), 1));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 0), -3));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 1), 5));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(0, 2), 0));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 0), 1));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 1), -2));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(1, 2), -7));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 0), 0));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 1), 1));
+	EXPECT_TRUE(ce.checkFloat(mx.getRC(2, 2), 1));
 };
 
 TEST_F(MatrixTest, MatrixComparison4x4to4x4True)
@@ -248,7 +248,7 @@ TEST_F(MatrixTest, MatrixMultiplicationTuple)
 	Tuple tup1 = Tuple(1, 2, 3, 1);
 	Tuple res = mx1 * tup1;
 	Tuple tup2 = Tuple(18, 24, 33, 1);
-	EXPECT_TRUE(ce.equalTuple(res,tup2));
+	EXPECT_TRUE(ce.checkTuple(res,tup2));
 };
 
 TEST_F(MatrixTest, IdentityMatrixMultiplication)
@@ -333,7 +333,7 @@ TEST_F(MatrixTest, MatrixDeterminant)
 	mx1.setRC(1, 1, 2);
 	double res = mx1.determinant();
 	int expected = 17;
-	EXPECT_TRUE(ce.equalFloat(res, expected));
+	EXPECT_TRUE(ce.checkFloat(res, expected));
 };
 
 TEST_F(MatrixTest, MatrixSub3x3)

@@ -23,7 +23,7 @@ bool Canvas::isClean() {
 	{
 		for (int j = 0; j < grid[0].size(); j++)
 		{
-			if (!ce.equalTuple(grid[i][j], black))
+			if (!ce.checkTuple(grid[i][j], black))
 			{
 				clean = false;
 				break;
