@@ -411,7 +411,6 @@ TEST_F(MatrixTest, MatrixMinor)
 
 TEST_F(MatrixTest, MatrixCofactor)
 {
-
 	Matrix mx1 = Matrix(3, 3);
 	mx1.setRC(0, 0, 3);
 	mx1.setRC(0, 1, 5);
@@ -428,4 +427,45 @@ TEST_F(MatrixTest, MatrixCofactor)
 	double m2 = mx1.cofactor(1, 0);
 	int odd = -25;
 	EXPECT_EQ(m2, odd);
+};
+
+TEST_F(MatrixTest, MatrixDeteriminant3x3)
+{
+	Matrix mx1 = Matrix(3, 3);
+	mx1.setRC(0, 0, 1);
+	mx1.setRC(0, 1, 2);
+	mx1.setRC(0, 2, 6);
+	mx1.setRC(1, 0, -5);
+	mx1.setRC(1, 1, 8);
+	mx1.setRC(1, 2, -4);
+	mx1.setRC(2, 0, 2);
+	mx1.setRC(2, 1, 6);
+	mx1.setRC(2, 2, 4);
+	double m1d = mx1.determinant();
+	int expected = -196;
+	EXPECT_EQ(m1d, expected);
+};
+
+TEST_F(MatrixTest, MatrixDeteriminant4x4)
+{
+	Matrix mx1 = Matrix(4, 4);
+	mx1.setRC(0, 0, -2);
+	mx1.setRC(0, 1, -8);
+	mx1.setRC(0, 2, 3);
+	mx1.setRC(0, 3, 5);
+	mx1.setRC(1, 0, -3);
+	mx1.setRC(1, 1, 1);
+	mx1.setRC(1, 2, 7);
+	mx1.setRC(1, 3, 3);
+	mx1.setRC(2, 0, 1);
+	mx1.setRC(2, 1, 2);
+	mx1.setRC(2, 2, -9);
+	mx1.setRC(2, 3, 6);
+	mx1.setRC(3, 0, -6);
+	mx1.setRC(3, 1, 7);
+	mx1.setRC(3, 2, 7);
+	mx1.setRC(3, 3, -9);
+	double m1d = mx1.determinant();
+	int expected = -4071;
+	EXPECT_EQ(m1d, expected);
 };

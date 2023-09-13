@@ -201,7 +201,16 @@ Matrix* Matrix::transpose()
 
 double Matrix::determinant()
 {
-	return grid[0][0] * grid[1][1] - grid[0][1] * grid[1][0];
+	double determinant = 0;
+	if (rnum == 2 && cnum == 2) determinant = grid[0][0] * grid[1][1] - grid[0][1] * grid[1][0];
+	else
+	{
+		for (int i = 0; i < cnum; i++)
+		{
+			determinant += cofactor(0, i) * getRC(0, i);
+		}
+	}
+	return determinant;
 }
 
 Matrix* Matrix::submatrix(int row, int column)
