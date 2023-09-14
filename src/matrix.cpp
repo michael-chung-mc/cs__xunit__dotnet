@@ -166,6 +166,7 @@ Matrix* Matrix::operator*(const Matrix other)
 
 Tuple Matrix::operator*(const Tuple other)
 {
+	if (rnum != 4 && cnum != 4) return other;
 	//std::cout << "matrix tuple multiplication" << std::endl;
 	double pseudoMatrix[4] = {other.x, other.y, other.z, other.w};
 	double results[4];
