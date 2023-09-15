@@ -582,3 +582,48 @@ TEST_F(MatrixTest, MatrixProductByInverse4x4)
 	Matrix* mx21imx2 = (*mx21) * (*imx2);
 	EXPECT_TRUE(mx1.checkEqual(*mx21imx2));
 };
+
+
+class TransformationTest : public ::testing::Test {
+protected:
+	//TupleTest() {}
+	//~TupleTest() override {}
+	//void SetUp() override { }
+	//void TearDown() override { }
+};
+
+TEST_F(TransformationTest, CanaryTest) {
+	EXPECT_EQ(1, 1);
+	EXPECT_TRUE(true);
+};
+
+TEST_F(TransformationTest, TransformationTranslationMatrixMove)
+{
+	Comparinator ce = Comparinator();
+	TranslationMatrix tm = TranslationMatrix(5, -3,2);
+	Point p = Point(-3, 4, 5);
+	Point res = tm * p;
+	Point expected = Point(2, 1, 7);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationInverseTranslationMatrixReverseMove)
+{
+	Comparinator ce = Comparinator();
+	TranslationMatrix tm = TranslationMatrix(5, -3, 2);
+	Matrix* itm = tm.invert();
+	Point p = Point(-3, 4, 5);
+	Point res = (*itm) * p;
+	Point expected = Point(-8, 7, 3);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationTranslationMatrixVectorNoEffect)
+{
+	Comparinator ce = Comparinator();
+	TranslationMatrix tm = TranslationMatrix(5, -3, 2);
+	Vector v = Vector(-3, 4, 5);
+	Vector res = tm * v;
+	Vector expected = Vector(-3, 4, 5);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};

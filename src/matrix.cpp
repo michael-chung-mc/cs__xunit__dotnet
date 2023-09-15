@@ -183,6 +183,19 @@ Tuple Matrix::operator*(const Tuple other)
 	}
 	return Tuple(results[0],results[1],results[2],results[3]);
 }
+Point Matrix::operator*(const Point other)
+{
+	Tuple tp = Tuple(other.x, other.y, other.z, other.w);
+	Tuple res = *(this) * tp;
+	return Point(res.x, res.y, res.z);
+}
+Vector Matrix::operator*(const Vector other)
+{
+	Tuple tp = Tuple(other.x, other.y, other.z, other.w);
+	Tuple res = *(this) * tp;
+	return Vector(res.x, res.y, res.z);
+}
+
 bool Matrix::checkInvertible() {
 	return determinant() != 0;
 }
@@ -297,4 +310,15 @@ IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, col
 			i == j ? this->grid[i][j] = 1 : this->grid[i][j] = 0;
 		};
 	};
+}
+
+TranslationMatrix::TranslationMatrix(int x, int y, int z) : Matrix(4, 4)
+{
+	this->grid[0][0] = 1;
+	this->grid[0][3] = x;
+	this->grid[1][3] = y;
+	this->grid[1][1] = 1;
+	this->grid[2][3] = z;
+	this->grid[2][2] = 1;
+	this->grid[3][3] = 1;
 }
