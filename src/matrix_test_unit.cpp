@@ -627,3 +627,44 @@ TEST_F(TransformationTest, TransformationTranslationMatrixVectorNoEffect)
 	Vector expected = Vector(-3, 4, 5);
 	EXPECT_TRUE(ce.checkTuple(res, expected));
 };
+
+TEST_F(TransformationTest, TransformationScalingMatrixPoint)
+{
+	Comparinator ce = Comparinator();
+	ScalingMatrix sm = ScalingMatrix(2, 3, 4);
+	Point p = Point(-4, 6, 8);
+	Point res = sm * p;
+	Point expected = Point(-8, 18, 32);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationScalingMatrixVector)
+{
+	Comparinator ce = Comparinator();
+	ScalingMatrix sm = ScalingMatrix(2, 3, 4);
+	Vector p = Vector(-4, 6, 8);
+	Vector res = sm * p;
+	Vector expected = Vector(-8, 18, 32);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationScalingMatrixInverseVector)
+{
+	Comparinator ce = Comparinator();
+	ScalingMatrix sm = ScalingMatrix(2, 3, 4);
+	Matrix* im = sm.invert();
+	Vector p = Vector(-4, 6, 8);
+	Vector res = (*im) * p;
+	Vector expected = Vector(-2, 2, 2);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationScalingMatrixReflection)
+{
+	Comparinator ce = Comparinator();
+	ScalingMatrix rm = ScalingMatrix(-1, 1, 1);
+	Point p = Point(2, 3, 4);
+	Point res = rm * p;
+	Point expected = Point(-2, 3, 4);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};

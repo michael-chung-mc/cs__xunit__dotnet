@@ -322,3 +322,11 @@ TranslationMatrix::TranslationMatrix(int x, int y, int z) : Matrix(4, 4)
 	this->grid[2][2] = 1;
 	this->grid[3][3] = 1;
 }
+
+ScalingMatrix::ScalingMatrix(int x, int y, int z) : Matrix(4, 4)
+{
+	this->grid[0][0] = x;
+	this->grid[1][1] = y;
+	this->grid[2][2] = z;
+	this->grid[3][3] = 1;
+}
