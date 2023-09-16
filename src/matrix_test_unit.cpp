@@ -668,3 +668,56 @@ TEST_F(TransformationTest, TransformationScalingMatrixReflection)
 	Point expected = Point(-2, 3, 4);
 	EXPECT_TRUE(ce.checkTuple(res, expected));
 };
+
+TEST_F(TransformationTest, TransformationRotationMatrixX)
+{
+	Comparinator ce = Comparinator();
+	Point p = Point(0, 1, 0);
+	XRotationMatrix xrm90 = XRotationMatrix(getPI()/4);
+	Point res90 = xrm90 * p;
+	Point expected90 = Point(0,sqrt(2)/2, sqrt(2)/2);
+	EXPECT_TRUE(ce.checkTuple(res90, expected90));
+	XRotationMatrix xrm180 = XRotationMatrix(getPI() / 2);
+	Point res180 = xrm180 * p;
+	Point expected180 = Point(0, 0, 1);
+	EXPECT_TRUE(ce.checkTuple(res180, expected180));
+};
+
+TEST_F(TransformationTest, TransformationRotationMatrixXInverse)
+{
+	Comparinator ce = Comparinator();
+	Point p = Point(0, 1, 0);
+	XRotationMatrix xrm90 = XRotationMatrix(getPI() / 4);
+	Matrix* ixrm90 = xrm90.invert();
+	Point res = (*ixrm90) * p;
+	Point expected = Point(0, sqrt(2) / 2, -sqrt(2) / 2);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationRotationMatrixY)
+{
+	Comparinator ce = Comparinator();
+	Point p = Point(0, 0, 1);
+	YRotationMatrix yrm90 = YRotationMatrix(getPI() / 4);
+	Point res90 = yrm90 * p;
+	Point expected90 = Point(sqrt(2) / 2, 0, sqrt(2) / 2);
+	EXPECT_TRUE(ce.checkTuple(res90, expected90));
+	YRotationMatrix yrm180 = YRotationMatrix(getPI() / 2);
+	Point res180 = yrm180 * p;
+	Point expected180 = Point(1, 0, 0);
+	EXPECT_TRUE(ce.checkTuple(res180, expected180));
+};
+
+TEST_F(TransformationTest, TransformationRotationMatrixZ)
+{
+	Comparinator ce = Comparinator();
+	Point p = Point(0, 1, 0);
+	ZRotationMatrix zrm90 = ZRotationMatrix(getPI() / 4);
+	Point res90 = zrm90 * p;
+	Point expected90 = Point(-sqrt(2) / 2, sqrt(2) / 2, 0);
+	EXPECT_TRUE(ce.checkTuple(res90, expected90));
+	ZRotationMatrix zrm180 = ZRotationMatrix(getPI() / 2);
+	Point res180 = zrm180 * p;
+	Point expected180 = Point(-1, 0, 0);
+	EXPECT_TRUE(ce.checkTuple(res180, expected180));
+};

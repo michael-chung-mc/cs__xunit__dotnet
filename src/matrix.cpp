@@ -330,3 +330,33 @@ ScalingMatrix::ScalingMatrix(int x, int y, int z) : Matrix(4, 4)
 	this->grid[2][2] = z;
 	this->grid[3][3] = 1;
 }
+
+XRotationMatrix::XRotationMatrix(double radians) : Matrix(4, 4)
+{
+	this->grid[0][0] = 1;
+	this->grid[1][1] = cos(radians);
+	this->grid[1][2] = -sin(radians);
+	this->grid[2][1] = sin(radians);
+	this->grid[2][2] = cos(radians);
+	this->grid[3][3] = 1;
+}
+
+YRotationMatrix::YRotationMatrix(double radians) : Matrix(4, 4)
+{
+	this->grid[0][0] = cos(radians);
+	this->grid[0][2] = sin(radians);
+	this->grid[1][1] = 1;
+	this->grid[2][0] = -sin(radians);
+	this->grid[2][2] = cos(radians);
+	this->grid[3][3] = 1;
+}
+
+ZRotationMatrix::ZRotationMatrix(double radians) : Matrix(4, 4)
+{
+	this->grid[0][0] = cos(radians);
+	this->grid[0][1] = -sin(radians);
+	this->grid[1][0] = sin(radians);
+	this->grid[1][1] = cos(radians);
+	this->grid[2][2] = 1;
+	this->grid[3][3] = 1;
+}

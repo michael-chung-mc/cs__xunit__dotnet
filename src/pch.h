@@ -36,3 +36,7 @@ inline int getPPMHeight() {
 inline int getPPMLineWidth() {
 	return 70;
 }
+inline double getPI()
+{
+	return 3.141592653589793238463;
+}

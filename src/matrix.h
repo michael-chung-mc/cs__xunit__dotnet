@@ -40,3 +40,18 @@ class ScalingMatrix : public Matrix {
 public:
 	ScalingMatrix(int x, int y, int z);
 };
+
+class XRotationMatrix : public Matrix {
+public:
+	XRotationMatrix(double radians);
+};
+
+class YRotationMatrix : public Matrix {
+public:
+	YRotationMatrix(double radians);
+};
+
+class ZRotationMatrix : public Matrix {
+public:
+	ZRotationMatrix(double radians);
+};
