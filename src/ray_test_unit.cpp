@@ -21,3 +21,22 @@ TEST_F(RayTest, RayCtor) {
 	EXPECT_TRUE(ce.checkTuple(r.origin,p));
 	EXPECT_TRUE(ce.checkTuple(r.direction,d));
 };
+
+TEST_F(RayTest, RayPositionAfterTime) {
+	Comparinator ce = Comparinator();
+	Point p = Point(2, 3, 4);
+	Vector d = Vector(1, 0, 0);
+	Ray r = Ray(p, d);
+	Point pos0 = r.position(0);
+	Point expos0 = Point(2, 3, 4);
+	Point pos1 = r.position(1);
+	Point expos1 = Point(3, 3, 4);
+	Point posn1 = r.position(-1);
+	Point exposn1 = Point(1, 3, 4);
+	Point pos2p5 = r.position(2.5);
+	Point expos2p5 = Point(4.5, 3, 4);
+	EXPECT_TRUE(ce.checkTuple(pos0,expos0));
+	EXPECT_TRUE(ce.checkTuple(pos1, expos1));
+	EXPECT_TRUE(ce.checkTuple(posn1, exposn1));
+	EXPECT_TRUE(ce.checkTuple(pos2p5, expos2p5));
+};
