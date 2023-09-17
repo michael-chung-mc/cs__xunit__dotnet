@@ -300,6 +300,49 @@ Matrix* Matrix::invert()
 	};
 	return inverse;
 }
+Matrix* Matrix::identity()
+{
+	Matrix* identity = new Matrix(rnum, cnum);
+	for (int i = 0; i < identity->rnum; i++)
+	{
+		for (int j = 0; j < identity->cnum; j++)
+		{
+			i == j ? identity->grid[i][j] = 1 : identity->grid[i][j] = 0;
+		};
+	};
+	return identity;
+}
+Matrix* Matrix::rotateX(double radians)
+{
+	XRotationMatrix rotate = XRotationMatrix(radians);
+	return *this * rotate;
+}
+Matrix* Matrix::rotateY(double radians)
+{
+	YRotationMatrix rotate = YRotationMatrix(radians);
+	return *this * rotate;
+}
+Matrix* Matrix::rotateZ(double radians)
+{
+	ZRotationMatrix rotate = ZRotationMatrix(radians);
+	return *this * rotate;
+}
+Matrix* Matrix::scale(int x, int y, int z)
+{
+	ScalingMatrix scale = ScalingMatrix(x,y,z);
+	return *this * scale;
+}
+Matrix* Matrix::translate(int x, int y, int z)
+{
+	TranslationMatrix translate = TranslationMatrix(x,y,z);
+	return *this * translate;
+}
+Matrix* Matrix::shear(double xy, double xz, double yx, double yz, double zx, double zy)
+{
+	ShearingMatrix shear = ShearingMatrix(xy, xz, yx, yz, zx, zy);
+	return *this * shear;
+}
+
 
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
 {

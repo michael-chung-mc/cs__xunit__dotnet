@@ -811,4 +811,8 @@ TEST_F(TransformationTest, ChainingTransformationAppliedInReverseOrder)
 	Point transformed = (*tsrm) * p;
 	Point expected = Point(15, 0, 7);
 	EXPECT_TRUE(ce.checkTuple(transformed, expected));
+	Matrix tsrmc = *(*(*(*(Matrix(4, 4).identity())).translate(10, 5, 7)).scale(5, 5, 5)).rotateX(getPI() / 2);
+	EXPECT_TRUE(tsrm->checkEqual(tsrmc));
+	Point transformedc = tsrmc * p;
+	EXPECT_TRUE(ce.checkTuple(transformedc, expected));
 };

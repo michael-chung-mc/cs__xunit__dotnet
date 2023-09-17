@@ -24,6 +24,13 @@ public:
 	double minor(int row, int column);
 	double cofactor(int row, int column);
 	Matrix* invert();
+	Matrix* identity();
+	Matrix* rotateX(double radians);
+	Matrix* rotateY(double radians);
+	Matrix* rotateZ(double radians);
+	Matrix* scale(int x, int y, int z);
+	Matrix* translate(int x, int y, int z);
+	Matrix* shear(double xy, double xz, double yx, double yz, double zx, double zy);
 };
 
 class IdentityMatrix : public Matrix {
