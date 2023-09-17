@@ -34,6 +34,12 @@
     <ClCompile Include="src\matrix_test_unit.cpp">
       <Filter>components</Filter>
     </ClCompile>
+    <ClCompile Include="src\ray.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ray_test_unit.cpp">
+      <Filter>components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\pch.h" />
@@ -50,6 +56,9 @@
       <Filter>components</Filter>
     </ClInclude>
     <ClInclude Include="src\matrix.h">
+      <Filter>components</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ray.h">
       <Filter>components</Filter>
     </ClInclude>
   </ItemGroup>

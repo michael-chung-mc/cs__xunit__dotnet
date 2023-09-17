@@ -16,6 +16,7 @@
 #include "color.h";
 #include "canvas.h";
 #include "matrix.h"
+#include "ray.h"
 
 inline std::string getPPMFilename() {
 	std::time_t now = std::time(nullptr);
