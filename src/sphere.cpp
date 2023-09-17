@@ -17,7 +17,15 @@ std::vector<double> Sphere::intersect(Ray r)
 	if (discriminant < 0) return intersections;
 	double intersectOne = (-b - sqrt(discriminant)) / (2 * a);
 	double intersectTwo = (-b + sqrt(discriminant)) / (2 * a);
-	intersections.push_back(intersectOne);
-	intersections.push_back(intersectTwo);
+	if (intersectOne > intersectTwo)
+	{
+		intersections.push_back(intersectOne);
+		intersections.push_back(intersectTwo);
+	}
+	else
+	{
+		intersections.push_back(intersectTwo);
+		intersections.push_back(intersectOne);
+	}
 	return intersections;
 }
