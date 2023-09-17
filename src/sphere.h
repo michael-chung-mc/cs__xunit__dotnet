@@ -6,6 +6,6 @@ public:
 	Point origin;
 	double radius;
 	Sphere();
-	double* intersect(Ray r);
+	std::vector<double> intersect(Ray r);
 };
 #endif

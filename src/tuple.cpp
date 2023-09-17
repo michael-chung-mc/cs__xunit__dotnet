@@ -63,6 +63,10 @@ Point Point::operator+(Tuple a)
 {
 	return Point(a.x + x, a.y + y, a.z + z);;
 }
+Vector Point::operator-(Point a)
+{
+	return Vector(x-a.x, y-a.y, z-a.z);;
+}
 Point Point::subtract(Tuple a)
 {
 	return Point(x - a.x, y - a.y, z - a.z);

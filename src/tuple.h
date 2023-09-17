@@ -38,6 +38,7 @@ public:
 	Point();
 	Point(double argx, double argy, double argz);
 	Point operator+(Tuple a);
+	Vector operator-(Point a);
 	Point subtract(Tuple a);
 };
 
