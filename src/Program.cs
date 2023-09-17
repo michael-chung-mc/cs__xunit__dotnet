@@ -3,6 +3,7 @@ using System.Diagnostics.Metrics;
 using wip__cs__xunit.src.Fibonacci;
 using wip__cs__xunit.src.Multiple;
 using wip__cs__xunit.src.Factor;
+using wip__cs__xunit.src.Calculator;
 
 namespace wip__cs__xunit
 {
@@ -23,7 +24,7 @@ namespace wip__cs__xunit
         static void Main()
         {
             Calculator c = new Calculator();
-            c.EventLoop();
+            c.CliLoop();
         }
     }
 }

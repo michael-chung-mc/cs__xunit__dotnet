@@ -1,46 +1,17 @@
-﻿namespace wip__cs__xunit
-{
-    internal class Calculator
-    {
-        // variables
-        float numx = 0;
-        float numy = 0;
-        public static double Calc(double num1, double num2, string op)
-        {
-            double result = double.NaN; // Default value is "not-a-number" which we use if an operation, such as division, could result in an error.
+﻿using System.Diagnostics;
+using wip__cs__xunit.CalculatorLibrary;
 
-            // Use a switch statement to do the math.
-            switch (op)
-            {
-                case "a":
-                    result = num1 + num2;
-                    break;
-                case "s":
-                    result = num1 - num2;
-                    break;
-                case "m":
-                    result = num1 * num2;
-                    break;
-                case "d":
-                    // Ask the user to enter a non-zero divisor.
-                    if (num2 != 0)
-                    {
-                        result = num1 / num2;
-                    }
-                    break;
-                // Return text for an incorrect option entry.
-                default:
-                    break;
-            }
-            return result;
-        }
-        public void EventLoop()
+namespace wip__cs__xunit.src.Calculator
+{
+    public class Calculator
+    {
+        public void CliLoop()
         {
             bool endApp = false;
             // Display title as the C# console calculator app.
             Console.WriteLine("Console Calculator in C#\r");
             Console.WriteLine("------------------------\n");
-
+            CalculatorLibrary.CalculatorLibrary calculator = new CalculatorLibrary.CalculatorLibrary();
             while (!endApp)
             {
                 // Declare variables and set to empty.
@@ -52,8 +23,8 @@
                 Console.Write("Type a number, and then press Enter: ");
                 numInput1 = Console.ReadLine();
 
-                double cleanNum1 = 0;
-                while (!double.TryParse(numInput1, out cleanNum1))
+                double cleannumx = 0;
+                while (!double.TryParse(numInput1, out cleannumx))
                 {
                     Console.Write("This is not valid input. Please enter an integer value: ");
                     numInput1 = Console.ReadLine();
@@ -63,8 +34,8 @@
                 Console.Write("Type another number, and then press Enter: ");
                 numInput2 = Console.ReadLine();
 
-                double cleanNum2 = 0;
-                while (!double.TryParse(numInput2, out cleanNum2))
+                double cleannumy = 0;
+                while (!double.TryParse(numInput2, out cleannumy))
                 {
                     Console.Write("This is not valid input. Please enter an integer value: ");
                     numInput2 = Console.ReadLine();
@@ -82,7 +53,7 @@
 
                 try
                 {
-                    result = Calculator.Calc(cleanNum1, cleanNum2, op);
+                    result = calculator.Calc(cleannumx, cleannumy, op);
                     if (double.IsNaN(result))
                     {
                         Console.WriteLine("This operation will result in a mathematical error.\n");
