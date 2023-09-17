@@ -721,3 +721,63 @@ TEST_F(TransformationTest, TransformationRotationMatrixZ)
 	Point expected180 = Point(-1, 0, 0);
 	EXPECT_TRUE(ce.checkTuple(res180, expected180));
 };
+
+TEST_F(TransformationTest, TransformationShearingXToY)
+{
+	Comparinator ce = Comparinator();
+	ShearingMatrix sm = ShearingMatrix(1, 0, 0, 0, 0, 0);
+	Point p = Point(2, 3, 4);
+	Point res = sm * p;
+	Point expected = Point(5, 3, 4);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationShearingXToZ)
+{
+	Comparinator ce = Comparinator();
+	ShearingMatrix sm = ShearingMatrix(0, 1, 0, 0, 0, 0);
+	Point p = Point(2, 3, 4);
+	Point res = sm * p;
+	Point expected = Point(6, 3, 4);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationShearingYToX)
+{
+	Comparinator ce = Comparinator();
+	ShearingMatrix sm = ShearingMatrix(0, 0, 1, 0, 0, 0);
+	Point p = Point(2, 3, 4);
+	Point res = sm * p;
+	Point expected = Point(2, 5, 4);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationShearingYToZ)
+{
+	Comparinator ce = Comparinator();
+	ShearingMatrix sm = ShearingMatrix(0, 0, 0, 1, 0, 0);
+	Point p = Point(2, 3, 4);
+	Point res = sm * p;
+	Point expected = Point(2, 7, 4);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationShearingZToX)
+{
+	Comparinator ce = Comparinator();
+	ShearingMatrix sm = ShearingMatrix(0, 0, 0, 0, 1, 0);
+	Point p = Point(2, 3, 4);
+	Point res = sm * p;
+	Point expected = Point(2, 3, 6);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};
+
+TEST_F(TransformationTest, TransformationShearingZToY)
+{
+	Comparinator ce = Comparinator();
+	ShearingMatrix sm = ShearingMatrix(0, 0, 0, 0, 0, 1);
+	Point p = Point(2, 3, 4);
+	Point res = sm * p;
+	Point expected = Point(2, 3, 7);
+	EXPECT_TRUE(ce.checkTuple(res, expected));
+};

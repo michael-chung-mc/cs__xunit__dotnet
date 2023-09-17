@@ -360,3 +360,17 @@ ZRotationMatrix::ZRotationMatrix(double radians) : Matrix(4, 4)
 	this->grid[2][2] = 1;
 	this->grid[3][3] = 1;
 }
+
+ShearingMatrix::ShearingMatrix(double xy, double xz, double yx, double yz, double zx, double zy) : Matrix(4, 4)
+{
+	this->grid[0][0] = 1;
+	this->grid[0][1] = xy;
+	this->grid[0][2] = xz;
+	this->grid[1][0] = yx;
+	this->grid[1][1] = 1;
+	this->grid[1][2] = yz;
+	this->grid[2][0] = zx;
+	this->grid[2][1] = zy;
+	this->grid[2][2] = 1;
+	this->grid[3][3] = 1;
+}

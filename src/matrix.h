@@ -55,3 +55,8 @@ class ZRotationMatrix : public Matrix {
 public:
 	ZRotationMatrix(double radians);
 };
+
+class ShearingMatrix : public Matrix {
+public:
+	ShearingMatrix(double xy, double xz, double yx, double yz, double zx, double zy);
+};
