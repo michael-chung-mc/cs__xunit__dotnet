@@ -781,3 +781,34 @@ TEST_F(TransformationTest, TransformationShearingZToY)
 	Point expected = Point(2, 3, 7);
 	EXPECT_TRUE(ce.checkTuple(res, expected));
 };
+
+TEST_F(TransformationTest, ChainingTransformationInSequence)
+{
+	Comparinator ce = Comparinator();
+	Point p = Point(1, 0, 1);
+	XRotationMatrix xrm = XRotationMatrix(getPI() / 2);
+	ScalingMatrix sm = ScalingMatrix(5, 5, 5);
+	TranslationMatrix tm = TranslationMatrix(10, 5, 7);
+	Point rotated = xrm * p;
+	Point rotatedExpected = Point(1, -1, 0);
+	EXPECT_TRUE(ce.checkTuple(rotated, rotatedExpected));
+	Point scaled = sm * rotated;
+	Point scaledExpected = Point(5,-5,0);
+	EXPECT_TRUE(ce.checkTuple(scaled, scaledExpected));
+	Point translated = tm * scaled;
+	Point translatedExpected = Point(15, 0, 7);
+	EXPECT_TRUE(ce.checkTuple(translated, translatedExpected));
+};
+
+TEST_F(TransformationTest, ChainingTransformationAppliedInReverseOrder)
+{
+	Comparinator ce = Comparinator();
+	Point p = Point(1, 0, 1);
+	XRotationMatrix xrm = XRotationMatrix(getPI() / 2);
+	ScalingMatrix sm = ScalingMatrix(5, 5, 5);
+	TranslationMatrix tm = TranslationMatrix(10, 5, 7);
+	Matrix* tsrm = *(tm * sm) * xrm;
+	Point transformed = (*tsrm) * p;
+	Point expected = Point(15, 0, 7);
+	EXPECT_TRUE(ce.checkTuple(transformed, expected));
+};
