@@ -12,9 +12,9 @@ bool Sphere::checkEqual(Sphere other)
 	return ce.checkTuple(this->origin,other.origin) && this->radius == other.radius;
 }
 
-std::vector<double> Sphere::intersect(Ray r)
+std::vector<Intersection> Sphere::intersect(Ray r)
 {
-	std::vector<double> intersections;
+	std::vector<Intersection> intersections;
 	Vector sphereToRay = r.origin - Point(0, 0, 0);
 	double a = r.direction.dot(r.direction);
 	double b = 2 * r.direction.dot(sphereToRay);
@@ -25,13 +25,13 @@ std::vector<double> Sphere::intersect(Ray r)
 	double intersectTwo = (-b + sqrt(discriminant)) / (2 * a);
 	if (intersectOne < intersectTwo)
 	{
-		intersections.push_back(intersectOne);
-		intersections.push_back(intersectTwo);
+		intersections.push_back(Intersection(intersectOne, *this));
+		intersections.push_back(Intersection(intersectTwo, *this));
 	}
 	else
 	{
-		intersections.push_back(intersectTwo);
-		intersections.push_back(intersectOne);
+		intersections.push_back(Intersection(intersectTwo, *this));
+		intersections.push_back(Intersection(intersectOne, *this));
 	}
 	return intersections;
 }
