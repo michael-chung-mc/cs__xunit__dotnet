@@ -6,6 +6,7 @@ public:
 	Point origin;
 	double radius;
 	Sphere();
+	bool checkEqual(Sphere other);
 	std::vector<double> intersect(Ray r);
 };
 #endif

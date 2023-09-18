@@ -13,6 +13,10 @@ TEST_F(SphereTest, CanaryTest) {
 	EXPECT_TRUE(true);
 };
 
+TEST_F(SphereTest, EqualityTest) {
+	Sphere s = Sphere();
+	EXPECT_TRUE(s.checkEqual(s));
+};
 TEST_F(SphereTest, RayIntersectTwo) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));

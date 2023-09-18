@@ -6,6 +6,12 @@ Sphere::Sphere()
 	radius = 1.0;
 }
 
+bool Sphere::checkEqual(Sphere other)
+{
+	Comparinator ce = Comparinator();
+	return ce.checkTuple(this->origin,other.origin) && this->radius == other.radius;
+}
+
 std::vector<double> Sphere::intersect(Ray r)
 {
 	std::vector<double> intersections;
@@ -17,7 +23,7 @@ std::vector<double> Sphere::intersect(Ray r)
 	if (discriminant < 0) return intersections;
 	double intersectOne = (-b - sqrt(discriminant)) / (2 * a);
 	double intersectTwo = (-b + sqrt(discriminant)) / (2 * a);
-	if (intersectOne > intersectTwo)
+	if (intersectOne < intersectTwo)
 	{
 		intersections.push_back(intersectOne);
 		intersections.push_back(intersectTwo);

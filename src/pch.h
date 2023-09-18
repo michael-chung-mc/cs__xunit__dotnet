@@ -18,6 +18,7 @@
 #include "matrix.h";
 #include "ray.h";
 #include "sphere.h";
+#include "intersection.h";
 
 inline std::string getPPMFilename() {
 	std::time_t now = std::time(nullptr);

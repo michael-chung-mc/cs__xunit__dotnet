@@ -109,6 +109,8 @@
     <ClCompile Include="src\color_test_unit.cpp" />
     <ClCompile Include="src\comparinator.cpp" />
     <ClCompile Include="src\comparinator_test_unit.cpp" />
+    <ClCompile Include="src\intersection.cpp" />
+    <ClCompile Include="src\intersection_test_unit.cpp" />
     <ClCompile Include="src\main.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Use</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Use</PrecompiledHeader>
@@ -140,6 +142,7 @@
     <ClInclude Include="src\canvas.h" />
     <ClInclude Include="src\color.h" />
     <ClInclude Include="src\comparinator.h" />
+    <ClInclude Include="src\intersection.h" />
     <ClInclude Include="src\matrix.h" />
     <ClInclude Include="src\pch.h" />
     <ClInclude Include="src\ray.h" />
