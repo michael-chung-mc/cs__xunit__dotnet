@@ -27,3 +27,45 @@ TEST_F(IntersectionTest, AggregationTest) {
 	EXPECT_TRUE(xs[0].time,t1);
 	EXPECT_TRUE(xs[1].time, t2);
 };
+
+TEST_F(IntersectionTest, PositiveT) {
+	Sphere s = Sphere();
+	Intersection i = Intersection();
+	i.intersect(1,s);
+	i.intersect(2, s);
+	std::vector<Intersection> xs = i.intersections;
+	Intersection hit = i.hit();
+	EXPECT_TRUE(hit.checkEqual(xs[0]));
+};
+
+TEST_F(IntersectionTest, NegativeT) {
+	Sphere s = Sphere();
+	Intersection i = Intersection();
+	i.intersect(-1, s);
+	i.intersect(2, s);
+	std::vector<Intersection> xs = i.intersections;
+	Intersection hit = i.hit();
+	EXPECT_TRUE(hit.checkEqual(xs[1]));
+};
+
+TEST_F(IntersectionTest, AllNegativeT) {
+	Sphere s = Sphere();
+	Intersection i = Intersection();
+	i.intersect(-1, s);
+	i.intersect(-2, s);
+	std::vector<Intersection> xs = i.intersections;
+	Intersection hit = i.hit();
+	EXPECT_TRUE(hit.checkEqual(Intersection()));
+};
+
+TEST_F(IntersectionTest, UnsortedT) {
+	Sphere s = Sphere();
+	Intersection i = Intersection();
+	i.intersect(5, s);
+	i.intersect(7, s);
+	i.intersect(-3, s);
+	i.intersect(2, s);
+	std::vector<Intersection> xs = i.intersections;
+	Intersection hit = i.hit();
+	EXPECT_TRUE(hit.checkEqual(xs[3]));
+};
