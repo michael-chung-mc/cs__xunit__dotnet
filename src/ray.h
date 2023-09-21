@@ -7,5 +7,7 @@ public:
 	Vector direction;
 	Ray(Point origin, Vector direction);
 	Point position(double time);
+	Ray transform(TranslationMatrix matrix);
+	Ray transform(ScalingMatrix matrix);
 };
 #endif

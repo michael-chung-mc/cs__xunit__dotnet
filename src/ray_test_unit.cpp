@@ -40,3 +40,31 @@ TEST_F(RayTest, RayPositionAfterTime) {
 	EXPECT_TRUE(ce.checkTuple(posn1, exposn1));
 	EXPECT_TRUE(ce.checkTuple(pos2p5, expos2p5));
 };
+
+TEST_F(RayTest, RayTranslation) {
+	Comparinator ce = Comparinator();
+	Point p = Point(1, 2, 3);
+	Vector d = Vector(0, 1, 0);
+	Ray r = Ray(p, d);
+	TranslationMatrix m = TranslationMatrix(3, 4, 5);
+	Point expectedP = Point(4, 6, 8);
+	Ray t = r.transform(m);
+	EXPECT_TRUE(ce.checkTuple(t.origin, expectedP));
+	EXPECT_TRUE(ce.checkTuple(t.direction, d));
+	EXPECT_TRUE(ce.checkTuple(r.origin, p));
+	EXPECT_TRUE(ce.checkTuple(r.direction, d));
+};
+
+TEST_F(RayTest, RayScaling) {
+	Comparinator ce = Comparinator();
+	Point p = Point(1, 2, 3);
+	Vector d = Vector(0, 1, 0);
+	Ray r = Ray(p, d);
+	ScalingMatrix m = ScalingMatrix(2, 3, 4);
+	Point expectedP = Point(2, 6, 12);
+	Ray t = r.transform(m);
+	EXPECT_TRUE(ce.checkTuple(t.origin, expectedP));
+	EXPECT_TRUE(ce.checkTuple(t.direction, d));
+	EXPECT_TRUE(ce.checkTuple(r.origin, p));
+	EXPECT_TRUE(ce.checkTuple(r.direction, d));
+};

@@ -343,7 +343,6 @@ Matrix* Matrix::shear(double xy, double xz, double yx, double yz, double zx, dou
 	return *this * shear;
 }
 
-
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
 {
 	for (int i = 0; i < rnum; i++)
