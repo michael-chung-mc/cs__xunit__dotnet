@@ -8,8 +8,10 @@ class Sphere {
 public:
 	Point origin;
 	double radius;
+	Matrix transform;
 	Sphere();
 	bool checkEqual(Sphere other);
 	std::vector<Intersection> intersect(Ray r);
+	Sphere& operator=(const Sphere other);
 };
 #endif

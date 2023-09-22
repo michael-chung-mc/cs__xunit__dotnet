@@ -68,3 +68,9 @@ TEST_F(SphereTest, RayIntersectSetsObject) {
 	EXPECT_TRUE(s.checkEqual(xs[0].object));
 	EXPECT_TRUE(s.checkEqual(xs[1].object));
 };
+
+TEST_F(SphereTest, SphereDefaultTransformIsIdentity) {
+	Sphere s = Sphere();
+	IdentityMatrix m = IdentityMatrix(4, 4);
+	EXPECT_TRUE(m.checkEqual(s.transform));
+};

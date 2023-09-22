@@ -3,12 +3,13 @@ public:
 	double **grid;
 	int rnum;
 	int cnum;
+	Matrix();
 	Matrix(int row, int column);
-	Matrix(Matrix& other);
+	Matrix(const Matrix& other);
 	Matrix(int row, int column, double* values);
 	~Matrix();
 	Matrix& operator=(const Matrix other);
-	bool operator==(const Matrix other);
+	bool operator==(const Matrix other) const;
 	Matrix* operator*(const Matrix other);
 	Tuple operator*(const Tuple other);
 	Point operator*(const Point other);

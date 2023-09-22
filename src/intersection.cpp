@@ -2,15 +2,13 @@
 
 Intersection::Intersection()
 {
-	object = Sphere();
-	time = 0;
+	this->object = Sphere();
+	this->time = 0;
 }
-
-Intersection::Intersection(double t, Sphere s)
+Intersection::Intersection(double time, Sphere s)
 {
-	object = s;
-	time = t;
-	intersections.push_back(*this);
+	this->object = s;
+	this->time = time;
 }
 
 bool Intersection::checkEqual(Intersection other)
@@ -18,12 +16,29 @@ bool Intersection::checkEqual(Intersection other)
 	return time == other.time && object.checkEqual(other.object);
 }
 
-void Intersection::intersect(double t, Sphere s)
+Intersections::Intersections()
+{
+	Intersection i = Intersection(0, Sphere());
+	intersections.push_back(i);
+}
+
+Intersections::Intersections(const Intersections& other)
+{
+	this->intersections = other.intersections;
+}
+
+Intersections::Intersections(double t, Sphere s)
+{
+	Intersection i = Intersection(t,s);
+	intersections.push_back(i);
+}
+
+void Intersections::intersect(double t, Sphere s)
 {
 	intersections.push_back(Intersection(t, s));
 }
 
-Intersection Intersection::hit()
+Intersection Intersections::hit()
 {
 	int index = -1;
 	for (int i = 0; i < intersections.size(); i++)
@@ -35,4 +50,11 @@ Intersection Intersection::hit()
 		}
 	}
 	return index < 0 ? Intersection() : intersections[index];
+}
+
+Intersections& Intersections::operator=(const Intersections other)
+{
+	if (this == &other) return *this;
+	this->intersections = other.intersections;
+	return *this;
 }

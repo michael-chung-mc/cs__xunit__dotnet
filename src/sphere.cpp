@@ -4,12 +4,13 @@ Sphere::Sphere()
 {
 	origin = Point(0, 0, 0);
 	radius = 1.0;
+	transform = IdentityMatrix(4, 4);
 }
 
 bool Sphere::checkEqual(Sphere other)
 {
 	Comparinator ce = Comparinator();
-	return ce.checkTuple(this->origin,other.origin) && this->radius == other.radius;
+	return ce.checkTuple(this->origin,other.origin) && this->radius == other.radius && transform.checkEqual(other.transform);
 }
 
 std::vector<Intersection> Sphere::intersect(Ray r)
@@ -34,4 +35,13 @@ std::vector<Intersection> Sphere::intersect(Ray r)
 		intersections.push_back(Intersection(intersectOne, *this));
 	}
 	return intersections;
+}
+
+Sphere& Sphere::operator=(const Sphere other)
+{
+	if (this == &other) return *this;
+	origin = other.origin;
+	radius = other.radius;
+	this->transform = *(new Matrix(other.transform));
+	return *this;
 }

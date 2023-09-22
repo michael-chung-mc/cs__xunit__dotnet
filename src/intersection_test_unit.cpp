@@ -20,7 +20,7 @@ TEST_F(IntersectionTest, AggregationTest) {
 	Sphere s = Sphere();
 	double t1 = 1;
 	double t2 = 2;
-	Intersection i = Intersection(t1, s);
+	Intersections i = Intersections(t1, s);
 	i.intersect(t2,s);
 	std::vector<Intersection> xs = i.intersections;
 	EXPECT_EQ(xs.size(),2);
@@ -30,8 +30,7 @@ TEST_F(IntersectionTest, AggregationTest) {
 
 TEST_F(IntersectionTest, PositiveT) {
 	Sphere s = Sphere();
-	Intersection i = Intersection();
-	i.intersect(1,s);
+	Intersections i = Intersections(1,s);
 	i.intersect(2, s);
 	std::vector<Intersection> xs = i.intersections;
 	Intersection hit = i.hit();
@@ -40,8 +39,7 @@ TEST_F(IntersectionTest, PositiveT) {
 
 TEST_F(IntersectionTest, NegativeT) {
 	Sphere s = Sphere();
-	Intersection i = Intersection();
-	i.intersect(-1, s);
+	Intersections i = Intersections(-1,s);
 	i.intersect(2, s);
 	std::vector<Intersection> xs = i.intersections;
 	Intersection hit = i.hit();
@@ -50,8 +48,7 @@ TEST_F(IntersectionTest, NegativeT) {
 
 TEST_F(IntersectionTest, AllNegativeT) {
 	Sphere s = Sphere();
-	Intersection i = Intersection();
-	i.intersect(-1, s);
+	Intersections i = Intersections(-1,s);
 	i.intersect(-2, s);
 	std::vector<Intersection> xs = i.intersections;
 	Intersection hit = i.hit();
@@ -60,8 +57,7 @@ TEST_F(IntersectionTest, AllNegativeT) {
 
 TEST_F(IntersectionTest, UnsortedT) {
 	Sphere s = Sphere();
-	Intersection i = Intersection();
-	i.intersect(5, s);
+	Intersections i = Intersections(5,s);
 	i.intersect(7, s);
 	i.intersect(-3, s);
 	i.intersect(2, s);

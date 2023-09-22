@@ -1,5 +1,22 @@
 #include "pch.h"
 
+Matrix::Matrix()
+{
+	rnum = 4;
+	cnum = 4;
+	this->grid = new double* [rnum];
+	for (int i = 0; i < rnum; i++)
+	{
+		this->grid[i] = new double[cnum];
+	}
+	for (int i = 0; i < rnum; i++)
+	{
+		for (int j = 0; j < cnum; j++)
+		{
+			this->grid[i][j] = 0;
+		}
+	}
+}
 Matrix::Matrix(int rows, int columns)
 {
 	rnum = rows;
@@ -18,7 +35,7 @@ Matrix::Matrix(int rows, int columns)
 	}
 }
 
-Matrix::Matrix(Matrix& other)
+Matrix::Matrix(const Matrix& other)
 {
 	//std::cout << "matrix copy ctor" << std::endl;
 	this->rnum = other.rnum;
@@ -69,10 +86,10 @@ Matrix::~Matrix()
 	this->grid = nullptr;
 }
 
-Matrix& Matrix::operator=(Matrix other)
+Matrix& Matrix::operator=(const Matrix other)
 {
-	//std::cout << "matrix copy assign" << std::endl;
 	if (this == &other) return *this;
+	//std::cout << "matrix copy assign" << std::endl;
 	this->rnum = other.rnum;
 	this->cnum = other.cnum;
 	for (int i = 0; i < rnum; i++)
@@ -97,7 +114,7 @@ Matrix& Matrix::operator=(Matrix other)
 	return *this;
 }
 
-bool Matrix::operator==(const Matrix other)
+bool Matrix::operator==(const Matrix other) const
 {
 	//std::cout << "matrix equality operator" << std::endl;
 	if (other.rnum != rnum || other.cnum != cnum)
@@ -164,12 +181,12 @@ Matrix* Matrix::operator*(const Matrix other)
 	return result;
 }
 
-Tuple Matrix::operator*(const Tuple other)
+Tuple Matrix::operator*(Tuple const other)
 {
 	if (rnum != 4 && cnum != 4) return other;
 	//std::cout << "matrix tuple multiplication" << std::endl;
 	double pseudoMatrix[4] = {other.x, other.y, other.z, other.w};
-	double results[4];
+	double results[4] = { 0,0,0,0 };
 	double res = 0;
 	for (int tuple = 0; tuple < 4; tuple++)
 	{
