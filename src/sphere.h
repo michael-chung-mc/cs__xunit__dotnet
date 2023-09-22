@@ -13,5 +13,6 @@ public:
 	bool checkEqual(Sphere other);
 	std::vector<Intersection> intersect(Ray r);
 	Sphere& operator=(const Sphere other);
+	void setTransform(const Matrix m);
 };
 #endif

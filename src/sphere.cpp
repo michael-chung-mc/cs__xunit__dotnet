@@ -45,3 +45,8 @@ Sphere& Sphere::operator=(const Sphere other)
 	this->transform = *(new Matrix(other.transform));
 	return *this;
 }
+
+void Sphere::setTransform(const Matrix m)
+{
+	this->transform = *(new Matrix(m));
+}

@@ -74,3 +74,10 @@ TEST_F(SphereTest, SphereDefaultTransformIsIdentity) {
 	IdentityMatrix m = IdentityMatrix(4, 4);
 	EXPECT_TRUE(m.checkEqual(s.transform));
 };
+
+TEST_F(SphereTest, SphereModifyTransform) {
+	Sphere s = Sphere();
+	TranslationMatrix m = TranslationMatrix(2, 3, 4);
+	s.setTransform(m);
+	EXPECT_TRUE(m.checkEqual(s.transform));
+};
