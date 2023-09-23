@@ -4,21 +4,22 @@
 
 #pragma once
 
-#include "gtest/gtest.h";
+#include <gtest/gtest.h>
 
-#include <iomanip>;
-#include <ctime>;
-#include <iostream>;
-#include <fstream>;
+#include <iomanip>
+#include <ctime>
+#include <iostream>
+#include <fstream>
+#include <cmath>
 
-#include "tuple.h";
-#include "comparinator.h";
-#include "color.h";
-#include "canvas.h";
-#include "matrix.h";
-#include "ray.h";
-#include "sphere.h";
-#include "intersection.h";
+#include "tuple.h"
+#include "comparinator.h"
+#include "color.h"
+#include "canvas.h"
+#include "matrix.h"
+#include "ray.h"
+#include "sphere.h"
+#include "intersection.h"
 
 inline std::string getPPMFilename() {
 	std::time_t now = std::time(nullptr);

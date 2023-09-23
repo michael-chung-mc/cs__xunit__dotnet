@@ -1,4 +1,4 @@
-#include "pch.h";
+#include "pch.h"
 
 class IntersectionTest : public ::testing::Test {
 };
@@ -24,8 +24,8 @@ TEST_F(IntersectionTest, AggregationTest) {
 	i.intersect(t2,s);
 	std::vector<Intersection> xs = i.intersections;
 	EXPECT_EQ(xs.size(),2);
-	EXPECT_TRUE(xs[0].time,t1);
-	EXPECT_TRUE(xs[1].time, t2);
+	EXPECT_EQ(xs[0].time, t1);
+	EXPECT_EQ(xs[1].time, t2);
 };
 
 TEST_F(IntersectionTest, PositiveT) {

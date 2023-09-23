@@ -149,8 +149,8 @@ bool Matrix::checkEqual(const Matrix other)
 	{
 		for (int j = 0; j < cnum; j++)
 		{
-			std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
-			std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
+			//std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
+			//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
 			if (!ce.checkFloat(other.grid[i][j],this->grid[i][j]))
 			{
 				return false;
@@ -227,6 +227,7 @@ double Matrix::getRC(int row, int column)
 	{
 		return this->grid[row][column];
 	}
+	return 0;
 }
 
 void Matrix::setRC(int row, int column, double value)
@@ -312,7 +313,7 @@ Matrix* Matrix::invert()
 		{
 			double cf = this->cofactor(i, j);
 			inverse->setRC(j, i, cf / dm);
-			std::cout << "j:" << j << "i:" << i << "now: " << cf << "/" << dm << "=" << inverse->getRC(j, i) << std::endl;
+			//std::cout << "j:" << j << "i:" << i << "now: " << cf << "/" << dm << "=" << inverse->getRC(j, i) << std::endl;
 		};
 	};
 	return inverse;
