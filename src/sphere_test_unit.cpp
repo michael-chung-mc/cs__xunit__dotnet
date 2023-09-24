@@ -81,3 +81,60 @@ TEST_F(SphereTest, SphereModifyTransform) {
 	s.setTransform(m);
 	EXPECT_TRUE(m.checkEqual(s.transform));
 };
+
+TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
+	Sphere s = Sphere();
+	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+	ScalingMatrix m = ScalingMatrix(1, 1, 1);
+	s.setTransform(m);
+	EXPECT_TRUE(m.checkEqual(s.transform));
+	std::vector<Intersection> xs = s.intersect(r);
+	EXPECT_EQ(xs.size(), 2);
+	EXPECT_EQ(xs[0].time, 4);
+	EXPECT_EQ(xs[1].time, 6);
+};
+
+TEST_F(SphereTest, SphereScaledModifiesIntersections) {
+	Sphere s = Sphere();
+	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+	ScalingMatrix m = ScalingMatrix(2, 2, 2);
+	s.setTransform(m);
+	EXPECT_TRUE(m.checkEqual(s.transform));
+	std::vector<Intersection> xs = s.intersect(r);
+	EXPECT_EQ(xs.size(), 2);
+	EXPECT_EQ(xs[0].time, 3);
+	EXPECT_EQ(xs[1].time, 7);
+};
+
+TEST_F(SphereTest, SphereScaledTo5Intersections) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+	ScalingMatrix m = ScalingMatrix(5, 5, 5);
+	s.setTransform(m);
+	EXPECT_TRUE(m.checkEqual(s.transform));
+	std::vector<Intersection> xs = s.intersect(r);
+	EXPECT_EQ(xs.size(), 2);
+	EXPECT_TRUE(ce.checkFloat(xs[0].time, 0));
+	EXPECT_TRUE(ce.checkFloat(xs[1].time, 10));
+};
+
+TEST_F(SphereTest, SphereTranslatedToMiss) {
+	Sphere s = Sphere();
+	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+	TranslationMatrix m = TranslationMatrix(5, 0, 0);
+	s.setTransform(m);
+	std::vector<Intersection> xs = s.intersect(r);
+	EXPECT_EQ(xs.size(), 0);
+};
+
+TEST_F(SphereTest, SphereTranslatedAway) {
+	Sphere s = Sphere();
+	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
+	TranslationMatrix m = TranslationMatrix(0, 0, 1);
+	s.setTransform(m);
+	std::vector<Intersection> xs = s.intersect(r);
+	EXPECT_EQ(xs.size(), 2);
+	EXPECT_EQ(xs[0].time, 5);
+	EXPECT_EQ(xs[1].time, 7);
+};

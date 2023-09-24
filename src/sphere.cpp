@@ -16,9 +16,10 @@ bool Sphere::checkEqual(Sphere other)
 std::vector<Intersection> Sphere::intersect(Ray r)
 {
 	std::vector<Intersection> intersections;
-	Vector sphereToRay = r.origin - Point(0, 0, 0);
-	double a = r.direction.dot(r.direction);
-	double b = 2 * r.direction.dot(sphereToRay);
+	Ray objectSpaceRay = r.transform(*(this->transform.invert()));
+	Vector sphereToRay = objectSpaceRay.origin - (Point(0, 0, 0));
+	double a = objectSpaceRay.direction.dot(objectSpaceRay.direction);
+	double b = 2 * objectSpaceRay.direction.dot(sphereToRay);
 	double c = sphereToRay.dot(sphereToRay) - 1;
 	double discriminant = pow(b,2) - 4 * a * c;
 	if (discriminant < 0) return intersections;
