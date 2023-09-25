@@ -45,8 +45,9 @@ Ray Tracer implemented in C++ following Test Driven Development methodology usin
 - [x] Tuples & Vector & Point & Tuple Operations
 - [x] Color & Color Operations
 - [x] Canvas
-- [x] Matrix
-- [x] Intersection
+- [x] Matrix & Transformations
+- [x] Ray Intersections
+- [x] Shadow Caster
 </details>
 
 ## Usage
