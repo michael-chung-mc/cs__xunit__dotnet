@@ -28,25 +28,25 @@
 
 ## Goals
 ### About
-C++ Practice && Unit Testing with Google Test
+Ray Tracer implemented in C++ following Test Driven Development methodology using GoogleTest
 ### Preview
 ## Design
 ### Requirements
 ### Tools
 * C++
+* CMake
 * GTest
-* Visual Studio 2022
+* Visual Studio Code
 * Git
-* Windows 10
 ### Roadmap
 <details>
 <summary>ray tracer</summary>
 
-- Ray Tracer implemented in C++ following Test Driven Development methodology using GoogleTest
-    - [x] Tuples & Vector & Point & Tuple Operations
-    - [x] Color & Color Operations
-    - [x] Canvas
-    - [ ] Matrix
+- [x] Tuples & Vector & Point & Tuple Operations
+- [x] Color & Color Operations
+- [x] Canvas
+- [x] Matrix
+- [x] Intersection
 </details>
 
 ## Usage

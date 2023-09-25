@@ -11,7 +11,7 @@ public:
 	template <typename Agent>
 	bool checkTuple(Agent a, Agent b)
 	{
-		return (Comparinator::checkFloat(a.x, b.x) && Comparinator::checkFloat(a.y, b.y) && Comparinator::checkFloat(a.z, b.z) && Comparinator::checkFloat(a.w, b.w));
+		return (this->checkFloat(a.x, b.x) && this->checkFloat(a.y, b.y) && Comparinator::checkFloat(a.z, b.z) && Comparinator::checkFloat(a.w, b.w));
 	};
 };
 

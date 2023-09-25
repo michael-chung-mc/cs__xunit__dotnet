@@ -21,13 +21,16 @@
 #include "sphere.h"
 #include "intersection.h"
 
-inline std::string getPPMFilename() {
+inline std::string getPPMFilename(bool linuxPath) {
 	std::time_t now = std::time(nullptr);
 	std::tm ltm = *std::localtime(&now);
 	std::stringstream ss;
 	ss << std::put_time(&ltm, "%Y%m%d_%H%M%S");
 	std::string time = ss.str();
-	std::string path = "./data/" + time + ".ppm";
+	std::string dirWindows = "./data/";
+	std::string dirLinux = ".\\data\\";
+	std::string dir = linuxPath ? dirLinux : dirWindows;
+	std::string path = dir + time + ".ppm";
 	std::cout << path << std::endl;
 	return path;
 }

@@ -42,7 +42,8 @@ public:
 		{
 			b = tick(e,b);
 			std::cout << "x: " << std::to_string(b.position.x) << " y: " << std::to_string(b.position.y) << " z: " << std::to_string(b.position.z) << " w: " << std::to_string(b.position.w) << std::endl;
-			c.setPixel((int)b.position.x, getPPMHeight() - b.position.y, Color(0, 0, 0));
+			Color white = Color(0, 0, 0);
+			c.setPixel((int)b.position.x, getPPMHeight() - b.position.y, white);
 		}
 		c.save();
 	}
