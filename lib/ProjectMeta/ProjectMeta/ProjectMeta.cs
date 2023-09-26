@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using System.Text.Json;
 
-namespace WIPProjectMeta;
+namespace LibProjectMeta;
 public class ProjectMeta
 {
     private string _fieldLogTxtPath = "../data/__.log";

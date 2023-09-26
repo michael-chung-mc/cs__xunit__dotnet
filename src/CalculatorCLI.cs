@@ -1,6 +1,6 @@
 ﻿using System.Diagnostics;
-using WIPCalculator;
-using WIPProjectMeta;
+using LibCalculator;
+using LibProjectMeta;
 
 namespace wip__cs__xunit.src.CalculatorCLI;
 
@@ -71,7 +71,7 @@ public class CalculatorCLI
         }
         return;
     }
-    protected struct LogData : WIPProjectMeta.LogData
+    protected struct LogData : LibProjectMeta.LogData
     {
         double _fieldX = 0;
         double _fieldY = 0;
