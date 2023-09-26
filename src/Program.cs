@@ -22,7 +22,7 @@ namespace wip__cs__xunit
         static void Main()
         {
             CalculatorCLI c = new CalculatorCLI();
-            c.loop();
+            c.Run();
         }
     }
 }

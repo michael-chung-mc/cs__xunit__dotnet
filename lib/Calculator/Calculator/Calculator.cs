@@ -20,7 +20,16 @@ public class Calculator
                 result = Multiply(argX,argY);
                 break;
             case "d":
-                Divide(argX,argY);
+                result = Divide(argX,argY);
+                break;
+            case "q":
+                result = SquareRoot(argX);
+                break;
+            case "p":
+                result = Power(argX,argY);
+                break;
+            case "e":
+                result = ScientificNotation(argX,argY);
                 break;
             default:
                 break;
@@ -42,6 +51,18 @@ public class Calculator
     public double Divide (double argX, double argY)
     {
         return argY == 0 ? double.NaN : argX / argY;
+    }
+    public double SquareRoot(double argX)
+    {
+        return Math.Sqrt(argX);
+    }
+    public double Power (double argX, double argY)
+    {
+        return Math.Pow(argX,argY);
+    }
+    public double ScientificNotation (double argX, double argY)
+    {
+        return argX * Math.Pow(10,(int)argY);
     }
     public List<int> FibonacciIterative(int n)
     {
