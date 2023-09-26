@@ -138,3 +138,48 @@ TEST_F(SphereTest, SphereTranslatedAway) {
 	EXPECT_EQ(xs[0].time, 5);
 	EXPECT_EQ(xs[1].time, 7);
 };
+
+TEST_F(SphereTest, SphereNormalX) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Point p = Point(1,0,0);
+	Vector normal = s.normal(p);
+	Vector expectedV = Vector(1,0,0);
+	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
+};
+
+TEST_F(SphereTest, SphereNormalY) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Point p = Point(0,1,0);
+	Vector normal = s.normal(p);
+	Vector expectedV = Vector(0,1,0);
+	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
+};
+
+TEST_F(SphereTest, SphereNormalZ) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Point p = Point(0,0,1);
+	Vector normal = s.normal(p);
+	Vector expectedV = Vector(0,0,1);
+	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
+};
+
+TEST_F(SphereTest, SphereNormal) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Point p = Point(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
+	Vector normal = s.normal(p);
+	Vector expectedV = Vector(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
+	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
+};
+
+TEST_F(SphereTest, SphereNormalNormalized) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Point p = Point(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
+	Vector normal = s.normal(p);
+	Vector expectedV = normal.normalize();
+	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
+};

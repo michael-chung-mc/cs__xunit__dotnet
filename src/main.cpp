@@ -1,5 +1,53 @@
 #include "pch.h"
-#include "projectile.cpp"
+#include <iostream>
+
+class Projectile {
+public:
+	Projectile(Point pos, Vector vel)
+	{
+		position = pos;
+		velocity = vel;
+	}
+	Point position;
+	Vector velocity;
+};
+
+class Environment {
+public:
+	Environment(Vector g, Vector w)
+	{
+		gravity = g;
+		wind = w;
+	}
+	Vector gravity;
+	Vector wind;
+};
+
+class Simulation {
+private:
+	Canvas c = Canvas(getPPMWidth(), getPPMHeight());
+public:
+	Projectile tick(Environment env, Projectile ball)
+	{
+		Point position = ball.position + ball.velocity;
+		Vector velocity = ball.velocity + env.gravity + env.wind;
+		return Projectile(position, velocity);
+	}
+	void fire(int power) {
+		c.fill(Color(1, 1, 1));
+		//Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0)*power).normalize());
+		Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0).normalize()) * power);
+		Environment e = Environment(Vector(0, -.1, 0), Vector(-.01, 0, 0));
+		while (b.position.y >= 0)
+		{
+			b = tick(e,b);
+			std::cout << "x: " << std::to_string(b.position.x) << " y: " << std::to_string(b.position.y) << " z: " << std::to_string(b.position.z) << " w: " << std::to_string(b.position.w) << std::endl;
+			Color white = Color(0, 0, 0);
+			c.setPixel((int)b.position.x, getPPMHeight() - b.position.y, white);
+		}
+		c.save();
+	}
+};
 
 void shadowTracer()
 {
@@ -33,22 +81,22 @@ void shadowTracer()
 	canvas.save();
 }
 
-int main(int argc, char **argv)
-{
-    // ::testing::InitGoogleTest( &argc, argv);
-    // return RUN_ALL_TESTS();
+// int main(int argc, char **argv)
+// {
+//     // ::testing::InitGoogleTest( &argc, argv);
+//     // return RUN_ALL_TESTS();
 
-	// double arr[] = { 2, 0, 0, 0, 0, 1, 0, 0, 0,0,1,0 ,0 ,0 ,0, 1 };
-	// Matrix m = Matrix(4, 4, arr);
-	// Tuple t = Tuple(2, 2, 2, 2);
-	// Tuple x = m * t;
+// 	// double arr[] = { 2, 0, 0, 0, 0, 1, 0, 0, 0,0,1,0 ,0 ,0 ,0, 1 };
+// 	// Matrix m = Matrix(4, 4, arr);
+// 	// Tuple t = Tuple(2, 2, 2, 2);
+// 	// Tuple x = m * t;
 
-	// int firepower = 10;
-	// std::cout << "Firing: " << firepower << std::endl;
-	// Simulation sim;
-	// sim.fire(firepower);
+// 	// int firepower = 10;
+// 	// std::cout << "Firing: " << firepower << std::endl;
+// 	// Simulation sim;
+// 	// sim.fire(firepower);
 
-	shadowTracer();
+// 	shadowTracer();
 
-	return 0;
-}
+// 	return 0;
+// }

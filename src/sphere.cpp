@@ -51,3 +51,8 @@ void Sphere::setTransform(const Matrix m)
 {
 	this->transform = *(new Matrix(m));
 }
+
+Vector Sphere::normal(Point argPoint)
+{
+	return (argPoint-origin).normalize();
+}

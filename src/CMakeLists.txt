@@ -5,7 +5,6 @@ comparinator.h comparinator.cpp comparinator_test_unit.cpp
 intersection.h intersection.cpp intersection_test_unit.cpp
 matrix.h matrix.cpp matrix_test_unit.cpp
 pch.h pch.cpp
-projectile.cpp
 ray.h ray.cpp ray_test_unit.cpp
 sphere.h sphere.cpp sphere_test_unit.cpp
 tuple.h tuple.cpp tuple_test_unit.cpp
