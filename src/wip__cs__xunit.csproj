@@ -11,9 +11,9 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="src - Copy\**" />
-    <EmbeddedResource Remove="src - Copy\**" />
-    <None Remove="src - Copy\**" />
+    <Compile Remove="src\**" />
+    <EmbeddedResource Remove="src\**" />
+    <None Remove="src\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -31,7 +31,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\lib\Calculations\Calculations.csproj" />
+    <ProjectReference Include="..\lib\Calculator\Calculator\Calculator.csproj" />
+    <ProjectReference Include="..\lib\ProjectMeta\ProjectMeta\ProjectMeta.csproj" />
   </ItemGroup>
 
 </Project>
