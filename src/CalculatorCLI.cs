@@ -48,7 +48,7 @@ public class CalculatorCLI
                 if (double.IsNaN(_fieldResult)) {
                     Console.WriteLine($"Error: {_fieldResult}. \n");
                 }
-                else Console.WriteLine("Your result: {0:0.##}\n", _fieldResult);
+                else Console.WriteLine($"{_fieldNumX} {_fieldOperator} {_fieldNumY} = " + String.Format("{0:0.##}\n", _fieldResult));
                 LogData log = new LogData(_fieldNumX, _fieldNumY, _fieldOperator, _fieldResult);
                 history.Add(log);
                 pm.LogJson(log);
