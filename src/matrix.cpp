@@ -193,7 +193,7 @@ Tuple Matrix::operator*(Tuple const other)
 		res = 0;
 		for (int col = 0; col < cnum; col++)
 		{
-			//std::cout << "i:" << col << "j:" << tuple << "k:" << res << "=" << pseudoMatrix[col] << "*" << grid[tuple][col] << std::endl;
+			std::cout << "i:" << col << "j:" << tuple << "k:" << res << "=" << pseudoMatrix[col] << "*" << grid[tuple][col] << std::endl;
 			res += grid[tuple][col] * pseudoMatrix[col];
 		}
 		results[tuple] = res;
@@ -372,7 +372,7 @@ IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, col
 	};
 }
 
-TranslationMatrix::TranslationMatrix(int x, int y, int z) : Matrix(4, 4)
+TranslationMatrix::TranslationMatrix(double x, double y, double z) : Matrix(4, 4)
 {
 	this->grid[0][0] = 1;
 	this->grid[0][3] = x;
@@ -383,7 +383,7 @@ TranslationMatrix::TranslationMatrix(int x, int y, int z) : Matrix(4, 4)
 	this->grid[3][3] = 1;
 }
 
-ScalingMatrix::ScalingMatrix(int x, int y, int z) : Matrix(4, 4)
+ScalingMatrix::ScalingMatrix(double x, double y, double z) : Matrix(4, 4)
 {
 	this->grid[0][0] = x;
 	this->grid[1][1] = y;

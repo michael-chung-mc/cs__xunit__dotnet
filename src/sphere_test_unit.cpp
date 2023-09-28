@@ -183,3 +183,26 @@ TEST_F(SphereTest, SphereNormalNormalized) {
 	Vector expectedV = normal.normalize();
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
+
+TEST_F(SphereTest, SphereTranslatedNormalized) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Matrix t = TranslationMatrix(0,1,0);
+	s.setTransform(t);
+	Point p = Point(0, 1.70711, -0.70711);
+	Vector normal = s.normal(p);
+	Vector expectedV = Vector(0, 0.70711, -0.70711);
+	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
+};
+
+TEST_F(SphereTest, SphereTransformedNormalized) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Matrix t = ScalingMatrix(1, 0.5, 1);
+	t = *(t * ZRotationMatrix(getPI()/5));
+	s.setTransform(t);
+	Point p = Point(0,sqrt(2)/2,-sqrt(2)/2);
+	Vector normal = s.normal(p);
+	Vector expectedV = Vector(0,0.97014,-0.24254);
+	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
+};

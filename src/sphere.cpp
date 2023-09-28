@@ -54,5 +54,11 @@ void Sphere::setTransform(const Matrix m)
 
 Vector Sphere::normal(Point argPoint)
 {
-	return (argPoint-origin).normalize();
+	// return (argPoint-origin).normalize();
+	Point varObjectPoint = *(this->transform.invert()) * argPoint;
+	Vector varObjectNormal = varObjectPoint - this->origin;
+	Matrix varTransform = *(*this->transform.invert()).transpose();
+	Vector varWorldNormal = varTransform * varObjectNormal;
+	varWorldNormal.w = 0;
+	return varWorldNormal.normalize();
 }

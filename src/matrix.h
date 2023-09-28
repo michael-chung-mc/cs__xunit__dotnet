@@ -41,12 +41,12 @@ public:
 
 class TranslationMatrix : public Matrix {
 public:
-	TranslationMatrix(int x, int y, int z);
+	TranslationMatrix(double x, double y, double z);
 };
 
 class ScalingMatrix : public Matrix {
 public:
-	ScalingMatrix(int x, int y, int z);
+	ScalingMatrix(double x, double y, double z);
 };
 
 class XRotationMatrix : public Matrix {
