@@ -55,7 +55,10 @@ double Tuple::dot(Tuple a)
 {
 	return (x * a.x + y * a.y + z * a.z);
 };
-
+Tuple Tuple::reflect(Tuple normal)
+{
+	return subtract(normal) * 2 * dot(normal);
+}
 
 Point::Point() : Tuple(0, 0, 0, 1.0) {};
 Point::Point(double argx, double argy, double argz) : Tuple(argx, argy, argz, 1.0) {};
@@ -94,7 +97,19 @@ Vector Vector::normalize()
 {
 	return Vector(x / magnitude(), y / magnitude(), z / magnitude());
 };
+double Vector::dot(Vector a)
+{
+	return (x * a.x + y * a.y + z * a.z);
+};
 Vector Vector::cross(Vector a)
 {
 	return Vector(y * a.z - z * a.y, z * a.x - x * a.z, x * a.y - y * a.x);
 };
+Vector Vector::reflect(Vector normal)
+{
+	double varDot = dot(normal);
+	varDot = varDot * 2;
+	Vector ref = normal * varDot;
+	ref = subtract(ref);
+	return  ref;
+}

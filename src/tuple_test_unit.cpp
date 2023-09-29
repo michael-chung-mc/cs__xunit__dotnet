@@ -291,3 +291,23 @@ TEST_F(TupleTest, TupleCrossProduct)
 	c = Vector(1, -2, 1);
 	EXPECT_TRUE(ce.checkTuple(ba, c));
 }
+
+TEST_F(TupleTest, TupleReflect)
+{
+	Comparinator ce = Comparinator();
+	Vector v = Vector(1, -1, 0);
+	Vector n = Vector(0, 1, 0);
+	Vector r = v.reflect(n);
+	Vector expectedR = Vector(1,1,0);
+	EXPECT_TRUE(ce.checkTuple(r, expectedR));
+}
+
+TEST_F(TupleTest, TupleReflectAngled)
+{
+	Comparinator ce = Comparinator();
+	Vector v = Vector(0, -1, 0);
+	Vector n = Vector(sqrt(2)/2, sqrt(2)/2, 0);
+	Vector r = v.reflect(n);
+	Vector expectedR = Vector(1,0,0);
+	EXPECT_TRUE(ce.checkTuple(r, expectedR));
+}

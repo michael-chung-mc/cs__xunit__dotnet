@@ -19,6 +19,7 @@ public:
 	virtual Tuple negate();
 	virtual float magnitude();
 	double dot(Tuple a);
+	Tuple reflect(Tuple normal);
 };
 
 class Vector : public Tuple {
@@ -30,7 +31,9 @@ public:
 	Vector operator*(float multiple);
 	Vector subtract(Tuple a);
 	Vector normalize();
+	double dot(Vector a);
 	Vector cross(Vector a);
+	Vector reflect(Vector normal);
 };
 
 class Point : public Tuple {
