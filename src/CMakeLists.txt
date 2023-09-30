@@ -8,6 +8,7 @@ pch.h pch.cpp
 ray.h ray.cpp ray_test_unit.cpp
 sphere.h sphere.cpp sphere_test_unit.cpp
 tuple.h tuple.cpp tuple_test_unit.cpp
+light.h light.cpp light.test.cpp
 )
 add_executable(main ${SOURCES})
 target_link_libraries(main ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

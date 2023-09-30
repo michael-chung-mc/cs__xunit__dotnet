@@ -1,5 +1,11 @@
 #include "pch.h"
 
+Color::Color()
+{
+	r = 0;
+	g = 0;
+	b = 0;
+}
 Color::Color(double red, double green, double blue)
 {
 	r = red;

@@ -193,7 +193,7 @@ Tuple Matrix::operator*(Tuple const other)
 		res = 0;
 		for (int col = 0; col < cnum; col++)
 		{
-			std::cout << "i:" << col << "j:" << tuple << "k:" << res << "=" << pseudoMatrix[col] << "*" << grid[tuple][col] << std::endl;
+			//std::cout << "i:" << col << "j:" << tuple << "k:" << res << "=" << pseudoMatrix[col] << "*" << grid[tuple][col] << std::endl;
 			res += grid[tuple][col] * pseudoMatrix[col];
 		}
 		results[tuple] = res;
