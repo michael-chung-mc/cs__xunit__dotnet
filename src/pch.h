@@ -21,6 +21,7 @@
 #include "sphere.h"
 #include "intersection.h"
 #include "light.h"
+#include "material.h"
 
 inline std::string getPPMFilename(bool linuxPath) {
 	std::time_t now = std::time(nullptr);
