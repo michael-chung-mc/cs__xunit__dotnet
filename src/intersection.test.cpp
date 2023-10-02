@@ -1,8 +1,15 @@
 #include "intersection.h"
 #include "sphere.h"
+#include "comparinator.h"
+#include "ray.h"
 #include "pch.h"
 
 class IntersectionTest : public ::testing::Test {
+public:
+	Comparinator ce;
+	void SetUp () override {
+		ce = Comparinator();
+	}
 };
 
 TEST_F(IntersectionTest, CanaryTest) {
@@ -66,4 +73,16 @@ TEST_F(IntersectionTest, UnsortedT) {
 	std::vector<Intersection> xs = i.intersections;
 	Intersection hit = i.hit();
 	EXPECT_TRUE(hit.checkEqual(xs[3]));
+};
+
+TEST_F(IntersectionTest, PrecomputeIntersectionState) {
+	Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
+	Sphere s = Sphere();
+	Intersection i = Intersection(4, s);
+	IntersectionState is = i.getState(r);
+	EXPECT_TRUE(ce.checkFloat(is.time, i.time));
+	EXPECT_TRUE(is.object.checkEqual(i.object));
+	EXPECT_TRUE(ce.checkTuple(is.point, Point(0,0,-1)));
+	EXPECT_TRUE(ce.checkTuple(is.pov, Vector(0,0,-1)));
+	EXPECT_TRUE(ce.checkTuple(is.normal, Vector(0,0,-1)));
 };

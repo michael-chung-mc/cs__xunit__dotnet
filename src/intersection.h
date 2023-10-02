@@ -3,7 +3,18 @@
 #define INTERSECTION_H
 
 #include "sphere.h"
+#include "tuple.h"
+class Ray;
 #include <vector>
+
+struct IntersectionState {
+public:
+	double time;
+	Sphere object;
+	Point point;
+	Vector pov;
+	Vector normal;
+};
 
 class Intersection {
 public:
@@ -13,7 +24,9 @@ public:
 	Intersection(double time, Sphere s);
 	bool checkEqual(Intersection other);
 	bool operator<(Intersection other) const;
+	IntersectionState getState(Ray argRay);
 };
+
 
 class Intersections {
 public:

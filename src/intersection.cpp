@@ -1,5 +1,7 @@
 #include "intersection.h"
 #include "sphere.h"
+#include "ray.h"
+#include "tuple.h"
 
 Intersection::Intersection()
 {
@@ -19,6 +21,17 @@ bool Intersection::checkEqual(Intersection other)
 bool Intersection::operator<(Intersection other) const
 {
 	return time < other.time;
+}
+
+IntersectionState Intersection::getState(Ray argRay)
+{
+	IntersectionState c = IntersectionState();
+	c.time = time;
+	c.object = object;
+	c.point = argRay.position(time);
+	c.pov = -argRay.direction;
+	c.normal = c.object.normal(c.point);
+	return c;
 }
 
 Intersections::Intersections()
