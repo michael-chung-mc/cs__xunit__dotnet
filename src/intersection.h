@@ -12,6 +12,7 @@ public:
 	Intersection();
 	Intersection(double time, Sphere s);
 	bool checkEqual(Intersection other);
+	bool operator<(Intersection other) const;
 };
 
 class Intersections {

@@ -1,7 +1,27 @@
 #include "world.h"
+#include "sphere.h"
+#include "material.h"
+#include "matrix.h"
+#include "ray.h"
+#include "intersection.h"
+#include <algorithm>
 
 World::World ()
 {
+}
+std::vector<Intersection> World::intersect(Ray argRay)
+{
+    std::vector<Intersection> hits;
+    for (int i = 0; i < objects.size(); i++)
+    {
+        std::vector<Intersection> hit = objects[i].intersect(argRay);
+        for (int j = 0; j < hit.size(); j++)
+        {
+            hits.push_back(hit[j]);
+        }
+    }
+    sort(hits.begin(), hits.end());
+    return hits;
 }
 
 DefaultWorld::DefaultWorld() : World()

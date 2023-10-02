@@ -16,6 +16,10 @@ bool Intersection::checkEqual(Intersection other)
 {
 	return time == other.time && object.checkEqual(other.object);
 }
+bool Intersection::operator<(Intersection other) const
+{
+	return time < other.time;
+}
 
 Intersections::Intersections()
 {

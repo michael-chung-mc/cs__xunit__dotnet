@@ -1,6 +1,9 @@
 #include "world.h"
 #include "comparinator.h"
 #include "color.h"
+#include "sphere.h"
+#include "intersection.h"
+#include "ray.h"
 #include "pch.h"
 
 class WorldTest : public ::testing::Test {
@@ -38,4 +41,15 @@ TEST_F(WorldTest, WorldDefaultCtor) {
     EXPECT_TRUE(l.checkEqual(dw.light));
     EXPECT_TRUE(dw.objects[0].checkEqual(s));
     EXPECT_TRUE(dw.objects[1].checkEqual(t));
+};
+
+TEST_F(WorldTest, WorldRayIntersect) {
+	DefaultWorld dw = DefaultWorld();
+    Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
+    std::vector<Intersection> xs = dw.intersect(r);
+    EXPECT_EQ(xs.size(), 4);
+    EXPECT_EQ(xs[0].time, 4);
+    EXPECT_EQ(xs[1].time, 4.5);
+    EXPECT_EQ(xs[2].time, 5.5);
+    EXPECT_EQ(xs[3].time, 6);
 };
