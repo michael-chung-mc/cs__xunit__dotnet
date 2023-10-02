@@ -1,13 +1,13 @@
 set (SOURCES main.cpp
-canvas.h canvas.cpp canvas_test_unit.cpp
-color.h color.cpp color_test_unit.cpp
-comparinator.h comparinator.cpp comparinator_test_unit.cpp
-intersection.h intersection.cpp intersection_test_unit.cpp
-matrix.h matrix.cpp matrix_test_unit.cpp
+canvas.h canvas.cpp canvas.test.cpp
+color.h color.cpp color.test.cpp
+comparinator.h comparinator.cpp comparinator.test.cpp
+intersection.h intersection.cpp intersection.test.cpp
+matrix.h matrix.cpp matrix.test.cpp
 pch.h pch.cpp
-ray.h ray.cpp ray_test_unit.cpp
-sphere.h sphere.cpp sphere_test_unit.cpp
-tuple.h tuple.cpp tuple_test_unit.cpp
+ray.h ray.cpp ray.test.cpp
+sphere.h sphere.cpp sphere.test.cpp
+tuple.h tuple.cpp tuple.test.cpp
 light.h light.cpp light.test.cpp
 material.h material.cpp material.test.cpp
 )
