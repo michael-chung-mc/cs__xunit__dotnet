@@ -25,7 +25,12 @@ std::vector<Intersection> World::intersect(Ray argRay)
 }
 Color World::getShade(IntersectionState argIntersectionState)
 {
-    return argIntersectionState.object.material.getLighting(light, argIntersectionState.point, argIntersectionState.pov, argIntersectionState.normal);
+    Color varShade = Color(0,0,0);
+    for (int i = 0; i < lights.size();i++)
+    {
+        varShade = varShade + argIntersectionState.object.material.getLighting(lights[i], argIntersectionState.point, argIntersectionState.pov, argIntersectionState.normal);
+    }
+    return varShade;
 }
 
 DefaultWorld::DefaultWorld() : World()
@@ -38,7 +43,7 @@ DefaultWorld::DefaultWorld() : World()
     s.material.specular = 0.2;
     Sphere t = Sphere();
     t.transform = ScalingMatrix(0.5,0.5,0.5);
-    this->light = varDefaultLight;
+    this->lights.push_back(varDefaultLight);
     this->objects.push_back(s);
     this->objects.push_back(t);
 }

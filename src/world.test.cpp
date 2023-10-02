@@ -25,7 +25,7 @@ TEST_F(WorldTest, CanaryTest) {
 TEST_F(WorldTest, WorldEmptyCtor) {
 	World w = World();
     EXPECT_EQ(w.objects.size(), 0);
-    EXPECT_TRUE(ce.checkTuple(w.light.intensity, Color(0,0,0)));
+    EXPECT_EQ(w.lights.size(), 0);
 };
 
 TEST_F(WorldTest, WorldDefaultCtor) {
@@ -38,7 +38,7 @@ TEST_F(WorldTest, WorldDefaultCtor) {
     s.material.specular = 0.2;
     Sphere t = Sphere();
     t.transform = ScalingMatrix(0.5,0.5,0.5);
-    EXPECT_TRUE(l.checkEqual(dw.light));
+    EXPECT_TRUE(l.checkEqual(dw.lights[0]));
     EXPECT_TRUE(dw.objects[0].checkEqual(s));
     EXPECT_TRUE(dw.objects[1].checkEqual(t));
 };
@@ -74,7 +74,7 @@ TEST_F(WorldTest, WorldIntersectionShading) {
 
 TEST_F(WorldTest, WorldIntersectionInteriorShading) {
 	DefaultWorld dw = DefaultWorld();
-    dw.light = PointSource(Point(0,0.25,0), Color(1,1,1));
+    dw.lights[0] = PointSource(Point(0,0.25,0), Color(1,1,1));
     Ray r = Ray(Point(0,0,0), Vector(0,0,1));
     Sphere obj = dw.objects[1];
     Intersection i = Intersection(0.5,obj);

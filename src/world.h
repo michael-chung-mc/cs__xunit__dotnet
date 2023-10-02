@@ -13,7 +13,7 @@ class Color;
 class World {
 public:
     std::vector<Sphere> objects;
-    PointSource light;
+    std::vector<PointSource> lights;
     World();
     std::vector<Intersection> intersect(Ray argRay);
     Color getShade(IntersectionState argIntersectionState);
