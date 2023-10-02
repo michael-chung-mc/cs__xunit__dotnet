@@ -4,23 +4,21 @@
 #include "matrix.h"
 #include "ray.h"
 #include "intersection.h"
-#include <algorithm>
 
 World::World ()
 {
 }
-std::vector<Intersection> World::intersect(Ray argRay)
+Intersections World::intersect(Ray argRay)
 {
-    std::vector<Intersection> hits;
+    Intersections hits;
     for (int i = 0; i < objects.size(); i++)
     {
         std::vector<Intersection> hit = objects[i].intersect(argRay);
         for (int j = 0; j < hit.size(); j++)
         {
-            hits.push_back(hit[j]);
+            hits.intersect(hit[j].time, hit[j].object);
         }
     }
-    sort(hits.begin(), hits.end());
     return hits;
 }
 Color World::getShade(IntersectionState argIntersectionState)
@@ -31,6 +29,14 @@ Color World::getShade(IntersectionState argIntersectionState)
         varShade = varShade + argIntersectionState.object.material.getLighting(lights[i], argIntersectionState.point, argIntersectionState.pov, argIntersectionState.normal);
     }
     return varShade;
+}
+Color World::getColor(Ray r)
+{
+    Intersections xs = this->intersect(r);
+    Intersection hit = xs.hit();
+    if (hit.checkEqual(Intersection())) return Color(0,0,0);
+    IntersectionState is = hit.getState(r);
+    return this->getShade(is);
 }
 
 DefaultWorld::DefaultWorld() : World()

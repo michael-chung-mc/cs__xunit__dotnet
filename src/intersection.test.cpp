@@ -64,7 +64,7 @@ TEST_F(IntersectionTest, AllNegativeT) {
 	EXPECT_TRUE(hit.checkEqual(Intersection()));
 };
 
-TEST_F(IntersectionTest, UnsortedT) {
+TEST_F(IntersectionTest, HitIsNonnegativeIntersection) {
 	Sphere s = Sphere();
 	Intersections i = Intersections(5,s);
 	i.intersect(7, s);
@@ -72,7 +72,7 @@ TEST_F(IntersectionTest, UnsortedT) {
 	i.intersect(2, s);
 	std::vector<Intersection> xs = i.intersections;
 	Intersection hit = i.hit();
-	EXPECT_TRUE(hit.checkEqual(xs[3]));
+	EXPECT_TRUE(hit.checkEqual(xs[1]));
 };
 
 TEST_F(IntersectionTest, PrecomputeIntersectionState) {

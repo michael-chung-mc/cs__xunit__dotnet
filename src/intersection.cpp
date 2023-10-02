@@ -2,6 +2,7 @@
 #include "sphere.h"
 #include "ray.h"
 #include "tuple.h"
+#include <algorithm>
 
 Intersection::Intersection()
 {
@@ -43,24 +44,22 @@ IntersectionState Intersection::getState(Ray argRay)
 
 Intersections::Intersections()
 {
-	Intersection i = Intersection(0, Sphere());
-	this->intersections.push_back(i);
+	//Intersection i = Intersection(0, Sphere());
+	//this->intersections.push_back(i);
 }
-
 Intersections::Intersections(const Intersections& other)
 {
 	this->intersections = other.intersections;
 }
-
 Intersections::Intersections(double t, Sphere s)
 {
 	Intersection i = Intersection(t,s);
 	intersections.push_back(i);
 }
-
 void Intersections::intersect(double t, Sphere s)
 {
 	intersections.push_back(Intersection(t, s));
+    sort(intersections.begin(), intersections.end());
 }
 
 Intersection Intersections::hit()

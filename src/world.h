@@ -3,7 +3,7 @@
 #define WORLD_H
 
 class Sphere;
-class Intersection;
+class Intersections;
 class IntersectionState;
 class Ray;
 class Color;
@@ -15,8 +15,9 @@ public:
     std::vector<Sphere> objects;
     std::vector<PointSource> lights;
     World();
-    std::vector<Intersection> intersect(Ray argRay);
+    Intersections intersect(Ray argRay);
     Color getShade(IntersectionState argIntersectionState);
+    Color getColor(Ray r);
 };
 
 class DefaultWorld : public World {

@@ -46,12 +46,12 @@ TEST_F(WorldTest, WorldDefaultCtor) {
 TEST_F(WorldTest, WorldRayIntersect) {
 	DefaultWorld dw = DefaultWorld();
     Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
-    std::vector<Intersection> xs = dw.intersect(r);
-    EXPECT_EQ(xs.size(), 4);
-    EXPECT_EQ(xs[0].time, 4);
-    EXPECT_EQ(xs[1].time, 4.5);
-    EXPECT_EQ(xs[2].time, 5.5);
-    EXPECT_EQ(xs[3].time, 6);
+    Intersections xs = dw.intersect(r);
+    EXPECT_EQ(xs.intersections.size(), 4);
+    EXPECT_EQ(xs.intersections[0].time, 4);
+    EXPECT_EQ(xs.intersections[1].time, 4.5);
+    EXPECT_EQ(xs.intersections[2].time, 5.5);
+    EXPECT_EQ(xs.intersections[3].time, 6);
 };
 
 TEST_F(WorldTest, WorldIntersectionShading) {
@@ -81,5 +81,31 @@ TEST_F(WorldTest, WorldIntersectionInteriorShading) {
     IntersectionState is = i.getState(r);
     Color c = dw.getShade(is);
     Color expectedColor = Color(0.90498, 0.90498, 0.90498);
+    EXPECT_TRUE(c.checkEqual(expectedColor));
+};
+
+TEST_F(WorldTest, WorldColorMissIsBlack) {
+	DefaultWorld dw = DefaultWorld();
+    Ray r = Ray(Point(0,0,-5), Vector(0,1,0));
+    Color c = dw.getColor(r);
+    Color expectedColor = Color(0,0,0);
+    EXPECT_TRUE(c.checkEqual(expectedColor));
+};
+
+TEST_F(WorldTest, WorldColorHit) {
+	DefaultWorld dw = DefaultWorld();
+    Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
+    Color c = dw.getColor(r);
+    Color expectedColor = Color(0.38066, 0.47583, 0.2855);
+    EXPECT_TRUE(c.checkEqual(expectedColor));
+};
+
+TEST_F(WorldTest, WorldColorHitInsideInnerSphere) {
+	DefaultWorld dw = DefaultWorld();
+    dw.objects[0].material.ambient = 1;
+    dw.objects[1].material.ambient = 1;
+    Ray r = Ray(Point(0,0,0.75), Vector(0,0,-1));
+    Color c = dw.getColor(r);
+    Color expectedColor = dw.objects[1].material.color;
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
