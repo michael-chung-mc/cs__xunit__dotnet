@@ -27,7 +27,7 @@ Color Color::operator*(float x) {
 Color Color::operator*(Color x) {
 	return Color(r * x.r, g * x.g, b * x.b);
 }
-bool Color::checkEqual(Color other)
+bool Color::checkEqual(const Color other) const
 {
 	Comparinator ce = Comparinator();
 	return ce.checkFloat(r,other.r) && ce.checkFloat(g,other.g) && ce.checkFloat(b,other.b);

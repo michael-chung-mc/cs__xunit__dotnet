@@ -15,7 +15,7 @@ public:
 	Color operator-(Color x);
 	Color operator*(float x);
 	Color operator*(Color x);
-	bool checkEqual(Color other);
+	bool checkEqual(const Color other) const;
 };
 
 #endif

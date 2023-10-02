@@ -11,6 +11,7 @@ public:
     Color intensity;
     PointSource();
     PointSource(Point position, Color intensity);
+    bool checkEqual(const PointSource &other) const;
 };
 
 #endif

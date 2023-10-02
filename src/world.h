@@ -13,4 +13,9 @@ public:
     World();
 };
 
+class DefaultWorld : public World {
+public:
+    DefaultWorld();
+};
+
 #endif
