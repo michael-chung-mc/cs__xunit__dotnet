@@ -2,9 +2,12 @@
 
 class MaterialTest : public ::testing::Test {
 protected:
+    Comparinator ce;
 	//TupleTest() {}
 	//~TupleTest() override {}
-	//void SetUp() override { }
+	void SetUp() override {
+        ce = Comparinator();
+    }
 	//void TearDown() override { }
 };
 
@@ -15,7 +18,6 @@ TEST_F(MaterialTest, CanaryTest)
 
 TEST_F(MaterialTest, MaterialCtor)
 {
-    Comparinator ce = Comparinator();
     Material m = Material();
     EXPECT_TRUE(ce.checkTuple(m.color, Color(1,1,1)));
     EXPECT_TRUE(ce.checkFloat(m.ambient, 0.1));
@@ -26,7 +28,6 @@ TEST_F(MaterialTest, MaterialCtor)
 
 TEST_F(MaterialTest, LightingStraightOn)
 {
-    Comparinator ce = Comparinator();
     Material m = Material();
     Point p = Point(0,0,0);
     Vector pov = Vector(0,0,-1);
@@ -39,7 +40,6 @@ TEST_F(MaterialTest, LightingStraightOn)
 
 TEST_F(MaterialTest, Lighting45PovShift)
 {
-    Comparinator ce = Comparinator();
     Material m = Material();
     Point p = Point(0,0,0);
     Vector pov = Vector(0,sqrt(2)/2,sqrt(2)/2);
@@ -52,7 +52,6 @@ TEST_F(MaterialTest, Lighting45PovShift)
 
 TEST_F(MaterialTest, Lighting45LightShift)
 {
-    Comparinator ce = Comparinator();
     Material m = Material();
     Point p = Point(0,0,0);
     Vector pov = Vector(0,0,-1);
@@ -65,7 +64,6 @@ TEST_F(MaterialTest, Lighting45LightShift)
 
 TEST_F(MaterialTest, Lighting45EyeLightShift)
 {
-    Comparinator ce = Comparinator();
     Material m = Material();
     Point p = Point(0,0,0);
     Vector pov = Vector(0,-sqrt(2)/2,-sqrt(2)/2);
@@ -78,7 +76,6 @@ TEST_F(MaterialTest, Lighting45EyeLightShift)
 
 TEST_F(MaterialTest, LightingBehindSurface)
 {
-    Comparinator ce = Comparinator();
     Material m = Material();
     Point p = Point(0,0,0);
     Vector pov = Vector(0,0,-1);

@@ -2,9 +2,23 @@
 
 class MatrixTest : public ::testing::Test {
 protected:
+    Comparinator ce;
 	//TupleTest() {}
 	//~TupleTest() override {}
-	//void SetUp() override { }
+	void SetUp() override {
+        ce = Comparinator();
+    }
+	//void TearDown() override { }
+};
+
+class TransformationTest : public ::testing::Test {
+protected:
+    Comparinator ce;
+	//TupleTest() {}
+	//~TupleTest() override {}
+	void SetUp() override {
+        ce = Comparinator();
+    }
 	//void TearDown() override { }
 };
 
@@ -15,7 +29,6 @@ TEST_F(MatrixTest, CanaryTest) {
 
 TEST_F(MatrixTest, Matrix4x4ctor)
 {
-	Comparinator ce = Comparinator();
 	Matrix mx = Matrix(4,4);
 	mx.setRC(0, 0, 1);
 	mx.setRC(0, 1, 2);
@@ -56,7 +69,6 @@ TEST_F(MatrixTest, Matrix4x4ctor)
 
 TEST_F(MatrixTest, Matrix2x2ctor)
 {
-	Comparinator ce = Comparinator();
 	Matrix mx = Matrix(2, 2);
 	mx.setRC(0, 0, -3);
 	mx.setRC(0, 1, 5);
@@ -73,7 +85,6 @@ TEST_F(MatrixTest, Matrix2x2ctor)
 
 TEST_F(MatrixTest, Matrix3x3ctor)
 {
-	Comparinator ce = Comparinator();
 	Matrix mx = Matrix(3, 3);
 	mx.setRC(0, 0, -3);
 	mx.setRC(0, 1, 5);
@@ -236,7 +247,6 @@ TEST_F(MatrixTest, MatrixMultiplication4x4to4x4)
 
 TEST_F(MatrixTest, MatrixMultiplicationTuple)
 {
-	Comparinator ce = Comparinator();
 	Matrix mx1 = Matrix(4, 4);
 	mx1.setRC(0, 0, 1);
 	mx1.setRC(0, 1, 2);
@@ -334,7 +344,6 @@ TEST_F(MatrixTest, TransposeIdentityMatrix)
 
 TEST_F(MatrixTest, MatrixDeterminant)
 {
-	Comparinator ce = Comparinator();
 	Matrix mx1 = Matrix(2, 2);
 	mx1.setRC(0, 0, 1);
 	mx1.setRC(0, 1, 5);
@@ -368,7 +377,6 @@ TEST_F(MatrixTest, MatrixSub3x3)
 
 TEST_F(MatrixTest, MatrixSub4x4)
 {
-
 	Matrix mx1 = Matrix(4, 4);
 	mx1.setRC(0, 0, -6);
 	mx1.setRC(0, 1, 1);
@@ -583,15 +591,6 @@ TEST_F(MatrixTest, MatrixProductByInverse4x4)
 	EXPECT_TRUE(mx1.checkEqual(*mx21imx2));
 };
 
-
-class TransformationTest : public ::testing::Test {
-protected:
-	//TupleTest() {}
-	//~TupleTest() override {}
-	//void SetUp() override { }
-	//void TearDown() override { }
-};
-
 TEST_F(TransformationTest, CanaryTest) {
 	EXPECT_EQ(1, 1);
 	EXPECT_TRUE(true);
@@ -599,7 +598,6 @@ TEST_F(TransformationTest, CanaryTest) {
 
 TEST_F(TransformationTest, TransformationTranslationMatrixMove)
 {
-	Comparinator ce = Comparinator();
 	TranslationMatrix tm = TranslationMatrix(5, -3,2);
 	Point p = Point(-3, 4, 5);
 	Point res = tm * p;
@@ -609,7 +607,6 @@ TEST_F(TransformationTest, TransformationTranslationMatrixMove)
 
 TEST_F(TransformationTest, TransformationInverseTranslationMatrixReverseMove)
 {
-	Comparinator ce = Comparinator();
 	TranslationMatrix tm = TranslationMatrix(5, -3, 2);
 	Matrix* itm = tm.invert();
 	Point p = Point(-3, 4, 5);
@@ -620,7 +617,6 @@ TEST_F(TransformationTest, TransformationInverseTranslationMatrixReverseMove)
 
 TEST_F(TransformationTest, TransformationTranslationMatrixVectorNoEffect)
 {
-	Comparinator ce = Comparinator();
 	TranslationMatrix tm = TranslationMatrix(5, -3, 2);
 	Vector v = Vector(-3, 4, 5);
 	Vector res = tm * v;
@@ -630,7 +626,6 @@ TEST_F(TransformationTest, TransformationTranslationMatrixVectorNoEffect)
 
 TEST_F(TransformationTest, TransformationScalingMatrixPoint)
 {
-	Comparinator ce = Comparinator();
 	ScalingMatrix sm = ScalingMatrix(2, 3, 4);
 	Point p = Point(-4, 6, 8);
 	Point res = sm * p;
@@ -640,7 +635,6 @@ TEST_F(TransformationTest, TransformationScalingMatrixPoint)
 
 TEST_F(TransformationTest, TransformationScalingMatrixVector)
 {
-	Comparinator ce = Comparinator();
 	ScalingMatrix sm = ScalingMatrix(2, 3, 4);
 	Vector p = Vector(-4, 6, 8);
 	Vector res = sm * p;
@@ -650,7 +644,6 @@ TEST_F(TransformationTest, TransformationScalingMatrixVector)
 
 TEST_F(TransformationTest, TransformationScalingMatrixInverseVector)
 {
-	Comparinator ce = Comparinator();
 	ScalingMatrix sm = ScalingMatrix(2, 3, 4);
 	Matrix* im = sm.invert();
 	Vector p = Vector(-4, 6, 8);
@@ -661,7 +654,6 @@ TEST_F(TransformationTest, TransformationScalingMatrixInverseVector)
 
 TEST_F(TransformationTest, TransformationScalingMatrixReflection)
 {
-	Comparinator ce = Comparinator();
 	ScalingMatrix rm = ScalingMatrix(-1, 1, 1);
 	Point p = Point(2, 3, 4);
 	Point res = rm * p;
@@ -671,7 +663,6 @@ TEST_F(TransformationTest, TransformationScalingMatrixReflection)
 
 TEST_F(TransformationTest, TransformationRotationMatrixX)
 {
-	Comparinator ce = Comparinator();
 	Point p = Point(0, 1, 0);
 	XRotationMatrix xrm90 = XRotationMatrix(getPI()/4);
 	Point res90 = xrm90 * p;
@@ -685,7 +676,6 @@ TEST_F(TransformationTest, TransformationRotationMatrixX)
 
 TEST_F(TransformationTest, TransformationRotationMatrixXInverse)
 {
-	Comparinator ce = Comparinator();
 	Point p = Point(0, 1, 0);
 	XRotationMatrix xrm90 = XRotationMatrix(getPI() / 4);
 	Matrix* ixrm90 = xrm90.invert();
@@ -696,7 +686,6 @@ TEST_F(TransformationTest, TransformationRotationMatrixXInverse)
 
 TEST_F(TransformationTest, TransformationRotationMatrixY)
 {
-	Comparinator ce = Comparinator();
 	Point p = Point(0, 0, 1);
 	YRotationMatrix yrm90 = YRotationMatrix(getPI() / 4);
 	Point res90 = yrm90 * p;
@@ -710,7 +699,6 @@ TEST_F(TransformationTest, TransformationRotationMatrixY)
 
 TEST_F(TransformationTest, TransformationRotationMatrixZ)
 {
-	Comparinator ce = Comparinator();
 	Point p = Point(0, 1, 0);
 	ZRotationMatrix zrm90 = ZRotationMatrix(getPI() / 4);
 	Point res90 = zrm90 * p;
@@ -724,7 +712,6 @@ TEST_F(TransformationTest, TransformationRotationMatrixZ)
 
 TEST_F(TransformationTest, TransformationShearingXToY)
 {
-	Comparinator ce = Comparinator();
 	ShearingMatrix sm = ShearingMatrix(1, 0, 0, 0, 0, 0);
 	Point p = Point(2, 3, 4);
 	Point res = sm * p;
@@ -734,7 +721,6 @@ TEST_F(TransformationTest, TransformationShearingXToY)
 
 TEST_F(TransformationTest, TransformationShearingXToZ)
 {
-	Comparinator ce = Comparinator();
 	ShearingMatrix sm = ShearingMatrix(0, 1, 0, 0, 0, 0);
 	Point p = Point(2, 3, 4);
 	Point res = sm * p;
@@ -744,7 +730,6 @@ TEST_F(TransformationTest, TransformationShearingXToZ)
 
 TEST_F(TransformationTest, TransformationShearingYToX)
 {
-	Comparinator ce = Comparinator();
 	ShearingMatrix sm = ShearingMatrix(0, 0, 1, 0, 0, 0);
 	Point p = Point(2, 3, 4);
 	Point res = sm * p;
@@ -754,7 +739,6 @@ TEST_F(TransformationTest, TransformationShearingYToX)
 
 TEST_F(TransformationTest, TransformationShearingYToZ)
 {
-	Comparinator ce = Comparinator();
 	ShearingMatrix sm = ShearingMatrix(0, 0, 0, 1, 0, 0);
 	Point p = Point(2, 3, 4);
 	Point res = sm * p;
@@ -764,7 +748,6 @@ TEST_F(TransformationTest, TransformationShearingYToZ)
 
 TEST_F(TransformationTest, TransformationShearingZToX)
 {
-	Comparinator ce = Comparinator();
 	ShearingMatrix sm = ShearingMatrix(0, 0, 0, 0, 1, 0);
 	Point p = Point(2, 3, 4);
 	Point res = sm * p;
@@ -774,7 +757,6 @@ TEST_F(TransformationTest, TransformationShearingZToX)
 
 TEST_F(TransformationTest, TransformationShearingZToY)
 {
-	Comparinator ce = Comparinator();
 	ShearingMatrix sm = ShearingMatrix(0, 0, 0, 0, 0, 1);
 	Point p = Point(2, 3, 4);
 	Point res = sm * p;
@@ -784,7 +766,6 @@ TEST_F(TransformationTest, TransformationShearingZToY)
 
 TEST_F(TransformationTest, ChainingTransformationInSequence)
 {
-	Comparinator ce = Comparinator();
 	Point p = Point(1, 0, 1);
 	XRotationMatrix xrm = XRotationMatrix(getPI() / 2);
 	ScalingMatrix sm = ScalingMatrix(5, 5, 5);
@@ -802,7 +783,6 @@ TEST_F(TransformationTest, ChainingTransformationInSequence)
 
 TEST_F(TransformationTest, ChainingTransformationAppliedInReverseOrder)
 {
-	Comparinator ce = Comparinator();
 	Point p = Point(1, 0, 1);
 	XRotationMatrix xrm = XRotationMatrix(getPI() / 2);
 	ScalingMatrix sm = ScalingMatrix(5, 5, 5);

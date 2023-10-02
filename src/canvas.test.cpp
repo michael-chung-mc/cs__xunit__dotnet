@@ -2,9 +2,12 @@
 
 class CanvasTest : public ::testing::Test {
 protected:
+    Comparinator ce;
 	//TupleTest() {}
 	//~TupleTest() override {}
-	//void SetUp() override { }
+	void SetUp() override {
+        ce = Comparinator();
+    }
 	//void TearDown() override { }
 };
 
@@ -34,7 +37,6 @@ TEST_F(CanvasTest, CanvasSetColor)
 	//And red ← color(1, 0, 0)
 	//When write_pixel(c, 2, 3, red)
 	//Then pixel_at(c, 2, 3) = red
-	Comparinator ce = Comparinator();
 	Canvas c = Canvas(10, 20);
 	Color red = Color(1, 0, 0);
 	c.setPixel(2, 3, red);

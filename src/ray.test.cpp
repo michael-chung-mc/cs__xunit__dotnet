@@ -2,9 +2,12 @@
 
 class RayTest : public ::testing::Test {
 protected:
+    Comparinator ce;
 	//TupleTest() {}
 	//~TupleTest() override {}
-	//void SetUp() override { }
+	void SetUp() override {
+        ce = Comparinator();
+    }
 	//void TearDown() override { }
 };
 
@@ -14,7 +17,6 @@ TEST_F(RayTest, CanaryTest) {
 };
 
 TEST_F(RayTest, RayCtor) {
-	Comparinator ce = Comparinator();
 	Point p = Point(1, 2, 3);
 	Vector d = Vector(4, 5, 6);
 	Ray r = Ray(p, d);
@@ -23,7 +25,6 @@ TEST_F(RayTest, RayCtor) {
 };
 
 TEST_F(RayTest, RayPositionAfterTime) {
-	Comparinator ce = Comparinator();
 	Point p = Point(2, 3, 4);
 	Vector d = Vector(1, 0, 0);
 	Ray r = Ray(p, d);
@@ -42,7 +43,6 @@ TEST_F(RayTest, RayPositionAfterTime) {
 };
 
 TEST_F(RayTest, RayTranslation) {
-	Comparinator ce = Comparinator();
 	Point p = Point(1, 2, 3);
 	Vector d = Vector(0, 1, 0);
 	Ray r = Ray(p, d);
@@ -57,7 +57,6 @@ TEST_F(RayTest, RayTranslation) {
 };
 
 TEST_F(RayTest, RayScaling) {
-	Comparinator ce = Comparinator();
 	Point p = Point(1, 2, 3);
 	Vector d = Vector(0, 1, 0);
 	Ray r = Ray(p, d);

@@ -2,9 +2,12 @@
 
 class LightTest : public ::testing::Test {
 protected:
+    Comparinator ce;
 	//TupleTest() {}
 	//~TupleTest() override {}
-	//void SetUp() override { }
+	void SetUp() override {
+        ce = Comparinator();
+    }
 	//void TearDown() override { }
 };
 
@@ -15,7 +18,6 @@ TEST_F(LightTest, CanaryTest)
 
 TEST_F(LightTest, PointSourceCtor)
 {
-    Comparinator ce = Comparinator();
     Color c = Color(1,1,1);
     Point p = Point(0,0,0);
     PointSource ps = PointSource(p,c);

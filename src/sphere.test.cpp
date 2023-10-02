@@ -2,9 +2,12 @@
 
 class SphereTest : public ::testing::Test {
 protected:
+    Comparinator ce;
 	//TupleTest() {}
 	//~TupleTest() override {}
-	//void SetUp() override { }
+	void SetUp() override {
+        ce = Comparinator();
+    }
 	//void TearDown() override { }
 };
 
@@ -107,7 +110,6 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 };
 
 TEST_F(SphereTest, SphereScaledTo5Intersections) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(5, 5, 5);
@@ -140,7 +142,6 @@ TEST_F(SphereTest, SphereTranslatedAway) {
 };
 
 TEST_F(SphereTest, SphereNormalX) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Point p = Point(1,0,0);
 	Vector normal = s.normal(p);
@@ -149,7 +150,6 @@ TEST_F(SphereTest, SphereNormalX) {
 };
 
 TEST_F(SphereTest, SphereNormalY) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Point p = Point(0,1,0);
 	Vector normal = s.normal(p);
@@ -158,7 +158,6 @@ TEST_F(SphereTest, SphereNormalY) {
 };
 
 TEST_F(SphereTest, SphereNormalZ) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Point p = Point(0,0,1);
 	Vector normal = s.normal(p);
@@ -167,7 +166,6 @@ TEST_F(SphereTest, SphereNormalZ) {
 };
 
 TEST_F(SphereTest, SphereNormal) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Point p = Point(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
 	Vector normal = s.normal(p);
@@ -176,7 +174,6 @@ TEST_F(SphereTest, SphereNormal) {
 };
 
 TEST_F(SphereTest, SphereNormalNormalized) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Point p = Point(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
 	Vector normal = s.normal(p);
@@ -185,7 +182,6 @@ TEST_F(SphereTest, SphereNormalNormalized) {
 };
 
 TEST_F(SphereTest, SphereTranslatedNormalized) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Matrix t = TranslationMatrix(0,1,0);
 	s.setTransform(t);
@@ -196,7 +192,6 @@ TEST_F(SphereTest, SphereTranslatedNormalized) {
 };
 
 TEST_F(SphereTest, SphereTransformedNormalized) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Matrix t = ScalingMatrix(1, 0.5, 1);
 	t = *(t * ZRotationMatrix(getPI()/5));
@@ -208,14 +203,12 @@ TEST_F(SphereTest, SphereTransformedNormalized) {
 };
 
 TEST_F(SphereTest, SphereMaterialCtor) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Material m = Material();
 	EXPECT_TRUE(m.checkEqual(s.material));
 };
 
 TEST_F(SphereTest, SphereMaterialAssignment) {
-	Comparinator ce = Comparinator();
 	Sphere s = Sphere();
 	Material m = Material();
 	m.ambient = 1;

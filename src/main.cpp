@@ -118,24 +118,24 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 	varCanvas.save();
 }
 
-int main(int argc, char **argv)
-{
-//     // ::testing::InitGoogleTest( &argc, argv);
-//     // return RUN_ALL_TESTS();
+// int main(int argc, char **argv)
+// {
+    // ::testing::InitGoogleTest( &argc, argv);
+    // return RUN_ALL_TESTS();
 
-// 	// double arr[] = { 2, 0, 0, 0, 0, 1, 0, 0, 0,0,1,0 ,0 ,0 ,0, 1 };
-// 	// Matrix m = Matrix(4, 4, arr);
-// 	// Tuple t = Tuple(2, 2, 2, 2);
-// 	// Tuple x = m * t;
+	// double arr[] = { 2, 0, 0, 0, 0, 1, 0, 0, 0,0,1,0 ,0 ,0 ,0, 1 };
+	// Matrix m = Matrix(4, 4, arr);
+	// Tuple t = Tuple(2, 2, 2, 2);
+	// Tuple x = m * t;
 
-// 	// int firepower = 10;
-// 	// std::cout << "Firing: " << firepower << std::endl;
-// 	// Simulation sim;
-// 	// sim.fire(firepower);
+	// int firepower = 10;
+	// std::cout << "Firing: " << firepower << std::endl;
+	// Simulation sim;
+	// sim.fire(firepower);
 
-// 	shadowTracer();
+	// shadowTracer();
 
-	shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(1,1,1)), 10, 10, 100, Color(1, 0.2, 1));
-	//shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(0.5,0.5,0.5)), 10, 10, 100, Color(1, 0.2, 1));
-	return 0;
-}
+// 	shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(1,1,1)), 10, 10, 100, Color(1, 0.2, 1));
+// 	//shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(0.5,0.5,0.5)), 10, 10, 100, Color(1, 0.2, 1));
+// 	return 0;
+// }
