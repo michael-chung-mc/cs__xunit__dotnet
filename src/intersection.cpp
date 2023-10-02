@@ -25,13 +25,19 @@ bool Intersection::operator<(Intersection other) const
 
 IntersectionState Intersection::getState(Ray argRay)
 {
-	IntersectionState c = IntersectionState();
-	c.time = time;
-	c.object = object;
-	c.point = argRay.position(time);
-	c.pov = -argRay.direction;
-	c.normal = c.object.normal(c.point);
-	return c;
+	IntersectionState is = IntersectionState();
+	is.time = time;
+	is.object = object;
+	is.point = argRay.position(time);
+	is.pov = -argRay.direction;
+	is.normal = is.object.normal(is.point);
+	if (is.normal.dot(is.pov) < 0)
+	{
+		is.inside = true;
+		is.normal = -is.normal;
+	}
+	else is.inside = false;
+	return is;
 }
 
 Intersections::Intersections()

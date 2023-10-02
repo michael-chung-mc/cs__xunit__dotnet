@@ -86,3 +86,22 @@ TEST_F(IntersectionTest, PrecomputeIntersectionState) {
 	EXPECT_TRUE(ce.checkTuple(is.pov, Vector(0,0,-1)));
 	EXPECT_TRUE(ce.checkTuple(is.normal, Vector(0,0,-1)));
 };
+
+TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitFalse) {
+	Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
+	Sphere s = Sphere();
+	Intersection i = Intersection(4, s);
+	IntersectionState is = i.getState(r);
+	EXPECT_FALSE(is.inside);
+}
+
+TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitTrue) {
+	Ray r = Ray(Point(0,0,0), Vector(0,0,1));
+	Sphere s = Sphere();
+	Intersection i = Intersection(1, s);
+	IntersectionState is = i.getState(r);
+	EXPECT_TRUE(ce.checkTuple(is.point, Point(0,0,1)));
+	EXPECT_TRUE(ce.checkTuple(is.pov, Vector(0,0,-1)));
+	EXPECT_TRUE(is.inside);
+	EXPECT_TRUE(ce.checkTuple(is.normal, Vector(0,0,-1)));
+}

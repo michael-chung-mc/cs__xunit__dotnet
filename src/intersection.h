@@ -14,6 +14,7 @@ public:
 	Point point;
 	Vector pov;
 	Vector normal;
+	bool inside;
 };
 
 class Intersection {
