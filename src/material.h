@@ -12,6 +12,7 @@ public:
     float specular;
     double shininess;
     Material();
+    bool checkEqual(Material other);
 };
 
 #endif

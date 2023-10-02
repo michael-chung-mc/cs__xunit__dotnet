@@ -5,6 +5,7 @@ Sphere::Sphere()
 	origin = Point(0, 0, 0);
 	radius = 1.0;
 	transform = IdentityMatrix(4, 4);
+	material = Material();
 }
 
 bool Sphere::checkEqual(Sphere other)

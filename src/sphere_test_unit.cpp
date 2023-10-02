@@ -206,3 +206,19 @@ TEST_F(SphereTest, SphereTransformedNormalized) {
 	Vector expectedV = Vector(0,0.97014,-0.24254);
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
+
+TEST_F(SphereTest, SphereMaterialCtor) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Material m = Material();
+	EXPECT_TRUE(m.checkEqual(s.material));
+};
+
+TEST_F(SphereTest, SphereMaterialAssignment) {
+	Comparinator ce = Comparinator();
+	Sphere s = Sphere();
+	Material m = Material();
+	m.ambient = 1;
+	s.material = m;
+	EXPECT_TRUE(m.checkEqual(s.material));
+};

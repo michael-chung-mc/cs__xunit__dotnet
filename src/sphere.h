@@ -1,3 +1,5 @@
+#include "material.h"
+
 #pragma once
 #ifndef Sphere_H
 #define Sphere_H
@@ -9,6 +11,7 @@ public:
 	Point origin;
 	double radius;
 	Matrix transform;
+	Material material;
 	Sphere();
 	bool checkEqual(Sphere other);
 	std::vector<Intersection> intersect(Ray r);
