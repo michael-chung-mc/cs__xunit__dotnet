@@ -1,3 +1,7 @@
+#pragma once
+#ifndef MATRIX_H
+#define MATRIX_H
+
 class Matrix {
 public:
 	double **grid;
@@ -68,3 +72,5 @@ class ShearingMatrix : public Matrix {
 public:
 	ShearingMatrix(double xy, double xz, double yx, double yz, double zx, double zy);
 };
+
+#endif

@@ -1,8 +1,6 @@
-//
-// pch.h
-//
-
 #pragma once
+#ifndef PCH_H
+#define PCH_H
 
 #include <gtest/gtest.h>
 
@@ -49,3 +47,5 @@ inline double getPI()
 {
 	return 3.141592653589793238463;
 }
+
+#endif

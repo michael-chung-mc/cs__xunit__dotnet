@@ -1,6 +1,7 @@
 #pragma once
 #ifndef Ray_H
 #define Ray_H
+
 class Ray {
 public:
 	Point origin;
@@ -11,4 +12,5 @@ public:
 	Ray transform(TranslationMatrix matrix);
 	Ray transform(ScalingMatrix matrix);
 };
+
 #endif

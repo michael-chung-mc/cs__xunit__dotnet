@@ -1,4 +1,8 @@
-#include "pch.h"
+#pragma once
+#ifndef COLOR_H
+#define COLOR_H
+
+#include "tuple.h"
 
 class Color : public Tuple {
 public:
@@ -12,3 +16,5 @@ public:
 	Color operator*(float x);
 	Color operator*(Color x);
 };
+
+#endif

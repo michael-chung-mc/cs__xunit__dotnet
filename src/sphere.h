@@ -1,8 +1,8 @@
-#include "material.h"
-
 #pragma once
 #ifndef Sphere_H
 #define Sphere_H
+
+#include "material.h"
 
 class Intersection;
 

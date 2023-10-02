@@ -1,8 +1,9 @@
-#include "pch.h"
-
 #pragma once
 #ifndef Material_H
 #define Material_H
+
+#include "tuple.h"
+#include "light.h"
 
 class Material {
 public:
@@ -13,6 +14,7 @@ public:
     double shininess;
     Material();
     bool checkEqual(Material other);
+    Color getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal);
 };
 
 #endif

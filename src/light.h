@@ -1,8 +1,9 @@
-#include "pch.h"
-
 #pragma once
 #ifndef Light_H
 #define Light_H
+
+#include "tuple.h"
+#include "color.h"
 
 class PointSource {
 public:
