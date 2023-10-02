@@ -18,7 +18,7 @@ Sphere::Sphere()
 bool Sphere::checkEqual(Sphere other)
 {
 	Comparinator ce = Comparinator();
-	return ce.checkTuple(this->origin,other.origin) && this->radius == other.radius && transform.checkEqual(other.transform);
+	return ce.checkTuple(this->origin,other.origin) && this->radius == other.radius && transform.checkEqual(other.transform) && material.checkEqual(other.material);
 }
 
 std::vector<Intersection> Sphere::intersect(Ray r)
@@ -52,6 +52,7 @@ Sphere& Sphere::operator=(const Sphere other)
 	origin = other.origin;
 	radius = other.radius;
 	this->transform = *(new Matrix(other.transform));
+	this->material = other.material;
 	return *this;
 }
 

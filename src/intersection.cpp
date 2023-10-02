@@ -28,15 +28,16 @@ IntersectionState Intersection::getState(Ray argRay)
 	IntersectionState is = IntersectionState();
 	is.time = time;
 	is.object = object;
-	is.point = argRay.position(time);
-	is.pov = -argRay.direction;
+	is.point = argRay.position(is.time);
+	is.pov = -(argRay.direction);
 	is.normal = is.object.normal(is.point);
-	if (is.normal.dot(is.pov) < 0)
-	{
+	if (is.normal.dot(is.pov) < 0) {
 		is.inside = true;
 		is.normal = -is.normal;
 	}
-	else is.inside = false;
+	else {
+		is.inside = false;
+	}
 	return is;
 }
 

@@ -4,7 +4,9 @@
 
 class Sphere;
 class Intersection;
+class IntersectionState;
 class Ray;
+class Color;
 #include "light.h"
 #include <vector>
 
@@ -14,6 +16,7 @@ public:
     PointSource light;
     World();
     std::vector<Intersection> intersect(Ray argRay);
+    Color getShade(IntersectionState argIntersectionState);
 };
 
 class DefaultWorld : public World {

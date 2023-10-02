@@ -11,9 +11,9 @@ class Material;
 class Material {
 public:
     Color color;
-    float ambient;
-    float diffuse;
-    float specular;
+    double ambient;
+    double diffuse;
+    double specular;
     double shininess;
     Material();
     bool checkEqual(Material other);

@@ -23,6 +23,10 @@ std::vector<Intersection> World::intersect(Ray argRay)
     sort(hits.begin(), hits.end());
     return hits;
 }
+Color World::getShade(IntersectionState argIntersectionState)
+{
+    return argIntersectionState.object.material.getLighting(light, argIntersectionState.point, argIntersectionState.pov, argIntersectionState.normal);
+}
 
 DefaultWorld::DefaultWorld() : World()
 {
