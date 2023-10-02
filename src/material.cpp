@@ -33,7 +33,7 @@ Color Material::getLighting(PointSource argLighting, Point argPosition, Vector a
     else
     {
         varResDiffuse = varShade * diffuse * varLightDotNormal;
-        varReflect = argNormal.reflect(-varLight);
+        varReflect = (-varLight).reflect(argNormal);
         varReflectDotEye = varReflect.dot(argEye);
         if (varReflectDotEye <= 0)
         {

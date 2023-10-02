@@ -82,8 +82,44 @@ void shadowTracer()
 	canvas.save();
 }
 
-//int main(int argc, char **argv)
-//{
+void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, double argScreenZ, double argScreenPixels, Color argSphereColor)
+{
+	Canvas varCanvas = Canvas(argScreenPixels,argScreenPixels);
+	double varScreenXY = argScreenWidth/2;
+	double varPixelSize = argScreenWidth/argScreenPixels;
+
+	Sphere varObj = Sphere();
+	varObj.material = Material();
+	//varObj.material.shininess = 0;
+	varObj.material.color = argSphereColor;
+
+	PointSource varLight = argLight;
+
+	for (int i = 0; i <= argScreenPixels; i++)
+	{
+		double varWorldY = varScreenXY - varPixelSize * i;
+		for (int j = 0; j <= argScreenPixels; j++)
+		{
+			double varWorldX = -varScreenXY + varPixelSize * j;
+			Point varWorldPosition = Point(varWorldX, varWorldY, argScreenZ);
+			//std::cout << worldX << worldY << wallZ << std::endl;
+			Ray r = Ray(argPov, (varWorldPosition-argPov).normalize());
+			std::vector<Intersection> xs = varObj.intersect(r);
+			if (xs.size() != 0)
+			{
+				Point p = r.position(xs[0].time);
+				Vector normal = xs[0].object.normal(p);
+				Vector pov = -r.direction;
+				Color shade = varObj.material.getLighting(varLight, p, pov, normal);
+				varCanvas.setPixel(i,j,shade);
+			}
+		}
+	}
+	varCanvas.save();
+}
+
+int main(int argc, char **argv)
+{
 //     // ::testing::InitGoogleTest( &argc, argv);
 //     // return RUN_ALL_TESTS();
 
@@ -99,5 +135,7 @@ void shadowTracer()
 
 // 	shadowTracer();
 
-// 	return 0;
-//}
+	shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(1,1,1)), 10, 10, 100, Color(1, 0.2, 1));
+	//shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(0.5,0.5,0.5)), 10, 10, 100, Color(1, 0.2, 1));
+	return 0;
+}
