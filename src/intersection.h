@@ -1,6 +1,9 @@
 #pragma once
-#ifndef Intersection_H
-#define Intersection_H
+#ifndef INTERSECTION_H
+#define INTERSECTION_H
+
+#include "sphere.h"
+#include <vector>
 
 class Intersection {
 public:

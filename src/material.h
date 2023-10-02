@@ -1,9 +1,12 @@
 #pragma once
-#ifndef Material_H
-#define Material_H
+#ifndef MATERIAL_H
+#define MATERIAL_H
 
-#include "tuple.h"
-#include "light.h"
+#include "color.h"
+class PointSource;
+class Point;
+class Vector;
+class Material;
 
 class Material {
 public:

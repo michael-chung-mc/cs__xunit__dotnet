@@ -1,7 +1,3 @@
-#pragma once
-#ifndef PCH_H
-#define PCH_H
-
 #include <gtest/gtest.h>
 
 #include <iomanip>
@@ -9,17 +5,7 @@
 #include <iostream>
 #include <fstream>
 #include <cmath>
-
-#include "tuple.h"
-#include "comparinator.h"
-#include "color.h"
-#include "canvas.h"
-#include "matrix.h"
-#include "ray.h"
-#include "sphere.h"
-#include "intersection.h"
-#include "light.h"
-#include "material.h"
+#include <vector>
 
 inline std::string getPPMFilename(bool linuxPath) {
 	std::time_t now = std::time(nullptr);
@@ -47,5 +33,3 @@ inline double getPI()
 {
 	return 3.141592653589793238463;
 }
-
-#endif

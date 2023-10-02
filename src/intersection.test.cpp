@@ -1,3 +1,5 @@
+#include "intersection.h"
+#include "sphere.h"
 #include "pch.h"
 
 class IntersectionTest : public ::testing::Test {

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef Tuple_H
-#define Tuple_H
+#ifndef TUPLE_H
+#define TUPLE_H
 
 class Tuple {
 public:

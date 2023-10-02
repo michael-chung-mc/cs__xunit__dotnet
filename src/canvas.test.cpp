@@ -1,3 +1,6 @@
+#include "canvas.h"
+#include "comparinator.h"
+#include "color.h"
 #include "pch.h"
 
 class CanvasTest : public ::testing::Test {
@@ -41,7 +44,7 @@ TEST_F(CanvasTest, CanvasSetColor)
 	Color red = Color(1, 0, 0);
 	c.setPixel(2, 3, red);
 	Color test = c.getPixel(2, 3);
-	EXPECT_TRUE(ce.checkTuple(test,red));
+	EXPECT_TRUE(test.checkEqual(red));
 }
 
 TEST_F(CanvasTest, CanvasPPM)

@@ -1,10 +1,13 @@
 #pragma once
-#ifndef Sphere_H
-#define Sphere_H
+#ifndef SPHERE_H
+#define SPHERE_H
 
+#include "tuple.h"
+#include "matrix.h"
 #include "material.h"
-
 class Intersection;
+class Ray;
+#include <vector>
 
 class Sphere {
 public:

@@ -1,6 +1,12 @@
-#include <iostream>
-
 #include "pch.h"
+#include "tuple.h"
+#include "canvas.h"
+#include "color.h"
+#include "light.h"
+#include "ray.h"
+#include "material.h"
+#include "intersection.h"
+#include "sphere.h"
 
 class Projectile {
 public:

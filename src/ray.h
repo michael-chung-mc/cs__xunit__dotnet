@@ -1,6 +1,9 @@
 #pragma once
-#ifndef Ray_H
-#define Ray_H
+#ifndef RAY_H
+#define RAY_H
+
+#include "tuple.h"
+#include "matrix.h"
 
 class Ray {
 public:

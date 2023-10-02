@@ -1,10 +1,15 @@
+#include "tuple.h"
+#include "comparinator.h"
 #include "pch.h"
 
 class TupleTest : public ::testing::Test {
 protected:
+	Comparinator ce;
 	//TupleTest() {}
 	//~TupleTest() override {}
-	//void SetUp() override { }
+	void SetUp() override { 
+		ce = Comparinator();
+	}
 	//void TearDown() override { }
 };
 
@@ -60,7 +65,6 @@ TEST_F(TupleTest, TuplePlusTupleEqualsTuple)
 	Tuple a = Tuple(3, -2, 5, 1);
 	Tuple b = Tuple(-2, 3, 1, 0);
 	Tuple c = Tuple(1, 1, 6, 1);
-	Comparinator ce = Comparinator();
 	Tuple result = a.add(b);
 	EXPECT_TRUE(ce.checkTuple(c, result));
 	result = a + b;
@@ -76,7 +80,6 @@ TEST_F(TupleTest, TupleMinusTupleEqualsTuple)
 	Tuple a = Tuple(3, 2, 1, 1);
 	Tuple b = Tuple(5, 6, 7, 1);
 	Tuple c = Tuple(-2, -4, -6, 0);
-	Comparinator ce = Comparinator();
 	Tuple result = a.subtract(b);
 	EXPECT_TRUE(ce.checkTuple(c, result));
 };
@@ -90,7 +93,6 @@ TEST_F(TupleTest, PointMinusVectorEqualsPoint)
 	Point a = Point(3, 2, 1);
 	Vector b = Vector(5, 6, 7);
 	Point c = Point(-2, -4, -6);
-	Comparinator ce = Comparinator();
 	Point result = a.subtract(b);
 	EXPECT_TRUE(ce.checkTuple(c, result));
 };
@@ -104,7 +106,6 @@ TEST_F(TupleTest, VectorMinusVectorEqualsVector)
 	Vector a = Vector(3, 2, 1);
 	Vector b = Vector(5, 6, 7);
 	Vector c = Vector(-2, -4, -6);
-	Comparinator ce = Comparinator();
 	Vector result = a.subtract(b);
 	EXPECT_TRUE(ce.checkTuple(c, result));
 };
@@ -118,7 +119,6 @@ TEST_F(TupleTest, ZeroMinusVectorEqualsNegatedVector)
 	Vector a = Vector(0, 0, 0);
 	Vector b = Vector(1, -2, 3);
 	Vector c = Vector(-1, 2, -3);
-	Comparinator ce = Comparinator();
 	Vector result = a.subtract(b);
 	EXPECT_TRUE(ce.checkTuple(c, result));
 };
@@ -131,7 +131,6 @@ TEST_F(TupleTest, NegateTupleMethod)
 	Tuple a = Tuple(1, -2, 3, -4);
 	Tuple an = a.negate();
 	Tuple c = Tuple(-1, 2, -3, 4);
-	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
@@ -140,7 +139,6 @@ TEST_F(TupleTest, NegateZeroTuple)
 	Tuple a = Tuple(0,0,0,0);
 	Tuple an = -a;
 	Tuple c = Tuple(0,0,0,0);
-	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
@@ -152,7 +150,6 @@ TEST_F(TupleTest, NegateTupleOperator)
 	Tuple a = Tuple(1, -2, 3, -4);
 	Tuple an = -a;
 	Tuple c = Tuple(-1, 2, -3, 4);
-	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
@@ -161,7 +158,6 @@ TEST_F(TupleTest, NegateVectorOperator)
 	Vector a = Vector(1, -2, 3);
 	Vector an = -a;
 	Vector c = Vector(-1, 2, -3);
-	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.checkTuple(an, c));
 }
 
@@ -173,7 +169,6 @@ TEST_F(TupleTest, ScaleTuple)
 	Tuple a = Tuple (1, -2, 3, -4);
 	Tuple b = a * 3.5;
 	Tuple c = Tuple(3.5, -7, 10.5, -14);
-	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.checkTuple(b, c));
 	EXPECT_TRUE(ce.checkTuple(b, c));
 }
@@ -186,7 +181,6 @@ TEST_F(TupleTest, ShrinkTuple)
 	Tuple a = Tuple(1, -2, 3, -4);
 	Tuple b = a * 0.5;
 	Tuple c = Tuple(0.5, -1, 1.5, -2);
-	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.checkTuple(b, c));
 }
 
@@ -198,7 +192,6 @@ TEST_F(TupleTest, DivideTuple)
 	Tuple a = Tuple(1, -2, 3, -4);
 	Tuple b = a / 2;
 	Tuple c = Tuple(0.5, -1, 1.5, -2);
-	Comparinator ce = Comparinator();
 	EXPECT_TRUE(ce.checkTuple(b, c));
 }
 
@@ -226,7 +219,6 @@ TEST_F(TupleTest, TupleMagnitude)
 	//Scenario : Computing the magnitude of vector(1, 2, 3)
 	//Given v ← vector(1, 2, 3)
 	//Then magnitude(v) = √14
-	Comparinator ce = Comparinator();
 	Vector a = Vector(1, 2, 3);
 	float mag = sqrt(14);
 	EXPECT_TRUE(ce.checkFloat(a.magnitude(), mag));
@@ -239,7 +231,6 @@ TEST_F(TupleTest, TupleMagnitude)
 
 TEST_F(TupleTest, TupleNormalized)
 {
-	Comparinator ce = Comparinator();
 	//Scenario: Normalizing vector(4, 0, 0) gives(1, 0, 0)
 	//Given v ← vector(4, 0, 0)
 	//Then normalize(v) = vector(1, 0, 0)
@@ -281,7 +272,6 @@ TEST_F(TupleTest, TupleCrossProduct)
 	//And b ← vector(2, 3, 4)
 	//Then cross(a, b) = vector(-1, 2, -1)
 	//And cross(b, a) = vector(1, -2, 1)
-	Comparinator ce = Comparinator();
 	Vector a = Vector(1, 2, 3);
 	Vector b = Vector(2, 3, 4);
 	Vector ab = a.cross(b);
@@ -294,7 +284,6 @@ TEST_F(TupleTest, TupleCrossProduct)
 
 TEST_F(TupleTest, TupleReflect)
 {
-	Comparinator ce = Comparinator();
 	Vector v = Vector(1, -1, 0);
 	Vector n = Vector(0, 1, 0);
 	Vector r = v.reflect(n);
@@ -304,7 +293,6 @@ TEST_F(TupleTest, TupleReflect)
 
 TEST_F(TupleTest, TupleReflectAngled)
 {
-	Comparinator ce = Comparinator();
 	Vector v = Vector(0, -1, 0);
 	Vector n = Vector(sqrt(2)/2, sqrt(2)/2, 0);
 	Vector r = v.reflect(n);

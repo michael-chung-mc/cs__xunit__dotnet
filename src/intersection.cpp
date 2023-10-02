@@ -1,4 +1,5 @@
-#include "pch.h"
+#include "intersection.h"
+#include "sphere.h"
 
 Intersection::Intersection()
 {
@@ -19,7 +20,7 @@ bool Intersection::checkEqual(Intersection other)
 Intersections::Intersections()
 {
 	Intersection i = Intersection(0, Sphere());
-	intersections.push_back(i);
+	this->intersections.push_back(i);
 }
 
 Intersections::Intersections(const Intersections& other)

@@ -1,4 +1,5 @@
-#include "pch.h"
+#include "tuple.h"
+#include <cmath>
 
 class Tuple;
 class Point;

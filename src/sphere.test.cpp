@@ -1,4 +1,11 @@
+#include "sphere.h"
+#include "comparinator.h"
+#include "ray.h"
 #include "pch.h"
+#include "tuple.h"
+#include "intersection.h"
+#include "matrix.h"
+#include "material.h"
 
 class SphereTest : public ::testing::Test {
 protected:
@@ -116,9 +123,11 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	s.setTransform(m);
 	EXPECT_TRUE(m.checkEqual(s.transform));
 	std::vector<Intersection> xs = s.intersect(r);
+	double z = 0;
+	double y = 10;
 	EXPECT_EQ(xs.size(), 2);
-	EXPECT_TRUE(ce.checkFloat(xs[0].time, 0));
-	EXPECT_TRUE(ce.checkFloat(xs[1].time, 10));
+	EXPECT_TRUE(ce.checkFloat(xs[0].time, z));
+	EXPECT_TRUE(ce.checkFloat(xs[1].time, y));
 };
 
 TEST_F(SphereTest, SphereTranslatedToMiss) {

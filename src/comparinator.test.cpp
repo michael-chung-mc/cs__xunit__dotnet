@@ -1,3 +1,5 @@
+#include "comparinator.h"
+#include "tuple.h"
 #include "pch.h"
 
 class ComparinatorTest : public ::testing::Test {
@@ -17,9 +19,13 @@ TEST_F(ComparinatorTest, Canary) {
 }
 
 TEST_F(ComparinatorTest, TestFloatingPointEqual) {
-	EXPECT_TRUE(ce.checkFloat(0, .00000000));
-	EXPECT_TRUE(ce.checkFloat(0.00001,.00001));
-	EXPECT_FALSE(ce.checkFloat(0.00002, .00001));
+	double z = 0;
+	double zz = 0.0000000;
+	double o = 0.0001;
+	double t = 0.0002;
+	EXPECT_TRUE(ce.checkFloat(z,zz));
+	EXPECT_TRUE(ce.checkFloat(o,o));
+	EXPECT_FALSE(ce.checkFloat(t,o));
 }
 
 TEST_F(ComparinatorTest, TestTuplesEqual) {

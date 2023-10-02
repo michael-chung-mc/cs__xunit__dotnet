@@ -1,6 +1,6 @@
 #pragma once
-#ifndef Light_H
-#define Light_H
+#ifndef LIGHT_H
+#define LIGHT_H
 
 #include "tuple.h"
 #include "color.h"
@@ -9,6 +9,7 @@ class PointSource {
 public:
     Point position;
     Color intensity;
+    PointSource();
     PointSource(Point position, Color intensity);
 };
 

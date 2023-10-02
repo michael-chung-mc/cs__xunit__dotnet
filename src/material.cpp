@@ -1,4 +1,9 @@
-#include "pch.h"
+#include "material.h"
+#include "tuple.h"
+#include "light.h"
+#include "color.h"
+#include "comparinator.h"
+#include <cmath>
 
 Material::Material ()
 {

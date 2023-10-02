@@ -2,6 +2,10 @@
 #ifndef MATRIX_H
 #define MATRIX_H
 
+class Tuple;
+class Point;
+class Vector;
+
 class Matrix {
 public:
 	double **grid;

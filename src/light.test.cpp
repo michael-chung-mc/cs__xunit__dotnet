@@ -1,3 +1,7 @@
+#include "light.h"
+#include "tuple.h"
+#include "color.h"
+#include "comparinator.h"
 #include "pch.h"
 
 class LightTest : public ::testing::Test {

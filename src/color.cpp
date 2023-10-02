@@ -1,4 +1,6 @@
-#include "pch.h"
+#include "color.h"
+#include "comparinator.h"
+#include "tuple.h"
 
 Color::Color()
 {
@@ -24,4 +26,9 @@ Color Color::operator*(float x) {
 }
 Color Color::operator*(Color x) {
 	return Color(r * x.r, g * x.g, b * x.b);
+}
+bool Color::checkEqual(Color other)
+{
+	Comparinator ce = Comparinator();
+	return ce.checkFloat(r,other.r) && ce.checkFloat(g,other.g) && ce.checkFloat(b,other.b);
 }

@@ -1,6 +1,7 @@
-#include "pch.h"
+#include "comparinator.h"
+#include <cmath>
 
-bool Comparinator::checkFloat(float a, float b)
+bool Comparinator::checkFloat(const double &a, const double &b) const
 {
-	return abs(a - b) < EPSILON;
+	return fabs(a - b) < EPSILON;
 };

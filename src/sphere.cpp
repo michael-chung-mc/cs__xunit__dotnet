@@ -1,3 +1,10 @@
+#include "sphere.h"
+#include "comparinator.h"
+#include "material.h"
+#include "intersection.h"
+#include "tuple.h"
+#include "matrix.h"
+#include "ray.h"
 #include "pch.h"
 
 Sphere::Sphere()

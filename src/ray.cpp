@@ -1,4 +1,6 @@
-#include "pch.h"
+#include "ray.h"
+#include "tuple.h"
+#include "matrix.h"
 
 Ray::Ray(Point origin, Vector direction)
 {

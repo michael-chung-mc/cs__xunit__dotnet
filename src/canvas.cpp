@@ -1,9 +1,12 @@
+#include "canvas.h"
+#include "comparinator.h"
+#include "color.h"
 #include "pch.h"
 
 Canvas::Canvas(int width, int height) {
-	w = width;
-	h = height;
-	grid.clear();
+	this->w = width;
+	this->h = height;
+	this->grid.clear();
 	for (int i = 0; i < w; i++)
 	{
 		std::vector<Color> column;
@@ -31,7 +34,7 @@ bool Canvas::isClean() {
 		}
 	}
 	return clean;
-}
+};
 
 bool Canvas::inBounds(int x,int y) {
 	return grid.size() > 0 && grid[0].size() > 0 && x >= 0 && x < grid.size() && y >= 0 && y < grid[0].size();

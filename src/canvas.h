@@ -1,6 +1,10 @@
 #pragma once
-#ifndef Canvas_H
-#define Canvas_H
+#ifndef CANVAS_H
+#define CANVAS_H
+
+class Color;
+#include <vector>
+#include <string>
 
 class Canvas {
 public:

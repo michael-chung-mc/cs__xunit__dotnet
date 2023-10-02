@@ -1,3 +1,8 @@
+#include "material.h"
+#include "comparinator.h"
+#include "tuple.h"
+#include "color.h"
+#include "light.h"
 #include "pch.h"
 
 class MaterialTest : public ::testing::Test {

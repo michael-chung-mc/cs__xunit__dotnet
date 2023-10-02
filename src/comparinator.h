@@ -1,17 +1,17 @@
 #pragma once
-#ifndef Comparinator_H
-#define Comparinator_H
+#ifndef COMPARINATOR_H
+#define COMPARINATOR_H
 
 class Comparinator {
 private:
 	float EPSILON = 0.00001;
 public:
-	bool checkFloat(float a, float b);
+	bool checkFloat(const double &a, const double &b) const;
 	// tuples & point & vector
 	template <typename Agent>
 	bool checkTuple(Agent a, Agent b)
 	{
-		return (this->checkFloat(a.x, b.x) && this->checkFloat(a.y, b.y) && Comparinator::checkFloat(a.z, b.z) && Comparinator::checkFloat(a.w, b.w));
+		return (checkFloat(a.x, b.x) && checkFloat(a.y, b.y) && checkFloat(a.z, b.z) && checkFloat(a.w, b.w));
 	};
 };
 

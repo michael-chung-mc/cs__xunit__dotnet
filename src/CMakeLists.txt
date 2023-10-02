@@ -10,6 +10,7 @@ sphere.h sphere.cpp sphere.test.cpp
 tuple.h tuple.cpp tuple.test.cpp
 light.h light.cpp light.test.cpp
 material.h material.cpp material.test.cpp
+world.h world.cpp world.test.cpp
 )
 add_executable(main ${SOURCES})
 target_link_libraries(main ${GTEST_LIBRARIES} ${GTEST_MAIN_LIBRARIES} pthread)

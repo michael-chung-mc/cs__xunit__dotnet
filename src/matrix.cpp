@@ -1,4 +1,7 @@
-#include "pch.h"
+#include "matrix.h"
+#include "comparinator.h"
+#include "tuple.h"
+#include <cmath>
 
 Matrix::Matrix()
 {

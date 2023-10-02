@@ -1,3 +1,6 @@
+#include "ray.h"
+#include "comparinator.h"
+#include "tuple.h"
 #include "pch.h"
 
 class RayTest : public ::testing::Test {
