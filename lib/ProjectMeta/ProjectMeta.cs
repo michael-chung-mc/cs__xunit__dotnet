@@ -26,21 +26,21 @@ public class ProjectMeta
     {
         _fieldLogJsonPath = path;
     }
-    public void Log(string data)
+    public void Log(string argData)
     {
-        using (StreamWriter txtStream = File.AppendText(_fieldLogTxtPath))
+        using (StreamWriter varTxtStream = File.AppendText(_fieldLogTxtPath))
         {
-            txtStream.WriteLine(data.ToString());
-            Trace.WriteLine(data.ToString());
+            varTxtStream.WriteLine(argData.ToString());
+            Trace.WriteLine(argData.ToString());
         }
     }
-    public void LogJson(LogData data)
+    public void LogJson(LogData argData)
     {
-        using (StreamWriter jsonStream = File.AppendText(_fieldLogJsonPath))
+        using (StreamWriter varJsonStream = File.AppendText(_fieldLogJsonPath))
         {
-            jsonStream.WriteLine(data.ToJson());
+            varJsonStream.WriteLine(argData.ToJson());
         }
-        Log(data.ToJson());
+        Log(argData.ToJson());
     }
 }
 

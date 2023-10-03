@@ -7,34 +7,34 @@ public class Calculator
     }
     public double Arithmetic(double argX, double argY, string argOperation)
     {
-        double result = double.NaN;
+        double varResult = double.NaN;
         switch (argOperation)
         {
             case "a":
-                result = Add(argX,argY);
+                varResult = Add(argX,argY);
                 break;
             case "s":
-                result = Subtract(argX,argY);
+                varResult = Subtract(argX,argY);
                 break;
             case "m":
-                result = Multiply(argX,argY);
+                varResult = Multiply(argX,argY);
                 break;
             case "d":
-                result = Divide(argX,argY);
+                varResult = Divide(argX,argY);
                 break;
             case "q":
-                result = SquareRoot(argX);
+                varResult = SquareRoot(argX);
                 break;
             case "p":
-                result = Power(argX,argY);
+                varResult = Power(argX,argY);
                 break;
             case "e":
-                result = ScientificNotation(argX,argY);
+                varResult = ScientificNotation(argX,argY);
                 break;
             default:
                 break;
         }
-        return result;
+        return varResult;
     }
     public double Add (double argX, double argY)
     {
@@ -68,62 +68,62 @@ public class Calculator
     {
         return FibonacciIterative(n, Int32.MaxValue);
     }
-    public List<int> FibonacciIterative(int n, int limit)
+    public List<int> FibonacciIterative(int argN, int argLimit)
     {
-        List<int> fib = new List<int>();
-        fib.Add(1);
-        if (n < 1)  { return fib; };
-        fib.Add(1);
-        if (n == 1) { return fib; };
-        for (int i = 2; i < n; i++)
+        List<int> varListFib = new List<int>();
+        varListFib.Add(1);
+        if (argN < 1)  { return varListFib; };
+        varListFib.Add(1);
+        if (argN == 1) { return varListFib; };
+        for (int i = 2; i < argN; i++)
         {
-            int nth = fib[i - 1] + fib[i - 2];
-            if (nth > limit) { return fib; }
-            fib.Add(nth);
+            int varNth = varListFib[i - 1] + varListFib[i - 2];
+            if (varNth > argLimit) { return varListFib; }
+            varListFib.Add(varNth);
         }
-        return fib;
+        return varListFib;
     }
-    public BigInteger FibonacciSumEven(int n)
+    public BigInteger FibonacciSumEven(int argN)
     {
-        return FibonacciSumEven(n, Int32.MaxValue);
+        return FibonacciSumEven(argN, Int32.MaxValue);
     }
-    public BigInteger FibonacciSumEven(int n, int limit)
+    public BigInteger FibonacciSumEven(int argN, int argLimit)
     {
-        BigInteger sum = 0;
-        List<int> f = FibonacciIterative(n, limit);
-        for (int i = 0; i < f.Count(); i++)
+        BigInteger varSum = 0;
+        List<int> varFib = FibonacciIterative(argN, argLimit);
+        for (int i = 0; i < varFib.Count(); i++)
         {
-            BigInteger num = f[i];
-            if (num % 2 == 0) { sum += num; }
+            BigInteger varNum = varFib[i];
+            if (varNum % 2 == 0) { varSum += varNum; }
         }
-        return sum;
+        return varSum;
     }
     // sum of all multiples x or y below z
-    public int SumMultiple(int x, int y, int z)  {
-        if (x < 0 || y < 0 || z < 0) { return -1; }
-        int sum = 0;
-        for (int i = 0; i < z; i++) {
-            if (i%x == 0 || i%y == 0)  { sum += i; }    
+    public int SumMultiple(int argX, int argY, int argZ)  {
+        if (argX < 0 || argY < 0 || argZ < 0) { return -1; }
+        int varSum = 0;
+        for (int i = 0; i < argZ; i++) {
+            if (i%argX == 0 || i%argY == 0)  { varSum += i; }    
         }
-        return sum;
+        return varSum;
     }
-    public BigInteger MaxFactor(BigInteger n)
+    public BigInteger MaxFactor(BigInteger argN)
     {
-        if (n < 4) { return n; }
-        BigInteger maxFactor = 0;
-        BigInteger factor = 2;
-        while (n > 1)
+        if (argN < 4) { return argN; }
+        BigInteger varMaxFactor = 0;
+        BigInteger varFactor = 2;
+        while (argN > 1)
         {
-            if (n % factor == 0)
+            if (argN % varFactor == 0)
             {
-                maxFactor = factor;
-                n /= factor;
+                varMaxFactor = varFactor;
+                argN /= varFactor;
             }
             else
             {
-                factor += 1;
+                varFactor += 1;
             }
         }
-        return maxFactor;
+        return varMaxFactor;
     }
 }

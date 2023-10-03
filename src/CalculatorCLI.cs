@@ -11,7 +11,7 @@ public class CalculatorCLI
     protected double _fieldNumY = 0;
     protected double _fieldResult = 0;
     protected string _fieldOperator = "";
-    protected List<LogData> history;
+    protected List<LogData> _fieldHistory;
     protected struct LogData : LibProjectMeta.LogData
     {
         double _fieldX = 0;
@@ -32,11 +32,11 @@ public class CalculatorCLI
     }
     public void Run()
     {
-        ProjectMeta pm = new ProjectMeta();
-        Calculator calculator = new Calculator();
-        history = new List<LogData>();
-        bool endApp = false;
-        while (!endApp)
+        ProjectMeta varPM = new ProjectMeta();
+        Calculator varCalculator = new Calculator();
+        _fieldHistory = new List<LogData>();
+        bool varFlagEndApp = false;
+        while (!varFlagEndApp)
         {
             Console.WriteLine("Calculator says:\r\n");
             InputOperator();
@@ -44,24 +44,24 @@ public class CalculatorCLI
             InputOperandY();
             try
             {
-                _fieldResult = calculator.Arithmetic(_fieldNumX, _fieldNumY, _fieldOperator);
+                _fieldResult = varCalculator.Arithmetic(_fieldNumX, _fieldNumY, _fieldOperator);
                 if (double.IsNaN(_fieldResult)) {
                     Console.WriteLine($"Error: {_fieldResult}. \n");
                 }
                 else Console.WriteLine($"{_fieldNumX} {_fieldOperator} {_fieldNumY} = " + String.Format("{0:0.##}\n", _fieldResult));
                 LogData log = new LogData(_fieldNumX, _fieldNumY, _fieldOperator, _fieldResult);
-                history.Add(log);
-                pm.LogJson(log);
+                _fieldHistory.Add(log);
+                varPM.LogJson(log);
             }
-            catch (Exception e) {
-                Console.WriteLine("Objection!.\n - Details: " + e.Message);
+            catch (Exception err) {
+                Console.WriteLine("Objection!.\n - Details: " + err.Message);
             }
-            foreach(LogData log in history)
+            foreach(LogData varLog in _fieldHistory)
             {
-                Console.WriteLine(log.ToJson());
+                Console.WriteLine(varLog.ToJson());
             }
             Console.Write("Press 'n' and Enter to close the app, or press any other key and Enter to continue: ");
-            if (Console.ReadLine() == "n") endApp = true;
+            if (Console.ReadLine() == "n") varFlagEndApp = true;
         }
         return;
     }
