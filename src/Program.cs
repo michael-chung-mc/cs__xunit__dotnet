@@ -24,7 +24,7 @@ namespace wip__cs__xunit
         static void Main()
         {
             LibConfig.Config config = new LibConfig.Config();
-            config.Startup();
+            Console.WriteLine(config.fieldDatabaseConnectionString);
         }
     }
 }

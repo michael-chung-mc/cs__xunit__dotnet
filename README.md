@@ -43,6 +43,9 @@ Practice C# with xUnit for testing
 ### Roadmap
 ## Usage
 ### Setup
+
+- [ ] setup user secrets
+
 ### Run
 ## Acknowledgements
 * [Project Euler](projecteuler.net)

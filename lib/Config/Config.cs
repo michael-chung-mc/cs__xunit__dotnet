@@ -6,14 +6,14 @@ using Microsoft.Extensions.Configuration.UserSecrets;
 using Microsoft.Extensions.Configuration.EnvironmentVariables;
 public class Config
 {
-    public void Startup()
+    public string fieldDatabaseConnectionString;
+    public Config()
     {
         IConfigurationRoot config = new ConfigurationBuilder()
             //.AddJsonFile("appsettings.json")
             .AddUserSecrets(Assembly.GetExecutingAssembly(), true)
             .AddEnvironmentVariables()
             .Build();
-        var settings = config.GetConnectionString("Test");
-        Console.WriteLine(settings);
+        fieldDatabaseConnectionString = config.GetConnectionString("Test");
     }
 }
