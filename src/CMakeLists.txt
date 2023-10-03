@@ -1,4 +1,5 @@
 set (SOURCES main.cpp
+camera.h camera.cpp camera.test.cpp
 canvas.h canvas.cpp canvas.test.cpp
 color.h color.cpp color.test.cpp
 comparinator.h comparinator.cpp comparinator.test.cpp
