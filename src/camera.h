@@ -6,10 +6,13 @@
 
 class Camera {
 public:
-    int membSizeHorizontal;
-    int membSizeVertical;
-    double membFieldOfView;
-    Matrix membTransform;
+    int mbrCanvasHorizontal;
+    int mbrCanvasVertical;
+    double mbrFieldOfView;
+    double mbrHalfWidth;
+    double mbrHalfHeight;
+    double mbrPixelSquare;
+    Matrix mbrTransform;
     Camera(int argH, int argV, double argFOV);
 };
 
