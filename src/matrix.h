@@ -77,4 +77,10 @@ public:
 	ShearingMatrix(double xy, double xz, double yx, double yz, double zx, double zy);
 };
 
+class ViewMatrix : public Matrix {
+public:
+	ViewMatrix();
+	ViewMatrix(Point start, Point end, Vector up);
+};
+
 #endif

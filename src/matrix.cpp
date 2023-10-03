@@ -2,6 +2,7 @@
 #include "comparinator.h"
 #include "tuple.h"
 #include <cmath>
+#include <iostream>
 
 Matrix::Matrix()
 {
@@ -436,4 +437,34 @@ ShearingMatrix::ShearingMatrix(double xy, double xz, double yx, double yz, doubl
 	this->grid[2][1] = zy;
 	this->grid[2][2] = 1;
 	this->grid[3][3] = 1;
+}
+
+ViewMatrix::ViewMatrix() : Matrix()
+{
+	for (int i = 0; i < rnum; i++)
+	{
+		for (int j = 0; j < cnum; j++)
+		{
+			i == j ? this->grid[i][j] = 1 : this->grid[i][j] = 0;
+		};
+	};
+}
+
+ViewMatrix::ViewMatrix(Point start, Point end, Vector up) : Matrix()
+{
+	Vector varForward = (end - start).normalize();
+	Vector varLeft = varForward.cross(up.normalize());
+	Vector varUp = varLeft.cross(varForward);
+	double varValues[] = {varLeft.x, varLeft.y, varLeft.z, 0, varUp.x, varUp.y, varUp.z, 0, -varForward.x, -varForward.y, -varForward.z, 0, 0, 0, 0, 1};
+	Matrix varOrientation = Matrix(4,4, varValues);
+	Matrix* varResult = varOrientation * TranslationMatrix(-start.x, -start.y, -start.z);
+	for (int i = 0; i < rnum; i++)
+	{
+		for (int j = 0; j < cnum; j++)
+		{
+			this->grid[i][j] = varResult->grid[i][j];
+			std::cout << "addresses this:" << & grid[i][j] << ":other:" << &varResult->grid[i][j] << std::endl;
+			std::cout << "values this:" << grid[i][j] << ":other:" << varResult->grid[i][j] << std::endl;
+		};
+	};
 }
