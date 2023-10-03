@@ -9,16 +9,17 @@
                 <li><a href="#preview">Preview</li>
             </ul>
         </li>
-        <li><a href="#design">Design</li>
+        <li><a href="#methodology">Methodology</li>
           <ul>
-            <li><a href="#requirements">Tools</li>
+            <li><a href="#requirements">Requirements</li>
+            <li><a href="#design">Design</li>
             <li><a href="#tools">Tools</li>
             <li><a href="#roadmap">Roadmap</li>
           </ul>
         </li>
         <li><a href="#usage">Usage</a>
             <ul>
-                <li><a href="#install">Install</li>
+                <li><a href="#setup">Setup</li>
                 <li><a href="#run">Run</li>
             </ul>
         </li>
@@ -30,8 +31,9 @@
 Practice C# with xUnit for testing
 ### About
 ### Preview
-## Design
+## Methodology
 ### Requirements
+### Design
 ### Tools
 * C#
 * xUnit
@@ -40,7 +42,7 @@ Practice C# with xUnit for testing
 * Git
 ### Roadmap
 ## Usage
-### Install
+### Setup
 ### Run
 ## Acknowledgements
 * [Project Euler](projecteuler.net)
