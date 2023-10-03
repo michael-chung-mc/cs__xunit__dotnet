@@ -9,16 +9,17 @@
                 <li><a href="#preview">Preview</li>
             </ul>
         </li>
-        <li><a href="#design">Design</li>
+        <li><a href="#methodology">Methodology</li>
           <ul>
-            <li><a href="#requirements">Tools</li>
+            <li><a href="#requirements">Requirements</li>
+            <li><a href="#design">Design</li>
             <li><a href="#tools">Tools</li>
             <li><a href="#roadmap">Roadmap</li>
           </ul>
         </li>
         <li><a href="#usage">Usage</a>
             <ul>
-                <li><a href="#install">Install</li>
+                <li><a href="#setup">Setup</li>
                 <li><a href="#run">Run</li>
             </ul>
         </li>
@@ -30,8 +31,9 @@
 ### About
 Ray Tracer implemented in C++ following Test Driven Development methodology using GoogleTest
 ### Preview
-## Design
+## Methodology
 ### Requirements
+### Design
 ### Tools
 * C++
 * CMake
@@ -47,11 +49,12 @@ Ray Tracer implemented in C++ following Test Driven Development methodology usin
 - [x] Canvas
 - [x] Matrix & Transformations
 - [x] Ray Intersections
-- [x] Shadow Caster
+- [x] Simple Shadow Caster
+- [x] Simple Shading
 </details>
 
 ## Usage
-### Install
+### Setup
 ### Run
 ## Acnowledgements
 * "Ray Tracer Challenge" by Jamis Buck
