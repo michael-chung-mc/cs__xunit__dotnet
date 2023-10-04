@@ -1,6 +1,8 @@
 #include "camera.h"
 #include "matrix.h"
 #include "ray.h"
+#include "canvas.h"
+#include "world.h"
 #include <cmath>
 
 Camera::Camera(int argH, int argV, double argFOV)
@@ -32,4 +34,19 @@ Ray Camera::getRay(int argPxX, int argPxY)
     Point varOrigin = *mbrTransform.invert() * Point(0,0,0);
     Vector varDirection = (varPixelPos - varOrigin).normalize();
     return Ray(varOrigin, varDirection);
+}
+
+Canvas Camera::render(World argWorld)
+{
+    Canvas varCanvas = Canvas(mbrCanvasHorizontal, mbrCanvasVertical);
+    for (int i = 0; i < mbrCanvasVertical - 1; i++)
+    {
+        for (int j = 0; j < mbrCanvasHorizontal - 1; j++)
+        {
+            Ray varRay = getRay(j, i);
+            Color varColor = argWorld.getColor(varRay);
+            varCanvas.setPixel(j, i, varColor);
+        }
+    }
+    return varCanvas;
 }

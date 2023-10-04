@@ -2,11 +2,11 @@
 #ifndef WORLD_H
 #define WORLD_H
 
-class Sphere;
 class Intersections;
 class IntersectionState;
 class Ray;
 class Color;
+#include "sphere.h"
 #include "light.h"
 #include <vector>
 

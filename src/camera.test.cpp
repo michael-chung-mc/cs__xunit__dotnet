@@ -1,6 +1,8 @@
 #include "camera.h"
 #include "comparinator.h"
 #include "ray.h"
+#include "world.h"
+#include "canvas.h"
 #include "pch.h"
 
 class CameraTest : public ::testing::Test {
@@ -74,4 +76,14 @@ TEST_F(CameraTest, TransformedCameraRayCastToCanvas)
     Vector varExpectedDirection = Vector(sqrt(2)/2,0,-sqrt(2)/2);
     EXPECT_TRUE(ce.checkTuple(varCast.origin, varExpectedOrigin));
     EXPECT_TRUE(ce.checkTuple(varCast.direction, varExpectedDirection));
+}
+
+TEST_F(CameraTest, CameraRenderDefaultWorld)
+{
+    DefaultWorld varWorld = DefaultWorld();
+    Camera varCamera = Camera(11, 11, getPI()/2);
+    varCamera.mbrTransform = ViewMatrix(Point(0,0,-5), Point(0,0,0), Vector(0,1,0));
+    Canvas varImg = varCamera.render(varWorld);
+    Color varExpectedColor = Color(0.38066, 0.47583, 0.2855);
+    EXPECT_TRUE(varImg.getPixel(5,5).checkEqual(varExpectedColor));
 }
