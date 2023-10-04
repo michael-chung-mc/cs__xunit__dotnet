@@ -26,7 +26,7 @@ Color World::getShade(IntersectionState argIntersectionState)
     Color varShade = Color(0,0,0);
     for (int i = 0; i < lights.size();i++)
     {
-        varShade = varShade + argIntersectionState.object.material.getLighting(lights[i], argIntersectionState.point, argIntersectionState.pov, argIntersectionState.normal);
+        varShade = varShade + argIntersectionState.object.material.getLighting(lights[i], argIntersectionState.point, argIntersectionState.pov, argIntersectionState.normal, false);
     }
     return varShade;
 }

@@ -49,8 +49,9 @@ Ray Tracer implemented in C++ following Test Driven Development methodology usin
 - [x] Canvas
 - [x] Matrix & Transformations
 - [x] Ray Intersections
-- [x] Simple Shadow Caster
-- [x] Simple Shading
+- [x] Simple Shadow/Silhouette Cast Render
+- [x] Simple Shading Render
+- [x] Simple Scene Render
 </details>
 
 ## Usage

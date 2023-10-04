@@ -117,7 +117,7 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 				Point p = r.position(xs[0].time);
 				Vector normal = xs[0].object.normal(p);
 				Vector pov = -r.direction;
-				Color shade = varObj.material.getLighting(varLight, p, pov, normal);
+				Color shade = varObj.material.getLighting(varLight, p, pov, normal, false);
 				varCanvas.setPixel(i,j,shade);
 			}
 		}

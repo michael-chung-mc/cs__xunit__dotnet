@@ -20,7 +20,7 @@ bool Material::checkEqual(Material other)
     return ce.checkTuple(color, other.color) && ce.checkFloat(ambient, other.ambient) && ce.checkFloat(diffuse, other.diffuse) && ce.checkFloat(specular, other.specular) && ce.checkFloat(shininess, other.shininess);
 }
 
-Color Material::getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal)
+Color Material::getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
     Color varShade = color * argLighting.intensity;
     Vector varLight = (argLighting.position - argPosition).normalize();
@@ -50,5 +50,5 @@ Color Material::getLighting(PointSource argLighting, Point argPosition, Vector a
             varResSpecular = argLighting.intensity * specular * varFactor;
         }
     }
-    return varResAmbient + varResDiffuse + varResSpecular;
+    return argInShadow ? varResAmbient : varResAmbient + varResDiffuse + varResSpecular;
 }

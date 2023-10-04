@@ -17,7 +17,7 @@ public:
     double shininess;
     Material();
     bool checkEqual(Material other);
-    Color getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal);
+    Color getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
 };
 
 #endif
