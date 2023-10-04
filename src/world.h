@@ -15,10 +15,12 @@ public:
     std::vector<Sphere> objects;
     std::vector<PointSource> lights;
     World();
-    Intersections intersect(Ray argRay);
+    Intersections getIntersect(Ray argRay);
     Color getShade(IntersectionState argIntersectionState);
     Color getColor(Ray r);
     bool checkShadowed(Point argPoint);
+    void setObject(Sphere argObject);
+    void setLight(PointSource argLight);
 };
 
 class DefaultWorld : public World {

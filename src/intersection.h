@@ -12,6 +12,7 @@ public:
 	double time;
 	Sphere object;
 	Point point;
+	Point mbrOverPoint;
 	Vector pov;
 	Vector normal;
 	bool inside;
@@ -19,6 +20,7 @@ public:
 
 class Intersection {
 public:
+	bool mbrExists;
 	double time;
 	Sphere object;
 	Intersection();

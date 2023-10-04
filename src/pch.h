@@ -20,6 +20,9 @@ inline std::string getPPMFilename(bool linuxPath) {
 	std::cout << path << std::endl;
 	return path;
 }
+inline float getEpsilon() {
+	return 0.00001;
+}
 inline int getPPMWidth() {
 	return 720;
 }

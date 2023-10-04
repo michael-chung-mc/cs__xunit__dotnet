@@ -8,7 +8,7 @@
 World::World ()
 {
 }
-Intersections World::intersect(Ray argRay)
+Intersections World::getIntersect(Ray argRay)
 {
     Intersections hits;
     for (int i = 0; i < objects.size(); i++)
@@ -21,20 +21,21 @@ Intersections World::intersect(Ray argRay)
     }
     return hits;
 }
-Color World::getShade(IntersectionState argIntersectionState)
+Color World::getShade(IntersectionState argIxState)
 {
+    bool varInShadow = checkShadowed(argIxState.mbrOverPoint);
     Color varShade = Color(0,0,0);
     for (int i = 0; i < lights.size();i++)
     {
-        varShade = varShade + argIntersectionState.object.material.getLighting(lights[i], argIntersectionState.point, argIntersectionState.pov, argIntersectionState.normal, false);
+        varShade = varShade + argIxState.object.material.getLighting(lights[i], argIxState.point, argIxState.pov, argIxState.normal, varInShadow);
     }
     return varShade;
 }
 Color World::getColor(Ray r)
 {
-    Intersections xs = this->intersect(r);
+    Intersections xs = this->getIntersect(r);
     Intersection hit = xs.hit();
-    if (hit.checkEqual(Intersection())) return Color(0,0,0);
+    if (!hit.mbrExists) return Color(0,0,0);
     IntersectionState is = hit.getState(r);
     return this->getShade(is);
 }
@@ -46,16 +47,22 @@ bool World::checkShadowed(Point argPoint) {
         double varDistance = varDirection.magnitude();
         Vector varDirectionNormalized = varDirection.normalize();
         Ray varRay = Ray (argPoint, varDirectionNormalized);
-        Intersections varIx = intersect(varRay);
-        Intersection varHit = varIx.hit();
-        varFlagShadow = !varHit.checkEqual(Intersection()) && varHit.time < varDistance ? varFlagShadow : false;
+        Intersection varHit = getIntersect(varRay).hit();
+        bool varShadow = varHit.mbrExists && (varHit.time < varDistance);
+        varFlagShadow = varShadow ? true : varFlagShadow;
     }
     return varFlagShadow;
+}
+void World::setObject(Sphere argObject) {
+    objects.push_back(argObject);
+}
+void World::setLight(PointSource argLight) {
+    lights.push_back(argLight);
 }
 
 DefaultWorld::DefaultWorld() : World()
 {
-    PointSource varDefaultLight = PointSource(Point(-10,-10,-10), Color(1,1,1));
+    PointSource varDefaultLight = PointSource(Point(-10,10,-10), Color(1,1,1));
     Sphere s = Sphere();
     s.material = Material();
     s.material.color = Color (0.8,1.0,0.6);

@@ -6,9 +6,9 @@
 
 class IntersectionTest : public ::testing::Test {
 public:
-	Comparinator ce;
+	Comparinator varComp;
 	void SetUp () override {
-		ce = Comparinator();
+		varComp = Comparinator();
 	}
 };
 
@@ -80,11 +80,11 @@ TEST_F(IntersectionTest, PrecomputeIntersectionState) {
 	Sphere s = Sphere();
 	Intersection i = Intersection(4, s);
 	IntersectionState is = i.getState(r);
-	EXPECT_TRUE(ce.checkFloat(is.time, i.time));
+	EXPECT_TRUE(varComp.checkFloat(is.time, i.time));
 	EXPECT_TRUE(is.object.checkEqual(i.object));
-	EXPECT_TRUE(ce.checkTuple(is.point, Point(0,0,-1)));
-	EXPECT_TRUE(ce.checkTuple(is.pov, Vector(0,0,-1)));
-	EXPECT_TRUE(ce.checkTuple(is.normal, Vector(0,0,-1)));
+	EXPECT_TRUE(varComp.checkTuple(is.point, Point(0,0,-1)));
+	EXPECT_TRUE(varComp.checkTuple(is.pov, Vector(0,0,-1)));
+	EXPECT_TRUE(varComp.checkTuple(is.normal, Vector(0,0,-1)));
 };
 
 TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitFalse) {
@@ -100,8 +100,18 @@ TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitTrue) {
 	Sphere s = Sphere();
 	Intersection i = Intersection(1, s);
 	IntersectionState is = i.getState(r);
-	EXPECT_TRUE(ce.checkTuple(is.point, Point(0,0,1)));
-	EXPECT_TRUE(ce.checkTuple(is.pov, Vector(0,0,-1)));
+	EXPECT_TRUE(varComp.checkTuple(is.point, Point(0,0,1)));
+	EXPECT_TRUE(varComp.checkTuple(is.pov, Vector(0,0,-1)));
 	EXPECT_TRUE(is.inside);
-	EXPECT_TRUE(ce.checkTuple(is.normal, Vector(0,0,-1)));
+	EXPECT_TRUE(varComp.checkTuple(is.normal, Vector(0,0,-1)));
+}
+
+TEST_F(IntersectionTest, HitShouldOffsetPoint) {
+	Ray varRay = Ray(Point(0,0,-5), Vector(0,0,1));
+	Sphere varSphere = Sphere();
+	varSphere.setTransform(TranslationMatrix(0,0,1));
+	Intersection varIntersection = Intersection(5, varSphere);
+	IntersectionState varIs = varIntersection.getState(varRay);
+	EXPECT_TRUE(varIs.mbrOverPoint.z < -getEpsilon()/2);
+	EXPECT_TRUE(varIs.point.z > varIs.mbrOverPoint.z);
 }

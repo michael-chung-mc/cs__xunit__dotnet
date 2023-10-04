@@ -2,17 +2,20 @@
 #include "sphere.h"
 #include "ray.h"
 #include "tuple.h"
+#include "pch.h"
 #include <algorithm>
 
 Intersection::Intersection()
 {
 	this->object = Sphere();
 	this->time = 0;
+	mbrExists = true;
 }
 Intersection::Intersection(double time, Sphere s)
 {
 	this->object = s;
 	this->time = time;
+	mbrExists = true;
 }
 
 bool Intersection::checkEqual(Intersection other)
@@ -39,6 +42,7 @@ IntersectionState Intersection::getState(Ray argRay)
 	else {
 		is.inside = false;
 	}
+	is.mbrOverPoint = is.point + is.normal * getEpsilon();
 	return is;
 }
 
@@ -73,7 +77,16 @@ Intersection Intersections::hit()
 			index = i;
 		}
 	}
-	return index < 0 ? Intersection() : intersections[index];
+	if (index < 0) {
+		//std::cout << "hit missed" << std::endl;
+		Intersection varIx = Intersection();
+		varIx.mbrExists = false;
+		return varIx;
+	}
+	else {
+		//std::cout << "hit" << std::endl;
+		return intersections[index];
+	}
 }
 
 Intersections& Intersections::operator=(const Intersections other)
