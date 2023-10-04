@@ -2,6 +2,7 @@
 #ifndef CAMERA_H
 #define CAMERA_H
 
+class Ray;
 #include "matrix.h"
 
 class Camera {
@@ -14,6 +15,7 @@ public:
     double mbrPixelSquare;
     Matrix mbrTransform;
     Camera(int argH, int argV, double argFOV);
+    Ray getRay(int argPxX, int argPxY);
 };
 
 #endif

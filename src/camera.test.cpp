@@ -1,5 +1,6 @@
 #include "camera.h"
 #include "comparinator.h"
+#include "ray.h"
 #include "pch.h"
 
 class CameraTest : public ::testing::Test {
@@ -42,4 +43,35 @@ TEST_F(CameraTest, CameraCanvasPixelSizeVerticalGTHorizontal)
 {
     Camera varCamera = Camera(125, 200, getPI()/2);
     EXPECT_TRUE(ce.checkFloat(varCamera.mbrPixelSquare, 0.01));
+}
+
+TEST_F(CameraTest, CameraRayCastToCanvasCenter)
+{
+    Camera varCamera = Camera(201, 101, getPI()/2);
+    Ray varCast = varCamera.getRay(100,50);
+    Point varExpectedOrigin = Point(0,0,0);
+    Vector varExpectedDirection = Vector(0,0,-1);
+    EXPECT_TRUE(ce.checkTuple(varCast.origin, varExpectedOrigin));
+    EXPECT_TRUE(ce.checkTuple(varCast.direction, varExpectedDirection));
+}
+
+TEST_F(CameraTest, CameraRayCastToCanvasCorner)
+{
+    Camera varCamera = Camera(201, 101, getPI()/2);
+    Ray varCast = varCamera.getRay(0,0);
+    Point varExpectedOrigin = Point(0,0,0);
+    Vector varExpectedDirection = Vector(0.66519, 0.33259, -.66851);
+    EXPECT_TRUE(ce.checkTuple(varCast.origin, varExpectedOrigin));
+    EXPECT_TRUE(ce.checkTuple(varCast.direction, varExpectedDirection));
+}
+
+TEST_F(CameraTest, TransformedCameraRayCastToCanvas)
+{
+    Camera varCamera = Camera(201, 101, getPI()/2);
+    varCamera.mbrTransform = *(YRotationMatrix(getPI()/4) * TranslationMatrix(0,-2,5));
+    Ray varCast = varCamera.getRay(100,50);
+    Point varExpectedOrigin = Point(0,2,-5);
+    Vector varExpectedDirection = Vector(sqrt(2)/2,0,-sqrt(2)/2);
+    EXPECT_TRUE(ce.checkTuple(varCast.origin, varExpectedOrigin));
+    EXPECT_TRUE(ce.checkTuple(varCast.direction, varExpectedDirection));
 }
