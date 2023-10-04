@@ -109,3 +109,27 @@ TEST_F(WorldTest, WorldColorHitInsideInnerSphere) {
     Color expectedColor = dw.objects[1].material.color;
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
+
+TEST_F(WorldTest, NoShadowIfObjectCollinearWithPointLight) {
+	DefaultWorld varWorld = DefaultWorld();
+    Point varPoint = Point(0,10,0);
+    EXPECT_FALSE(varWorld.checkShadowed(varPoint));
+};
+
+TEST_F(WorldTest, ShadowIfObjectBetweenPointLight) {
+	DefaultWorld varWorld = DefaultWorld();
+    Point varPoint = Point(10,-10,10);
+    EXPECT_TRUE(varWorld.checkShadowed(varPoint));
+};
+
+TEST_F(WorldTest, NoShadowIfObjectBehindLight) {
+	DefaultWorld varWorld = DefaultWorld();
+    Point varPoint = Point(-20,20,-20);
+    EXPECT_FALSE(varWorld.checkShadowed(varPoint));
+};
+
+TEST_F(WorldTest, NoShadowIfObjectBehindPoint) {
+	DefaultWorld varWorld = DefaultWorld();
+    Point varPoint = Point(-2,2,-2);
+    EXPECT_FALSE(varWorld.checkShadowed(varPoint));
+};

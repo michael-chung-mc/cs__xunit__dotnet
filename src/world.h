@@ -18,6 +18,7 @@ public:
     Intersections intersect(Ray argRay);
     Color getShade(IntersectionState argIntersectionState);
     Color getColor(Ray r);
+    bool checkShadowed(Point argPoint);
 };
 
 class DefaultWorld : public World {

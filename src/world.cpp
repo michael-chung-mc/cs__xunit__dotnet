@@ -38,6 +38,20 @@ Color World::getColor(Ray r)
     IntersectionState is = hit.getState(r);
     return this->getShade(is);
 }
+bool World::checkShadowed(Point argPoint) {
+    bool varFlagShadow = false;
+    for (int i = 0; i < lights.size(); i++)
+    {
+        Vector varDirection = lights[i].position - argPoint;
+        double varDistance = varDirection.magnitude();
+        Vector varDirectionNormalized = varDirection.normalize();
+        Ray varRay = Ray (argPoint, varDirectionNormalized);
+        Intersections varIx = intersect(varRay);
+        Intersection varHit = varIx.hit();
+        varFlagShadow = !varHit.checkEqual(Intersection()) && varHit.time < varDistance ? varFlagShadow : false;
+    }
+    return varFlagShadow;
+}
 
 DefaultWorld::DefaultWorld() : World()
 {
