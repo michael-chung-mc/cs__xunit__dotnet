@@ -39,9 +39,9 @@ Ray Camera::getRay(int argPxX, int argPxY)
 Canvas Camera::render(World argWorld)
 {
     Canvas varCanvas = Canvas(mbrCanvasHorizontal, mbrCanvasVertical);
-    for (int i = 0; i < mbrCanvasVertical - 1; i++)
+    for (int i = 0; i < mbrCanvasVertical; i++)
     {
-        for (int j = 0; j < mbrCanvasHorizontal - 1; j++)
+        for (int j = 0; j < mbrCanvasHorizontal; j++)
         {
             Ray varRay = getRay(j, i);
             Color varColor = argWorld.getColor(varRay);

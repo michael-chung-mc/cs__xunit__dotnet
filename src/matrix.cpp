@@ -463,8 +463,8 @@ ViewMatrix::ViewMatrix(Point start, Point end, Vector up) : Matrix()
 		for (int j = 0; j < cnum; j++)
 		{
 			this->grid[i][j] = varResult->grid[i][j];
-			std::cout << "addresses this:" << & grid[i][j] << ":other:" << &varResult->grid[i][j] << std::endl;
-			std::cout << "values this:" << grid[i][j] << ":other:" << varResult->grid[i][j] << std::endl;
+			// std::cout << "addresses this:" << & grid[i][j] << ":other:" << &varResult->grid[i][j] << std::endl;
+			// std::cout << "values this:" << grid[i][j] << ":other:" << varResult->grid[i][j] << std::endl;
 		};
 	};
 }

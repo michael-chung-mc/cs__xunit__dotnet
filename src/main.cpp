@@ -1,4 +1,5 @@
 #include "pch.h"
+#include "camera.h"
 #include "tuple.h"
 #include "canvas.h"
 #include "color.h"
@@ -124,8 +125,63 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 	varCanvas.save();
 }
 
-// int main(int argc, char **argv)
-// {
+void cameraRender()
+{
+	PointSource varLight = PointSource(Point(-10,10,-10), Color(1,1,1));
+
+	Sphere varFloor = Sphere();
+	varFloor.transform = ScalingMatrix(10,0.01,10);
+	varFloor.material = Material();
+	varFloor.material.color = Color(1,0.9,0.9);
+	varFloor.material.specular = 0;
+
+	Sphere varLeftWall = Sphere();
+	varLeftWall.transform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
+	varLeftWall.material = varFloor.material;
+
+	Sphere varRightWall = Sphere();
+	varRightWall.transform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
+	varRightWall.material = varFloor.material;
+
+	Sphere varObjMid = Sphere();
+	varObjMid.transform = TranslationMatrix(-0.5,1,0.5);
+	varObjMid.material = Material();
+	varObjMid.material.color = Color(0.1,1,0.5);
+	varObjMid.material.diffuse = 0.7;
+	varObjMid.material.specular = 0.3;
+
+	Sphere varObjRight = Sphere();
+	varObjRight.transform = *(TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(0.5,0.5,0.5)); 
+	varObjRight.material = Material();
+	varObjRight.material.color = Color(0.5,1,0.1);
+	varObjRight.material.diffuse = 0.7;
+	varObjRight.material.specular = 0.3;
+
+	Sphere varObjLeft = Sphere();
+	varObjLeft.transform = *(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33)); 
+	varObjLeft.material = Material();
+	varObjLeft.material.color = Color(1,0.8,0.1);
+	varObjLeft.material.diffuse = 0.7;
+	varObjLeft.material.specular = 0.3;
+
+	World varEnv = World();
+	varEnv.objects.push_back(varFloor);
+	varEnv.objects.push_back(varLeftWall);
+	varEnv.objects.push_back(varRightWall);
+	varEnv.objects.push_back(varObjMid);
+	varEnv.objects.push_back(varObjRight);
+	varEnv.objects.push_back(varObjLeft);
+	varEnv.lights.push_back(varLight);
+
+	Camera varCamera = Camera(100,50,getPI()/3);
+	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
+
+	Canvas img = varCamera.render(varEnv);
+	img.save();
+}
+
+int main(int argc, char **argv)
+{
     // ::testing::InitGoogleTest( &argc, argv);
     // return RUN_ALL_TESTS();
 
@@ -143,5 +199,8 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 
 // 	shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(1,1,1)), 10, 10, 100, Color(1, 0.2, 1));
 // 	//shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(0.5,0.5,0.5)), 10, 10, 100, Color(1, 0.2, 1));
-// 	return 0;
-// }
+
+	cameraRender();
+
+	return 0;
+}
