@@ -66,7 +66,7 @@ TEST_F(WorldTest, WorldIntersectionShading) {
     Intersection i = Intersection(4,obj);
     EXPECT_TRUE(i.mbrObject.checkEqual(obj));
     IntersectionState is = i.getState(r);
-    Color c = varDefaultWorld.getShade(is);
+    Color c = varDefaultWorld.getColorShaded(is);
     Color expectedColor = Color(0.38066, 0.47583, 0.2855);
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
@@ -77,7 +77,7 @@ TEST_F(WorldTest, WorldIntersectionInteriorShading) {
     Form obj = varDefaultWorld.mbrObjects[1];
     Intersection i = Intersection(0.5,obj);
     IntersectionState is = i.getState(r);
-    Color c = varDefaultWorld.getShade(is);
+    Color c = varDefaultWorld.getColorShaded(is);
     Color expectedColor = Color(0.90498, 0.90498, 0.90498);
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
@@ -137,7 +137,7 @@ TEST_F(WorldTest, ShadeWithShadowIntersections) {
     Ray varRay = Ray(Point(0,0,5), Vector(0,0,1));
     Intersection varIx = Intersection(4,varS2);
     IntersectionState varIs = varIx.getState(varRay);
-    Color varClr = varWorld.getShade(varIs);
+    Color varClr = varWorld.getColorShaded(varIs);
     Color varExpectedClr = Color(0.1,0.1,0.1);
     EXPECT_TRUE(varExpectedClr.checkEqual(varClr));
 };

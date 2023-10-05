@@ -4,6 +4,7 @@
 #include "intersection.h"
 #include "tuple.h"
 #include "matrix.h"
+#include "light.h"
 #include "ray.h"
 #include "pch.h"
 
@@ -27,7 +28,11 @@ Form& Form::operator=(const Form other)
 	this->mbrMaterial = other.mbrMaterial;
 	return *this;
 }
-Color Form::getColor(Point argPosition)
+Color Form::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+{
+	return mbrMaterial.getColorShaded(argLighting, argPosition, argEye, argNormal, argInShadow);
+}
+Color Form::getColorLocal(Point argPosition)
 {
 	Point varObjP = *(mbrTransform->invert()) * argPosition;
 	Point varPatternP = *(mbrMaterial.mbrPattern.mbrTransform->invert()) * varObjP;

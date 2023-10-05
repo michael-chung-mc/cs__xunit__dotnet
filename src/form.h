@@ -21,7 +21,8 @@ public:
 	virtual Intersections getIntersections(Ray argRay);
 	virtual bool checkEqual(Form other);
 	virtual Vector getNormal(Point argPoint);
-	Color getColor(Point argPosition);
+	Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
+	Color getColorLocal(Point argPosition);
 	void setTransform(const Matrix m);
 };
 

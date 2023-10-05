@@ -22,7 +22,7 @@ bool Material::checkEqual(Material other)
     return ce.checkTuple(mbrColor, other.mbrColor) && ce.checkFloat(mbrAmbient, other.mbrAmbient) && ce.checkFloat(mbrDiffuse, other.mbrDiffuse) && ce.checkFloat(mbrSpecular, other.mbrSpecular) && ce.checkFloat(mbrShininess, other.mbrShininess);
 }
 
-Color Material::getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
     Color varColor = mbrPattern.mbrColors.size() != 0 ? mbrPattern.getColor(argPosition) : mbrColor;
     Color varShade = varColor * argLighting.mbrIntensity;

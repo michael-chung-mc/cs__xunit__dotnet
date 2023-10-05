@@ -21,13 +21,13 @@ Intersections World::getIntersect(Ray argRay)
     }
     return hits;
 }
-Color World::getShade(IntersectionState argIxState)
+Color World::getColorShaded(IntersectionState argIxState)
 {
     bool varInShadow = checkShadowed(argIxState.mbrOverPoint);
     Color varShade = Color(0,0,0);
     for (int i = 0; i < mbrLights.size();i++)
     {
-        varShade = varShade + argIxState.mbrObject.mbrMaterial.getLighting(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.mbrNormal, varInShadow);
+        varShade = varShade + argIxState.mbrObject.getColorShaded(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.mbrNormal, varInShadow);
     }
     return varShade;
 }
@@ -37,7 +37,7 @@ Color World::getColor(Ray r)
     Intersection hit = xs.hit();
     if (!hit.mbrExists) return Color(0,0,0);
     IntersectionState is = hit.getState(r);
-    return this->getShade(is);
+    return this->getColorShaded(is);
 }
 bool World::checkShadowed(Point argPoint) {
     bool varFlagShadow = false;

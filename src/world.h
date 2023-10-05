@@ -16,7 +16,7 @@ public:
     std::vector<PointSource> mbrLights;
     World();
     Intersections getIntersect(Ray argRay);
-    Color getShade(IntersectionState argIntersectionState);
+    Color getColorShaded(IntersectionState argIntersectionState);
     Color getColor(Ray r);
     bool checkShadowed(Point argPoint);
     void setObject(Form argObject);

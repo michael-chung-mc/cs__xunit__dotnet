@@ -117,7 +117,7 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 				Point p = r.getPosition(xs[0].mbrTime);
 				Vector normal = xs[0].mbrObject.getNormal(p);
 				Vector pov = -r.mbrDirection;
-				Color shade = varObj.mbrMaterial.getLighting(varLight, p, pov, normal, false);
+				Color shade = varObj.mbrMaterial.getColorShaded(varLight, p, pov, normal, false);
 				varCanvas.setPixel(i,j,shade);
 			}
 		}
@@ -206,11 +206,12 @@ void cameraRenderSpherePlane()
 	varObjMid.mbrMaterial.mbrSpecular = 0.3;
 
 	Sphere varObjRight = Sphere();
-	varObjRight.mbrTransform = TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(0.5,0.5,0.5); 
+	varObjRight.mbrTransform = TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(2,0.5,2); 
 	varObjRight.mbrMaterial = Material();
 	varObjRight.mbrMaterial.mbrColor = Color(0.5,1,0.1);
 	varObjRight.mbrMaterial.mbrDiffuse = 0.7;
 	varObjRight.mbrMaterial.mbrSpecular = 0.3;
+	varObjRight.mbrMaterial.mbrPattern = PatternStripe(Color(1,0.5,0.5), Color(0.5,0.5,1));
 
 	Sphere varObjLeft = Sphere();
 	varObjLeft.mbrTransform = TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33); 
@@ -228,7 +229,7 @@ void cameraRenderSpherePlane()
 	varEnv.mbrObjects.push_back(varObjLeft);
 	varEnv.mbrLights.push_back(varLight);
 
-	Camera varCamera = Camera(100,50,getPI()/3);
+	Camera varCamera = Camera(100,50,getPI()/2);
 	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
 
 	Canvas img = varCamera.render(varEnv);
@@ -255,10 +256,10 @@ int main(int argc, char **argv)
 
 	// cameraRenderSpheres();
 
-	//cameraRenderSpherePlane();
+	cameraRenderSpherePlane();
 
-    ::testing::InitGoogleTest( &argc, argv);
-    return RUN_ALL_TESTS();
+    // ::testing::InitGoogleTest( &argc, argv);
+    // return RUN_ALL_TESTS();
 
 	// 	return 0;
 }

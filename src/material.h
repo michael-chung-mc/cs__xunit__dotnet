@@ -19,7 +19,7 @@ public:
     Pattern mbrPattern;
     Material();
     bool checkEqual(Material other);
-    Color getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
+    Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
 };
 
 #endif
