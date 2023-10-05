@@ -10,7 +10,7 @@ class Ray;
 struct IntersectionState {
 public:
 	double time;
-	Sphere object;
+	Form object;
 	Point point;
 	Point mbrOverPoint;
 	Vector pov;
@@ -22,9 +22,9 @@ class Intersection {
 public:
 	bool mbrExists;
 	double time;
-	Sphere object;
+	Form object;
 	Intersection();
-	Intersection(double time, Sphere s);
+	Intersection(double time, Form s);
 	bool checkEqual(Intersection other);
 	bool operator<(Intersection other) const;
 	IntersectionState getState(Ray argRay);
@@ -36,8 +36,8 @@ public:
 	std::vector<Intersection> intersections;
 	Intersections();
 	Intersections(const Intersections& other);
-	Intersections(double time, Sphere s);
-	void intersect(double time, Sphere s);
+	Intersections(double time, Form s);
+	void intersect(double time, Form s);
 	Intersection hit();
 	Intersections& operator=(const Intersections other);
 };

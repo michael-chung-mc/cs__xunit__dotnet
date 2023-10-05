@@ -11,7 +11,7 @@ Intersection::Intersection()
 	this->time = 0;
 	mbrExists = true;
 }
-Intersection::Intersection(double time, Sphere s)
+Intersection::Intersection(double time, Form s)
 {
 	this->object = s;
 	this->time = time;
@@ -34,7 +34,7 @@ IntersectionState Intersection::getState(Ray argRay)
 	is.object = object;
 	is.point = argRay.position(is.time);
 	is.pov = -(argRay.direction);
-	is.normal = is.object.normal(is.point);
+	is.normal = is.object.getNormal(is.point);
 	if (is.normal.dot(is.pov) < 0) {
 		is.inside = true;
 		is.normal = -is.normal;
@@ -55,12 +55,12 @@ Intersections::Intersections(const Intersections& other)
 {
 	this->intersections = other.intersections;
 }
-Intersections::Intersections(double t, Sphere s)
+Intersections::Intersections(double t, Form s)
 {
 	Intersection i = Intersection(t,s);
 	intersections.push_back(i);
 }
-void Intersections::intersect(double t, Sphere s)
+void Intersections::intersect(double t, Form s)
 {
 	intersections.push_back(Intersection(t, s));
     sort(intersections.begin(), intersections.end());

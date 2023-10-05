@@ -153,7 +153,7 @@ TEST_F(SphereTest, SphereTranslatedAway) {
 TEST_F(SphereTest, SphereNormalX) {
 	Sphere s = Sphere();
 	Point p = Point(1,0,0);
-	Vector normal = s.normal(p);
+	Vector normal = s.getNormal(p);
 	Vector expectedV = Vector(1,0,0);
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
@@ -161,7 +161,7 @@ TEST_F(SphereTest, SphereNormalX) {
 TEST_F(SphereTest, SphereNormalY) {
 	Sphere s = Sphere();
 	Point p = Point(0,1,0);
-	Vector normal = s.normal(p);
+	Vector normal = s.getNormal(p);
 	Vector expectedV = Vector(0,1,0);
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
@@ -169,7 +169,7 @@ TEST_F(SphereTest, SphereNormalY) {
 TEST_F(SphereTest, SphereNormalZ) {
 	Sphere s = Sphere();
 	Point p = Point(0,0,1);
-	Vector normal = s.normal(p);
+	Vector normal = s.getNormal(p);
 	Vector expectedV = Vector(0,0,1);
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
@@ -177,7 +177,7 @@ TEST_F(SphereTest, SphereNormalZ) {
 TEST_F(SphereTest, SphereNormal) {
 	Sphere s = Sphere();
 	Point p = Point(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
-	Vector normal = s.normal(p);
+	Vector normal = s.getNormal(p);
 	Vector expectedV = Vector(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
@@ -185,7 +185,7 @@ TEST_F(SphereTest, SphereNormal) {
 TEST_F(SphereTest, SphereNormalNormalized) {
 	Sphere s = Sphere();
 	Point p = Point(sqrt(3)/3,sqrt(3)/3,sqrt(3)/3);
-	Vector normal = s.normal(p);
+	Vector normal = s.getNormal(p);
 	Vector expectedV = normal.normalize();
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
@@ -195,7 +195,7 @@ TEST_F(SphereTest, SphereTranslatedNormalized) {
 	Matrix t = TranslationMatrix(0,1,0);
 	s.setTransform(t);
 	Point p = Point(0, 1.70711, -0.70711);
-	Vector normal = s.normal(p);
+	Vector normal = s.getNormal(p);
 	Vector expectedV = Vector(0, 0.70711, -0.70711);
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };
@@ -206,7 +206,7 @@ TEST_F(SphereTest, SphereTransformedNormalized) {
 	t = *(t * ZRotationMatrix(getPI()/5));
 	s.setTransform(t);
 	Point p = Point(0,sqrt(2)/2,-sqrt(2)/2);
-	Vector normal = s.normal(p);
+	Vector normal = s.getNormal(p);
 	Vector expectedV = Vector(0,0.97014,-0.24254);
 	EXPECT_TRUE(ce.checkTuple(normal,expectedV));
 };

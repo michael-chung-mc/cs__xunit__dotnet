@@ -11,20 +11,20 @@ class Ray;
 
 class Form {
 public:
+	Point origin;
+	double radius;
 	Matrix mbrTransform;
 	Material mbrMaterial;
 	Form();
+	Form& operator=(const Form other);
+	Intersections getIntersections(Ray argRay);
+	bool checkEqual(Form other);
+	Vector getNormal(Point argPoint);
+	void setTransform(const Matrix m);
 };
 
 class Sphere : public Form {
 public:
-	Point origin;
-	double radius;
 	Sphere();
-	Sphere& operator=(const Sphere other);
-	bool checkEqual(Sphere other);
-	Intersections getIntersections(Ray argRay);
-	void setTransform(const Matrix m);
-	Vector normal(Point argPoint);
 };
 #endif
