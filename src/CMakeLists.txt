@@ -5,6 +5,7 @@ color.h color.cpp color.test.cpp
 comparinator.h comparinator.cpp comparinator.test.cpp
 intersection.h intersection.cpp intersection.test.cpp
 matrix.h matrix.cpp matrix.test.cpp
+pattern.h pattern.cpp pattern.test.cpp
 pch.h pch.cpp
 ray.h ray.cpp ray.test.cpp
 form.h form.cpp form.test.cpp
