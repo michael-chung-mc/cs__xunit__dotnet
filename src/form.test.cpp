@@ -122,9 +122,9 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	ScalingMatrix *m = new ScalingMatrix(5, 5, 5);
-	s.setTransform(m);
-	EXPECT_TRUE(m->checkEqual(*s.mbrTransform));
+	ScalingMatrix m = ScalingMatrix(5, 5, 5);
+	s.setTransform(Matrix(m));
+	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	double z = 0;
 	double y = 10;
@@ -136,8 +136,8 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 TEST_F(SphereTest, SphereTranslatedToMiss) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	TranslationMatrix *m = new TranslationMatrix(5, 0, 0);
-	s.setTransform(m);
+	TranslationMatrix m = TranslationMatrix(5, 0, 0);
+	s.setTransform(Matrix(m));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 0);
 	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.mbrOrigin, Point(-5,0,-5)));
@@ -147,8 +147,8 @@ TEST_F(SphereTest, SphereTranslatedToMiss) {
 TEST_F(SphereTest, SphereTranslatedAway) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	TranslationMatrix *m = new TranslationMatrix(0, 0, 1);
-	s.setTransform(m);
+	TranslationMatrix m = TranslationMatrix(0, 0, 1);
+	s.setTransform(Matrix(m));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 5);
@@ -218,15 +218,15 @@ TEST_F(SphereTest, SphereTransformedNormalized) {
 TEST_F(SphereTest, SphereMaterialCtor) {
 	Sphere s = Sphere();
 	Material m = Material();
-	EXPECT_TRUE(m.checkEqual(s.mbrMaterial));
+	EXPECT_TRUE(m.checkEqual(*s.mbrMaterial));
 };
 
 TEST_F(SphereTest, SphereMaterialAssignment) {
 	Sphere s = Sphere();
 	Material m = Material();
 	m.mbrAmbient = 1;
-	s.mbrMaterial = m;
-	EXPECT_TRUE(m.checkEqual(s.mbrMaterial));
+	s.setMaterial(m);
+	EXPECT_TRUE(m.checkEqual(*s.mbrMaterial));
 };
 
 class PlaneTest : public ::testing::Test {

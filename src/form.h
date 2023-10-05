@@ -13,17 +13,20 @@ class Form {
 public:
 	Point mbrOrigin;
 	double mbrRadius;
-	Matrix* mbrTransform;
-	Material mbrMaterial;
+	std::unique_ptr<Matrix> mbrTransform;
+	std::unique_ptr<Material> mbrMaterial;
 	Ray mbrObjectRay;
 	Form();
+	Form(const Form& other);
+	virtual ~Form();
 	Form& operator=(const Form other);
 	virtual Intersections getIntersections(Ray argRay);
 	virtual bool checkEqual(Form other);
 	virtual Vector getNormal(Point argPoint);
 	Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
 	Color getColorLocal(Point argPosition);
-	void setTransform(Matrix *argMatrix);
+	void setTransform(const Matrix &argMatrix);
+	void setMaterial(const Material &argMaterial);
 };
 
 class Sphere : public Form {
