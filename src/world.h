@@ -12,14 +12,14 @@ class Color;
 
 class World {
 public:
-    std::vector<Sphere> mbrObjects;
+    std::vector<Form> mbrObjects;
     std::vector<PointSource> mbrLights;
     World();
     Intersections getIntersect(Ray argRay);
     Color getShade(IntersectionState argIntersectionState);
     Color getColor(Ray r);
     bool checkShadowed(Point argPoint);
-    void setObject(Sphere argObject);
+    void setObject(Form argObject);
     void setLight(PointSource argLight);
 };
 

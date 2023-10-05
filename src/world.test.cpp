@@ -56,7 +56,7 @@ TEST_F(WorldTest, WorldRayIntersect) {
 
 TEST_F(WorldTest, WorldIntersectionShading) {
     Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
-    Sphere obj = varDefaultWorld.mbrObjects[0];
+    Form obj = varDefaultWorld.mbrObjects[0];
     Sphere s = Sphere();
     s.mbrMaterial = Material();
     s.mbrMaterial.mbrColor = Color (0.8,1.0,0.6);
@@ -74,7 +74,7 @@ TEST_F(WorldTest, WorldIntersectionShading) {
 TEST_F(WorldTest, WorldIntersectionInteriorShading) {
     varDefaultWorld.mbrLights[0] = PointSource(Point(0,0.25,0), Color(1,1,1));
     Ray r = Ray(Point(0,0,0), Vector(0,0,1));
-    Sphere obj = varDefaultWorld.mbrObjects[1];
+    Form obj = varDefaultWorld.mbrObjects[1];
     Intersection i = Intersection(0.5,obj);
     IntersectionState is = i.getState(r);
     Color c = varDefaultWorld.getShade(is);

@@ -125,7 +125,7 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 	varCanvas.save();
 }
 
-void cameraRender()
+void cameraRenderSpheres()
 {
 	PointSource varLight = PointSource(Point(-10,10,-10), Color(1,1,1));
 
@@ -141,6 +141,61 @@ void cameraRender()
 
 	Sphere varRightWall = Sphere();
 	varRightWall.mbrTransform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
+	varRightWall.mbrMaterial = varFloor.mbrMaterial;
+
+	Sphere varObjMid = Sphere();
+	varObjMid.mbrTransform = TranslationMatrix(-0.5,1,0.5);
+	varObjMid.mbrMaterial = Material();
+	varObjMid.mbrMaterial.mbrColor = Color(0.1,1,0.5);
+	varObjMid.mbrMaterial.mbrDiffuse = 0.7;
+	varObjMid.mbrMaterial.mbrSpecular = 0.3;
+
+	Sphere varObjRight = Sphere();
+	varObjRight.mbrTransform = *(TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(0.5,0.5,0.5)); 
+	varObjRight.mbrMaterial = Material();
+	varObjRight.mbrMaterial.mbrColor = Color(0.5,1,0.1);
+	varObjRight.mbrMaterial.mbrDiffuse = 0.7;
+	varObjRight.mbrMaterial.mbrSpecular = 0.3;
+
+	Sphere varObjLeft = Sphere();
+	varObjLeft.mbrTransform = *(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33)); 
+	varObjLeft.mbrMaterial = Material();
+	varObjLeft.mbrMaterial.mbrColor = Color(1,0.8,0.1);
+	varObjLeft.mbrMaterial.mbrDiffuse = 0.7;
+	varObjLeft.mbrMaterial.mbrSpecular = 0.3;
+
+	World varEnv = World();
+	varEnv.mbrObjects.push_back(varFloor);
+	varEnv.mbrObjects.push_back(varLeftWall);
+	varEnv.mbrObjects.push_back(varRightWall);
+	varEnv.mbrObjects.push_back(varObjMid);
+	varEnv.mbrObjects.push_back(varObjRight);
+	varEnv.mbrObjects.push_back(varObjLeft);
+	varEnv.mbrLights.push_back(varLight);
+
+	Camera varCamera = Camera(100,50,getPI()/3);
+	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
+
+	Canvas img = varCamera.render(varEnv);
+	img.save();
+}
+
+void cameraRenderSpherePlane()
+{
+	PointSource varLight = PointSource(Point(-10,10,-10), Color(1,1,1));
+
+	Plane varFloor = Plane();
+	varFloor.mbrTransform = *(TranslationMatrix(0,-1,0) * ScalingMatrix(10,1,10));
+	varFloor.mbrMaterial = Material();
+	varFloor.mbrMaterial.mbrColor = Color(1,0.9,0.9);
+	varFloor.mbrMaterial.mbrSpecular = 0;
+
+	Plane varLeftWall = Plane();
+	varLeftWall.mbrTransform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10));
+	varLeftWall.mbrMaterial = varFloor.mbrMaterial;
+
+	Plane varRightWall = Plane();
+	varRightWall.mbrTransform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10));
 	varRightWall.mbrMaterial = varFloor.mbrMaterial;
 
 	Sphere varObjMid = Sphere();
@@ -198,10 +253,12 @@ int main(int argc, char **argv)
 	// shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(1,1,1)), 10, 10, 100, Color(1, 0.2, 1));
 	// shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(0.5,0.5,0.5)), 10, 10, 100, Color(1, 0.2, 1));
 
-	// cameraRender();
+	// cameraRenderSpheres();
 
-    ::testing::InitGoogleTest( &argc, argv);
-    return RUN_ALL_TESTS();
+	cameraRenderSpherePlane();
+
+    // ::testing::InitGoogleTest( &argc, argv);
+    // return RUN_ALL_TESTS();
 
 	// 	return 0;
 }

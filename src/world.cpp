@@ -53,7 +53,7 @@ bool World::checkShadowed(Point argPoint) {
     }
     return varFlagShadow;
 }
-void World::setObject(Sphere argObject) {
+void World::setObject(Form argObject) {
     mbrObjects.push_back(argObject);
 }
 void World::setLight(PointSource argLight) {
