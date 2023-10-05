@@ -61,7 +61,7 @@ TEST_F(IntersectionTest, AllNegativeT) {
 	i.intersect(-2, s);
 	std::vector<Intersection> xs = i.mbrIntersections;
 	Intersection hit = i.hit();
-	EXPECT_TRUE(hit.checkEqual(Intersection()));
+	EXPECT_FALSE(hit.mbrExists);
 };
 
 TEST_F(IntersectionTest, HitIsNonnegativeIntersection) {
@@ -84,7 +84,7 @@ TEST_F(IntersectionTest, PrecomputeIntersectionState) {
 	EXPECT_TRUE(is.mbrObject.checkEqual(i.mbrObject));
 	EXPECT_TRUE(varComp.checkTuple(is.mbrPoint, Point(0,0,-1)));
 	EXPECT_TRUE(varComp.checkTuple(is.mbrEye, Vector(0,0,-1)));
-	EXPECT_TRUE(varComp.checkTuple(is.argNormal, Vector(0,0,-1)));
+	EXPECT_TRUE(varComp.checkTuple(is.mbrNormal, Vector(0,0,-1)));
 };
 
 TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitFalse) {
@@ -92,7 +92,7 @@ TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitFalse) {
 	Sphere s = Sphere();
 	Intersection i = Intersection(4, s);
 	IntersectionState is = i.getState(r);
-	EXPECT_FALSE(is.argInside);
+	EXPECT_FALSE(is.mbrInside);
 }
 
 TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitTrue) {
@@ -102,8 +102,8 @@ TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitTrue) {
 	IntersectionState is = i.getState(r);
 	EXPECT_TRUE(varComp.checkTuple(is.mbrPoint, Point(0,0,1)));
 	EXPECT_TRUE(varComp.checkTuple(is.mbrEye, Vector(0,0,-1)));
-	EXPECT_TRUE(is.argInside);
-	EXPECT_TRUE(varComp.checkTuple(is.argNormal, Vector(0,0,-1)));
+	EXPECT_TRUE(is.mbrInside);
+	EXPECT_TRUE(varComp.checkTuple(is.mbrNormal, Vector(0,0,-1)));
 }
 
 TEST_F(IntersectionTest, HitShouldOffsetPoint) {

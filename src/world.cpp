@@ -27,7 +27,7 @@ Color World::getShade(IntersectionState argIxState)
     Color varShade = Color(0,0,0);
     for (int i = 0; i < mbrLights.size();i++)
     {
-        varShade = varShade + argIxState.mbrObject.mbrMaterial.getLighting(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.argNormal, varInShadow);
+        varShade = varShade + argIxState.mbrObject.mbrMaterial.getLighting(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.mbrNormal, varInShadow);
     }
     return varShade;
 }
@@ -63,6 +63,7 @@ void World::setLight(PointSource argLight) {
 DefaultWorld::DefaultWorld() : World()
 {
     PointSource varDefaultLight = PointSource(Point(-10,10,-10), Color(1,1,1));
+    this->mbrLights.push_back(varDefaultLight);
     Sphere s = Sphere();
     s.mbrMaterial = Material();
     s.mbrMaterial.mbrColor = Color (0.8,1.0,0.6);
@@ -70,7 +71,6 @@ DefaultWorld::DefaultWorld() : World()
     s.mbrMaterial.mbrSpecular = 0.2;
     Sphere t = Sphere();
     t.mbrTransform = ScalingMatrix(0.5,0.5,0.5);
-    this->mbrLights.push_back(varDefaultLight);
     this->mbrObjects.push_back(s);
     this->mbrObjects.push_back(t);
 }

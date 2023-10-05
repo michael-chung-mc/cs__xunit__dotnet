@@ -14,8 +14,8 @@ public:
 	Point mbrPoint;
 	Point mbrOverPoint;
 	Vector mbrEye;
-	Vector argNormal;
-	bool argInside;
+	Vector mbrNormal;
+	bool mbrInside;
 };
 
 class Intersection {

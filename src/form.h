@@ -19,8 +19,8 @@ public:
 	Form();
 	Form& operator=(const Form other);
 	virtual Intersections getIntersections(Ray argRay);
-	bool checkEqual(Form other);
-	Vector getNormal(Point argPoint);
+	virtual bool checkEqual(Form other);
+	virtual Vector getNormal(Point argPoint);
 	void setTransform(const Matrix m);
 };
 
@@ -28,5 +28,13 @@ class Sphere : public Form {
 public:
 	Sphere();
 	Intersections getIntersections(Ray argRay);
+	Vector getNormal(Point argPoint);
+	bool checkEqual(Form other);
 };
+
+class Plane : public Form {
+public:
+	Vector getNormal(Point argPoint);
+};
+
 #endif

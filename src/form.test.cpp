@@ -115,8 +115,8 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 3);
 	EXPECT_EQ(xs[1].mbrTime, 7);
-	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.argOrigin, Point(0,0,-2.5)));
-	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.argDirection, Vector(0,0,0.5)));
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.mbrOrigin, Point(0,0,-2.5)));
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.mbrDirection, Vector(0,0,0.5)));
 };
 
 TEST_F(SphereTest, SphereScaledTo5Intersections) {
@@ -140,8 +140,8 @@ TEST_F(SphereTest, SphereTranslatedToMiss) {
 	s.setTransform(m);
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 0);
-	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.argOrigin, Point(-5,0,-5)));
-	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.argDirection, Vector(0,0,1)));
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.mbrOrigin, Point(-5,0,-5)));
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.mbrDirection, Vector(0,0,1)));
 };
 
 TEST_F(SphereTest, SphereTranslatedAway) {
@@ -228,4 +228,25 @@ TEST_F(SphereTest, SphereMaterialAssignment) {
 	m.mbrAmbient = 1;
 	s.mbrMaterial = m;
 	EXPECT_TRUE(m.checkEqual(s.mbrMaterial));
+};
+
+class PlaneTest : public ::testing::Test {
+protected:
+    Comparinator varComp;
+	//TupleTest() {}
+	//~TupleTest() override {}
+	void SetUp() override {
+        varComp = Comparinator();
+    }
+	//void TearDown() override { }
+};
+TEST_F(PlaneTest, PlaneNormalSameEverywhere) {
+	Plane varPlane = Plane();
+	Vector varN1 = varPlane.getNormal(Point(0,0,0));
+	Vector varN2 = varPlane.getNormal(Point(10,0,-10));
+	Vector varN3 = varPlane.getNormal(Point(-5,0,150));
+	EXPECT_TRUE(varComp.checkTuple(varN1,Vector(0,1,0)));
+	EXPECT_TRUE(varComp.checkTuple(varN2,Vector(0,1,0)));
+	EXPECT_TRUE(varComp.checkTuple(varN3,Vector(0,1,0)));
+
 };

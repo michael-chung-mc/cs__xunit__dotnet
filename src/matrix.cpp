@@ -44,7 +44,7 @@ Matrix::Matrix(const Matrix& other)
 	//std::cout << "matrix copy ctor" << std::endl;
 	this->mbrRows = other.mbrRows;
 	this->mbrColumns = other.mbrColumns;
-	//std::cout << "this: " << rnum << cnum << " other:" << other.rnum << other.cnum << std::endl;
+	//std::cout << "this: " << mbrRows << mbrColumns << " other:" << other.mbrRows << other.mbrColumns << std::endl;
 	this->mbrGrid = new double* [mbrRows];
 	for (int i = 0; i < mbrRows; i++)
 	{
@@ -55,7 +55,7 @@ Matrix::Matrix(const Matrix& other)
 		for (int j = 0; j < mbrColumns; j++)
 		{
 			this->mbrGrid[i][j] = other.mbrGrid[i][j];
-			//std::cout << "this: " << grid[i][j] << " other:" << other.grid[i][j] << std::endl;
+			//std::cout << "this: " << mbrGrid[i][j] << " other:" << other.mbrGrid[i][j] << std::endl;
 		}
 	}
 }

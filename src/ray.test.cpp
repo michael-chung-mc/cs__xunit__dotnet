@@ -23,8 +23,8 @@ TEST_F(RayTest, RayCtor) {
 	Point p = Point(1, 2, 3);
 	Vector d = Vector(4, 5, 6);
 	Ray r = Ray(p, d);
-	EXPECT_TRUE(ce.checkTuple(r.argOrigin,p));
-	EXPECT_TRUE(ce.checkTuple(r.argDirection,d));
+	EXPECT_TRUE(ce.checkTuple(r.mbrOrigin,p));
+	EXPECT_TRUE(ce.checkTuple(r.mbrDirection,d));
 };
 
 TEST_F(RayTest, RayPositionAfterTime) {
@@ -53,10 +53,10 @@ TEST_F(RayTest, RayTranslation) {
 	Point expectedP = Point(4, 6, 8);
 	Vector expectedV = Vector(0,1,0);
 	Ray t = r.transform(m);
-	EXPECT_TRUE(ce.checkTuple(t.argOrigin, expectedP));
-	EXPECT_TRUE(ce.checkTuple(t.argDirection, expectedV));
-	EXPECT_TRUE(ce.checkTuple(r.argOrigin, p));
-	EXPECT_TRUE(ce.checkTuple(r.argDirection, d));
+	EXPECT_TRUE(ce.checkTuple(t.mbrOrigin, expectedP));
+	EXPECT_TRUE(ce.checkTuple(t.mbrDirection, expectedV));
+	EXPECT_TRUE(ce.checkTuple(r.mbrOrigin, p));
+	EXPECT_TRUE(ce.checkTuple(r.mbrDirection, d));
 };
 
 TEST_F(RayTest, RayScaling) {
@@ -67,8 +67,8 @@ TEST_F(RayTest, RayScaling) {
 	Point expectedP = Point(2, 6, 12);
 	Vector expectedV = Vector(0,3,0);
 	Ray t = r.transform(m);
-	EXPECT_TRUE(ce.checkTuple(t.argOrigin, expectedP));
-	EXPECT_TRUE(ce.checkTuple(t.argDirection, expectedV));
-	EXPECT_TRUE(ce.checkTuple(r.argOrigin, p));
-	EXPECT_TRUE(ce.checkTuple(r.argDirection, d));
+	EXPECT_TRUE(ce.checkTuple(t.mbrOrigin, expectedP));
+	EXPECT_TRUE(ce.checkTuple(t.mbrDirection, expectedV));
+	EXPECT_TRUE(ce.checkTuple(r.mbrOrigin, p));
+	EXPECT_TRUE(ce.checkTuple(r.mbrDirection, d));
 };

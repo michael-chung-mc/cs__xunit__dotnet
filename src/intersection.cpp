@@ -33,16 +33,16 @@ IntersectionState Intersection::getState(Ray argRay)
 	is.mbrTime = mbrTime;
 	is.mbrObject = mbrObject;
 	is.mbrPoint = argRay.getPosition(is.mbrTime);
-	is.mbrEye = -(argRay.argDirection);
-	is.argNormal = is.mbrObject.getNormal(is.mbrPoint);
-	if (is.argNormal.dot(is.mbrEye) < 0) {
-		is.argInside = true;
-		is.argNormal = -is.argNormal;
+	is.mbrEye = -(argRay.mbrDirection);
+	is.mbrNormal = is.mbrObject.getNormal(is.mbrPoint);
+	if (is.mbrNormal.dot(is.mbrEye) < 0) {
+		is.mbrInside = true;
+		is.mbrNormal = -is.mbrNormal;
 	}
 	else {
-		is.argInside = false;
+		is.mbrInside = false;
 	}
-	is.mbrOverPoint = is.mbrPoint + is.argNormal * getEpsilon();
+	is.mbrOverPoint = is.mbrPoint + is.mbrNormal * getEpsilon();
 	return is;
 }
 
