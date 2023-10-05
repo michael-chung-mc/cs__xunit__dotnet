@@ -88,17 +88,17 @@ TEST_F(SphereTest, SphereDefaultTransformIsIdentity) {
 
 TEST_F(SphereTest, SphereModifyTransform) {
 	Sphere s = Sphere();
-	TranslationMatrix m = TranslationMatrix(2, 3, 4);
+	TranslationMatrix *m = new TranslationMatrix(2, 3, 4);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
+	EXPECT_TRUE(m->checkEqual(*s.mbrTransform));
 };
 
 TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	ScalingMatrix m = ScalingMatrix(1, 1, 1);
+	ScalingMatrix *m = new ScalingMatrix(1, 1, 1);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
+	EXPECT_TRUE(m->checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 4);
@@ -108,9 +108,9 @@ TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
 TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	ScalingMatrix m = ScalingMatrix(2, 2, 2);
+	ScalingMatrix *m = new ScalingMatrix(2, 2, 2);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
+	EXPECT_TRUE(m->checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 3);
@@ -122,9 +122,9 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	ScalingMatrix m = ScalingMatrix(5, 5, 5);
+	ScalingMatrix *m = new ScalingMatrix(5, 5, 5);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
+	EXPECT_TRUE(m->checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	double z = 0;
 	double y = 10;
@@ -136,7 +136,7 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 TEST_F(SphereTest, SphereTranslatedToMiss) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	TranslationMatrix m = TranslationMatrix(5, 0, 0);
+	TranslationMatrix *m = new TranslationMatrix(5, 0, 0);
 	s.setTransform(m);
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 0);
@@ -147,7 +147,7 @@ TEST_F(SphereTest, SphereTranslatedToMiss) {
 TEST_F(SphereTest, SphereTranslatedAway) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	TranslationMatrix m = TranslationMatrix(0, 0, 1);
+	TranslationMatrix *m = new TranslationMatrix(0, 0, 1);
 	s.setTransform(m);
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
@@ -197,7 +197,7 @@ TEST_F(SphereTest, SphereNormalNormalized) {
 
 TEST_F(SphereTest, SphereTranslatedNormalized) {
 	Sphere s = Sphere();
-	Matrix t = TranslationMatrix(0,1,0);
+	Matrix *t = new TranslationMatrix(0,1,0);
 	s.setTransform(t);
 	Point p = Point(0, 1.70711, -0.70711);
 	Vector normal = s.getNormal(p);
@@ -207,8 +207,7 @@ TEST_F(SphereTest, SphereTranslatedNormalized) {
 
 TEST_F(SphereTest, SphereTransformedNormalized) {
 	Sphere s = Sphere();
-	Matrix t = ScalingMatrix(1, 0.5, 1);
-	t = *(t * ZRotationMatrix(getPI()/5));
+	Matrix *t = ScalingMatrix(1, 0.5, 1) * ZRotationMatrix(getPI()/5);
 	s.setTransform(t);
 	Point p = Point(0,sqrt(2)/2,-sqrt(2)/2);
 	Vector normal = s.getNormal(p);

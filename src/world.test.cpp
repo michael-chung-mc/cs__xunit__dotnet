@@ -132,7 +132,7 @@ TEST_F(WorldTest, ShadeWithShadowIntersections) {
     Sphere varS1 = Sphere();
     varWorld.setObject(varS1);
     Sphere varS2 = Sphere();
-    varS2.setTransform(TranslationMatrix(0,0,10));
+    varS2.setTransform(new TranslationMatrix(0,0,10));
     varWorld.setObject(varS2);
     Ray varRay = Ray(Point(0,0,5), Vector(0,0,1));
     Intersection varIx = Intersection(4,varS2);

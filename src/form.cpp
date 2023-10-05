@@ -39,9 +39,9 @@ Color Form::getColorLocal(Point argPosition)
 	Point varPatternP = *(mbrMaterial.mbrPattern->mbrTransform->invert()) * varObjP;
 	return mbrMaterial.mbrPattern->getColor(varPatternP);
 }
-void Form::setTransform(const Matrix m)
+void Form::setTransform(Matrix *argMatrix)
 {
-	this->mbrTransform = new Matrix(m);
+	this->mbrTransform = argMatrix;
 }
 Intersections Form::getIntersections(Ray argRay)
 {
