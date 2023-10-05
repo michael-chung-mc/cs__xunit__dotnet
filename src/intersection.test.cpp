@@ -109,7 +109,7 @@ TEST_F(IntersectionTest, PrecomputeIntersectionStateInteriorHitTrue) {
 TEST_F(IntersectionTest, HitShouldOffsetPoint) {
 	Ray varRay = Ray(Point(0,0,-5), Vector(0,0,1));
 	Sphere varSphere = Sphere();
-	varSphere.setTransform(TranslationMatrix(0,0,1));
+	varSphere.setTransform(new TranslationMatrix(0,0,1));
 	Intersection varIntersection = Intersection(5, varSphere);
 	IntersectionState varIs = varIntersection.getState(varRay);
 	EXPECT_TRUE(varIs.mbrOverPoint.mbrZ < -getEpsilon()/2);

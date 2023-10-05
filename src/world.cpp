@@ -70,7 +70,7 @@ DefaultWorld::DefaultWorld() : World()
     s.mbrMaterial->mbrDiffuse = 0.7;
     s.mbrMaterial->mbrSpecular = 0.2;
     Sphere t = Sphere();
-    t.setTransform(ScalingMatrix(0.5,0.5,0.5));
+    t.setTransform(new ScalingMatrix(0.5,0.5,0.5));
     this->mbrObjects.push_back(s);
     this->mbrObjects.push_back(t);
 }

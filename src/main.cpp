@@ -175,7 +175,7 @@ void cameraRenderSpheres()
 	varEnv.mbrLights.push_back(varLight);
 
 	Camera varCamera = Camera(100,50,getPI()/3);
-	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
+	varCamera.setTransform(new ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0)));
 
 	Canvas img = varCamera.render(varEnv);
 	img.save();
@@ -230,7 +230,7 @@ void cameraRenderSpherePlane()
 	varEnv.mbrLights.push_back(varLight);
 
 	Camera varCamera = Camera(100,50,getPI()/2);
-	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
+	varCamera.setTransform(new ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0)));
 
 	Canvas img = varCamera.render(varEnv);
 	img.save();
@@ -256,10 +256,10 @@ int main(int argc, char **argv)
 
 	// cameraRenderSpheres();
 
-	cameraRenderSpherePlane();
+	// cameraRenderSpherePlane();
 
-    // ::testing::InitGoogleTest( &argc, argv);
-    // return RUN_ALL_TESTS();
+    ::testing::InitGoogleTest( &argc, argv);
+    return RUN_ALL_TESTS();
 
 	// 	return 0;
 }
