@@ -2,6 +2,12 @@
 #include "tuple.h"
 #include "matrix.h"
 
+Ray::Ray()
+{
+	this->origin = Point(0,0,0);
+	this->direction = Vector(0,0,0);
+}
+
 Ray::Ray(Point origin, Vector direction)
 {
 	this->origin = origin;

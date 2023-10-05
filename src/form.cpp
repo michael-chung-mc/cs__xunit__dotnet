@@ -14,31 +14,6 @@ Form::Form () {
 	mbrMaterial = Material();
 }
 
-Intersections Form::getIntersections(Ray argRay)
-{
-	Intersections varIntersections;
-	Ray objectSpaceRay = argRay.transform(*(this->mbrTransform.invert()));
-	Vector sphereToRay = objectSpaceRay.origin - (Point(0, 0, 0));
-	double a = objectSpaceRay.direction.dot(objectSpaceRay.direction);
-	double b = 2 * objectSpaceRay.direction.dot(sphereToRay);
-	double c = sphereToRay.dot(sphereToRay) - 1;
-	double discriminant = pow(b,2) - 4 * a * c;
-	if (discriminant < 0) return varIntersections;
-	double intersectOne = (-b - sqrt(discriminant)) / (2 * a);
-	double intersectTwo = (-b + sqrt(discriminant)) / (2 * a);
-	if (intersectOne < intersectTwo)
-	{
-		varIntersections.intersect(intersectOne, *this);
-		varIntersections.intersect(intersectTwo, *this);
-	}
-	else
-	{
-		varIntersections.intersect(intersectTwo, *this);
-		varIntersections.intersect(intersectOne, *this);
-	}
-	return varIntersections;
-}
-
 bool Form::checkEqual(Form other)
 {
 	Comparinator ce = Comparinator();
@@ -59,7 +34,9 @@ void Form::setTransform(const Matrix m)
 {
 	this->mbrTransform = *(new Matrix(m));
 }
-
+Intersections Form::getIntersections(Ray argRay)
+{
+}
 Vector Form::getNormal(Point argPoint)
 {
 	// return (argPoint-origin).normalize();
@@ -73,4 +50,28 @@ Vector Form::getNormal(Point argPoint)
 
 Sphere::Sphere() : Form ()
 {
+}
+Intersections Sphere::getIntersections(Ray argRay)
+{
+	Intersections varIntersections;
+	mbrObjectRay = argRay.transform(*(this->mbrTransform.invert()));
+	Vector sphereToRay = mbrObjectRay.origin - (Point(0, 0, 0));
+	double a = mbrObjectRay.direction.dot(mbrObjectRay.direction);
+	double b = 2 * mbrObjectRay.direction.dot(sphereToRay);
+	double c = sphereToRay.dot(sphereToRay) - 1;
+	double discriminant = pow(b,2) - 4 * a * c;
+	if (discriminant < 0) return varIntersections;
+	double intersectOne = (-b - sqrt(discriminant)) / (2 * a);
+	double intersectTwo = (-b + sqrt(discriminant)) / (2 * a);
+	if (intersectOne < intersectTwo)
+	{
+		varIntersections.intersect(intersectOne, *this);
+		varIntersections.intersect(intersectTwo, *this);
+	}
+	else
+	{
+		varIntersections.intersect(intersectTwo, *this);
+		varIntersections.intersect(intersectOne, *this);
+	}
+	return varIntersections;
 }

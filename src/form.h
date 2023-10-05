@@ -5,8 +5,8 @@
 #include "tuple.h"
 #include "matrix.h"
 #include "material.h"
+#include "ray.h"
 class Intersections;
-class Ray;
 #include <vector>
 
 class Form {
@@ -15,9 +15,10 @@ public:
 	double radius;
 	Matrix mbrTransform;
 	Material mbrMaterial;
+	Ray mbrObjectRay;
 	Form();
 	Form& operator=(const Form other);
-	Intersections getIntersections(Ray argRay);
+	virtual Intersections getIntersections(Ray argRay);
 	bool checkEqual(Form other);
 	Vector getNormal(Point argPoint);
 	void setTransform(const Matrix m);
@@ -26,5 +27,6 @@ public:
 class Sphere : public Form {
 public:
 	Sphere();
+	Intersections getIntersections(Ray argRay);
 };
 #endif

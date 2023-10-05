@@ -27,6 +27,7 @@ TEST_F(SphereTest, EqualityTest) {
 	Sphere s = Sphere();
 	EXPECT_TRUE(s.checkEqual(s));
 };
+
 TEST_F(SphereTest, RayIntersectTwo) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
@@ -114,6 +115,8 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 3);
 	EXPECT_EQ(xs[1].time, 7);
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.origin, Point(0,0,-2.5)));
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.direction, Vector(0,0,0.5)));
 };
 
 TEST_F(SphereTest, SphereScaledTo5Intersections) {
@@ -137,6 +140,8 @@ TEST_F(SphereTest, SphereTranslatedToMiss) {
 	s.setTransform(m);
 	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 0);
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.origin, Point(-5,0,-5)));
+	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.direction, Vector(0,0,1)));
 };
 
 TEST_F(SphereTest, SphereTranslatedAway) {

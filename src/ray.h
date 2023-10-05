@@ -9,6 +9,7 @@ class Ray {
 public:
 	Point origin;
 	Vector direction;
+	Ray();
 	Ray(Point origin, Vector direction);
 	Point position(double time);
 	Ray transform(Matrix matrix);
