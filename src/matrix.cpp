@@ -189,7 +189,7 @@ Tuple Matrix::operator*(Tuple const other)
 {
 	if (mbrRows != 4 && mbrColumns != 4) return other;
 	//std::cout << "matrix tuple multiplication" << std::endl;
-	double pseudoMatrix[4] = {other.argX, other.argY, other.argZ, other.argW};
+	double pseudoMatrix[4] = {other.mbrX, other.mbrY, other.mbrZ, other.mbrW};
 	double results[4] = { 0,0,0,0 };
 	double res = 0;
 	for (int tuple = 0; tuple < 4; tuple++)
@@ -206,15 +206,15 @@ Tuple Matrix::operator*(Tuple const other)
 }
 Point Matrix::operator*(const Point other)
 {
-	Tuple tp = Tuple(other.argX, other.argY, other.argZ, other.argW);
+	Tuple tp = Tuple(other.mbrX, other.mbrY, other.mbrZ, other.mbrW);
 	Tuple res = *(this) * tp;
-	return Point(res.argX, res.argY, res.argZ);
+	return Point(res.mbrX, res.mbrY, res.mbrZ);
 }
 Vector Matrix::operator*(const Vector other)
 {
-	Tuple tp = Tuple(other.argX, other.argY, other.argZ, other.argW);
+	Tuple tp = Tuple(other.mbrX, other.mbrY, other.mbrZ, other.mbrW);
 	Tuple res = *(this) * tp;
-	return Vector(res.argX, res.argY, res.argZ);
+	return Vector(res.mbrX, res.mbrY, res.mbrZ);
 }
 
 bool Matrix::checkInvertible() {
@@ -455,9 +455,9 @@ ViewMatrix::ViewMatrix(Point start, Point end, Vector up) : Matrix()
 	Vector varForward = (end - start).normalize();
 	Vector varLeft = varForward.cross(up.normalize());
 	Vector varUp = varLeft.cross(varForward);
-	double varValues[] = {varLeft.argX, varLeft.argY, varLeft.argZ, 0, varUp.argX, varUp.argY, varUp.argZ, 0, -varForward.argX, -varForward.argY, -varForward.argZ, 0, 0, 0, 0, 1};
+	double varValues[] = {varLeft.mbrX, varLeft.mbrY, varLeft.mbrZ, 0, varUp.mbrX, varUp.mbrY, varUp.mbrZ, 0, -varForward.mbrX, -varForward.mbrY, -varForward.mbrZ, 0, 0, 0, 0, 1};
 	Matrix varOrientation = Matrix(4,4, varValues);
-	Matrix* varResult = varOrientation * TranslationMatrix(-start.argX, -start.argY, -start.argZ);
+	Matrix* varResult = varOrientation * TranslationMatrix(-start.mbrX, -start.mbrY, -start.mbrZ);
 	for (int i = 0; i < mbrRows; i++)
 	{
 		for (int j = 0; j < mbrColumns; j++)

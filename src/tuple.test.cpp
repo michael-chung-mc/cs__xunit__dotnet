@@ -21,39 +21,39 @@ TEST_F(TupleTest, CanaryTest) {
 TEST_F(TupleTest, TupleWOneIsPoint)
 {
 	Tuple a = Tuple(4.3, -4.2, 3.1, 1.0);
-	EXPECT_EQ(a.argX, 4.3);
-	EXPECT_EQ(a.argY, -4.2);
-	EXPECT_EQ(a.argZ, 3.1);
-	EXPECT_EQ(a.argW, 1.0);
+	EXPECT_EQ(a.mbrX, 4.3);
+	EXPECT_EQ(a.mbrY, -4.2);
+	EXPECT_EQ(a.mbrZ, 3.1);
+	EXPECT_EQ(a.mbrW, 1.0);
 	Point ap = Point(4.3, -4.2, 3.1);
-	EXPECT_EQ(a.argX, ap.argX);
-	EXPECT_EQ(a.argY, ap.argY);
-	EXPECT_EQ(a.argZ, ap.argZ);
-	EXPECT_EQ(a.argW, ap.argW);
+	EXPECT_EQ(a.mbrX, ap.mbrX);
+	EXPECT_EQ(a.mbrY, ap.mbrY);
+	EXPECT_EQ(a.mbrZ, ap.mbrZ);
+	EXPECT_EQ(a.mbrW, ap.mbrW);
 	Vector av = Vector(4.3, -4.2, 3.1);
-	EXPECT_EQ(a.argX, av.argX);
-	EXPECT_EQ(a.argY, av.argY);
-	EXPECT_EQ(a.argZ, av.argZ);
-	EXPECT_NE(a.argW, av.argW);
+	EXPECT_EQ(a.mbrX, av.mbrX);
+	EXPECT_EQ(a.mbrY, av.mbrY);
+	EXPECT_EQ(a.mbrZ, av.mbrZ);
+	EXPECT_NE(a.mbrW, av.mbrW);
 };
 
 TEST_F(TupleTest, TupleWZeroIsVector)
 {
 	Tuple a = Tuple(4.3, -4.2, 3.1, 0.0);
-	EXPECT_EQ(a.argX, 4.3);
-	EXPECT_EQ(a.argY, -4.2);
-	EXPECT_EQ(a.argZ, 3.1);
-	EXPECT_EQ(a.argW, 0.0);
+	EXPECT_EQ(a.mbrX, 4.3);
+	EXPECT_EQ(a.mbrY, -4.2);
+	EXPECT_EQ(a.mbrZ, 3.1);
+	EXPECT_EQ(a.mbrW, 0.0);
 	Point ap = Point(4.3, -4.2, 3.1);
-	EXPECT_EQ(a.argX, ap.argX);
-	EXPECT_EQ(a.argY, ap.argY);
-	EXPECT_EQ(a.argZ, ap.argZ);
-	EXPECT_NE(a.argW, ap.argW);
+	EXPECT_EQ(a.mbrX, ap.mbrX);
+	EXPECT_EQ(a.mbrY, ap.mbrY);
+	EXPECT_EQ(a.mbrZ, ap.mbrZ);
+	EXPECT_NE(a.mbrW, ap.mbrW);
 	Vector av = Vector(4.3, -4.2, 3.1);
-	EXPECT_EQ(a.argX, av.argX);
-	EXPECT_EQ(a.argY, av.argY);
-	EXPECT_EQ(a.argZ, av.argZ);
-	EXPECT_EQ(a.argW, av.argW);
+	EXPECT_EQ(a.mbrX, av.mbrX);
+	EXPECT_EQ(a.mbrY, av.mbrY);
+	EXPECT_EQ(a.mbrZ, av.mbrZ);
+	EXPECT_EQ(a.mbrW, av.mbrW);
 };
 
 TEST_F(TupleTest, TuplePlusTupleEqualsTuple)

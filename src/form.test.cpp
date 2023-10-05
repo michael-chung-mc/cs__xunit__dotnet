@@ -250,3 +250,31 @@ TEST_F(PlaneTest, PlaneNormalSameEverywhere) {
 	EXPECT_TRUE(varComp.checkTuple(varN3,Vector(0,1,0)));
 
 };
+TEST_F(PlaneTest, RayParallelToPlane) {
+	Plane varPlane = Plane();
+	Ray varRay = Ray(Point(0,10,0), Vector(0,0,1));
+	Intersections varIx = varPlane.getIntersections(varRay);
+	EXPECT_TRUE(varIx.mbrIntersections.size() == 0);
+};
+TEST_F(PlaneTest, CoplanarRayToPlane) {
+	Plane varPlane = Plane();
+	Ray varRay = Ray(Point(0,0,0), Vector(0,0,1));
+	Intersections varIx = varPlane.getIntersections(varRay);
+	EXPECT_TRUE(varIx.mbrIntersections.size() == 0);
+};
+TEST_F(PlaneTest, RayIntersectingPlaneAbove) {
+	Plane varPlane = Plane();
+	Ray varRay = Ray(Point(0,1,0), Vector(0,-1,0));
+	Intersections varIx = varPlane.getIntersections(varRay);
+	EXPECT_TRUE(varIx.mbrIntersections.size() == 1);
+	EXPECT_EQ(varIx.mbrIntersections[0].mbrTime, 1);
+	EXPECT_TRUE(varIx.mbrIntersections[0].mbrObject.checkEqual(varPlane));
+};
+TEST_F(PlaneTest, RayIntersectingPlaneBelow) {
+	Plane varPlane = Plane();
+	Ray varRay = Ray(Point(0,-1,0), Vector(0,1,0));
+	Intersections varIx = varPlane.getIntersections(varRay);
+	EXPECT_TRUE(varIx.mbrIntersections.size() == 1);
+	EXPECT_EQ(varIx.mbrIntersections[0].mbrTime, 1);
+	EXPECT_TRUE(varIx.mbrIntersections[0].mbrObject.checkEqual(varPlane));
+};

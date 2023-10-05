@@ -112,6 +112,6 @@ TEST_F(IntersectionTest, HitShouldOffsetPoint) {
 	varSphere.setTransform(TranslationMatrix(0,0,1));
 	Intersection varIntersection = Intersection(5, varSphere);
 	IntersectionState varIs = varIntersection.getState(varRay);
-	EXPECT_TRUE(varIs.mbrOverPoint.argZ < -getEpsilon()/2);
-	EXPECT_TRUE(varIs.mbrPoint.argZ > varIs.mbrOverPoint.argZ);
+	EXPECT_TRUE(varIs.mbrOverPoint.mbrZ < -getEpsilon()/2);
+	EXPECT_TRUE(varIs.mbrPoint.mbrZ > varIs.mbrOverPoint.mbrZ);
 }

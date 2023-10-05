@@ -7,54 +7,54 @@ class Vector;
 
 Tuple::Tuple()
 {
-	argX = 0;
-	argY = 0;
-	argZ = 0;
-	argW = 0;
+	mbrX = 0;
+	mbrY = 0;
+	mbrZ = 0;
+	mbrW = 0;
 }
 Tuple::Tuple(double argx, double argy, double argz, double argw)
 {
-	argX = argx;
-	argY = argy;
-	argZ = argz;
-	argW = argw;
+	mbrX = argx;
+	mbrY = argy;
+	mbrZ = argz;
+	mbrW = argw;
 };
 Tuple Tuple::operator-()
 {
-	return Tuple(-argX, -argY, -argZ, -argW);
+	return Tuple(-mbrX, -mbrY, -mbrZ, -mbrW);
 }
 
 Tuple Tuple::operator*(float multiple)
 {
-	return Tuple(argX * multiple, argY * multiple, argZ * multiple, argW * multiple);
+	return Tuple(mbrX * multiple, mbrY * multiple, mbrZ * multiple, mbrW * multiple);
 }
 Tuple Tuple::operator/(float multiple)
 {
-	return Tuple(argX / multiple, argY / multiple, argZ / multiple, argW / multiple);
+	return Tuple(mbrX / multiple, mbrY / multiple, mbrZ / multiple, mbrW / multiple);
 }
 Tuple Tuple::operator+(Tuple a)
 {
-	return Tuple(a.argX + argX, a.argY + argY, a.argZ + argZ, a.argW + argW);;
+	return Tuple(a.mbrX + mbrX, a.mbrY + mbrY, a.mbrZ + mbrZ, a.mbrW + mbrW);;
 }
 Tuple Tuple::add(Tuple a)
 {
-	return Tuple(a.argX + argX, a.argY + argY, a.argZ + argZ, a.argW + argW);
+	return Tuple(a.mbrX + mbrX, a.mbrY + mbrY, a.mbrZ + mbrZ, a.mbrW + mbrW);
 };
 Tuple Tuple::subtract(Tuple a)
 {
-	return Tuple(argX - a.argX, argY - a.argY, argZ - a.argZ, argW - a.argW);
+	return Tuple(mbrX - a.mbrX, mbrY - a.mbrY, mbrZ - a.mbrZ, mbrW - a.mbrW);
 };
 Tuple Tuple::negate()
 {
-	return Tuple(-argX, -argY, -argZ, -argW);
+	return Tuple(-mbrX, -mbrY, -mbrZ, -mbrW);
 };
 float Tuple::magnitude()
 {
-	return sqrt(pow(argX, 2) + pow(argY, 2) + pow(argZ, 2) + pow(argW, 2));
+	return sqrt(pow(mbrX, 2) + pow(mbrY, 2) + pow(mbrZ, 2) + pow(mbrW, 2));
 }
 double Tuple::dot(Tuple a)
 {
-	return (argX * a.argX + argY * a.argY + argZ * a.argZ);
+	return (mbrX * a.mbrX + mbrY * a.mbrY + mbrZ * a.mbrZ);
 };
 Tuple Tuple::reflect(Tuple normal)
 {
@@ -65,46 +65,46 @@ Point::Point() : Tuple(0, 0, 0, 1.0) {};
 Point::Point(double argx, double argy, double argz) : Tuple(argx, argy, argz, 1.0) {};
 Point Point::operator+(Tuple a)
 {
-	return Point(a.argX + argX, a.argY + argY, a.argZ + argZ);;
+	return Point(a.mbrX + mbrX, a.mbrY + mbrY, a.mbrZ + mbrZ);;
 }
 Vector Point::operator-(Point a)
 {
-	return Vector(argX-a.argX, argY-a.argY, argZ-a.argZ);;
+	return Vector(mbrX-a.mbrX, mbrY-a.mbrY, mbrZ-a.mbrZ);;
 }
 Point Point::subtract(Tuple a)
 {
-	return Point(argX - a.argX, argY - a.argY, argZ - a.argZ);
+	return Point(mbrX - a.mbrX, mbrY - a.mbrY, mbrZ - a.mbrZ);
 }
 
 Vector::Vector() : Tuple(0, 0, 0, 0.0) {};
 Vector::Vector(double argx, double argy, double argz) : Tuple(argx, argy, argz, 0.0) {};
 Vector Vector::operator+(Tuple a)
 {
-	return Vector(a.argX + argX, a.argY + argY, a.argZ + argZ);;
+	return Vector(a.mbrX + mbrX, a.mbrY + mbrY, a.mbrZ + mbrZ);;
 }
 Vector Vector::operator-()
 {
-	return Vector(-argX, -argY, -argZ);
+	return Vector(-mbrX, -mbrY, -mbrZ);
 }
 Vector Vector::operator*(float multiple)
 {
-	return Vector(argX * multiple, argY * multiple, argZ * multiple);
+	return Vector(mbrX * multiple, mbrY * multiple, mbrZ * multiple);
 }
 Vector Vector::subtract(Tuple a)
 {
-	return Vector(argX - a.argX, argY - a.argY, argZ - a.argZ);
+	return Vector(mbrX - a.mbrX, mbrY - a.mbrY, mbrZ - a.mbrZ);
 }
 Vector Vector::normalize()
 {
-	return Vector(argX / magnitude(), argY / magnitude(), argZ / magnitude());
+	return Vector(mbrX / magnitude(), mbrY / magnitude(), mbrZ / magnitude());
 };
 double Vector::dot(Vector a)
 {
-	return (argX * a.argX + argY * a.argY + argZ * a.argZ);
+	return (mbrX * a.mbrX + mbrY * a.mbrY + mbrZ * a.mbrZ);
 };
 Vector Vector::cross(Vector a)
 {
-	return Vector(argY * a.argZ - argZ * a.argY, argZ * a.argX - argX * a.argZ, argX * a.argY - argY * a.argX);
+	return Vector(mbrY * a.mbrZ - mbrZ * a.mbrY, mbrZ * a.mbrX - mbrX * a.mbrZ, mbrX * a.mbrY - mbrY * a.mbrX);
 };
 Vector Vector::reflect(Vector normal)
 {

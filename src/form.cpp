@@ -62,7 +62,7 @@ Vector Form::getNormal(Point argPoint)
 	Vector varObjectNormal = varObjectPoint - this->mbrOrigin;
 	Matrix varTransform = *(*this->mbrTransform.invert()).transpose();
 	Vector varWorldNormal = varTransform * varObjectNormal;
-	varWorldNormal.argW = 0;
+	varWorldNormal.mbrW = 0;
 	return varWorldNormal.normalize();
 }
 
@@ -101,7 +101,7 @@ Vector Sphere::getNormal(Point argPoint)
 	Vector varObjectNormal = varObjectPoint - this->mbrOrigin;
 	Matrix varTransform = *(*this->mbrTransform.invert()).transpose();
 	Vector varWorldNormal = varTransform * varObjectNormal;
-	varWorldNormal.argW = 0;
+	varWorldNormal.mbrW = 0;
 	return varWorldNormal.normalize();
 }
 bool Sphere::checkEqual(Form other)
@@ -114,4 +114,10 @@ bool Sphere::checkEqual(Form other)
 Vector Plane::getNormal(Point argPoint)
 {
 	return Vector(0,1,0);
+}
+Intersections Plane::getIntersections(Ray argRay)
+{
+	if (abs(argRay.mbrDirection.mbrY) <= getEpsilon()) { return Intersections(); }
+	double varTime = -argRay.mbrOrigin.mbrY / argRay.mbrDirection.mbrY;
+	return Intersections(varTime, *this);
 }

@@ -46,12 +46,12 @@ public:
 		//Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0)*power).normalize());
 		Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0).normalize()) * power);
 		Environment e = Environment(Vector(0, -.1, 0), Vector(-.01, 0, 0));
-		while (b.position.argY >= 0)
+		while (b.position.mbrY >= 0)
 		{
 			b = tick(e,b);
-			std::cout << "x: " << std::to_string(b.position.argX) << " y: " << std::to_string(b.position.argY) << " z: " << std::to_string(b.position.argZ) << " w: " << std::to_string(b.position.argW) << std::endl;
+			std::cout << "x: " << std::to_string(b.position.mbrX) << " y: " << std::to_string(b.position.mbrY) << " z: " << std::to_string(b.position.mbrZ) << " w: " << std::to_string(b.position.mbrW) << std::endl;
 			Color white = Color(0, 0, 0);
-			c.setPixel((int)b.position.argX, getPPMHeight() - b.position.argY, white);
+			c.setPixel((int)b.position.mbrX, getPPMHeight() - b.position.mbrY, white);
 		}
 		c.save();
 	}

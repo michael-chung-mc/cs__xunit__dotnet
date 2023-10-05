@@ -35,6 +35,7 @@ public:
 class Plane : public Form {
 public:
 	Vector getNormal(Point argPoint);
+	Intersections getIntersections(Ray argRay);
 };
 
 #endif

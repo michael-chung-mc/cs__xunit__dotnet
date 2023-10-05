@@ -10,7 +10,7 @@ public:
 	template <typename Agent>
 	bool checkTuple(Agent a, Agent b)
 	{
-		return (checkFloat(a.argX, b.argX) && checkFloat(a.argY, b.argY) && checkFloat(a.argZ, b.argZ) && checkFloat(a.argW, b.argW));
+		return (checkFloat(a.mbrX, b.mbrX) && checkFloat(a.mbrY, b.mbrY) && checkFloat(a.mbrZ, b.mbrZ) && checkFloat(a.mbrW, b.mbrW));
 	};
 private:
 	float mbrEpsilon;
