@@ -11,4 +11,9 @@ public:
     Pattern();
 };
 
+class PatternStripe : public Pattern {
+public:
+    PatternStripe();
+};
+
 #endif

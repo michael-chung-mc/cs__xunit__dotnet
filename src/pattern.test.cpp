@@ -24,3 +24,10 @@ TEST_F(PatternTest, PatternCtor)
     EXPECT_TRUE(varP.argBlack.checkEqual(Color(0,0,0)));
     EXPECT_TRUE(varP.argWhite.checkEqual(Color(1,1,1)));
 }
+
+TEST_F(PatternTest, StripePatternCtor)
+{
+    PatternStripe varP = PatternStripe();
+    EXPECT_TRUE(varP.argBlack.checkEqual(Color(0,0,0)));
+    EXPECT_TRUE(varP.argWhite.checkEqual(Color(1,1,1)));
+}
