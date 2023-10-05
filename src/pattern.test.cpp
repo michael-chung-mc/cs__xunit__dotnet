@@ -6,12 +6,10 @@
 class PatternTest : public ::testing::Test {
 protected:
     Comparinator varComp;
-    std::unique_ptr<PatternStripe> varPatternStripe;
 	//TupleTest() {}
 	//~TupleTest() override {}
 	void SetUp() override {
         varComp = Comparinator();
-        varPatternStripe = std::make_unique<PatternStripe>();
     }
 	// void TearDown() override {  }
 };
@@ -32,8 +30,7 @@ TEST_F(PatternTest, PatternTransformationAssignment)
 {
     Pattern varP = Pattern();
     TranslationMatrix varTM = TranslationMatrix(1,2,3);
-    std::unique_ptr<Matrix> varTMU = std::make_unique<TranslationMatrix>(TranslationMatrix(1,2,3));
-    varP.setTransform(std::move(varTMU));
+    varP.setTransform(varTM);
     EXPECT_TRUE(varP.mbrTransform->checkEqual(varTM));
 }
 TEST_F(PatternTest, PatternObjectTransformation)
@@ -48,8 +45,8 @@ TEST_F(PatternTest, PatternPatternTransformation)
 {
     Sphere varObj = Sphere();
     varObj.mbrMaterial.setPattern(new Pattern());
-    std::unique_ptr<Matrix> varM = std::make_unique<ScalingMatrix>(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.mbrPattern->setTransform(std::move(varM));
+    ScalingMatrix varM = ScalingMatrix(2,2,2);
+    varObj.mbrMaterial.mbrPattern->setTransform(varM);
     Color varColor = varObj.getColorLocal(Point(2,3,4));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1.5,2)));
 }
@@ -58,8 +55,8 @@ TEST_F(PatternTest, PatternObjectPatternTransformation)
     Sphere varObj = Sphere();
     varObj.setTransform(ScalingMatrix(2,2,2));
     varObj.mbrMaterial.setPattern(new Pattern());
-    std::unique_ptr<Matrix> varM = std::make_unique<TranslationMatrix>(TranslationMatrix(0.5,1,1.5));
-    varObj.mbrMaterial.mbrPattern->setTransform(std::move(varM));
+    TranslationMatrix varTM = TranslationMatrix(0.5,1,1.5);
+    varObj.mbrMaterial.mbrPattern->setTransform(varTM);
     Color varColor = varObj.getColorLocal(Point(2.5,3,3.5));
     EXPECT_TRUE(varColor.checkEqual(Color(0.75,0.5,0.25)));
 }
@@ -98,26 +95,26 @@ TEST_F(PatternTest, StripePatternObjectTransformation)
 {
     Sphere varObj = Sphere();
     varObj.setTransform(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.setPattern(varPatternStripe.get());
+    varObj.mbrMaterial.setPattern(new PatternStripe());
     Color varColor = varObj.getColorLocal(Point(1.5,0,0));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1,1)));
 }
 TEST_F(PatternTest, StripePatternPatternTransformation)
 {
     Sphere varObj = Sphere();
-    varObj.mbrMaterial.setPattern(varPatternStripe.get());
-    std::unique_ptr<Matrix> varM = std::make_unique<ScalingMatrix>(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.mbrPattern->setTransform(std::move(varM));
+    ScalingMatrix varMS = ScalingMatrix(2,2,2);
+    varObj.mbrMaterial.setPattern(new PatternStripe());
+    varObj.mbrMaterial.mbrPattern->setTransform(varMS);
     Color varColor = varObj.getColorLocal(Point(1.5,0,0));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1,1)));
 }
 TEST_F(PatternTest, StripePatternObjectPatternTransformation)
 {
     Sphere varObj = Sphere();
+    TranslationMatrix varMT = TranslationMatrix(0.5,0,0);
     varObj.setTransform(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.setPattern(varPatternStripe.get());
-    std::unique_ptr<Matrix> varM = std::make_unique<TranslationMatrix>(TranslationMatrix(0.5,0,0));
-    varObj.mbrMaterial.mbrPattern->setTransform(std::move(varM));
+    varObj.mbrMaterial.setPattern(new PatternStripe());
+    varObj.mbrMaterial.mbrPattern->setTransform(varMT);
     Color varColor = varObj.getColorLocal(Point(2.5,0,0));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1,1)));
 }

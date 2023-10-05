@@ -15,13 +15,16 @@ public:
     std::vector<Color> mbrColors;
     std::unique_ptr<Matrix> mbrTransform;
     Pattern();
+	Pattern(const Pattern& other);
+    ~Pattern();
     virtual Color getColor(Point argPoint);
-    void setTransform(std::unique_ptr<Matrix> argMatrix);
+    void setTransform(const Matrix &argMatrix);
 };
 
 class PatternStripe : public Pattern {
 public:
     PatternStripe();
+	PatternStripe(const Pattern& other);
     PatternStripe(Color argColorA, Color argColorB);
     Color getColor(Point argPoint) override;
 };

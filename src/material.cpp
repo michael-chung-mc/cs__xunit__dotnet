@@ -4,6 +4,7 @@
 #include "color.h"
 #include "comparinator.h"
 #include "pattern.h"
+#include <memory>
 #include <cmath>
 
 Material::Material ()
@@ -13,9 +14,29 @@ Material::Material ()
     mbrSpecular = 0.9;
     mbrShininess = 200.0;
     mbrColor = Color(1,1,1);
-    mbrPattern = new Pattern();
+    mbrPattern = std::make_unique<Pattern>(Pattern());
 }
-
+Material::Material(const Material& other)
+{
+    mbrAmbient = other.mbrAmbient;
+    mbrDiffuse = other.mbrDiffuse;
+    mbrSpecular = other.mbrSpecular;
+    mbrShininess = other.mbrShininess;
+    mbrColor = other.mbrColor;
+    mbrPattern = std::make_unique<Pattern>(Pattern(*other.mbrPattern.get()));
+}
+Material::~Material() {
+}
+Material& Material::operator=(const Material other)
+{
+    mbrAmbient = other.mbrAmbient;
+    mbrDiffuse = other.mbrDiffuse;
+    mbrSpecular = other.mbrSpecular;
+    mbrShininess = other.mbrShininess;
+    mbrColor = other.mbrColor;
+    mbrPattern = std::make_unique<Pattern>(Pattern(*other.mbrPattern.get()));
+    return *this;
+}
 bool Material::checkEqual(Material other)
 {
     Comparinator ce = Comparinator();
@@ -56,5 +77,11 @@ Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vecto
     return argInShadow ? varResAmbient : varResAmbient + varResDiffuse + varResSpecular;
 }
 void Material::setPattern(Pattern *argPattern) {
-    mbrPattern = argPattern;
+    if (PatternStripe *varPS = dynamic_cast<PatternStripe *>(argPattern))
+    {
+        mbrPattern = std::make_unique<PatternStripe>(PatternStripe(*argPattern));
+    }
+    else {
+        mbrPattern = std::make_unique<Pattern>(Pattern(*argPattern));
+    }
 }

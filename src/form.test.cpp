@@ -123,7 +123,7 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(5, 5, 5);
-	s.setTransform(m);
+	s.setTransform(Matrix(m));
 	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	double z = 0;
@@ -137,7 +137,7 @@ TEST_F(SphereTest, SphereTranslatedToMiss) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	TranslationMatrix m = TranslationMatrix(5, 0, 0);
-	s.setTransform(m);
+	s.setTransform(Matrix(m));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 0);
 	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.mbrOrigin, Point(-5,0,-5)));
@@ -148,7 +148,7 @@ TEST_F(SphereTest, SphereTranslatedAway) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	TranslationMatrix m = TranslationMatrix(0, 0, 1);
-	s.setTransform(m);
+	s.setTransform(Matrix(m));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 5);

@@ -11,10 +11,21 @@
 
 Form::Form () {
 	mbrOrigin = Point(0, 0, 0);
-	mbrTransform = new IdentityMatrix(4, 4);
+	mbrRadius = 0;
+	mbrTransform = std::make_unique<Matrix>(IdentityMatrix(4, 4));
 	mbrMaterial = Material();
+	mbrObjectRay = Ray();
 }
-
+Form::Form(const Form& other) {
+	mbrOrigin = other.mbrOrigin;
+	mbrRadius = other.mbrRadius;
+	mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
+	mbrMaterial = other.mbrMaterial;
+	mbrObjectRay = other.mbrObjectRay;
+}
+Form::~Form() {
+	
+}
 bool Form::checkEqual(Form other)
 {
 	Comparinator ce = Comparinator();
@@ -25,7 +36,7 @@ Form& Form::operator=(const Form other)
 	if (this == &other) return *this;
 	mbrOrigin = other.mbrOrigin;
 	mbrRadius = other.mbrRadius;
-	this->mbrTransform = new Matrix(*other.mbrTransform);
+	this->mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
 	this->mbrMaterial = other.mbrMaterial;
 	return *this;
 }
@@ -39,9 +50,9 @@ Color Form::getColorLocal(Point argPosition)
 	Point varPatternP = *(mbrMaterial.mbrPattern->mbrTransform->invert()) * varObjP;
 	return mbrMaterial.mbrPattern->getColor(varPatternP);
 }
-void Form::setTransform(const Matrix m)
+void Form::setTransform(const Matrix &argMatrix)
 {
-	this->mbrTransform = new Matrix(m);
+    mbrTransform = std::make_unique<Matrix>(Matrix(argMatrix));
 }
 Intersections Form::getIntersections(Ray argRay)
 {
