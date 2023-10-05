@@ -3,20 +3,19 @@
 #include "tuple.h"
 #include "matrix.h"
 #include <cmath>
+#include <memory>
 
 Pattern::Pattern()
 {
     mbrWhite = Color(1,1,1);
     mbrBlack = Color(0,0,0);
-    mbrTransform = new IdentityMatrix(4,4);
+    mbrTransform = std::make_unique<Matrix>(IdentityMatrix(4,4));
 }
 Color Pattern::getColor(Point argPoint) {
     return Color(argPoint.mbrX, argPoint.mbrY, argPoint.mbrZ);
 }
-void Pattern::setTransform(Matrix *argTransform) {
-    delete mbrTransform;
-    mbrTransform = nullptr;
-    mbrTransform = new Matrix(*argTransform);
+void Pattern::setTransform(std::unique_ptr<Matrix> argMatrix) {
+    mbrTransform = std::make_unique<Matrix>(Matrix(*argMatrix.get()));
 }
 
 PatternStripe::PatternStripe() : Pattern() {
