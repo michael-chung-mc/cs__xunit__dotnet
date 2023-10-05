@@ -1,7 +1,7 @@
 #include "world.h"
 #include "comparinator.h"
 #include "color.h"
-#include "sphere.h"
+#include "form.h"
 #include "intersection.h"
 #include "ray.h"
 #include "pch.h"
@@ -33,12 +33,12 @@ TEST_F(WorldTest, WorldEmptyCtor) {
 TEST_F(WorldTest, WorldDefaultCtor) {
     PointSource l = PointSource(Point(-10,10,-10), Color(1,1,1));
     Sphere s = Sphere();
-    s.material = Material();
-    s.material.color = Color (0.8,1.0,0.6);
-    s.material.diffuse = 0.7;
-    s.material.specular = 0.2;
+    s.mbrMaterial = Material();
+    s.mbrMaterial.color = Color (0.8,1.0,0.6);
+    s.mbrMaterial.diffuse = 0.7;
+    s.mbrMaterial.specular = 0.2;
     Sphere t = Sphere();
-    t.transform = ScalingMatrix(0.5,0.5,0.5);
+    t.mbrTransform = ScalingMatrix(0.5,0.5,0.5);
     EXPECT_TRUE(l.checkEqual(varDefaultWorld.lights[0]));
     EXPECT_TRUE(varDefaultWorld.objects[0].checkEqual(s));
     EXPECT_TRUE(varDefaultWorld.objects[1].checkEqual(t));
@@ -58,10 +58,10 @@ TEST_F(WorldTest, WorldIntersectionShading) {
     Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
     Sphere obj = varDefaultWorld.objects[0];
     Sphere s = Sphere();
-    s.material = Material();
-    s.material.color = Color (0.8,1.0,0.6);
-    s.material.diffuse = 0.7;
-    s.material.specular = 0.2;
+    s.mbrMaterial = Material();
+    s.mbrMaterial.color = Color (0.8,1.0,0.6);
+    s.mbrMaterial.diffuse = 0.7;
+    s.mbrMaterial.specular = 0.2;
     EXPECT_TRUE(obj.checkEqual(s));
     Intersection i = Intersection(4,obj);
     EXPECT_TRUE(i.object.checkEqual(obj));
@@ -97,11 +97,11 @@ TEST_F(WorldTest, WorldColorHit) {
 };
 
 TEST_F(WorldTest, WorldColorHitInsideInnerSphere) {
-    varDefaultWorld.objects[0].material.ambient = 1;
-    varDefaultWorld.objects[1].material.ambient = 1;
+    varDefaultWorld.objects[0].mbrMaterial.ambient = 1;
+    varDefaultWorld.objects[1].mbrMaterial.ambient = 1;
     Ray r = Ray(Point(0,0,0.75), Vector(0,0,-1));
     Color c = varDefaultWorld.getColor(r);
-    Color expectedColor = varDefaultWorld.objects[1].material.color;
+    Color expectedColor = varDefaultWorld.objects[1].mbrMaterial.color;
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
 

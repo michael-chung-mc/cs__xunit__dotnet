@@ -1,5 +1,5 @@
 #include "intersection.h"
-#include "sphere.h"
+#include "form.h"
 #include "ray.h"
 #include "tuple.h"
 #include "pch.h"

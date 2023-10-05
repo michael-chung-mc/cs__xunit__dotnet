@@ -6,7 +6,7 @@ class Intersections;
 class IntersectionState;
 class Ray;
 class Color;
-#include "sphere.h"
+#include "form.h"
 #include "light.h"
 #include <vector>
 

@@ -2,7 +2,7 @@
 #ifndef INTERSECTION_H
 #define INTERSECTION_H
 
-#include "sphere.h"
+#include "form.h"
 #include "tuple.h"
 class Ray;
 #include <vector>

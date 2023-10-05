@@ -1,4 +1,4 @@
-#include "sphere.h"
+#include "form.h"
 #include "comparinator.h"
 #include "ray.h"
 #include "pch.h"
@@ -82,14 +82,14 @@ TEST_F(SphereTest, RayIntersectSetsObject) {
 TEST_F(SphereTest, SphereDefaultTransformIsIdentity) {
 	Sphere s = Sphere();
 	IdentityMatrix m = IdentityMatrix(4, 4);
-	EXPECT_TRUE(m.checkEqual(s.transform));
+	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
 };
 
 TEST_F(SphereTest, SphereModifyTransform) {
 	Sphere s = Sphere();
 	TranslationMatrix m = TranslationMatrix(2, 3, 4);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.transform));
+	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
 };
 
 TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
@@ -97,7 +97,7 @@ TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(1, 1, 1);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.transform));
+	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
 	std::vector<Intersection> xs = s.intersect(r);
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 4);
@@ -109,7 +109,7 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(2, 2, 2);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.transform));
+	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
 	std::vector<Intersection> xs = s.intersect(r);
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 3);
@@ -121,7 +121,7 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(5, 5, 5);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.transform));
+	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
 	std::vector<Intersection> xs = s.intersect(r);
 	double z = 0;
 	double y = 10;
@@ -214,13 +214,13 @@ TEST_F(SphereTest, SphereTransformedNormalized) {
 TEST_F(SphereTest, SphereMaterialCtor) {
 	Sphere s = Sphere();
 	Material m = Material();
-	EXPECT_TRUE(m.checkEqual(s.material));
+	EXPECT_TRUE(m.checkEqual(s.mbrMaterial));
 };
 
 TEST_F(SphereTest, SphereMaterialAssignment) {
 	Sphere s = Sphere();
 	Material m = Material();
 	m.ambient = 1;
-	s.material = m;
-	EXPECT_TRUE(m.checkEqual(s.material));
+	s.mbrMaterial = m;
+	EXPECT_TRUE(m.checkEqual(s.mbrMaterial));
 };

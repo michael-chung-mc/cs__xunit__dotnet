@@ -7,7 +7,7 @@ intersection.h intersection.cpp intersection.test.cpp
 matrix.h matrix.cpp matrix.test.cpp
 pch.h pch.cpp
 ray.h ray.cpp ray.test.cpp
-sphere.h sphere.cpp sphere.test.cpp
+form.h form.cpp form.test.cpp
 tuple.h tuple.cpp tuple.test.cpp
 light.h light.cpp light.test.cpp
 material.h material.cpp material.test.cpp

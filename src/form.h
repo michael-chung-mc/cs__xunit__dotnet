@@ -1,6 +1,6 @@
 #pragma once
-#ifndef SPHERE_H
-#define SPHERE_H
+#ifndef FORM_H
+#define FORM_H
 
 #include "tuple.h"
 #include "matrix.h"
@@ -9,12 +9,17 @@ class Intersection;
 class Ray;
 #include <vector>
 
-class Sphere {
+class Form {
+public:
+	Matrix mbrTransform;
+	Material mbrMaterial;
+	Form();
+};
+
+class Sphere : public Form {
 public:
 	Point origin;
 	double radius;
-	Matrix transform;
-	Material material;
 	Sphere();
 	bool checkEqual(Sphere other);
 	std::vector<Intersection> intersect(Ray r);

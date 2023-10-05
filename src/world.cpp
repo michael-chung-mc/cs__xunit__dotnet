@@ -1,5 +1,5 @@
 #include "world.h"
-#include "sphere.h"
+#include "form.h"
 #include "material.h"
 #include "matrix.h"
 #include "ray.h"
@@ -27,7 +27,7 @@ Color World::getShade(IntersectionState argIxState)
     Color varShade = Color(0,0,0);
     for (int i = 0; i < lights.size();i++)
     {
-        varShade = varShade + argIxState.object.material.getLighting(lights[i], argIxState.point, argIxState.pov, argIxState.normal, varInShadow);
+        varShade = varShade + argIxState.object.mbrMaterial.getLighting(lights[i], argIxState.point, argIxState.pov, argIxState.normal, varInShadow);
     }
     return varShade;
 }
@@ -64,12 +64,12 @@ DefaultWorld::DefaultWorld() : World()
 {
     PointSource varDefaultLight = PointSource(Point(-10,10,-10), Color(1,1,1));
     Sphere s = Sphere();
-    s.material = Material();
-    s.material.color = Color (0.8,1.0,0.6);
-    s.material.diffuse = 0.7;
-    s.material.specular = 0.2;
+    s.mbrMaterial = Material();
+    s.mbrMaterial.color = Color (0.8,1.0,0.6);
+    s.mbrMaterial.diffuse = 0.7;
+    s.mbrMaterial.specular = 0.2;
     Sphere t = Sphere();
-    t.transform = ScalingMatrix(0.5,0.5,0.5);
+    t.mbrTransform = ScalingMatrix(0.5,0.5,0.5);
     this->lights.push_back(varDefaultLight);
     this->objects.push_back(s);
     this->objects.push_back(t);

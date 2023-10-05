@@ -7,7 +7,7 @@
 #include "ray.h"
 #include "material.h"
 #include "intersection.h"
-#include "sphere.h"
+#include "form.h"
 
 class Projectile {
 public:
@@ -96,9 +96,9 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 	double varPixelSize = argScreenWidth/argScreenPixels;
 
 	Sphere varObj = Sphere();
-	varObj.material = Material();
+	varObj.mbrMaterial = Material();
 	//varObj.material.shininess = 0;
-	varObj.material.color = argSphereColor;
+	varObj.mbrMaterial.color = argSphereColor;
 
 	PointSource varLight = argLight;
 
@@ -117,7 +117,7 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 				Point p = r.position(xs[0].time);
 				Vector normal = xs[0].object.normal(p);
 				Vector pov = -r.direction;
-				Color shade = varObj.material.getLighting(varLight, p, pov, normal, false);
+				Color shade = varObj.mbrMaterial.getLighting(varLight, p, pov, normal, false);
 				varCanvas.setPixel(i,j,shade);
 			}
 		}
@@ -130,39 +130,39 @@ void cameraRender()
 	PointSource varLight = PointSource(Point(-10,10,-10), Color(1,1,1));
 
 	Sphere varFloor = Sphere();
-	varFloor.transform = ScalingMatrix(10,0.01,10);
-	varFloor.material = Material();
-	varFloor.material.color = Color(1,0.9,0.9);
-	varFloor.material.specular = 0;
+	varFloor.mbrTransform = ScalingMatrix(10,0.01,10);
+	varFloor.mbrMaterial = Material();
+	varFloor.mbrMaterial.color = Color(1,0.9,0.9);
+	varFloor.mbrMaterial.specular = 0;
 
 	Sphere varLeftWall = Sphere();
-	varLeftWall.transform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
-	varLeftWall.material = varFloor.material;
+	varLeftWall.mbrTransform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
+	varLeftWall.mbrMaterial = varFloor.mbrMaterial;
 
 	Sphere varRightWall = Sphere();
-	varRightWall.transform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
-	varRightWall.material = varFloor.material;
+	varRightWall.mbrTransform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
+	varRightWall.mbrMaterial = varFloor.mbrMaterial;
 
 	Sphere varObjMid = Sphere();
-	varObjMid.transform = TranslationMatrix(-0.5,1,0.5);
-	varObjMid.material = Material();
-	varObjMid.material.color = Color(0.1,1,0.5);
-	varObjMid.material.diffuse = 0.7;
-	varObjMid.material.specular = 0.3;
+	varObjMid.mbrTransform = TranslationMatrix(-0.5,1,0.5);
+	varObjMid.mbrMaterial = Material();
+	varObjMid.mbrMaterial.color = Color(0.1,1,0.5);
+	varObjMid.mbrMaterial.diffuse = 0.7;
+	varObjMid.mbrMaterial.specular = 0.3;
 
 	Sphere varObjRight = Sphere();
-	varObjRight.transform = *(TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(0.5,0.5,0.5)); 
-	varObjRight.material = Material();
-	varObjRight.material.color = Color(0.5,1,0.1);
-	varObjRight.material.diffuse = 0.7;
-	varObjRight.material.specular = 0.3;
+	varObjRight.mbrTransform = *(TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(0.5,0.5,0.5)); 
+	varObjRight.mbrMaterial = Material();
+	varObjRight.mbrMaterial.color = Color(0.5,1,0.1);
+	varObjRight.mbrMaterial.diffuse = 0.7;
+	varObjRight.mbrMaterial.specular = 0.3;
 
 	Sphere varObjLeft = Sphere();
-	varObjLeft.transform = *(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33)); 
-	varObjLeft.material = Material();
-	varObjLeft.material.color = Color(1,0.8,0.1);
-	varObjLeft.material.diffuse = 0.7;
-	varObjLeft.material.specular = 0.3;
+	varObjLeft.mbrTransform = *(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33)); 
+	varObjLeft.mbrMaterial = Material();
+	varObjLeft.mbrMaterial.color = Color(1,0.8,0.1);
+	varObjLeft.mbrMaterial.diffuse = 0.7;
+	varObjLeft.mbrMaterial.specular = 0.3;
 
 	World varEnv = World();
 	varEnv.objects.push_back(varFloor);
@@ -195,12 +195,13 @@ int main(int argc, char **argv)
 
 	// shadowTracer();
 
-// 	shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(1,1,1)), 10, 10, 100, Color(1, 0.2, 1));
-// 	//shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(0.5,0.5,0.5)), 10, 10, 100, Color(1, 0.2, 1));
+	// shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(1,1,1)), 10, 10, 100, Color(1, 0.2, 1));
+	// shadingTracer(Point(0,0,-5), PointSource(Point(-10,10,-10),Color(0.5,0.5,0.5)), 10, 10, 100, Color(1, 0.2, 1));
 
-	cameraRender();
+	// cameraRender();
 
-    // ::testing::InitGoogleTest( &argc, argv);
-    // return RUN_ALL_TESTS();
-	return 0;
+    ::testing::InitGoogleTest( &argc, argv);
+    return RUN_ALL_TESTS();
+
+	// 	return 0;
 }
