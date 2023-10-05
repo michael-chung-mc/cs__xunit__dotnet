@@ -23,7 +23,7 @@ public:
 	virtual Vector getNormal(Point argPoint);
 	Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
 	Color getColorLocal(Point argPosition);
-	void setTransform(const Matrix m);
+	void setTransform(Matrix *argMatrix);
 };
 
 class Sphere : public Form {

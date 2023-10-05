@@ -32,7 +32,7 @@ TEST_F(CameraTest, CameraDefault)
     EXPECT_EQ(varCamera.mbrCanvasHorizontal, varH);
     EXPECT_EQ(varCamera.mbrCanvasVertical, varV);
     EXPECT_TRUE(ce.checkFloat(varCamera.mbrFieldOfView, varFOV));
-    EXPECT_TRUE(varIdentity.checkEqual(varCamera.mbrTransform));
+    EXPECT_TRUE(varIdentity.checkEqual(*varCamera.mbrTransform));
 }
 
 TEST_F(CameraTest, CameraCanvasPixelSizeHorizontalGTVertical)
@@ -70,7 +70,7 @@ TEST_F(CameraTest, CameraRayCastToCanvasCorner)
 TEST_F(CameraTest, TransformedCameraRayCastToCanvas)
 {
     Camera varCamera = Camera(201, 101, getPI()/2);
-    varCamera.mbrTransform = *(YRotationMatrix(getPI()/4) * TranslationMatrix(0,-2,5));
+    varCamera.setTransform(YRotationMatrix(getPI()/4) * TranslationMatrix(0,-2,5));
     Ray varCast = varCamera.getRay(100,50);
     Point varExpectedOrigin = Point(0,2,-5);
     Vector varExpectedDirection = Vector(sqrt(2)/2,0,-sqrt(2)/2);
@@ -82,7 +82,7 @@ TEST_F(CameraTest, CameraRenderDefaultWorld)
 {
     DefaultWorld varWorld = DefaultWorld();
     Camera varCamera = Camera(11, 11, getPI()/2);
-    varCamera.mbrTransform = ViewMatrix(Point(0,0,-5), Point(0,0,0), Vector(0,1,0));
+    varCamera.setTransform(new ViewMatrix(Point(0,0,-5), Point(0,0,0), Vector(0,1,0)));
     Canvas varImg = varCamera.render(varWorld);
     Color varExpectedColor = Color(0.38066, 0.47583, 0.2855);
     EXPECT_TRUE(varImg.getPixel(5,5).checkEqual(varExpectedColor));

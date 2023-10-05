@@ -131,7 +131,7 @@ void cameraRenderSpheres()
 	PointSource varLight = PointSource(Point(-10,10,-10), Color(1,1,1));
 
 	Sphere varFloor = Sphere();
-	varFloor.setTransform(ScalingMatrix(10,0.01,10));
+	varFloor.setTransform(new ScalingMatrix(10,0.01,10));
 	varFloor.mbrMaterial = Material();
 	varFloor.mbrMaterial.mbrColor = Color(1,0.9,0.9);
 	varFloor.mbrMaterial.mbrSpecular = 0;
@@ -145,7 +145,7 @@ void cameraRenderSpheres()
 	varRightWall.mbrMaterial = varFloor.mbrMaterial;
 
 	Sphere varObjMid = Sphere();
-	varObjMid.setTransform(TranslationMatrix(-0.5,1,0.5));
+	varObjMid.setTransform(new TranslationMatrix(-0.5,1,0.5));
 	varObjMid.mbrMaterial = Material();
 	varObjMid.mbrMaterial.mbrColor = Color(0.1,1,0.5);
 	varObjMid.mbrMaterial.mbrDiffuse = 0.7;
@@ -175,7 +175,7 @@ void cameraRenderSpheres()
 	varEnv.mbrLights.push_back(varLight);
 
 	Camera varCamera = Camera(100,50,getPI()/3);
-	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
+	varCamera.setTransform(new ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0)));
 
 	Canvas img = varCamera.render(varEnv);
 	img.save();
@@ -200,7 +200,7 @@ void cameraRenderSpherePlane()
 	varRightWall.mbrMaterial = varFloor.mbrMaterial;
 
 	Sphere varObjMid = Sphere();
-	varObjMid.setTransform(TranslationMatrix(-0.5,1,0.5));
+	varObjMid.setTransform(new TranslationMatrix(-0.5,1,0.5));
 	varObjMid.mbrMaterial = Material();
 	varObjMid.mbrMaterial.mbrColor = Color(0.1,1,0.5);
 	varObjMid.mbrMaterial.mbrDiffuse = 0.7;
@@ -231,7 +231,7 @@ void cameraRenderSpherePlane()
 	varEnv.mbrLights.push_back(varLight);
 
 	Camera varCamera = Camera(100,50,getPI()/2);
-	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));
+	varCamera.setTransform(new ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0)));
 
 	Canvas img = varCamera.render(varEnv);
 	img.save();
@@ -257,10 +257,10 @@ int main(int argc, char **argv)
 
 	// cameraRenderSpheres();
 
-	cameraRenderSpherePlane();
+	// cameraRenderSpherePlane();
 
-    // ::testing::InitGoogleTest( &argc, argv);
-    // return RUN_ALL_TESTS();
+    ::testing::InitGoogleTest( &argc, argv);
+    return RUN_ALL_TESTS();
 
 	// 	return 0;
 }
