@@ -16,17 +16,17 @@ public:
     std::unique_ptr<Matrix> mbrTransform;
     Pattern();
 	Pattern(const Pattern& other);
-    ~Pattern();
-    virtual Color getColor(Point argPoint);
+    virtual ~Pattern();
+    virtual Color getColorLocal(Point argPoint);
     void setTransform(const Matrix &argMatrix);
 };
 
 class PatternStripe : public Pattern {
 public:
     PatternStripe();
-	PatternStripe(const Pattern& other);
+	PatternStripe(const PatternStripe& other);
     PatternStripe(Color argColorA, Color argColorB);
-    Color getColor(Point argPoint) override;
+    Color getColorLocal(Point argPoint) override;
 };
 
 #endif

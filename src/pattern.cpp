@@ -16,10 +16,8 @@ Pattern::Pattern(const Pattern& other)
     mbrColors = other.mbrColors;
     mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
 }
-Pattern::~Pattern() {
-
-}
-Color Pattern::getColor(Point argPoint) {
+Pattern::~Pattern() { }
+Color Pattern::getColorLocal(Point argPoint) {
     return Color(argPoint.mbrX, argPoint.mbrY, argPoint.mbrZ);
 }
 void Pattern::setTransform(const Matrix &argMatrix) {
@@ -30,7 +28,7 @@ PatternStripe::PatternStripe() : Pattern() {
     mbrColors.push_back(mbrWhite);
     mbrColors.push_back(mbrBlack);
 }
-PatternStripe::PatternStripe(const Pattern& other) : Pattern()
+PatternStripe::PatternStripe(const PatternStripe& other) : Pattern()
 {
     mbrColors = other.mbrColors;
     mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
@@ -39,6 +37,6 @@ PatternStripe::PatternStripe(Color argColorA, Color argColorB) : Pattern() {
     mbrColors.push_back(argColorA);
     mbrColors.push_back(argColorB);
 }
-Color PatternStripe::getColor(Point argPoint) {
+Color PatternStripe::getColorLocal(Point argPoint) {
     return (int)std::floor(argPoint.mbrX) % 2 == 0 ? mbrColors[0] : mbrColors[1];
 }

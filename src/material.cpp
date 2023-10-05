@@ -23,18 +23,19 @@ Material::Material(const Material& other)
     mbrSpecular = other.mbrSpecular;
     mbrShininess = other.mbrShininess;
     mbrColor = other.mbrColor;
-    mbrPattern = std::make_unique<Pattern>(Pattern(*other.mbrPattern.get()));
+    setPattern(other.mbrPattern.get());
 }
 Material::~Material() {
 }
 Material& Material::operator=(const Material other)
 {
+	if (this == &other) return *this;
     mbrAmbient = other.mbrAmbient;
     mbrDiffuse = other.mbrDiffuse;
     mbrSpecular = other.mbrSpecular;
     mbrShininess = other.mbrShininess;
     mbrColor = other.mbrColor;
-    mbrPattern = std::make_unique<Pattern>(Pattern(*other.mbrPattern.get()));
+    setPattern(other.mbrPattern.get());
     return *this;
 }
 bool Material::checkEqual(Material other)
@@ -45,7 +46,7 @@ bool Material::checkEqual(Material other)
 
 Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
-    Color varColor = mbrPattern->mbrColors.size() != 0 ? mbrPattern->getColor(argPosition) : mbrColor;
+    Color varColor = mbrPattern->mbrColors.size() != 0 ? mbrPattern->getColorLocal(argPosition) : mbrColor;
     Color varShade = varColor * argLighting.mbrIntensity;
     Vector varLight = (argLighting.mbrPosition - argPosition).normalize();
     Color varResAmbient = varShade * mbrAmbient;
@@ -79,7 +80,7 @@ Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vecto
 void Material::setPattern(Pattern *argPattern) {
     if (PatternStripe *varPS = dynamic_cast<PatternStripe *>(argPattern))
     {
-        mbrPattern = std::make_unique<PatternStripe>(PatternStripe(*argPattern));
+        mbrPattern = std::make_unique<PatternStripe>(PatternStripe(*varPS));
     }
     else {
         mbrPattern = std::make_unique<Pattern>(Pattern(*argPattern));

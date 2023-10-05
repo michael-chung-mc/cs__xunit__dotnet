@@ -97,9 +97,9 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 	double varPixelSize = argScreenWidth/argScreenPixels;
 
 	Sphere varObj = Sphere();
-	varObj.mbrMaterial = Material();
+	varObj.setMaterial(Material());
 	//varObj.material.shininess = 0;
-	varObj.mbrMaterial.mbrColor = argSphereColor;
+	varObj.mbrMaterial->mbrColor = argSphereColor;
 
 	PointSource varLight = argLight;
 
@@ -118,7 +118,7 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 				Point p = r.getPosition(xs[0].mbrTime);
 				Vector normal = xs[0].mbrObject.getNormal(p);
 				Vector pov = -r.mbrDirection;
-				Color shade = varObj.mbrMaterial.getColorShaded(varLight, p, pov, normal, false);
+				Color shade = varObj.mbrMaterial->getColorShaded(varLight, p, pov, normal, false);
 				varCanvas.setPixel(i,j,shade);
 			}
 		}
@@ -132,38 +132,38 @@ void cameraRenderSpheres()
 
 	Sphere varFloor = Sphere();
 	varFloor.setTransform(ScalingMatrix(10,0.01,10));
-	varFloor.mbrMaterial = Material();
-	varFloor.mbrMaterial.mbrColor = Color(1,0.9,0.9);
-	varFloor.mbrMaterial.mbrSpecular = 0;
+	varFloor.setMaterial(Material());
+	varFloor.mbrMaterial->mbrColor = Color(1,0.9,0.9);
+	varFloor.mbrMaterial->mbrSpecular = 0;
 
 	Sphere varLeftWall = Sphere();
 	varLeftWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10)));
-	varLeftWall.mbrMaterial = varFloor.mbrMaterial;
+	varLeftWall.setMaterial(*varFloor.mbrMaterial);
 
 	Sphere varRightWall = Sphere();
 	varRightWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10)));
-	varRightWall.mbrMaterial = varFloor.mbrMaterial;
+	varRightWall.setMaterial(*varFloor.mbrMaterial);
 
 	Sphere varObjMid = Sphere();
 	varObjMid.setTransform(TranslationMatrix(-0.5,1,0.5));
-	varObjMid.mbrMaterial = Material();
-	varObjMid.mbrMaterial.mbrColor = Color(0.1,1,0.5);
-	varObjMid.mbrMaterial.mbrDiffuse = 0.7;
-	varObjMid.mbrMaterial.mbrSpecular = 0.3;
+	varObjMid.setMaterial(Material());
+	varObjMid.mbrMaterial->mbrColor = Color(0.1,1,0.5);
+	varObjMid.mbrMaterial->mbrDiffuse = 0.7;
+	varObjMid.mbrMaterial->mbrSpecular = 0.3;
 
 	Sphere varObjRight = Sphere();
 	varObjRight.setTransform(*(TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(0.5,0.5,0.5))); 
-	varObjRight.mbrMaterial = Material();
-	varObjRight.mbrMaterial.mbrColor = Color(0.5,1,0.1);
-	varObjRight.mbrMaterial.mbrDiffuse = 0.7;
-	varObjRight.mbrMaterial.mbrSpecular = 0.3;
+	varObjRight.setMaterial(Material());
+	varObjRight.mbrMaterial->mbrColor = Color(0.5,1,0.1);
+	varObjRight.mbrMaterial->mbrDiffuse = 0.7;
+	varObjRight.mbrMaterial->mbrSpecular = 0.3;
 
 	Sphere varObjLeft = Sphere();
 	varObjLeft.setTransform(*(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33))); 
-	varObjLeft.mbrMaterial = Material();
-	varObjLeft.mbrMaterial.mbrColor = Color(1,0.8,0.1);
-	varObjLeft.mbrMaterial.mbrDiffuse = 0.7;
-	varObjLeft.mbrMaterial.mbrSpecular = 0.3;
+	varObjLeft.setMaterial(Material());
+	varObjLeft.mbrMaterial->mbrColor = Color(1,0.8,0.1);
+	varObjLeft.mbrMaterial->mbrDiffuse = 0.7;
+	varObjLeft.mbrMaterial->mbrSpecular = 0.3;
 
 	World varEnv = World();
 	varEnv.mbrObjects.push_back(varFloor);
@@ -187,39 +187,38 @@ void cameraRenderSpherePlane()
 
 	Plane varFloor = Plane();
 	varFloor.setTransform(*(TranslationMatrix(0,-1,0) * ScalingMatrix(10,1,10)));
-	varFloor.mbrMaterial = Material();
-	varFloor.mbrMaterial.mbrColor = Color(1,0.9,0.9);
-	varFloor.mbrMaterial.mbrSpecular = 0;
+	varFloor.setMaterial(Material());
+	varFloor.mbrMaterial->mbrColor = Color(1,0.9,0.9);
+	varFloor.mbrMaterial->mbrSpecular = 0;
 
 	Plane varLeftWall = Plane();
 	varLeftWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
-	varLeftWall.mbrMaterial = varFloor.mbrMaterial;
+	varLeftWall.setMaterial(*varFloor.mbrMaterial);
 
 	Plane varRightWall = Plane();
 	varRightWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
-	varRightWall.mbrMaterial = varFloor.mbrMaterial;
+	varRightWall.setMaterial(*varFloor.mbrMaterial);
 
 	Sphere varObjMid = Sphere();
 	varObjMid.setTransform(TranslationMatrix(-0.5,1,0.5));
-	varObjMid.mbrMaterial = Material();
-	varObjMid.mbrMaterial.mbrColor = Color(0.1,1,0.5);
-	varObjMid.mbrMaterial.mbrDiffuse = 0.7;
-	varObjMid.mbrMaterial.mbrSpecular = 0.3;
+	varObjMid.setMaterial(Material());
+	varObjMid.mbrMaterial->mbrColor = Color(0.1,1,0.5);
+	varObjMid.mbrMaterial->mbrDiffuse = 0.7;
+	varObjMid.mbrMaterial->mbrSpecular = 0.3;
 
 	Sphere varObjRight = Sphere();
 	varObjRight.setTransform(*(TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(2,0.5,2))); 
-	varObjRight.mbrMaterial = Material();
-	varObjRight.mbrMaterial.mbrColor = Color(0.5,1,0.1);
-	varObjRight.mbrMaterial.mbrDiffuse = 0.7;
-	varObjRight.mbrMaterial.mbrSpecular = 0.3;
-	varObjRight.mbrMaterial.setPattern(new PatternStripe(Color(1,0.5,0.5), Color(0.5,0.5,1)));
+	varObjRight.setMaterial(Material());
+	varObjRight.mbrMaterial->mbrDiffuse = 0.7;
+	varObjRight.mbrMaterial->mbrSpecular = 0.3;
+	varObjRight.mbrMaterial->setPattern(new PatternStripe(Color(1,0,0), Color(0,0,1)));
 
 	Sphere varObjLeft = Sphere();
 	varObjLeft.setTransform(*(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33))); 
-	varObjLeft.mbrMaterial = Material();
-	varObjLeft.mbrMaterial.mbrColor = Color(1,0.8,0.1);
-	varObjLeft.mbrMaterial.mbrDiffuse = 0.7;
-	varObjLeft.mbrMaterial.mbrSpecular = 0.3;
+	varObjLeft.setMaterial(Material());
+	varObjLeft.mbrMaterial->mbrColor = Color(1,0.8,0.1);
+	varObjLeft.mbrMaterial->mbrDiffuse = 0.7;
+	varObjLeft.mbrMaterial->mbrSpecular = 0.3;
 
 	World varEnv = World();
 	varEnv.mbrObjects.push_back(varFloor);
@@ -257,10 +256,10 @@ int main(int argc, char **argv)
 
 	// cameraRenderSpheres();
 
-	//cameraRenderSpherePlane();
+	cameraRenderSpherePlane();
 
-    ::testing::InitGoogleTest( &argc, argv);
-    return RUN_ALL_TESTS();
+    // ::testing::InitGoogleTest( &argc, argv);
+    // return RUN_ALL_TESTS();
 
 	// 	return 0;
 }

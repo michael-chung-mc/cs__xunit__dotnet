@@ -37,16 +37,16 @@ TEST_F(PatternTest, PatternObjectTransformation)
 {
     Sphere varObj = Sphere();
     varObj.setTransform(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.setPattern(new Pattern());
+    varObj.mbrMaterial->setPattern(new Pattern());
     Color varColor = varObj.getColorLocal(Point(2,3,4));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1.5,2)));
 }
 TEST_F(PatternTest, PatternPatternTransformation)
 {
     Sphere varObj = Sphere();
-    varObj.mbrMaterial.setPattern(new Pattern());
+    varObj.mbrMaterial->setPattern(new Pattern());
     ScalingMatrix varM = ScalingMatrix(2,2,2);
-    varObj.mbrMaterial.mbrPattern->setTransform(varM);
+    varObj.mbrMaterial->mbrPattern->setTransform(varM);
     Color varColor = varObj.getColorLocal(Point(2,3,4));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1.5,2)));
 }
@@ -54,9 +54,9 @@ TEST_F(PatternTest, PatternObjectPatternTransformation)
 {
     Sphere varObj = Sphere();
     varObj.setTransform(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.setPattern(new Pattern());
+    varObj.mbrMaterial->setPattern(new Pattern());
     TranslationMatrix varTM = TranslationMatrix(0.5,1,1.5);
-    varObj.mbrMaterial.mbrPattern->setTransform(varTM);
+    varObj.mbrMaterial->mbrPattern->setTransform(varTM);
     Color varColor = varObj.getColorLocal(Point(2.5,3,3.5));
     EXPECT_TRUE(varColor.checkEqual(Color(0.75,0.5,0.25)));
 }
@@ -70,32 +70,34 @@ TEST_F(PatternTest, StripePatternCtor)
 TEST_F(PatternTest, StripePatternConstantInX)
 {
     PatternStripe varP = PatternStripe();
-    EXPECT_TRUE(varP.getColor(Point(0,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getColor(Point(0,1,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getColor(Point(0,2,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0,1,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0,2,0)).checkEqual(varP.mbrWhite));
 }
 TEST_F(PatternTest, StripePatternConstantInZ)
 {
     PatternStripe varP = PatternStripe();
-    EXPECT_TRUE(varP.getColor(Point(0,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getColor(Point(0,0,1)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getColor(Point(0,0,2)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0,0,1)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0,0,2)).checkEqual(varP.mbrWhite));
 }
 TEST_F(PatternTest, StripePatternAlternateInX)
 {
     PatternStripe varP = PatternStripe();
-    EXPECT_TRUE(varP.getColor(Point(0,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getColor(Point(0.9,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getColor(Point(1,0,0)).checkEqual(varP.mbrBlack));
-    EXPECT_TRUE(varP.getColor(Point(-0.1,0,0)).checkEqual(varP.mbrBlack));
-    EXPECT_TRUE(varP.getColor(Point(-1,0,0)).checkEqual(varP.mbrBlack));
-    EXPECT_TRUE(varP.getColor(Point(-1.1,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(0.9,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(1,0,0)).checkEqual(varP.mbrBlack));
+    EXPECT_TRUE(varP.getColorLocal(Point(-0.1,0,0)).checkEqual(varP.mbrBlack));
+    EXPECT_TRUE(varP.getColorLocal(Point(-1,0,0)).checkEqual(varP.mbrBlack));
+    EXPECT_TRUE(varP.getColorLocal(Point(-1.1,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(-1.9,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColorLocal(Point(-2,0,0)).checkEqual(varP.mbrWhite));
 }
 TEST_F(PatternTest, StripePatternObjectTransformation)
 {
     Sphere varObj = Sphere();
     varObj.setTransform(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.setPattern(new PatternStripe());
+    varObj.mbrMaterial->setPattern(new PatternStripe());
     Color varColor = varObj.getColorLocal(Point(1.5,0,0));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1,1)));
 }
@@ -103,8 +105,8 @@ TEST_F(PatternTest, StripePatternPatternTransformation)
 {
     Sphere varObj = Sphere();
     ScalingMatrix varMS = ScalingMatrix(2,2,2);
-    varObj.mbrMaterial.setPattern(new PatternStripe());
-    varObj.mbrMaterial.mbrPattern->setTransform(varMS);
+    varObj.mbrMaterial->setPattern(new PatternStripe());
+    varObj.mbrMaterial->mbrPattern->setTransform(varMS);
     Color varColor = varObj.getColorLocal(Point(1.5,0,0));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1,1)));
 }
@@ -113,8 +115,8 @@ TEST_F(PatternTest, StripePatternObjectPatternTransformation)
     Sphere varObj = Sphere();
     TranslationMatrix varMT = TranslationMatrix(0.5,0,0);
     varObj.setTransform(ScalingMatrix(2,2,2));
-    varObj.mbrMaterial.setPattern(new PatternStripe());
-    varObj.mbrMaterial.mbrPattern->setTransform(varMT);
+    varObj.mbrMaterial->setPattern(new PatternStripe());
+    varObj.mbrMaterial->mbrPattern->setTransform(varMT);
     Color varColor = varObj.getColorLocal(Point(2.5,0,0));
     EXPECT_TRUE(varColor.checkEqual(Color(1,1,1)));
 }

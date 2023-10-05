@@ -20,7 +20,7 @@ public:
     std::unique_ptr<Pattern> mbrPattern;
     Material();
 	Material(const Material& other);
-    ~Material();
+    virtual ~Material();
 	Material& operator=(const Material other);
     bool checkEqual(Material other);
     Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
