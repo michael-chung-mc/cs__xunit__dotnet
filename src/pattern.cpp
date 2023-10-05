@@ -1,6 +1,7 @@
 #include "pattern.h"
 #include "color.h"
 #include "tuple.h"
+#include "matrix.h"
 #include <cmath>
 
 Pattern::Pattern()
@@ -10,6 +11,9 @@ Pattern::Pattern()
 }
 Color Pattern::getColor(Point argPoint) {
     return (int)std::floor(argPoint.mbrX) % 2 == 0 ? mbrColors[0] : mbrColors[1];
+}
+void Pattern::setTransform(Matrix argTransform) {
+    mbrTransform = new Matrix(argTransform);
 }
 
 PatternStripe::PatternStripe() : Pattern() {

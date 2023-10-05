@@ -118,7 +118,7 @@ Matrix& Matrix::operator=(const Matrix other)
 	return *this;
 }
 
-bool Matrix::operator==(const Matrix other) const
+bool Matrix::operator==(const Matrix& other) const
 {
 	//std::cout << "matrix equality operator" << std::endl;
 	if (other.mbrRows != mbrRows || other.mbrColumns != mbrColumns)
@@ -140,7 +140,7 @@ bool Matrix::operator==(const Matrix other) const
 	return true;
 }
 
-bool Matrix::checkEqual(const Matrix other)
+bool Matrix::checkEqual(const Matrix& other)
 {
 	//std::cout << "matrix equality" << std::endl;
 	if (other.mbrRows != mbrRows || other.mbrColumns != mbrColumns)
@@ -164,7 +164,7 @@ bool Matrix::checkEqual(const Matrix other)
 	return true;
 }
 
-Matrix* Matrix::operator*(const Matrix other)
+Matrix* Matrix::operator*(const Matrix& other)
 {
 	//std::cout << "matrix multiplication" << std::endl;
 	Matrix* result = new Matrix(other.mbrRows, other.mbrColumns);

@@ -17,14 +17,14 @@ public:
 	Matrix(int row, int column, double* values);
 	~Matrix();
 	Matrix& operator=(const Matrix other);
-	bool operator==(const Matrix other) const;
-	Matrix* operator*(const Matrix other);
+	bool operator==(const Matrix& other) const;
+	Matrix* operator*(const Matrix& other);
 	Tuple operator*(const Tuple other);
 	Point operator*(const Point other);
 	Vector operator*(const Vector other);
 	bool checkInvertible();
 	bool checkValid(int row, int column);
-	bool checkEqual(const Matrix other);
+	bool checkEqual(const Matrix& other);
 	double getRC(int row, int column);
 	void setRC(int row, int column, double value);
 	Matrix* transpose();

@@ -83,14 +83,14 @@ TEST_F(SphereTest, RayIntersectSetsObject) {
 TEST_F(SphereTest, SphereDefaultTransformIsIdentity) {
 	Sphere s = Sphere();
 	IdentityMatrix m = IdentityMatrix(4, 4);
-	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
+	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 };
 
 TEST_F(SphereTest, SphereModifyTransform) {
 	Sphere s = Sphere();
 	TranslationMatrix m = TranslationMatrix(2, 3, 4);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
+	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 };
 
 TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
@@ -98,7 +98,7 @@ TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(1, 1, 1);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
+	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 4);
@@ -110,7 +110,7 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(2, 2, 2);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
+	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 3);
@@ -124,7 +124,7 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(5, 5, 5);
 	s.setTransform(m);
-	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
+	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	double z = 0;
 	double y = 10;

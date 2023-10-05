@@ -38,7 +38,7 @@ TEST_F(WorldTest, WorldDefaultCtor) {
     s.mbrMaterial.mbrDiffuse = 0.7;
     s.mbrMaterial.mbrSpecular = 0.2;
     Sphere t = Sphere();
-    t.mbrTransform = ScalingMatrix(0.5,0.5,0.5);
+    t.mbrTransform = ScalingMatrix(0.5,0.5,0.5) * IdentityMatrix(4,4);
     EXPECT_TRUE(l.checkEqual(varDefaultWorld.mbrLights[0]));
     EXPECT_TRUE(varDefaultWorld.mbrObjects[0].checkEqual(s));
     EXPECT_TRUE(varDefaultWorld.mbrObjects[1].checkEqual(t));

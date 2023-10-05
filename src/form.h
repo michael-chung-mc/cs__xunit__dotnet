@@ -13,7 +13,7 @@ class Form {
 public:
 	Point mbrOrigin;
 	double mbrRadius;
-	Matrix mbrTransform;
+	Matrix* mbrTransform;
 	Material mbrMaterial;
 	Ray mbrObjectRay;
 	Form();
@@ -21,6 +21,7 @@ public:
 	virtual Intersections getIntersections(Ray argRay);
 	virtual bool checkEqual(Form other);
 	virtual Vector getNormal(Point argPoint);
+	Color getColor(Point argPosition);
 	void setTransform(const Matrix m);
 };
 
