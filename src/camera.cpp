@@ -23,7 +23,10 @@ Camera::Camera(int argH, int argV, double argFOV)
     mbrPixelSquare = (mbrHalfWidth * 2) / mbrCanvasHorizontal;
     mbrTransform = new IdentityMatrix(4,4);
 }
-
+Camera::~Camera() {
+    delete mbrTransform;
+    mbrTransform = nullptr;
+}
 Ray Camera::getRay(int argPxX, int argPxY)
 {
     double varOffsetX = (argPxX + 0.5) * mbrPixelSquare;

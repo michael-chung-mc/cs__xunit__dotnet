@@ -17,6 +17,7 @@ public:
     double mbrPixelSquare;
     Matrix *mbrTransform;
     Camera(int argH, int argV, double argFOV);
+    ~Camera();
     Ray getRay(int argPxX, int argPxY);
     Canvas render(World argWorld);
     void setTransform (Matrix *argMatrix);
