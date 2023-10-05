@@ -11,10 +11,12 @@ Pattern::Pattern()
     mbrTransform = new IdentityMatrix(4,4);
 }
 Color Pattern::getColor(Point argPoint) {
-    return (int)std::floor(argPoint.mbrX) % 2 == 0 ? mbrColors[0] : mbrColors[1];
+    return Color(argPoint.mbrX, argPoint.mbrY, argPoint.mbrZ);
 }
-void Pattern::setTransform(Matrix argTransform) {
-    mbrTransform = new Matrix(argTransform);
+void Pattern::setTransform(Matrix *argTransform) {
+    delete mbrTransform;
+    mbrTransform = nullptr;
+    mbrTransform = new Matrix(*argTransform);
 }
 
 PatternStripe::PatternStripe() : Pattern() {

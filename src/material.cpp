@@ -13,7 +13,7 @@ Material::Material ()
     mbrSpecular = 0.9;
     mbrShininess = 200.0;
     mbrColor = Color(1,1,1);
-    mbrPattern = Pattern();
+    mbrPattern = new Pattern();
 }
 
 bool Material::checkEqual(Material other)
@@ -24,7 +24,7 @@ bool Material::checkEqual(Material other)
 
 Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
-    Color varColor = mbrPattern.mbrColors.size() != 0 ? mbrPattern.getColor(argPosition) : mbrColor;
+    Color varColor = mbrPattern->mbrColors.size() != 0 ? mbrPattern->getColor(argPosition) : mbrColor;
     Color varShade = varColor * argLighting.mbrIntensity;
     Vector varLight = (argLighting.mbrPosition - argPosition).normalize();
     Color varResAmbient = varShade * mbrAmbient;
@@ -54,4 +54,7 @@ Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vecto
         }
     }
     return argInShadow ? varResAmbient : varResAmbient + varResDiffuse + varResSpecular;
+}
+void Material::setPattern(Pattern *argPattern) {
+    mbrPattern = argPattern;
 }

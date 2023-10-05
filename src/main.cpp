@@ -8,6 +8,7 @@
 #include "material.h"
 #include "intersection.h"
 #include "form.h"
+#include "pattern.h"
 
 class Projectile {
 public:
@@ -211,7 +212,7 @@ void cameraRenderSpherePlane()
 	varObjRight.mbrMaterial.mbrColor = Color(0.5,1,0.1);
 	varObjRight.mbrMaterial.mbrDiffuse = 0.7;
 	varObjRight.mbrMaterial.mbrSpecular = 0.3;
-	varObjRight.mbrMaterial.mbrPattern = PatternStripe(Color(1,0.5,0.5), Color(0.5,0.5,1));
+	varObjRight.mbrMaterial.setPattern(new PatternStripe(Color(1,0.5,0.5), Color(0.5,0.5,1)));
 
 	Sphere varObjLeft = Sphere();
 	varObjLeft.mbrTransform = TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33); 

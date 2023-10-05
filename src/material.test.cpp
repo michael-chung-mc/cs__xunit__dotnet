@@ -107,7 +107,7 @@ TEST_F(MaterialTest, LightingShadow)
 TEST_F(MaterialTest, LightingPatternCtor)
 {
     Material varMat = Material();
-    varMat.mbrPattern = PatternStripe(Color(1,1,1), Color(0,0,0));
+    varMat.setPattern(new PatternStripe(Color(1,1,1), Color(0,0,0)));
     varMat.mbrAmbient = 1;
     varMat.mbrDiffuse = 0;
     varMat.mbrSpecular = 0;

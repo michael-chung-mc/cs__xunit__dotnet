@@ -6,8 +6,8 @@ class PointSource;
 class Point;
 class Vector;
 class Material;
+class Pattern;
 #include "color.h"
-#include "pattern.h"
 
 class Material {
 public:
@@ -16,10 +16,11 @@ public:
     double mbrSpecular;
     double mbrShininess;
     Color mbrColor;
-    Pattern mbrPattern;
+    Pattern *mbrPattern;
     Material();
     bool checkEqual(Material other);
     Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
+    void setPattern(Pattern *argPattern);
 };
 
 #endif

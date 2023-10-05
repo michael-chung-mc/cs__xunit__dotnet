@@ -6,6 +6,7 @@
 #include "matrix.h"
 #include "light.h"
 #include "ray.h"
+#include "pattern.h"
 #include "pch.h"
 
 Form::Form () {
@@ -35,8 +36,8 @@ Color Form::getColorShaded(PointSource argLighting, Point argPosition, Vector ar
 Color Form::getColorLocal(Point argPosition)
 {
 	Point varObjP = *(mbrTransform->invert()) * argPosition;
-	Point varPatternP = *(mbrMaterial.mbrPattern.mbrTransform->invert()) * varObjP;
-	return mbrMaterial.mbrPattern.getColor(varPatternP);
+	Point varPatternP = *(mbrMaterial.mbrPattern->mbrTransform->invert()) * varObjP;
+	return mbrMaterial.mbrPattern->getColor(varPatternP);
 }
 void Form::setTransform(const Matrix m)
 {
