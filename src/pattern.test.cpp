@@ -34,24 +34,24 @@ TEST_F(PatternTest, StripePatternCtor)
 TEST_F(PatternTest, StripePatternConstantInX)
 {
     PatternStripe varP = PatternStripe();
-    EXPECT_TRUE(varP.getStripe(Point(0,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getStripe(Point(0,1,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getStripe(Point(0,2,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0,1,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0,2,0)).checkEqual(varP.mbrWhite));
 }
 TEST_F(PatternTest, StripePatternConstantInZ)
 {
     PatternStripe varP = PatternStripe();
-    EXPECT_TRUE(varP.getStripe(Point(0,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getStripe(Point(0,0,1)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getStripe(Point(0,0,2)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0,0,1)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0,0,2)).checkEqual(varP.mbrWhite));
 }
 TEST_F(PatternTest, StripePatternAlternateInX)
 {
     PatternStripe varP = PatternStripe();
-    EXPECT_TRUE(varP.getStripe(Point(0,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getStripe(Point(0.9,0,0)).checkEqual(varP.mbrWhite));
-    EXPECT_TRUE(varP.getStripe(Point(1,0,0)).checkEqual(varP.mbrBlack));
-    EXPECT_TRUE(varP.getStripe(Point(-0.1,0,0)).checkEqual(varP.mbrBlack));
-    EXPECT_TRUE(varP.getStripe(Point(-1,0,0)).checkEqual(varP.mbrBlack));
-    EXPECT_TRUE(varP.getStripe(Point(-1.1,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(0.9,0,0)).checkEqual(varP.mbrWhite));
+    EXPECT_TRUE(varP.getColor(Point(1,0,0)).checkEqual(varP.mbrBlack));
+    EXPECT_TRUE(varP.getColor(Point(-0.1,0,0)).checkEqual(varP.mbrBlack));
+    EXPECT_TRUE(varP.getColor(Point(-1,0,0)).checkEqual(varP.mbrBlack));
+    EXPECT_TRUE(varP.getColor(Point(-1.1,0,0)).checkEqual(varP.mbrWhite));
 }

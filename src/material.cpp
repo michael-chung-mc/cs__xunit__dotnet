@@ -3,15 +3,17 @@
 #include "light.h"
 #include "color.h"
 #include "comparinator.h"
+#include "pattern.h"
 #include <cmath>
 
 Material::Material ()
 {
-    mbrColor = Color(1,1,1);
     mbrAmbient = 0.1;
     mbrDiffuse = 0.9;
     mbrSpecular = 0.9;
     mbrShininess = 200.0;
+    mbrColor = Color(1,1,1);
+    mbrPattern = Pattern();
 }
 
 bool Material::checkEqual(Material other)
@@ -22,7 +24,8 @@ bool Material::checkEqual(Material other)
 
 Color Material::getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
-    Color varShade = mbrColor * argLighting.mbrIntensity;
+    Color varColor = mbrPattern.mbrColors.size() != 0 ? mbrPattern.getColor(argPosition) : mbrColor;
+    Color varShade = varColor * argLighting.mbrIntensity;
     Vector varLight = (argLighting.mbrPosition - argPosition).normalize();
     Color varResAmbient = varShade * mbrAmbient;
     double varLightDotNormal = varLight.dot(argNormal);

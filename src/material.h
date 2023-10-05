@@ -2,19 +2,21 @@
 #ifndef MATERIAL_H
 #define MATERIAL_H
 
-#include "color.h"
 class PointSource;
 class Point;
 class Vector;
 class Material;
+#include "color.h"
+#include "pattern.h"
 
 class Material {
 public:
-    Color mbrColor;
     double mbrAmbient;
     double mbrDiffuse;
     double mbrSpecular;
     double mbrShininess;
+    Color mbrColor;
+    Pattern mbrPattern;
     Material();
     bool checkEqual(Material other);
     Color getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);

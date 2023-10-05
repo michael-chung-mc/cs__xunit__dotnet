@@ -10,15 +10,16 @@ class Pattern {
 public:
     Color mbrBlack;
     Color mbrWhite;
+    std::vector<Color> mbrColors;
     Pattern();
+    Color getColor(Point argPoint);
 };
 
 class PatternStripe : public Pattern {
 public:
-    std::vector<Color> mbrColors;
     PatternStripe();
     PatternStripe(Color argColorA, Color argColorB);
-    Color getStripe(Point argPoint);
+    Color getColor(Point argPoint);
 };
 
 #endif
