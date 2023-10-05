@@ -30,7 +30,7 @@ TEST_F(SphereTest, EqualityTest) {
 TEST_F(SphereTest, RayIntersectTwo) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 4);
 	EXPECT_EQ(xs[1].time, 6);
@@ -39,7 +39,7 @@ TEST_F(SphereTest, RayIntersectTwo) {
 TEST_F(SphereTest, RayIntersectTangent) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 1, -5), Vector(0, 0, 1));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 5);
 	EXPECT_EQ(xs[1].time, 5);
@@ -48,14 +48,14 @@ TEST_F(SphereTest, RayIntersectTangent) {
 TEST_F(SphereTest, RayIntersectMiss) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 2, -5), Vector(0, 0, 1));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 0);
 };
 
 TEST_F(SphereTest, RayIntersectWithinSphere) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, 0), Vector(0, 0, 1));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, -1);
 	EXPECT_EQ(xs[1].time, 1);
@@ -64,7 +64,7 @@ TEST_F(SphereTest, RayIntersectWithinSphere) {
 TEST_F(SphereTest, RayIntersectBehindSphere) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, 5), Vector(0, 0, 1));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, -6);
 	EXPECT_EQ(xs[1].time, -4);
@@ -73,7 +73,7 @@ TEST_F(SphereTest, RayIntersectBehindSphere) {
 TEST_F(SphereTest, RayIntersectSetsObject) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_TRUE(s.checkEqual(xs[0].object));
 	EXPECT_TRUE(s.checkEqual(xs[1].object));
@@ -98,7 +98,7 @@ TEST_F(SphereTest, SphereIdentityDoesNotModifyIntersections) {
 	ScalingMatrix m = ScalingMatrix(1, 1, 1);
 	s.setTransform(m);
 	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 4);
 	EXPECT_EQ(xs[1].time, 6);
@@ -110,7 +110,7 @@ TEST_F(SphereTest, SphereScaledModifiesIntersections) {
 	ScalingMatrix m = ScalingMatrix(2, 2, 2);
 	s.setTransform(m);
 	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 3);
 	EXPECT_EQ(xs[1].time, 7);
@@ -122,7 +122,7 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	ScalingMatrix m = ScalingMatrix(5, 5, 5);
 	s.setTransform(m);
 	EXPECT_TRUE(m.checkEqual(s.mbrTransform));
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	double z = 0;
 	double y = 10;
 	EXPECT_EQ(xs.size(), 2);
@@ -135,7 +135,7 @@ TEST_F(SphereTest, SphereTranslatedToMiss) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	TranslationMatrix m = TranslationMatrix(5, 0, 0);
 	s.setTransform(m);
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 0);
 };
 
@@ -144,7 +144,7 @@ TEST_F(SphereTest, SphereTranslatedAway) {
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	TranslationMatrix m = TranslationMatrix(0, 0, 1);
 	s.setTransform(m);
-	std::vector<Intersection> xs = s.intersect(r);
+	std::vector<Intersection> xs = s.getIntersections(r).intersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].time, 5);
 	EXPECT_EQ(xs[1].time, 7);

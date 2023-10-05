@@ -13,7 +13,7 @@ Intersections World::getIntersect(Ray argRay)
     Intersections hits;
     for (int i = 0; i < objects.size(); i++)
     {
-        std::vector<Intersection> hit = objects[i].intersect(argRay);
+        std::vector<Intersection> hit = objects[i].getIntersections(argRay).intersections;
         for (int j = 0; j < hit.size(); j++)
         {
             hits.intersect(hit[j].time, hit[j].object);

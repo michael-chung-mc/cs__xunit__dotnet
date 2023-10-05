@@ -79,7 +79,7 @@ void shadowTracer()
 			Point position = Point(worldX, worldY, wallZ);
 			//std::cout << worldX << worldY << wallZ << std::endl;
 			Ray r = Ray(pov, (position-pov).normalize());
-			std::vector<Intersection> xs = obj.intersect(r);
+			std::vector<Intersection> xs = obj.getIntersections(r).intersections;
 			if (xs.size() != 0)
 			{
 				canvas.setPixel(i,j,hitColor);
@@ -111,7 +111,7 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 			Point varWorldPosition = Point(varWorldX, varWorldY, argScreenZ);
 			//std::cout << worldX << worldY << wallZ << std::endl;
 			Ray r = Ray(argPov, (varWorldPosition-argPov).normalize());
-			std::vector<Intersection> xs = varObj.intersect(r);
+			std::vector<Intersection> xs = varObj.getIntersections(r).intersections;
 			if (xs.size() != 0)
 			{
 				Point p = r.position(xs[0].time);

@@ -5,7 +5,7 @@
 #include "tuple.h"
 #include "matrix.h"
 #include "material.h"
-class Intersection;
+class Intersections;
 class Ray;
 #include <vector>
 
@@ -21,9 +21,9 @@ public:
 	Point origin;
 	double radius;
 	Sphere();
-	bool checkEqual(Sphere other);
-	std::vector<Intersection> intersect(Ray r);
 	Sphere& operator=(const Sphere other);
+	bool checkEqual(Sphere other);
+	Intersections getIntersections(Ray argRay);
 	void setTransform(const Matrix m);
 	Vector normal(Point argPoint);
 };

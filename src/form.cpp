@@ -24,29 +24,29 @@ bool Sphere::checkEqual(Sphere other)
 	return ce.checkTuple(this->origin,other.origin) && this->radius == other.radius && mbrTransform.checkEqual(other.mbrTransform) && mbrMaterial.checkEqual(other.mbrMaterial);
 }
 
-std::vector<Intersection> Sphere::intersect(Ray r)
+Intersections Sphere::getIntersections(Ray argRay)
 {
-	std::vector<Intersection> intersections;
-	Ray objectSpaceRay = r.transform(*(this->mbrTransform.invert()));
+	Intersections varIntersections;
+	Ray objectSpaceRay = argRay.transform(*(this->mbrTransform.invert()));
 	Vector sphereToRay = objectSpaceRay.origin - (Point(0, 0, 0));
 	double a = objectSpaceRay.direction.dot(objectSpaceRay.direction);
 	double b = 2 * objectSpaceRay.direction.dot(sphereToRay);
 	double c = sphereToRay.dot(sphereToRay) - 1;
 	double discriminant = pow(b,2) - 4 * a * c;
-	if (discriminant < 0) return intersections;
+	if (discriminant < 0) return varIntersections;
 	double intersectOne = (-b - sqrt(discriminant)) / (2 * a);
 	double intersectTwo = (-b + sqrt(discriminant)) / (2 * a);
 	if (intersectOne < intersectTwo)
 	{
-		intersections.push_back(Intersection(intersectOne, *this));
-		intersections.push_back(Intersection(intersectTwo, *this));
+		varIntersections.intersect(intersectOne, *this);
+		varIntersections.intersect(intersectTwo, *this);
 	}
 	else
 	{
-		intersections.push_back(Intersection(intersectTwo, *this));
-		intersections.push_back(Intersection(intersectOne, *this));
+		varIntersections.intersect(intersectTwo, *this);
+		varIntersections.intersect(intersectOne, *this);
 	}
-	return intersections;
+	return varIntersections;
 }
 
 Sphere& Sphere::operator=(const Sphere other)
