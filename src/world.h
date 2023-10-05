@@ -12,8 +12,8 @@ class Color;
 
 class World {
 public:
-    std::vector<Sphere> objects;
-    std::vector<PointSource> lights;
+    std::vector<Sphere> mbrObjects;
+    std::vector<PointSource> mbrLights;
     World();
     Intersections getIntersect(Ray argRay);
     Color getShade(IntersectionState argIntersectionState);

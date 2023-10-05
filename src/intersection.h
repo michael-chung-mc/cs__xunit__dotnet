@@ -9,20 +9,20 @@ class Ray;
 
 struct IntersectionState {
 public:
-	double time;
-	Form object;
-	Point point;
+	double mbrTime;
+	Form mbrObject;
+	Point mbrPoint;
 	Point mbrOverPoint;
-	Vector pov;
-	Vector normal;
-	bool inside;
+	Vector mbrEye;
+	Vector argNormal;
+	bool argInside;
 };
 
 class Intersection {
 public:
 	bool mbrExists;
-	double time;
-	Form object;
+	double mbrTime;
+	Form mbrObject;
 	Intersection();
 	Intersection(double time, Form s);
 	bool checkEqual(Intersection other);
@@ -33,7 +33,7 @@ public:
 
 class Intersections {
 public:
-	std::vector<Intersection> intersections;
+	std::vector<Intersection> mbrIntersections;
 	Intersections();
 	Intersections(const Intersections& other);
 	Intersections(double time, Form s);

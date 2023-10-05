@@ -53,8 +53,8 @@ TEST_F(CameraTest, CameraRayCastToCanvasCenter)
     Ray varCast = varCamera.getRay(100,50);
     Point varExpectedOrigin = Point(0,0,0);
     Vector varExpectedDirection = Vector(0,0,-1);
-    EXPECT_TRUE(ce.checkTuple(varCast.origin, varExpectedOrigin));
-    EXPECT_TRUE(ce.checkTuple(varCast.direction, varExpectedDirection));
+    EXPECT_TRUE(ce.checkTuple(varCast.argOrigin, varExpectedOrigin));
+    EXPECT_TRUE(ce.checkTuple(varCast.argDirection, varExpectedDirection));
 }
 
 TEST_F(CameraTest, CameraRayCastToCanvasCorner)
@@ -63,8 +63,8 @@ TEST_F(CameraTest, CameraRayCastToCanvasCorner)
     Ray varCast = varCamera.getRay(0,0);
     Point varExpectedOrigin = Point(0,0,0);
     Vector varExpectedDirection = Vector(0.66519, 0.33259, -.66851);
-    EXPECT_TRUE(ce.checkTuple(varCast.origin, varExpectedOrigin));
-    EXPECT_TRUE(ce.checkTuple(varCast.direction, varExpectedDirection));
+    EXPECT_TRUE(ce.checkTuple(varCast.argOrigin, varExpectedOrigin));
+    EXPECT_TRUE(ce.checkTuple(varCast.argDirection, varExpectedDirection));
 }
 
 TEST_F(CameraTest, TransformedCameraRayCastToCanvas)
@@ -74,8 +74,8 @@ TEST_F(CameraTest, TransformedCameraRayCastToCanvas)
     Ray varCast = varCamera.getRay(100,50);
     Point varExpectedOrigin = Point(0,2,-5);
     Vector varExpectedDirection = Vector(sqrt(2)/2,0,-sqrt(2)/2);
-    EXPECT_TRUE(ce.checkTuple(varCast.origin, varExpectedOrigin));
-    EXPECT_TRUE(ce.checkTuple(varCast.direction, varExpectedDirection));
+    EXPECT_TRUE(ce.checkTuple(varCast.argOrigin, varExpectedOrigin));
+    EXPECT_TRUE(ce.checkTuple(varCast.argDirection, varExpectedDirection));
 }
 
 TEST_F(CameraTest, CameraRenderDefaultWorld)

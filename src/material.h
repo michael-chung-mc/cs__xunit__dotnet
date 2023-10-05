@@ -10,11 +10,11 @@ class Material;
 
 class Material {
 public:
-    Color color;
-    double ambient;
-    double diffuse;
-    double specular;
-    double shininess;
+    Color mbrColor;
+    double mbrAmbient;
+    double mbrDiffuse;
+    double mbrSpecular;
+    double mbrShininess;
     Material();
     bool checkEqual(Material other);
     Color getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);

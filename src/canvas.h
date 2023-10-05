@@ -8,9 +8,9 @@ class Color;
 
 class Canvas {
 public:
-	int w;
-	int h;
-	std::vector<std::vector<Color>> grid;
+	int mbrWidth;
+	int mbrHeight;
+	std::vector<std::vector<Color>> mbrGrid;
 	Canvas(int width, int height);
 	Color getPixel(int x, int y);
 	std::string getPPM();

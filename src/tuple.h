@@ -4,10 +4,10 @@
 
 class Tuple {
 public:
-	double x;
-	double y;
-	double z;
-	double w;
+	double argX;
+	double argY;
+	double argZ;
+	double argW;
 	Tuple();
 	Tuple(double argx, double argy, double argz, double argw);
 	Tuple operator-();

@@ -46,12 +46,12 @@ public:
 		//Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0)*power).normalize());
 		Projectile b = Projectile(Point(0, 1, 0), (Vector(1, 1, 0).normalize()) * power);
 		Environment e = Environment(Vector(0, -.1, 0), Vector(-.01, 0, 0));
-		while (b.position.y >= 0)
+		while (b.position.argY >= 0)
 		{
 			b = tick(e,b);
-			std::cout << "x: " << std::to_string(b.position.x) << " y: " << std::to_string(b.position.y) << " z: " << std::to_string(b.position.z) << " w: " << std::to_string(b.position.w) << std::endl;
+			std::cout << "x: " << std::to_string(b.position.argX) << " y: " << std::to_string(b.position.argY) << " z: " << std::to_string(b.position.argZ) << " w: " << std::to_string(b.position.argW) << std::endl;
 			Color white = Color(0, 0, 0);
-			c.setPixel((int)b.position.x, getPPMHeight() - b.position.y, white);
+			c.setPixel((int)b.position.argX, getPPMHeight() - b.position.argY, white);
 		}
 		c.save();
 	}
@@ -79,7 +79,7 @@ void shadowTracer()
 			Point position = Point(worldX, worldY, wallZ);
 			//std::cout << worldX << worldY << wallZ << std::endl;
 			Ray r = Ray(pov, (position-pov).normalize());
-			std::vector<Intersection> xs = obj.getIntersections(r).intersections;
+			std::vector<Intersection> xs = obj.getIntersections(r).mbrIntersections;
 			if (xs.size() != 0)
 			{
 				canvas.setPixel(i,j,hitColor);
@@ -98,7 +98,7 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 	Sphere varObj = Sphere();
 	varObj.mbrMaterial = Material();
 	//varObj.material.shininess = 0;
-	varObj.mbrMaterial.color = argSphereColor;
+	varObj.mbrMaterial.mbrColor = argSphereColor;
 
 	PointSource varLight = argLight;
 
@@ -111,12 +111,12 @@ void shadingTracer(Point argPov, PointSource argLight, double argScreenWidth, do
 			Point varWorldPosition = Point(varWorldX, varWorldY, argScreenZ);
 			//std::cout << worldX << worldY << wallZ << std::endl;
 			Ray r = Ray(argPov, (varWorldPosition-argPov).normalize());
-			std::vector<Intersection> xs = varObj.getIntersections(r).intersections;
+			std::vector<Intersection> xs = varObj.getIntersections(r).mbrIntersections;
 			if (xs.size() != 0)
 			{
-				Point p = r.position(xs[0].time);
-				Vector normal = xs[0].object.getNormal(p);
-				Vector pov = -r.direction;
+				Point p = r.getPosition(xs[0].mbrTime);
+				Vector normal = xs[0].mbrObject.getNormal(p);
+				Vector pov = -r.argDirection;
 				Color shade = varObj.mbrMaterial.getLighting(varLight, p, pov, normal, false);
 				varCanvas.setPixel(i,j,shade);
 			}
@@ -132,8 +132,8 @@ void cameraRender()
 	Sphere varFloor = Sphere();
 	varFloor.mbrTransform = ScalingMatrix(10,0.01,10);
 	varFloor.mbrMaterial = Material();
-	varFloor.mbrMaterial.color = Color(1,0.9,0.9);
-	varFloor.mbrMaterial.specular = 0;
+	varFloor.mbrMaterial.mbrColor = Color(1,0.9,0.9);
+	varFloor.mbrMaterial.mbrSpecular = 0;
 
 	Sphere varLeftWall = Sphere();
 	varLeftWall.mbrTransform = *(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,0.01,10));
@@ -146,32 +146,32 @@ void cameraRender()
 	Sphere varObjMid = Sphere();
 	varObjMid.mbrTransform = TranslationMatrix(-0.5,1,0.5);
 	varObjMid.mbrMaterial = Material();
-	varObjMid.mbrMaterial.color = Color(0.1,1,0.5);
-	varObjMid.mbrMaterial.diffuse = 0.7;
-	varObjMid.mbrMaterial.specular = 0.3;
+	varObjMid.mbrMaterial.mbrColor = Color(0.1,1,0.5);
+	varObjMid.mbrMaterial.mbrDiffuse = 0.7;
+	varObjMid.mbrMaterial.mbrSpecular = 0.3;
 
 	Sphere varObjRight = Sphere();
 	varObjRight.mbrTransform = *(TranslationMatrix(1.5,0.5,-0.5) * ScalingMatrix(0.5,0.5,0.5)); 
 	varObjRight.mbrMaterial = Material();
-	varObjRight.mbrMaterial.color = Color(0.5,1,0.1);
-	varObjRight.mbrMaterial.diffuse = 0.7;
-	varObjRight.mbrMaterial.specular = 0.3;
+	varObjRight.mbrMaterial.mbrColor = Color(0.5,1,0.1);
+	varObjRight.mbrMaterial.mbrDiffuse = 0.7;
+	varObjRight.mbrMaterial.mbrSpecular = 0.3;
 
 	Sphere varObjLeft = Sphere();
 	varObjLeft.mbrTransform = *(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33)); 
 	varObjLeft.mbrMaterial = Material();
-	varObjLeft.mbrMaterial.color = Color(1,0.8,0.1);
-	varObjLeft.mbrMaterial.diffuse = 0.7;
-	varObjLeft.mbrMaterial.specular = 0.3;
+	varObjLeft.mbrMaterial.mbrColor = Color(1,0.8,0.1);
+	varObjLeft.mbrMaterial.mbrDiffuse = 0.7;
+	varObjLeft.mbrMaterial.mbrSpecular = 0.3;
 
 	World varEnv = World();
-	varEnv.objects.push_back(varFloor);
-	varEnv.objects.push_back(varLeftWall);
-	varEnv.objects.push_back(varRightWall);
-	varEnv.objects.push_back(varObjMid);
-	varEnv.objects.push_back(varObjRight);
-	varEnv.objects.push_back(varObjLeft);
-	varEnv.lights.push_back(varLight);
+	varEnv.mbrObjects.push_back(varFloor);
+	varEnv.mbrObjects.push_back(varLeftWall);
+	varEnv.mbrObjects.push_back(varRightWall);
+	varEnv.mbrObjects.push_back(varObjMid);
+	varEnv.mbrObjects.push_back(varObjRight);
+	varEnv.mbrObjects.push_back(varObjLeft);
+	varEnv.mbrLights.push_back(varLight);
 
 	Camera varCamera = Camera(100,50,getPI()/3);
 	varCamera.mbrTransform = ViewMatrix(Point(0,1.5,-5), Point(0,1,0), Vector(0,1,0));

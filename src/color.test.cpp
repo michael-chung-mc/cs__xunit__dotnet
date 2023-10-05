@@ -25,9 +25,9 @@ TEST_F(ColorTest, InitColor) {
 	//And c.green = 0.4
 	//And c.blue = 1.7
 	Color c = Color(-0.5, 0.4, 1.7);
-	EXPECT_EQ(c.r, -.5);
-	EXPECT_EQ(c.g, .4);
-	EXPECT_EQ(c.b, 1.7);
+	EXPECT_EQ(c.mbrRed, -.5);
+	EXPECT_EQ(c.mbrGreen, .4);
+	EXPECT_EQ(c.mbrBlue, 1.7);
 };
 
 TEST_F(ColorTest, AddColors) {

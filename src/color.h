@@ -6,9 +6,9 @@
 
 class Color : public Tuple {
 public:
-	double r;
-	double g;
-	double b;
+	double mbrRed;
+	double mbrGreen;
+	double mbrBlue;
 	Color();
 	Color(double red, double green, double blue);
 	Color operator+(Color x);

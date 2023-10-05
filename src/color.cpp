@@ -4,31 +4,31 @@
 
 Color::Color()
 {
-	r = 0;
-	g = 0;
-	b = 0;
+	mbrRed = 0;
+	mbrGreen = 0;
+	mbrBlue = 0;
 }
 Color::Color(double red, double green, double blue)
 {
-	r = red;
-	g = green;
-	b = blue;
+	mbrRed = red;
+	mbrGreen = green;
+	mbrBlue = blue;
 }
 
 Color Color::operator+(Color x) {
-	return Color(r + x.r, g + x.g, b + x.b);
+	return Color(mbrRed + x.mbrRed, mbrGreen + x.mbrGreen, mbrBlue + x.mbrBlue);
 }
 Color Color::operator-(Color x) {
-	return Color(r - x.r, g - x.g, b - x.b);
+	return Color(mbrRed - x.mbrRed, mbrGreen - x.mbrGreen, mbrBlue - x.mbrBlue);
 }
 Color Color::operator*(float x) {
-	return Color(r * x, g * x, b * x);
+	return Color(mbrRed * x, mbrGreen * x, mbrBlue * x);
 }
 Color Color::operator*(Color x) {
-	return Color(r * x.r, g * x.g, b * x.b);
+	return Color(mbrRed * x.mbrRed, mbrGreen * x.mbrGreen, mbrBlue * x.mbrBlue);
 }
 bool Color::checkEqual(const Color other) const
 {
 	Comparinator ce = Comparinator();
-	return ce.checkFloat(r,other.r) && ce.checkFloat(g,other.g) && ce.checkFloat(b,other.b);
+	return ce.checkFloat(mbrRed,other.mbrRed) && ce.checkFloat(mbrGreen,other.mbrGreen) && ce.checkFloat(mbrBlue,other.mbrBlue);
 }

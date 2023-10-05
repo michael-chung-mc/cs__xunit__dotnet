@@ -7,8 +7,8 @@
 
 class PointSource {
 public:
-    Point position;
-    Color intensity;
+    Point mbrPosition;
+    Color mbrIntensity;
     PointSource();
     PointSource(Point position, Color intensity);
     bool checkEqual(const PointSource &other) const;

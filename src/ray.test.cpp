@@ -23,21 +23,21 @@ TEST_F(RayTest, RayCtor) {
 	Point p = Point(1, 2, 3);
 	Vector d = Vector(4, 5, 6);
 	Ray r = Ray(p, d);
-	EXPECT_TRUE(ce.checkTuple(r.origin,p));
-	EXPECT_TRUE(ce.checkTuple(r.direction,d));
+	EXPECT_TRUE(ce.checkTuple(r.argOrigin,p));
+	EXPECT_TRUE(ce.checkTuple(r.argDirection,d));
 };
 
 TEST_F(RayTest, RayPositionAfterTime) {
 	Point p = Point(2, 3, 4);
 	Vector d = Vector(1, 0, 0);
 	Ray r = Ray(p, d);
-	Point pos0 = r.position(0);
+	Point pos0 = r.getPosition(0);
 	Point expos0 = Point(2, 3, 4);
-	Point pos1 = r.position(1);
+	Point pos1 = r.getPosition(1);
 	Point expos1 = Point(3, 3, 4);
-	Point posn1 = r.position(-1);
+	Point posn1 = r.getPosition(-1);
 	Point exposn1 = Point(1, 3, 4);
-	Point pos2p5 = r.position(2.5);
+	Point pos2p5 = r.getPosition(2.5);
 	Point expos2p5 = Point(4.5, 3, 4);
 	EXPECT_TRUE(ce.checkTuple(pos0,expos0));
 	EXPECT_TRUE(ce.checkTuple(pos1, expos1));
@@ -53,10 +53,10 @@ TEST_F(RayTest, RayTranslation) {
 	Point expectedP = Point(4, 6, 8);
 	Vector expectedV = Vector(0,1,0);
 	Ray t = r.transform(m);
-	EXPECT_TRUE(ce.checkTuple(t.origin, expectedP));
-	EXPECT_TRUE(ce.checkTuple(t.direction, expectedV));
-	EXPECT_TRUE(ce.checkTuple(r.origin, p));
-	EXPECT_TRUE(ce.checkTuple(r.direction, d));
+	EXPECT_TRUE(ce.checkTuple(t.argOrigin, expectedP));
+	EXPECT_TRUE(ce.checkTuple(t.argDirection, expectedV));
+	EXPECT_TRUE(ce.checkTuple(r.argOrigin, p));
+	EXPECT_TRUE(ce.checkTuple(r.argDirection, d));
 };
 
 TEST_F(RayTest, RayScaling) {
@@ -67,8 +67,8 @@ TEST_F(RayTest, RayScaling) {
 	Point expectedP = Point(2, 6, 12);
 	Vector expectedV = Vector(0,3,0);
 	Ray t = r.transform(m);
-	EXPECT_TRUE(ce.checkTuple(t.origin, expectedP));
-	EXPECT_TRUE(ce.checkTuple(t.direction, expectedV));
-	EXPECT_TRUE(ce.checkTuple(r.origin, p));
-	EXPECT_TRUE(ce.checkTuple(r.direction, d));
+	EXPECT_TRUE(ce.checkTuple(t.argOrigin, expectedP));
+	EXPECT_TRUE(ce.checkTuple(t.argDirection, expectedV));
+	EXPECT_TRUE(ce.checkTuple(r.argOrigin, p));
+	EXPECT_TRUE(ce.checkTuple(r.argDirection, d));
 };

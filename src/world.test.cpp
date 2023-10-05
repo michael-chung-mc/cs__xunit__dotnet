@@ -9,12 +9,12 @@
 class WorldTest : public ::testing::Test {
 protected:
 	DefaultWorld varDefaultWorld;
-    Comparinator ce;
+    Comparinator varComp;
 	//TupleTest() {}
 	//~TupleTest() override {}
 	void SetUp() override {
         varDefaultWorld = DefaultWorld();
-        ce = Comparinator();
+        varComp = Comparinator();
     }
 	//void TearDown() override { }
 };
@@ -26,45 +26,45 @@ TEST_F(WorldTest, CanaryTest) {
 
 TEST_F(WorldTest, WorldEmptyCtor) {
 	World w = World();
-    EXPECT_EQ(w.objects.size(), 0);
-    EXPECT_EQ(w.lights.size(), 0);
+    EXPECT_EQ(w.mbrObjects.size(), 0);
+    EXPECT_EQ(w.mbrLights.size(), 0);
 };
 
 TEST_F(WorldTest, WorldDefaultCtor) {
     PointSource l = PointSource(Point(-10,10,-10), Color(1,1,1));
     Sphere s = Sphere();
     s.mbrMaterial = Material();
-    s.mbrMaterial.color = Color (0.8,1.0,0.6);
-    s.mbrMaterial.diffuse = 0.7;
-    s.mbrMaterial.specular = 0.2;
+    s.mbrMaterial.mbrColor = Color (0.8,1.0,0.6);
+    s.mbrMaterial.mbrDiffuse = 0.7;
+    s.mbrMaterial.mbrSpecular = 0.2;
     Sphere t = Sphere();
     t.mbrTransform = ScalingMatrix(0.5,0.5,0.5);
-    EXPECT_TRUE(l.checkEqual(varDefaultWorld.lights[0]));
-    EXPECT_TRUE(varDefaultWorld.objects[0].checkEqual(s));
-    EXPECT_TRUE(varDefaultWorld.objects[1].checkEqual(t));
+    EXPECT_TRUE(l.checkEqual(varDefaultWorld.mbrLights[0]));
+    EXPECT_TRUE(varDefaultWorld.mbrObjects[0].checkEqual(s));
+    EXPECT_TRUE(varDefaultWorld.mbrObjects[1].checkEqual(t));
 };
 
 TEST_F(WorldTest, WorldRayIntersect) {
     Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
     Intersections xs = varDefaultWorld.getIntersect(r);
-    EXPECT_EQ(xs.intersections.size(), 4);
-    EXPECT_EQ(xs.intersections[0].time, 4);
-    EXPECT_EQ(xs.intersections[1].time, 4.5);
-    EXPECT_EQ(xs.intersections[2].time, 5.5);
-    EXPECT_EQ(xs.intersections[3].time, 6);
+    EXPECT_EQ(xs.mbrIntersections.size(), 4);
+    EXPECT_EQ(xs.mbrIntersections[0].mbrTime, 4);
+    EXPECT_EQ(xs.mbrIntersections[1].mbrTime, 4.5);
+    EXPECT_EQ(xs.mbrIntersections[2].mbrTime, 5.5);
+    EXPECT_EQ(xs.mbrIntersections[3].mbrTime, 6);
 };
 
 TEST_F(WorldTest, WorldIntersectionShading) {
     Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
-    Sphere obj = varDefaultWorld.objects[0];
+    Sphere obj = varDefaultWorld.mbrObjects[0];
     Sphere s = Sphere();
     s.mbrMaterial = Material();
-    s.mbrMaterial.color = Color (0.8,1.0,0.6);
-    s.mbrMaterial.diffuse = 0.7;
-    s.mbrMaterial.specular = 0.2;
+    s.mbrMaterial.mbrColor = Color (0.8,1.0,0.6);
+    s.mbrMaterial.mbrDiffuse = 0.7;
+    s.mbrMaterial.mbrSpecular = 0.2;
     EXPECT_TRUE(obj.checkEqual(s));
     Intersection i = Intersection(4,obj);
-    EXPECT_TRUE(i.object.checkEqual(obj));
+    EXPECT_TRUE(i.mbrObject.checkEqual(obj));
     IntersectionState is = i.getState(r);
     Color c = varDefaultWorld.getShade(is);
     Color expectedColor = Color(0.38066, 0.47583, 0.2855);
@@ -72,9 +72,9 @@ TEST_F(WorldTest, WorldIntersectionShading) {
 };
 
 TEST_F(WorldTest, WorldIntersectionInteriorShading) {
-    varDefaultWorld.lights[0] = PointSource(Point(0,0.25,0), Color(1,1,1));
+    varDefaultWorld.mbrLights[0] = PointSource(Point(0,0.25,0), Color(1,1,1));
     Ray r = Ray(Point(0,0,0), Vector(0,0,1));
-    Sphere obj = varDefaultWorld.objects[1];
+    Sphere obj = varDefaultWorld.mbrObjects[1];
     Intersection i = Intersection(0.5,obj);
     IntersectionState is = i.getState(r);
     Color c = varDefaultWorld.getShade(is);
@@ -97,11 +97,11 @@ TEST_F(WorldTest, WorldColorHit) {
 };
 
 TEST_F(WorldTest, WorldColorHitInsideInnerSphere) {
-    varDefaultWorld.objects[0].mbrMaterial.ambient = 1;
-    varDefaultWorld.objects[1].mbrMaterial.ambient = 1;
+    varDefaultWorld.mbrObjects[0].mbrMaterial.mbrAmbient = 1;
+    varDefaultWorld.mbrObjects[1].mbrMaterial.mbrAmbient = 1;
     Ray r = Ray(Point(0,0,0.75), Vector(0,0,-1));
     Color c = varDefaultWorld.getColor(r);
-    Color expectedColor = varDefaultWorld.objects[1].mbrMaterial.color;
+    Color expectedColor = varDefaultWorld.mbrObjects[1].mbrMaterial.mbrColor;
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
 

@@ -8,9 +8,9 @@ class Vector;
 
 class Matrix {
 public:
-	double **grid;
-	int rnum;
-	int cnum;
+	double **mbrGrid;
+	int mbrRows;
+	int mbrColumns;
 	Matrix();
 	Matrix(int row, int column);
 	Matrix(const Matrix& other);

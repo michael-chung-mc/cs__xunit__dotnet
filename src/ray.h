@@ -7,11 +7,11 @@
 
 class Ray {
 public:
-	Point origin;
-	Vector direction;
+	Point argOrigin;
+	Vector argDirection;
 	Ray();
 	Ray(Point origin, Vector direction);
-	Point position(double time);
+	Point getPosition(double time);
 	Ray transform(Matrix matrix);
 	Ray transform(TranslationMatrix matrix);
 	Ray transform(ScalingMatrix matrix);

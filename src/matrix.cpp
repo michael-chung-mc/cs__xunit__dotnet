@@ -6,35 +6,35 @@
 
 Matrix::Matrix()
 {
-	rnum = 4;
-	cnum = 4;
-	this->grid = new double* [rnum];
-	for (int i = 0; i < rnum; i++)
+	mbrRows = 4;
+	mbrColumns = 4;
+	this->mbrGrid = new double* [mbrRows];
+	for (int i = 0; i < mbrRows; i++)
 	{
-		this->grid[i] = new double[cnum];
+		this->mbrGrid[i] = new double[mbrColumns];
 	}
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			this->grid[i][j] = 0;
+			this->mbrGrid[i][j] = 0;
 		}
 	}
 }
 Matrix::Matrix(int rows, int columns)
 {
-	rnum = rows;
-	cnum = columns;
-	this->grid = new double* [rnum];
-	for (int i = 0; i < rnum; i++)
+	mbrRows = rows;
+	mbrColumns = columns;
+	this->mbrGrid = new double* [mbrRows];
+	for (int i = 0; i < mbrRows; i++)
 	{
-		this->grid[i] = new double[cnum];
+		this->mbrGrid[i] = new double[mbrColumns];
 	}
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			this->grid[i][j] = 0;
+			this->mbrGrid[i][j] = 0;
 		}
 	}
 }
@@ -42,19 +42,19 @@ Matrix::Matrix(int rows, int columns)
 Matrix::Matrix(const Matrix& other)
 {
 	//std::cout << "matrix copy ctor" << std::endl;
-	this->rnum = other.rnum;
-	this->cnum = other.cnum;
+	this->mbrRows = other.mbrRows;
+	this->mbrColumns = other.mbrColumns;
 	//std::cout << "this: " << rnum << cnum << " other:" << other.rnum << other.cnum << std::endl;
-	this->grid = new double* [rnum];
-	for (int i = 0; i < rnum; i++)
+	this->mbrGrid = new double* [mbrRows];
+	for (int i = 0; i < mbrRows; i++)
 	{
-		this->grid[i] = new double[cnum];
+		this->mbrGrid[i] = new double[mbrColumns];
 	}
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			this->grid[i][j] = other.grid[i][j];
+			this->mbrGrid[i][j] = other.mbrGrid[i][j];
 			//std::cout << "this: " << grid[i][j] << " other:" << other.grid[i][j] << std::endl;
 		}
 	}
@@ -62,18 +62,18 @@ Matrix::Matrix(const Matrix& other)
 
 Matrix::Matrix(int rows, int columns, double* values)
 {
-	rnum = rows;
-	cnum = columns;
-	this->grid = new double* [rnum];
-	for (int i = 0; i < rnum; i++)
+	mbrRows = rows;
+	mbrColumns = columns;
+	this->mbrGrid = new double* [mbrRows];
+	for (int i = 0; i < mbrRows; i++)
 	{
-		this->grid[i] = new double[cnum];
+		this->mbrGrid[i] = new double[mbrColumns];
 	}
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			this->grid[i][j] = values[(i * columns) + j];
+			this->mbrGrid[i][j] = values[(i * columns) + j];
 		}
 	}
 }
@@ -81,38 +81,38 @@ Matrix::Matrix(int rows, int columns, double* values)
 Matrix::~Matrix()
 {
 	//std::cout << "deleting matrix" << &grid << std::endl;
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		delete[] this->grid[i];
-		this->grid[i] = nullptr;
+		delete[] this->mbrGrid[i];
+		this->mbrGrid[i] = nullptr;
 	}
-	delete[] this->grid;
-	this->grid = nullptr;
+	delete[] this->mbrGrid;
+	this->mbrGrid = nullptr;
 }
 
 Matrix& Matrix::operator=(const Matrix other)
 {
 	if (this == &other) return *this;
 	//std::cout << "matrix copy assign" << std::endl;
-	this->rnum = other.rnum;
-	this->cnum = other.cnum;
-	for (int i = 0; i < rnum; i++)
+	this->mbrRows = other.mbrRows;
+	this->mbrColumns = other.mbrColumns;
+	for (int i = 0; i < mbrRows; i++)
 	{
-		delete[] this->grid[i];
-		this->grid[i] = nullptr;
+		delete[] this->mbrGrid[i];
+		this->mbrGrid[i] = nullptr;
 	}
-	delete[] this->grid;
-	this->grid = nullptr;
-	this->grid = new double* [rnum];
-	for (int i = 0; i < rnum; i++)
+	delete[] this->mbrGrid;
+	this->mbrGrid = nullptr;
+	this->mbrGrid = new double* [mbrRows];
+	for (int i = 0; i < mbrRows; i++)
 	{
-		this->grid[i] = new double[cnum];
+		this->mbrGrid[i] = new double[mbrColumns];
 	}
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			this->grid[i][j] = other.grid[i][j];
+			this->mbrGrid[i][j] = other.mbrGrid[i][j];
 		}
 	}
 	return *this;
@@ -121,17 +121,17 @@ Matrix& Matrix::operator=(const Matrix other)
 bool Matrix::operator==(const Matrix other) const
 {
 	//std::cout << "matrix equality operator" << std::endl;
-	if (other.rnum != rnum || other.cnum != cnum)
+	if (other.mbrRows != mbrRows || other.mbrColumns != mbrColumns)
 	{
 		return false;
 	}
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
 			//std::cout << "addresses this:" << &grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
 			//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
-			if (other.grid[i][j] != this->grid[i][j])
+			if (other.mbrGrid[i][j] != this->mbrGrid[i][j])
 			{
 				return false;
 			}
@@ -143,19 +143,19 @@ bool Matrix::operator==(const Matrix other) const
 bool Matrix::checkEqual(const Matrix other)
 {
 	//std::cout << "matrix equality" << std::endl;
-	if (other.rnum != rnum || other.cnum != cnum)
+	if (other.mbrRows != mbrRows || other.mbrColumns != mbrColumns)
 	{
 		return false;
 	}
 	Comparinator ce = Comparinator();
 	//std::cout << "row == column" << std::endl;
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
 			//std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
 			//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
-			if (!ce.checkFloat(other.grid[i][j],this->grid[i][j]))
+			if (!ce.checkFloat(other.mbrGrid[i][j],this->mbrGrid[i][j]))
 			{
 				return false;
 			}
@@ -167,16 +167,16 @@ bool Matrix::checkEqual(const Matrix other)
 Matrix* Matrix::operator*(const Matrix other)
 {
 	//std::cout << "matrix multiplication" << std::endl;
-	Matrix* result = new Matrix(other.rnum, other.cnum);
-	for (int i = 0; i < result->rnum; i++)
+	Matrix* result = new Matrix(other.mbrRows, other.mbrColumns);
+	for (int i = 0; i < result->mbrRows; i++)
 	{
-		for (int j = 0; j < result->cnum; j++)
+		for (int j = 0; j < result->mbrColumns; j++)
 		{
 			double value = 0;
-			for (int k = 0; k < result->cnum; k++)
+			for (int k = 0; k < result->mbrColumns; k++)
 			{
 				//std::cout << "i:" << i << "j:" << j << "k:" << k << "=" << grid[i][k] << "*" << other.grid[k][j] << std::endl;
-				value += grid[i][k] * other.grid[k][j];
+				value += mbrGrid[i][k] * other.mbrGrid[k][j];
 			}
 			//std::cout << value << std::endl;
 			result->setRC(i, j, value);
@@ -187,18 +187,18 @@ Matrix* Matrix::operator*(const Matrix other)
 
 Tuple Matrix::operator*(Tuple const other)
 {
-	if (rnum != 4 && cnum != 4) return other;
+	if (mbrRows != 4 && mbrColumns != 4) return other;
 	//std::cout << "matrix tuple multiplication" << std::endl;
-	double pseudoMatrix[4] = {other.x, other.y, other.z, other.w};
+	double pseudoMatrix[4] = {other.argX, other.argY, other.argZ, other.argW};
 	double results[4] = { 0,0,0,0 };
 	double res = 0;
 	for (int tuple = 0; tuple < 4; tuple++)
 	{
 		res = 0;
-		for (int col = 0; col < cnum; col++)
+		for (int col = 0; col < mbrColumns; col++)
 		{
 			//std::cout << "i:" << col << "j:" << tuple << "k:" << res << "=" << pseudoMatrix[col] << "*" << grid[tuple][col] << std::endl;
-			res += grid[tuple][col] * pseudoMatrix[col];
+			res += mbrGrid[tuple][col] * pseudoMatrix[col];
 		}
 		results[tuple] = res;
 	}
@@ -206,15 +206,15 @@ Tuple Matrix::operator*(Tuple const other)
 }
 Point Matrix::operator*(const Point other)
 {
-	Tuple tp = Tuple(other.x, other.y, other.z, other.w);
+	Tuple tp = Tuple(other.argX, other.argY, other.argZ, other.argW);
 	Tuple res = *(this) * tp;
-	return Point(res.x, res.y, res.z);
+	return Point(res.argX, res.argY, res.argZ);
 }
 Vector Matrix::operator*(const Vector other)
 {
-	Tuple tp = Tuple(other.x, other.y, other.z, other.w);
+	Tuple tp = Tuple(other.argX, other.argY, other.argZ, other.argW);
 	Tuple res = *(this) * tp;
-	return Vector(res.x, res.y, res.z);
+	return Vector(res.argX, res.argY, res.argZ);
 }
 
 bool Matrix::checkInvertible() {
@@ -222,14 +222,14 @@ bool Matrix::checkInvertible() {
 }
 bool Matrix::checkValid(int row, int column)
 {
-	return row >= 0 && row < rnum && column >= 0 && column < cnum;
+	return row >= 0 && row < mbrRows && column >= 0 && column < mbrColumns;
 }
 
 double Matrix::getRC(int row, int column)
 {
 	if (checkValid(row, column))
 	{
-		return this->grid[row][column];
+		return this->mbrGrid[row][column];
 	}
 	return 0;
 }
@@ -238,16 +238,16 @@ void Matrix::setRC(int row, int column, double value)
 {
 	if (checkValid(row, column))
 	{
-		this->grid[row][column] = value;
+		this->mbrGrid[row][column] = value;
 	}
 }
 
 Matrix* Matrix::transpose()
 {
-	Matrix* copy = new Matrix(cnum, rnum);
-	for (int i = 0; i < copy->rnum; i++)
+	Matrix* copy = new Matrix(mbrColumns, mbrRows);
+	for (int i = 0; i < copy->mbrRows; i++)
 	{
-		for (int j = 0; j < copy->cnum; j++)
+		for (int j = 0; j < copy->mbrColumns; j++)
 		{
 			copy->setRC(i, j, this->getRC(j, i));
 			//std::cout << "i:" << i << "j:" << j << "now: " << this->getRC(j, i) << "=" << copy->getRC(i, j) << std::endl;
@@ -259,10 +259,10 @@ Matrix* Matrix::transpose()
 double Matrix::determinant()
 {
 	double determinant = 0;
-	if (rnum == 2 && cnum == 2) determinant = grid[0][0] * grid[1][1] - grid[0][1] * grid[1][0];
+	if (mbrRows == 2 && mbrColumns == 2) determinant = mbrGrid[0][0] * mbrGrid[1][1] - mbrGrid[0][1] * mbrGrid[1][0];
 	else
 	{
-		for (int i = 0; i < cnum; i++)
+		for (int i = 0; i < mbrColumns; i++)
 		{
 			determinant += cofactor(0, i) * getRC(0, i);
 		};
@@ -272,17 +272,17 @@ double Matrix::determinant()
 
 Matrix* Matrix::submatrix(int row, int column)
 {
-	Matrix* sub = new Matrix(rnum - 1, cnum - 1);
+	Matrix* sub = new Matrix(mbrRows - 1, mbrColumns - 1);
 	int subrow = 0;
 	int subcol = 0;
 	int i = 0;
 	int j = 0;
-	while (i < rnum)
+	while (i < mbrRows)
 	{
 		if (i == row) { i += 1; }
 		j = 0;
 		subcol = 0;
-		while (j < cnum)
+		while (j < mbrColumns)
 		{
 			if (j == column) { j += 1; }
 			sub->setRC(subrow, subcol, this->getRC(i, j));
@@ -308,12 +308,12 @@ double Matrix::cofactor(int row, int column)
 
 Matrix* Matrix::invert()
 {
-	Matrix* inverse = new Matrix(rnum, cnum);
+	Matrix* inverse = new Matrix(mbrRows, mbrColumns);
 	if (!checkInvertible()) return inverse;
 	double dm = this->determinant();
-	for (int i = 0; i < this->rnum; i++)
+	for (int i = 0; i < this->mbrRows; i++)
 	{
-		for (int j = 0; j < this->cnum; j++)
+		for (int j = 0; j < this->mbrColumns; j++)
 		{
 			double cf = this->cofactor(i, j);
 			inverse->setRC(j, i, cf / dm);
@@ -324,12 +324,12 @@ Matrix* Matrix::invert()
 }
 Matrix* Matrix::identity()
 {
-	Matrix* identity = new Matrix(rnum, cnum);
-	for (int i = 0; i < identity->rnum; i++)
+	Matrix* identity = new Matrix(mbrRows, mbrColumns);
+	for (int i = 0; i < identity->mbrRows; i++)
 	{
-		for (int j = 0; j < identity->cnum; j++)
+		for (int j = 0; j < identity->mbrColumns; j++)
 		{
-			i == j ? identity->grid[i][j] = 1 : identity->grid[i][j] = 0;
+			i == j ? identity->mbrGrid[i][j] = 1 : identity->mbrGrid[i][j] = 0;
 		};
 	};
 	return identity;
@@ -367,85 +367,85 @@ Matrix* Matrix::shear(double xy, double xz, double yx, double yz, double zx, dou
 
 IdentityMatrix::IdentityMatrix (int rows, int columns) : Matrix(rows = rows, columns = columns)
 {
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			i == j ? this->grid[i][j] = 1 : this->grid[i][j] = 0;
+			i == j ? this->mbrGrid[i][j] = 1 : this->mbrGrid[i][j] = 0;
 		};
 	};
 }
 
 TranslationMatrix::TranslationMatrix(double x, double y, double z) : Matrix(4, 4)
 {
-	this->grid[0][0] = 1;
-	this->grid[0][3] = x;
-	this->grid[1][3] = y;
-	this->grid[1][1] = 1;
-	this->grid[2][3] = z;
-	this->grid[2][2] = 1;
-	this->grid[3][3] = 1;
+	this->mbrGrid[0][0] = 1;
+	this->mbrGrid[0][3] = x;
+	this->mbrGrid[1][3] = y;
+	this->mbrGrid[1][1] = 1;
+	this->mbrGrid[2][3] = z;
+	this->mbrGrid[2][2] = 1;
+	this->mbrGrid[3][3] = 1;
 }
 
 ScalingMatrix::ScalingMatrix(double x, double y, double z) : Matrix(4, 4)
 {
-	this->grid[0][0] = x;
-	this->grid[1][1] = y;
-	this->grid[2][2] = z;
-	this->grid[3][3] = 1;
+	this->mbrGrid[0][0] = x;
+	this->mbrGrid[1][1] = y;
+	this->mbrGrid[2][2] = z;
+	this->mbrGrid[3][3] = 1;
 }
 
 XRotationMatrix::XRotationMatrix(double radians) : Matrix(4, 4)
 {
-	this->grid[0][0] = 1;
-	this->grid[1][1] = cos(radians);
-	this->grid[1][2] = -sin(radians);
-	this->grid[2][1] = sin(radians);
-	this->grid[2][2] = cos(radians);
-	this->grid[3][3] = 1;
+	this->mbrGrid[0][0] = 1;
+	this->mbrGrid[1][1] = cos(radians);
+	this->mbrGrid[1][2] = -sin(radians);
+	this->mbrGrid[2][1] = sin(radians);
+	this->mbrGrid[2][2] = cos(radians);
+	this->mbrGrid[3][3] = 1;
 }
 
 YRotationMatrix::YRotationMatrix(double radians) : Matrix(4, 4)
 {
-	this->grid[0][0] = cos(radians);
-	this->grid[0][2] = sin(radians);
-	this->grid[1][1] = 1;
-	this->grid[2][0] = -sin(radians);
-	this->grid[2][2] = cos(radians);
-	this->grid[3][3] = 1;
+	this->mbrGrid[0][0] = cos(radians);
+	this->mbrGrid[0][2] = sin(radians);
+	this->mbrGrid[1][1] = 1;
+	this->mbrGrid[2][0] = -sin(radians);
+	this->mbrGrid[2][2] = cos(radians);
+	this->mbrGrid[3][3] = 1;
 }
 
 ZRotationMatrix::ZRotationMatrix(double radians) : Matrix(4, 4)
 {
-	this->grid[0][0] = cos(radians);
-	this->grid[0][1] = -sin(radians);
-	this->grid[1][0] = sin(radians);
-	this->grid[1][1] = cos(radians);
-	this->grid[2][2] = 1;
-	this->grid[3][3] = 1;
+	this->mbrGrid[0][0] = cos(radians);
+	this->mbrGrid[0][1] = -sin(radians);
+	this->mbrGrid[1][0] = sin(radians);
+	this->mbrGrid[1][1] = cos(radians);
+	this->mbrGrid[2][2] = 1;
+	this->mbrGrid[3][3] = 1;
 }
 
 ShearingMatrix::ShearingMatrix(double xy, double xz, double yx, double yz, double zx, double zy) : Matrix(4, 4)
 {
-	this->grid[0][0] = 1;
-	this->grid[0][1] = xy;
-	this->grid[0][2] = xz;
-	this->grid[1][0] = yx;
-	this->grid[1][1] = 1;
-	this->grid[1][2] = yz;
-	this->grid[2][0] = zx;
-	this->grid[2][1] = zy;
-	this->grid[2][2] = 1;
-	this->grid[3][3] = 1;
+	this->mbrGrid[0][0] = 1;
+	this->mbrGrid[0][1] = xy;
+	this->mbrGrid[0][2] = xz;
+	this->mbrGrid[1][0] = yx;
+	this->mbrGrid[1][1] = 1;
+	this->mbrGrid[1][2] = yz;
+	this->mbrGrid[2][0] = zx;
+	this->mbrGrid[2][1] = zy;
+	this->mbrGrid[2][2] = 1;
+	this->mbrGrid[3][3] = 1;
 }
 
 ViewMatrix::ViewMatrix() : Matrix()
 {
-	for (int i = 0; i < rnum; i++)
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			i == j ? this->grid[i][j] = 1 : this->grid[i][j] = 0;
+			i == j ? this->mbrGrid[i][j] = 1 : this->mbrGrid[i][j] = 0;
 		};
 	};
 }
@@ -455,14 +455,14 @@ ViewMatrix::ViewMatrix(Point start, Point end, Vector up) : Matrix()
 	Vector varForward = (end - start).normalize();
 	Vector varLeft = varForward.cross(up.normalize());
 	Vector varUp = varLeft.cross(varForward);
-	double varValues[] = {varLeft.x, varLeft.y, varLeft.z, 0, varUp.x, varUp.y, varUp.z, 0, -varForward.x, -varForward.y, -varForward.z, 0, 0, 0, 0, 1};
+	double varValues[] = {varLeft.argX, varLeft.argY, varLeft.argZ, 0, varUp.argX, varUp.argY, varUp.argZ, 0, -varForward.argX, -varForward.argY, -varForward.argZ, 0, 0, 0, 0, 1};
 	Matrix varOrientation = Matrix(4,4, varValues);
-	Matrix* varResult = varOrientation * TranslationMatrix(-start.x, -start.y, -start.z);
-	for (int i = 0; i < rnum; i++)
+	Matrix* varResult = varOrientation * TranslationMatrix(-start.argX, -start.argY, -start.argZ);
+	for (int i = 0; i < mbrRows; i++)
 	{
-		for (int j = 0; j < cnum; j++)
+		for (int j = 0; j < mbrColumns; j++)
 		{
-			this->grid[i][j] = varResult->grid[i][j];
+			this->mbrGrid[i][j] = varResult->mbrGrid[i][j];
 			// std::cout << "addresses this:" << & grid[i][j] << ":other:" << &varResult->grid[i][j] << std::endl;
 			// std::cout << "values this:" << grid[i][j] << ":other:" << varResult->grid[i][j] << std::endl;
 		};

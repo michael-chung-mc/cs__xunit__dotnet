@@ -11,8 +11,8 @@ class Intersections;
 
 class Form {
 public:
-	Point origin;
-	double radius;
+	Point mbrOrigin;
+	double mbrRadius;
 	Matrix mbrTransform;
 	Material mbrMaterial;
 	Ray mbrObjectRay;

@@ -7,42 +7,42 @@
 
 Intersection::Intersection()
 {
-	this->object = Sphere();
-	this->time = 0;
+	this->mbrObject = Sphere();
+	this->mbrTime = 0;
 	mbrExists = true;
 }
 Intersection::Intersection(double time, Form s)
 {
-	this->object = s;
-	this->time = time;
+	this->mbrObject = s;
+	this->mbrTime = time;
 	mbrExists = true;
 }
 
 bool Intersection::checkEqual(Intersection other)
 {
-	return time == other.time && object.checkEqual(other.object);
+	return mbrTime == other.mbrTime && mbrObject.checkEqual(other.mbrObject);
 }
 bool Intersection::operator<(Intersection other) const
 {
-	return time < other.time;
+	return mbrTime < other.mbrTime;
 }
 
 IntersectionState Intersection::getState(Ray argRay)
 {
 	IntersectionState is = IntersectionState();
-	is.time = time;
-	is.object = object;
-	is.point = argRay.position(is.time);
-	is.pov = -(argRay.direction);
-	is.normal = is.object.getNormal(is.point);
-	if (is.normal.dot(is.pov) < 0) {
-		is.inside = true;
-		is.normal = -is.normal;
+	is.mbrTime = mbrTime;
+	is.mbrObject = mbrObject;
+	is.mbrPoint = argRay.getPosition(is.mbrTime);
+	is.mbrEye = -(argRay.argDirection);
+	is.argNormal = is.mbrObject.getNormal(is.mbrPoint);
+	if (is.argNormal.dot(is.mbrEye) < 0) {
+		is.argInside = true;
+		is.argNormal = -is.argNormal;
 	}
 	else {
-		is.inside = false;
+		is.argInside = false;
 	}
-	is.mbrOverPoint = is.point + is.normal * getEpsilon();
+	is.mbrOverPoint = is.mbrPoint + is.argNormal * getEpsilon();
 	return is;
 }
 
@@ -53,26 +53,26 @@ Intersections::Intersections()
 }
 Intersections::Intersections(const Intersections& other)
 {
-	this->intersections = other.intersections;
+	this->mbrIntersections = other.mbrIntersections;
 }
 Intersections::Intersections(double t, Form s)
 {
 	Intersection i = Intersection(t,s);
-	intersections.push_back(i);
+	mbrIntersections.push_back(i);
 }
 void Intersections::intersect(double t, Form s)
 {
-	intersections.push_back(Intersection(t, s));
-    sort(intersections.begin(), intersections.end());
+	mbrIntersections.push_back(Intersection(t, s));
+    sort(mbrIntersections.begin(), mbrIntersections.end());
 }
 
 Intersection Intersections::hit()
 {
 	int index = -1;
-	for (int i = 0; i < intersections.size(); i++)
+	for (int i = 0; i < mbrIntersections.size(); i++)
 	{
-		if ((intersections[i].time > 0)
-			&& ((index < 0) || (intersections[i].time <= intersections[index].time)))
+		if ((mbrIntersections[i].mbrTime > 0)
+			&& ((index < 0) || (mbrIntersections[i].mbrTime <= mbrIntersections[index].mbrTime)))
 		{
 			index = i;
 		}
@@ -85,13 +85,13 @@ Intersection Intersections::hit()
 	}
 	else {
 		//std::cout << "hit" << std::endl;
-		return intersections[index];
+		return mbrIntersections[index];
 	}
 }
 
 Intersections& Intersections::operator=(const Intersections other)
 {
 	if (this == &other) return *this;
-	this->intersections = other.intersections;
+	this->mbrIntersections = other.mbrIntersections;
 	return *this;
 }

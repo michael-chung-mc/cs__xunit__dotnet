@@ -11,12 +11,12 @@ World::World ()
 Intersections World::getIntersect(Ray argRay)
 {
     Intersections hits;
-    for (int i = 0; i < objects.size(); i++)
+    for (int i = 0; i < mbrObjects.size(); i++)
     {
-        std::vector<Intersection> hit = objects[i].getIntersections(argRay).intersections;
+        std::vector<Intersection> hit = mbrObjects[i].getIntersections(argRay).mbrIntersections;
         for (int j = 0; j < hit.size(); j++)
         {
-            hits.intersect(hit[j].time, hit[j].object);
+            hits.intersect(hit[j].mbrTime, hit[j].mbrObject);
         }
     }
     return hits;
@@ -25,9 +25,9 @@ Color World::getShade(IntersectionState argIxState)
 {
     bool varInShadow = checkShadowed(argIxState.mbrOverPoint);
     Color varShade = Color(0,0,0);
-    for (int i = 0; i < lights.size();i++)
+    for (int i = 0; i < mbrLights.size();i++)
     {
-        varShade = varShade + argIxState.object.mbrMaterial.getLighting(lights[i], argIxState.point, argIxState.pov, argIxState.normal, varInShadow);
+        varShade = varShade + argIxState.mbrObject.mbrMaterial.getLighting(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.argNormal, varInShadow);
     }
     return varShade;
 }
@@ -41,23 +41,23 @@ Color World::getColor(Ray r)
 }
 bool World::checkShadowed(Point argPoint) {
     bool varFlagShadow = false;
-    for (int i = 0; i < lights.size(); i++)
+    for (int i = 0; i < mbrLights.size(); i++)
     {
-        Vector varDirection = lights[i].position - argPoint;
+        Vector varDirection = mbrLights[i].mbrPosition - argPoint;
         double varDistance = varDirection.magnitude();
         Vector varDirectionNormalized = varDirection.normalize();
         Ray varRay = Ray (argPoint, varDirectionNormalized);
         Intersection varHit = getIntersect(varRay).hit();
-        bool varShadow = varHit.mbrExists && (varHit.time < varDistance);
+        bool varShadow = varHit.mbrExists && (varHit.mbrTime < varDistance);
         varFlagShadow = varShadow ? true : varFlagShadow;
     }
     return varFlagShadow;
 }
 void World::setObject(Sphere argObject) {
-    objects.push_back(argObject);
+    mbrObjects.push_back(argObject);
 }
 void World::setLight(PointSource argLight) {
-    lights.push_back(argLight);
+    mbrLights.push_back(argLight);
 }
 
 DefaultWorld::DefaultWorld() : World()
@@ -65,12 +65,12 @@ DefaultWorld::DefaultWorld() : World()
     PointSource varDefaultLight = PointSource(Point(-10,10,-10), Color(1,1,1));
     Sphere s = Sphere();
     s.mbrMaterial = Material();
-    s.mbrMaterial.color = Color (0.8,1.0,0.6);
-    s.mbrMaterial.diffuse = 0.7;
-    s.mbrMaterial.specular = 0.2;
+    s.mbrMaterial.mbrColor = Color (0.8,1.0,0.6);
+    s.mbrMaterial.mbrDiffuse = 0.7;
+    s.mbrMaterial.mbrSpecular = 0.2;
     Sphere t = Sphere();
     t.mbrTransform = ScalingMatrix(0.5,0.5,0.5);
-    this->lights.push_back(varDefaultLight);
-    this->objects.push_back(s);
-    this->objects.push_back(t);
+    this->mbrLights.push_back(varDefaultLight);
+    this->mbrObjects.push_back(s);
+    this->mbrObjects.push_back(t);
 }

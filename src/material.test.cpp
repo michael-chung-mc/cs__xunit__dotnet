@@ -24,11 +24,11 @@ TEST_F(MaterialTest, CanaryTest)
 TEST_F(MaterialTest, MaterialCtor)
 {
     Material m = Material();
-    EXPECT_TRUE(ce.checkTuple(m.color, Color(1,1,1)));
-    EXPECT_TRUE(ce.checkFloat(m.ambient, 0.1));
-    EXPECT_TRUE(ce.checkFloat(m.diffuse, 0.9));
-    EXPECT_TRUE(ce.checkFloat(m.specular, 0.9));
-    EXPECT_TRUE(ce.checkFloat(m.shininess, 200.0));
+    EXPECT_TRUE(ce.checkTuple(m.mbrColor, Color(1,1,1)));
+    EXPECT_TRUE(ce.checkFloat(m.mbrAmbient, 0.1));
+    EXPECT_TRUE(ce.checkFloat(m.mbrDiffuse, 0.9));
+    EXPECT_TRUE(ce.checkFloat(m.mbrSpecular, 0.9));
+    EXPECT_TRUE(ce.checkFloat(m.mbrShininess, 200.0));
 }
 
 TEST_F(MaterialTest, LightingStraightOn)

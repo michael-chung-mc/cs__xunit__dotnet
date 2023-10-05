@@ -4,29 +4,29 @@
 
 Ray::Ray()
 {
-	this->origin = Point(0,0,0);
-	this->direction = Vector(0,0,0);
+	this->argOrigin = Point(0,0,0);
+	this->argDirection = Vector(0,0,0);
 }
 
 Ray::Ray(Point origin, Vector direction)
 {
-	this->origin = origin;
+	this->argOrigin = origin;
 	//std::cout << this->origin.x << std::endl;
-	this->direction = direction;
+	this->argDirection = direction;
 }
-Point Ray::position(double time)
+Point Ray::getPosition(double time)
 {
-	return origin + direction * time;
+	return argOrigin + argDirection * time;
 }
 Ray Ray::transform(Matrix matrix)
 {
-	return Ray(matrix * this->origin, matrix * direction);
+	return Ray(matrix * this->argOrigin, matrix * argDirection);
 }
 Ray Ray::transform(TranslationMatrix matrix)
 {
-	return Ray(matrix * this->origin, matrix * direction);
+	return Ray(matrix * this->argOrigin, matrix * argDirection);
 }
 Ray Ray::transform(ScalingMatrix matrix)
 {
-	return Ray(matrix * this->origin, matrix * direction);
+	return Ray(matrix * this->argOrigin, matrix * argDirection);
 }

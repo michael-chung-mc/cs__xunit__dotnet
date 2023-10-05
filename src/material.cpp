@@ -7,24 +7,24 @@
 
 Material::Material ()
 {
-    color = Color(1,1,1);
-    ambient = 0.1;
-    diffuse = 0.9;
-    specular = 0.9;
-    shininess = 200.0;
+    mbrColor = Color(1,1,1);
+    mbrAmbient = 0.1;
+    mbrDiffuse = 0.9;
+    mbrSpecular = 0.9;
+    mbrShininess = 200.0;
 }
 
 bool Material::checkEqual(Material other)
 {
     Comparinator ce = Comparinator();
-    return ce.checkTuple(color, other.color) && ce.checkFloat(ambient, other.ambient) && ce.checkFloat(diffuse, other.diffuse) && ce.checkFloat(specular, other.specular) && ce.checkFloat(shininess, other.shininess);
+    return ce.checkTuple(mbrColor, other.mbrColor) && ce.checkFloat(mbrAmbient, other.mbrAmbient) && ce.checkFloat(mbrDiffuse, other.mbrDiffuse) && ce.checkFloat(mbrSpecular, other.mbrSpecular) && ce.checkFloat(mbrShininess, other.mbrShininess);
 }
 
 Color Material::getLighting(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
-    Color varShade = color * argLighting.intensity;
-    Vector varLight = (argLighting.position - argPosition).normalize();
-    Color varResAmbient = varShade * ambient;
+    Color varShade = mbrColor * argLighting.mbrIntensity;
+    Vector varLight = (argLighting.mbrPosition - argPosition).normalize();
+    Color varResAmbient = varShade * mbrAmbient;
     double varLightDotNormal = varLight.dot(argNormal);
     Color varResDiffuse;
     Color varResSpecular;
@@ -37,7 +37,7 @@ Color Material::getLighting(PointSource argLighting, Point argPosition, Vector a
     }
     else
     {
-        varResDiffuse = varShade * diffuse * varLightDotNormal;
+        varResDiffuse = varShade * mbrDiffuse * varLightDotNormal;
         varReflect = (-varLight).reflect(argNormal);
         varReflectDotEye = varReflect.dot(argEye);
         if (varReflectDotEye <= 0)
@@ -46,8 +46,8 @@ Color Material::getLighting(PointSource argLighting, Point argPosition, Vector a
         }
         else
         {
-            double varFactor = pow(varReflectDotEye, shininess);
-            varResSpecular = argLighting.intensity * specular * varFactor;
+            double varFactor = pow(varReflectDotEye, mbrShininess);
+            varResSpecular = argLighting.mbrIntensity * mbrSpecular * varFactor;
         }
     }
     return argInShadow ? varResAmbient : varResAmbient + varResDiffuse + varResSpecular;

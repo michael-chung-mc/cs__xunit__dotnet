@@ -28,8 +28,8 @@ TEST_F(CanvasTest, CanvasInit)
 	//And c.height = 20
 	//And every pixel of c is color(0, 0, 0)
 	Canvas c = Canvas(10,20);
-	EXPECT_EQ(c.w, 10);
-	EXPECT_EQ(c.h, 20);
+	EXPECT_EQ(c.mbrWidth, 10);
+	EXPECT_EQ(c.mbrHeight, 20);
 	EXPECT_TRUE(c.isClean());
 }
 

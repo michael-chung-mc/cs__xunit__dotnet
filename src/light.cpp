@@ -5,18 +5,18 @@
 
 PointSource::PointSource()
 {
-    this->position = Point(0,0,0);
-    this->intensity = Color(0,0,0);
+    this->mbrPosition = Point(0,0,0);
+    this->mbrIntensity = Color(0,0,0);
 }
 
 PointSource::PointSource(Point position, Color intensity)
 {
-    this->position = position;
-    this->intensity = intensity;
+    this->mbrPosition = position;
+    this->mbrIntensity = intensity;
 }
 
 bool PointSource::checkEqual(const PointSource &other) const
 {
     Comparinator ce = Comparinator();
-    return ce.checkTuple(this->position,other.position) && intensity.checkEqual(other.intensity);
+    return ce.checkTuple(this->mbrPosition,other.mbrPosition) && mbrIntensity.checkEqual(other.mbrIntensity);
 }

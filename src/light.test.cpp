@@ -25,6 +25,6 @@ TEST_F(LightTest, PointSourceCtor)
     Color c = Color(1,1,1);
     Point p = Point(0,0,0);
     PointSource ps = PointSource(p,c);
-    EXPECT_TRUE(ce.checkTuple(c,ps.intensity));
-    EXPECT_TRUE(ce.checkTuple(p,ps.position));
+    EXPECT_TRUE(ce.checkTuple(c,ps.mbrIntensity));
+    EXPECT_TRUE(ce.checkTuple(p,ps.mbrPosition));
 }
