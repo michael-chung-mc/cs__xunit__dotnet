@@ -24,6 +24,7 @@ TEST_F(PatternTest, PatternCtor)
     Pattern varP = Pattern();
     EXPECT_TRUE(varP.mbrBlack.checkEqual(Color(0,0,0)));
     EXPECT_TRUE(varP.mbrWhite.checkEqual(Color(1,1,1)));
+    EXPECT_TRUE(varP.mbrTransform->checkEqual(IdentityMatrix(4,4)));
 }
 
 TEST_F(PatternTest, StripePatternCtor)

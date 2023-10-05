@@ -8,6 +8,7 @@ Pattern::Pattern()
 {
     mbrWhite = Color(1,1,1);
     mbrBlack = Color(0,0,0);
+    mbrTransform = new IdentityMatrix(4,4);
 }
 Color Pattern::getColor(Point argPoint) {
     return (int)std::floor(argPoint.mbrX) % 2 == 0 ? mbrColors[0] : mbrColors[1];
