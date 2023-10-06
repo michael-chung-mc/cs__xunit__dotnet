@@ -14,6 +14,7 @@ public:
 	Matrix();
 	Matrix(int row, int column);
 	Matrix(const Matrix& other);
+	Matrix(Matrix *other);
 	Matrix(int row, int column, double* values);
 	~Matrix();
 	Matrix& operator=(const Matrix other);

@@ -21,7 +21,7 @@ Color Pattern::getColorLocal(Point argPoint) {
     return Color(argPoint.mbrX, argPoint.mbrY, argPoint.mbrZ);
 }
 void Pattern::setTransform(const Matrix &argMatrix) {
-    mbrTransform = std::make_unique<Matrix>(Matrix(argMatrix));
+    mbrTransform = std::make_unique<Matrix>(argMatrix);
 }
 
 PatternStripe::PatternStripe() : Pattern() {

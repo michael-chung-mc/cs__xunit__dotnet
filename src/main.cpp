@@ -194,12 +194,13 @@ void cameraRenderSpherePlane()
 	Plane varLeftWall = Plane();
 	varLeftWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
 	varLeftWall.setMaterial(*varFloor.mbrMaterial);
-	varLeftWall.mbrMaterial->setPattern(new PatternGradient(Color(0,1,0), Color(0,0,1)));
+	varLeftWall.mbrMaterial->setPattern(new PatternGradient(Color(1,0,0), Color(0,0,1)));
 
 	Plane varRightWall = Plane();
 	varRightWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
 	varRightWall.setMaterial(*varFloor.mbrMaterial);
 	varRightWall.mbrMaterial->setPattern(new PatternRing(Color(1,0,0), Color(1,1,1)));
+	varRightWall.mbrMaterial->mbrPattern->setTransform(ScalingMatrix(0.05,0.05,0.05));
 
 	Sphere varObjMid = Sphere();
 	varObjMid.setTransform(TranslationMatrix(-0.5,1,0.5));
@@ -214,6 +215,7 @@ void cameraRenderSpherePlane()
 	varObjRight.mbrMaterial->mbrDiffuse = 0.7;
 	varObjRight.mbrMaterial->mbrSpecular = 0.3;
 	varObjRight.mbrMaterial->setPattern(new PatternStripe(Color(1,0,0), Color(0,0,1)));
+	varObjRight.mbrMaterial->mbrPattern->setTransform(ScalingMatrix(0.25,0.25,0.25));
 
 	Sphere varObjLeft = Sphere();
 	varObjLeft.setTransform(*(TranslationMatrix(-1.5,0.33,-0.75) * ScalingMatrix(0.33,0.33,0.33))); 

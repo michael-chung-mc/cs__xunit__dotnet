@@ -80,17 +80,17 @@ Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vecto
 void Material::setPattern(Pattern *argPattern) {
     if (PatternStripe *varPS = dynamic_cast<PatternStripe *>(argPattern))
     {
-        mbrPattern = std::make_unique<PatternStripe>(PatternStripe(*varPS));
+        mbrPattern = std::make_unique<PatternStripe>(*varPS);
     }
     else if (PatternGradient *varPS = dynamic_cast<PatternGradient *>(argPattern))
     {
-        mbrPattern = std::make_unique<PatternGradient>(PatternGradient(*varPS));
+        mbrPattern = std::make_unique<PatternGradient>(*varPS);
     }
     else if (PatternRing *varPS = dynamic_cast<PatternRing *>(argPattern))
     {
-        mbrPattern = std::make_unique<PatternRing>(PatternRing(*varPS));
+        mbrPattern = std::make_unique<PatternRing>(*varPS);
     }
     else {
-        mbrPattern = std::make_unique<Pattern>(Pattern(*argPattern));
+        mbrPattern = std::make_unique<Pattern>(*argPattern);
     }
 }

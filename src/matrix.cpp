@@ -59,6 +59,26 @@ Matrix::Matrix(const Matrix& other)
 		}
 	}
 }
+Matrix::Matrix(Matrix *other)
+{
+	//std::cout << "matrix copy ctor" << std::endl;
+	this->mbrRows = other->mbrRows;
+	this->mbrColumns = other->mbrColumns;
+	//std::cout << "this: " << mbrRows << mbrColumns << " other:" << other.mbrRows << other.mbrColumns << std::endl;
+	this->mbrGrid = new double* [mbrRows];
+	for (int i = 0; i < mbrRows; i++)
+	{
+		this->mbrGrid[i] = new double[mbrColumns];
+	}
+	for (int i = 0; i < mbrRows; i++)
+	{
+		for (int j = 0; j < mbrColumns; j++)
+		{
+			this->mbrGrid[i][j] = other->mbrGrid[i][j];
+			//std::cout << "this: " << mbrGrid[i][j] << " other:" << other.mbrGrid[i][j] << std::endl;
+		}
+	}
+}
 
 Matrix::Matrix(int rows, int columns, double* values)
 {

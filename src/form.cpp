@@ -19,7 +19,7 @@ Form::Form () {
 Form::Form(const Form& other) {
 	mbrOrigin = other.mbrOrigin;
 	mbrRadius = other.mbrRadius;
-	mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
+	mbrTransform = std::make_unique<Matrix>(*other.mbrTransform.get());
 	setMaterial(*other.mbrMaterial.get());
 	mbrObjectRay = other.mbrObjectRay;
 }
@@ -36,13 +36,15 @@ Form& Form::operator=(const Form other)
 	if (this == &other) return *this;
 	mbrOrigin = other.mbrOrigin;
 	mbrRadius = other.mbrRadius;
-	this->mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
+	this->mbrTransform = std::make_unique<Matrix>(*other.mbrTransform.get());
 	setMaterial(*other.mbrMaterial.get());
 	return *this;
 }
 Color Form::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
-	return mbrMaterial->getColorShaded(argLighting, argPosition, argEye, argNormal, argInShadow);
+	Point varObjP = *(mbrTransform->invert()) * argPosition;
+	Point varPatternP = *(mbrMaterial->mbrPattern->mbrTransform->invert()) * varObjP;
+	return mbrMaterial->getColorShaded(argLighting, varPatternP, argEye, argNormal, argInShadow);
 }
 Color Form::getColorLocal(Point argPosition)
 {
@@ -85,10 +87,10 @@ Vector Form::getNormal(Point argPoint)
 }
 void Form::setTransform(const Matrix &argMatrix)
 {
-    mbrTransform = std::make_unique<Matrix>(Matrix(argMatrix));
+    mbrTransform = std::make_unique<Matrix>(argMatrix);
 }
 void Form::setMaterial(const Material &argMaterial) {
-	mbrMaterial = std::make_unique<Material>(Material(argMaterial));
+	mbrMaterial = std::make_unique<Material>(argMaterial);
 }
 
 Sphere::Sphere() : Form ()
