@@ -194,6 +194,7 @@ void cameraRenderSpherePlane()
 	Plane varLeftWall = Plane();
 	varLeftWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
 	varLeftWall.setMaterial(*varFloor.mbrMaterial);
+	varLeftWall.mbrMaterial->setPattern(new PatternGradient(Color(1,0,0), Color(0,0,1)));
 
 	Plane varRightWall = Plane();
 	varRightWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
@@ -256,7 +257,7 @@ int main(int argc, char **argv)
 
 	// cameraRenderSpheres();
 
-	// cameraRenderSpherePlane();
+	cameraRenderSpherePlane();
 
     ::testing::InitGoogleTest( &argc, argv);
     return RUN_ALL_TESTS();
