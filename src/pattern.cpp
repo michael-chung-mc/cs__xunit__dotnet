@@ -74,3 +74,20 @@ PatternRing::PatternRing(Color argColorA, Color argColorB) : Pattern() {
 Color PatternRing::getColorLocal(Point argPoint) {
     return (int)fmod(floor(sqrt(pow(argPoint.mbrX,2) + pow(argPoint.mbrZ,2))),2) == 0 ? mbrColors[0]: mbrColors[1];
 }
+
+PatternChecker3d::PatternChecker3d() : Pattern() {
+    mbrColors.push_back(mbrWhite);
+    mbrColors.push_back(mbrBlack);
+}
+PatternChecker3d::PatternChecker3d(const PatternChecker3d& other) : Pattern()
+{
+    mbrColors = other.mbrColors;
+    mbrTransform = std::make_unique<Matrix>(*other.mbrTransform.get());
+}
+PatternChecker3d::PatternChecker3d(Color argColorA, Color argColorB) : Pattern() {
+    mbrColors.push_back(argColorA);
+    mbrColors.push_back(argColorB);
+}
+Color PatternChecker3d::getColorLocal(Point argPoint) {
+    return (int)fmod(floor(argPoint.mbrX) + floor(argPoint.mbrY) + floor(argPoint.mbrZ),2) == 0 ? mbrColors[0]: mbrColors[1];
+}

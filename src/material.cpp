@@ -90,6 +90,10 @@ void Material::setPattern(Pattern *argPattern) {
     {
         mbrPattern = std::make_unique<PatternRing>(*varPS);
     }
+    else if (PatternChecker3d *varPS = dynamic_cast<PatternChecker3d *>(argPattern))
+    {
+        mbrPattern = std::make_unique<PatternChecker3d>(*varPS);
+    }
     else {
         mbrPattern = std::make_unique<Pattern>(*argPattern);
     }

@@ -188,17 +188,18 @@ void cameraRenderSpherePlane()
 	Plane varFloor = Plane();
 	varFloor.setTransform(*(TranslationMatrix(0,-1,0) * ScalingMatrix(10,1,10)));
 	varFloor.setMaterial(Material());
-	varFloor.mbrMaterial->mbrColor = Color(1,0.9,0.9);
-	varFloor.mbrMaterial->mbrSpecular = 0;
+	varFloor.mbrMaterial->mbrSpecular = 1;
+	varFloor.mbrMaterial->setPattern(new PatternChecker3d(Color(0,0,0), Color(1,1,1)));
+	varFloor.mbrMaterial->mbrPattern->setTransform(ScalingMatrix(0.1,0.1,0.1));
 
 	Plane varLeftWall = Plane();
 	varLeftWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(-getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
-	varLeftWall.setMaterial(*varFloor.mbrMaterial);
+	varLeftWall.setMaterial(Material());
 	varLeftWall.mbrMaterial->setPattern(new PatternGradient(Color(1,0,0), Color(0,0,1)));
 
 	Plane varRightWall = Plane();
 	varRightWall.setTransform(*(*(*(TranslationMatrix(0,0,5) * YRotationMatrix(getPI()/4)) * XRotationMatrix(getPI()/2)) * ScalingMatrix(10,1,10)));
-	varRightWall.setMaterial(*varFloor.mbrMaterial);
+	varRightWall.setMaterial(Material());
 	varRightWall.mbrMaterial->setPattern(new PatternRing(Color(1,0,0), Color(1,1,1)));
 	varRightWall.mbrMaterial->mbrPattern->setTransform(ScalingMatrix(0.05,0.05,0.05));
 

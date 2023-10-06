@@ -138,3 +138,15 @@ TEST_F(PatternTest, RingPattern)
     EXPECT_TRUE(varPR.getColorLocal(Point(0,0,1)).checkEqual(Color(0,0,0)));
     EXPECT_TRUE(varPR.getColorLocal(Point(0.708,0,0.708)).checkEqual(Color(0,0,0)));
 }
+
+TEST_F(PatternTest, RingChecker3d)
+{
+    PatternChecker3d varCh = PatternChecker3d();
+    EXPECT_TRUE(varCh.getColorLocal(Point(0,0,0)).checkEqual(Color(1,1,1)));
+    EXPECT_TRUE(varCh.getColorLocal(Point(0.99,0,0)).checkEqual(Color(1,1,1)));
+    EXPECT_TRUE(varCh.getColorLocal(Point(1.01,0,0)).checkEqual(Color(0,0,0)));
+    EXPECT_TRUE(varCh.getColorLocal(Point(0,0.99,0)).checkEqual(Color(1,1,1)));
+    EXPECT_TRUE(varCh.getColorLocal(Point(0,1.01,0)).checkEqual(Color(0,0,0)));
+    EXPECT_TRUE(varCh.getColorLocal(Point(0,0,0.99)).checkEqual(Color(1,1,1)));
+    EXPECT_TRUE(varCh.getColorLocal(Point(0,0,1.01)).checkEqual(Color(0,0,0)));
+}
