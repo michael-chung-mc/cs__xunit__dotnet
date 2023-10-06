@@ -6,23 +6,35 @@ class Matrix;
 #include "color.h"
 #include "tuple.h"
 #include <vector>
+#include <memory>
 
 class Pattern {
 public:
     Color mbrBlack;
     Color mbrWhite;
     std::vector<Color> mbrColors;
-    Matrix* mbrTransform;
+    std::unique_ptr<Matrix> mbrTransform;
     Pattern();
-    virtual Color getColor(Point argPoint);
-    void setTransform(Matrix *argTransform);
+	Pattern(const Pattern& other);
+    virtual ~Pattern();
+    virtual Color getColorLocal(Point argPoint);
+    void setTransform(const Matrix &argMatrix);
 };
 
 class PatternStripe : public Pattern {
 public:
     PatternStripe();
+	PatternStripe(const PatternStripe& other);
     PatternStripe(Color argColorA, Color argColorB);
-    Color getColor(Point argPoint) override;
+    Color getColorLocal(Point argPoint) override;
+};
+
+class PatternGradient : public Pattern {
+public:
+    PatternGradient();
+	PatternGradient(const PatternGradient& other);
+    PatternGradient(Color argColorA, Color argColorB);
+    Color getColorLocal(Point argPoint) override;
 };
 
 #endif

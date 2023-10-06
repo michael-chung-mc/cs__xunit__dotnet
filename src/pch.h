@@ -6,6 +6,7 @@
 #include <fstream>
 #include <cmath>
 #include <vector>
+#include <memory>
 
 inline std::string getPPMFilename(bool linuxPath) {
 	std::time_t now = std::time(nullptr);

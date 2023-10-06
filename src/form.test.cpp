@@ -123,7 +123,7 @@ TEST_F(SphereTest, SphereScaledTo5Intersections) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	ScalingMatrix m = ScalingMatrix(5, 5, 5);
-	s.setTransform(m);
+	s.setTransform(Matrix(m));
 	EXPECT_TRUE(m.checkEqual(*s.mbrTransform));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	double z = 0;
@@ -137,7 +137,7 @@ TEST_F(SphereTest, SphereTranslatedToMiss) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	TranslationMatrix m = TranslationMatrix(5, 0, 0);
-	s.setTransform(m);
+	s.setTransform(Matrix(m));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 0);
 	EXPECT_TRUE(ce.checkTuple(s.mbrObjectRay.mbrOrigin, Point(-5,0,-5)));
@@ -148,7 +148,7 @@ TEST_F(SphereTest, SphereTranslatedAway) {
 	Sphere s = Sphere();
 	Ray r = Ray(Point(0, 0, -5), Vector(0, 0, 1));
 	TranslationMatrix m = TranslationMatrix(0, 0, 1);
-	s.setTransform(m);
+	s.setTransform(Matrix(m));
 	std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 	EXPECT_EQ(xs.size(), 2);
 	EXPECT_EQ(xs[0].mbrTime, 5);
@@ -207,8 +207,7 @@ TEST_F(SphereTest, SphereTranslatedNormalized) {
 
 TEST_F(SphereTest, SphereTransformedNormalized) {
 	Sphere s = Sphere();
-	Matrix t = ScalingMatrix(1, 0.5, 1);
-	t = *(t * ZRotationMatrix(getPI()/5));
+	Matrix t = *(ScalingMatrix(1, 0.5, 1) * ZRotationMatrix(getPI()/5));
 	s.setTransform(t);
 	Point p = Point(0,sqrt(2)/2,-sqrt(2)/2);
 	Vector normal = s.getNormal(p);
@@ -219,15 +218,15 @@ TEST_F(SphereTest, SphereTransformedNormalized) {
 TEST_F(SphereTest, SphereMaterialCtor) {
 	Sphere s = Sphere();
 	Material m = Material();
-	EXPECT_TRUE(m.checkEqual(s.mbrMaterial));
+	EXPECT_TRUE(m.checkEqual(*s.mbrMaterial));
 };
 
 TEST_F(SphereTest, SphereMaterialAssignment) {
 	Sphere s = Sphere();
 	Material m = Material();
 	m.mbrAmbient = 1;
-	s.mbrMaterial = m;
-	EXPECT_TRUE(m.checkEqual(s.mbrMaterial));
+	s.setMaterial(m);
+	EXPECT_TRUE(m.checkEqual(*s.mbrMaterial));
 };
 
 class PlaneTest : public ::testing::Test {
