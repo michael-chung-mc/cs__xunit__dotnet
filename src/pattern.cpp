@@ -14,7 +14,7 @@ Pattern::Pattern()
 Pattern::Pattern(const Pattern& other)
 {
     mbrColors = other.mbrColors;
-    mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
+    mbrTransform = std::make_unique<Matrix>(*other.mbrTransform.get());
 }
 Pattern::~Pattern() { }
 Color Pattern::getColorLocal(Point argPoint) {
@@ -31,7 +31,7 @@ PatternStripe::PatternStripe() : Pattern() {
 PatternStripe::PatternStripe(const PatternStripe& other) : Pattern()
 {
     mbrColors = other.mbrColors;
-    mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
+    mbrTransform = std::make_unique<Matrix>(*other.mbrTransform.get());
 }
 PatternStripe::PatternStripe(Color argColorA, Color argColorB) : Pattern() {
     mbrColors.push_back(argColorA);
@@ -48,7 +48,7 @@ PatternGradient::PatternGradient() : Pattern() {
 PatternGradient::PatternGradient(const PatternGradient& other) : Pattern()
 {
     mbrColors = other.mbrColors;
-    mbrTransform = std::make_unique<Matrix>(Matrix(*other.mbrTransform.get()));
+    mbrTransform = std::make_unique<Matrix>(*other.mbrTransform.get());
 }
 PatternGradient::PatternGradient(Color argColorA, Color argColorB) : Pattern() {
     mbrColors.push_back(argColorA);
@@ -56,4 +56,21 @@ PatternGradient::PatternGradient(Color argColorA, Color argColorB) : Pattern() {
 }
 Color PatternGradient::getColorLocal(Point argPoint) {
     return mbrColors[0] + (mbrColors[1]-mbrColors[0]) * (argPoint.mbrX - floor(argPoint.mbrX));
+}
+
+PatternRing::PatternRing() : Pattern() {
+    mbrColors.push_back(mbrWhite);
+    mbrColors.push_back(mbrBlack);
+}
+PatternRing::PatternRing(const PatternRing& other) : Pattern()
+{
+    mbrColors = other.mbrColors;
+    mbrTransform = std::make_unique<Matrix>(*other.mbrTransform.get());
+}
+PatternRing::PatternRing(Color argColorA, Color argColorB) : Pattern() {
+    mbrColors.push_back(argColorA);
+    mbrColors.push_back(argColorB);
+}
+Color PatternRing::getColorLocal(Point argPoint) {
+    return (int)fmod(floor(sqrt(pow(argPoint.mbrX,2) + pow(argPoint.mbrZ,2))),2) == 0 ? mbrColors[0]: mbrColors[1];
 }

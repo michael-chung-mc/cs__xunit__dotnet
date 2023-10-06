@@ -129,3 +129,12 @@ TEST_F(PatternTest, GradientPattern)
     EXPECT_TRUE(varPG.getColorLocal(Point(0.5,0,0)).checkEqual(Color(0.5,0.5,0.5)));
     EXPECT_TRUE(varPG.getColorLocal(Point(0.75,0,0)).checkEqual(Color(.25,.25,.25)));
 }
+
+TEST_F(PatternTest, RingPattern)
+{
+    PatternRing varPR = PatternRing();
+    EXPECT_TRUE(varPR.getColorLocal(Point(0,0,0)).checkEqual(Color(1,1,1)));
+    EXPECT_TRUE(varPR.getColorLocal(Point(1,0,0)).checkEqual(Color(0,0,0)));
+    EXPECT_TRUE(varPR.getColorLocal(Point(0,0,1)).checkEqual(Color(0,0,0)));
+    EXPECT_TRUE(varPR.getColorLocal(Point(0.708,0,0.708)).checkEqual(Color(0,0,0)));
+}

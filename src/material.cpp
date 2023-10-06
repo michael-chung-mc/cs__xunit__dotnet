@@ -82,6 +82,14 @@ void Material::setPattern(Pattern *argPattern) {
     {
         mbrPattern = std::make_unique<PatternStripe>(PatternStripe(*varPS));
     }
+    else if (PatternGradient *varPS = dynamic_cast<PatternGradient *>(argPattern))
+    {
+        mbrPattern = std::make_unique<PatternGradient>(PatternGradient(*varPS));
+    }
+    else if (PatternRing *varPS = dynamic_cast<PatternRing *>(argPattern))
+    {
+        mbrPattern = std::make_unique<PatternRing>(PatternRing(*varPS));
+    }
     else {
         mbrPattern = std::make_unique<Pattern>(Pattern(*argPattern));
     }

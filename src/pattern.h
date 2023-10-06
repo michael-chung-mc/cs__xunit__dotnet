@@ -37,4 +37,12 @@ public:
     Color getColorLocal(Point argPoint) override;
 };
 
+class PatternRing : public Pattern {
+public:
+    PatternRing();
+	PatternRing(const PatternRing& other);
+    PatternRing(Color argColorA, Color argColorB);
+    Color getColorLocal(Point argPoint) override;
+};
+
 #endif
