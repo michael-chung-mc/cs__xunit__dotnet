@@ -418,7 +418,7 @@ int main(int argc, char **argv)
 	// cameraRenderPlanes();
 
 	// cameraRenderSpherePlane();
-	cameraRenderPatterns();
+	// cameraRenderPatterns();
 
     ::testing::InitGoogleTest( &argc, argv);
     return RUN_ALL_TESTS();

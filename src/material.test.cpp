@@ -8,11 +8,11 @@
 
 class MaterialTest : public ::testing::Test {
 protected:
-    Comparinator ce;
+    Comparinator varComp;
 	//TupleTest() {}
 	//~TupleTest() override {}
 	void SetUp() override {
-        ce = Comparinator();
+        varComp = Comparinator();
     }
 	//void TearDown() override { }
 };
@@ -24,24 +24,25 @@ TEST_F(MaterialTest, CanaryTest)
 
 TEST_F(MaterialTest, MaterialCtor)
 {
-    Material m = Material();
-    EXPECT_TRUE(ce.checkTuple(m.mbrColor, Color(1,1,1)));
-    EXPECT_TRUE(ce.checkFloat(m.mbrAmbient, 0.1));
-    EXPECT_TRUE(ce.checkFloat(m.mbrDiffuse, 0.9));
-    EXPECT_TRUE(ce.checkFloat(m.mbrSpecular, 0.9));
-    EXPECT_TRUE(ce.checkFloat(m.mbrShininess, 200.0));
+    Material varMat = Material();
+    EXPECT_TRUE(varComp.checkTuple(varMat.mbrColor, Color(1,1,1)));
+    EXPECT_TRUE(varComp.checkFloat(varMat.mbrAmbient, 0.1));
+    EXPECT_TRUE(varComp.checkFloat(varMat.mbrDiffuse, 0.9));
+    EXPECT_TRUE(varComp.checkFloat(varMat.mbrSpecular, 0.9));
+    EXPECT_TRUE(varComp.checkFloat(varMat.mbrShininess, 200.0));
+    EXPECT_TRUE(varComp.checkFloat(varMat.mbrReflective, 0.0));
 }
 
 TEST_F(MaterialTest, LightingStraightOn)
 {
-    Material m = Material();
+    Material varMat = Material();
     Point p = Point(0,0,0);
     Vector pov = Vector(0,0,-1);
     Vector normal = Vector(0,0,-1);
     PointSource light = PointSource(Point(0,0,-10),Color(1,1,1));
-    Color res = m.getColor(light, p, pov, normal, false);
+    Color res = varMat.getColor(light, p, pov, normal, false);
     Color expectedLight = Color(1.9,1.9,1.9);
-    EXPECT_TRUE(ce.checkTuple(res,expectedLight));
+    EXPECT_TRUE(varComp.checkTuple(res,expectedLight));
 }
 
 TEST_F(MaterialTest, Lighting45PovShift)
@@ -53,7 +54,7 @@ TEST_F(MaterialTest, Lighting45PovShift)
     PointSource light = PointSource(Point(0,0,-10),Color(1,1,1));
     Color res = m.getColor(light, p, pov, normal, false);
     Color expectedLight = Color(1.0,1.0,1.0);
-    EXPECT_TRUE(ce.checkTuple(res,expectedLight));
+    EXPECT_TRUE(varComp.checkTuple(res,expectedLight));
 }
 
 TEST_F(MaterialTest, Lighting45LightShift)
@@ -65,7 +66,7 @@ TEST_F(MaterialTest, Lighting45LightShift)
     PointSource light = PointSource(Point(0,10,-10),Color(1,1,1));
     Color res = m.getColor(light, p, pov, normal, false);
     Color expectedLight = Color(0.7364,0.7364,0.7364);
-    EXPECT_TRUE(ce.checkTuple(res,expectedLight));
+    EXPECT_TRUE(varComp.checkTuple(res,expectedLight));
 }
 
 TEST_F(MaterialTest, Lighting45EyeLightShift)
@@ -77,7 +78,7 @@ TEST_F(MaterialTest, Lighting45EyeLightShift)
     PointSource light = PointSource(Point(0,10,-10),Color(1,1,1));
     Color res = m.getColor(light, p, pov, normal, false);
     Color expectedLight = Color(1.6364,1.6364,1.6364);
-    EXPECT_TRUE(ce.checkTuple(res,expectedLight));
+    EXPECT_TRUE(varComp.checkTuple(res,expectedLight));
 }
 
 TEST_F(MaterialTest, LightingBehindSurface)
@@ -89,7 +90,7 @@ TEST_F(MaterialTest, LightingBehindSurface)
     PointSource light = PointSource(Point(0,0,10),Color(1,1,1));
     Color res = m.getColor(light, p, pov, normal, false);
     Color expectedLight = Color(0.1,0.1,0.1);
-    EXPECT_TRUE(ce.checkTuple(res,expectedLight));
+    EXPECT_TRUE(varComp.checkTuple(res,expectedLight));
 }
 
 TEST_F(MaterialTest, LightingShadow)
@@ -101,7 +102,7 @@ TEST_F(MaterialTest, LightingShadow)
     PointSource light = PointSource(Point(0,0,-10),Color(1,1,1));
     Color res = m.getColor(light, p, pov, normal, true);
     Color expectedLight = Color(0.1,0.1,0.1);
-    EXPECT_TRUE(ce.checkTuple(res,expectedLight));
+    EXPECT_TRUE(varComp.checkTuple(res,expectedLight));
 }
 
 TEST_F(MaterialTest, LightingPatternCtor)
@@ -116,6 +117,6 @@ TEST_F(MaterialTest, LightingPatternCtor)
     PointSource varLight = PointSource(Point(0,0,-10),Color(1,1,1));
     Color varStripeA = varMat.getColor(varLight, Point(0.9,0,0), varPov, varNormal, true);
     Color varStripeB = varMat.getColor(varLight, Point(1.1,0,0), varPov, varNormal, true);
-    EXPECT_TRUE(ce.checkTuple(varStripeA,Color(1,1,1)));
-    EXPECT_TRUE(ce.checkTuple(varStripeA,Color(0,0,0)));
+    EXPECT_TRUE(varComp.checkTuple(varStripeA,Color(1,1,1)));
+    EXPECT_TRUE(varComp.checkTuple(varStripeA,Color(0,0,0)));
 }

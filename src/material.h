@@ -16,6 +16,7 @@ public:
     double mbrDiffuse;
     double mbrSpecular;
     double mbrShininess;
+    double mbrReflective;
     Color mbrColor;
     std::unique_ptr<Pattern> mbrPattern;
     Material();

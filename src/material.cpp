@@ -13,6 +13,7 @@ Material::Material ()
     mbrDiffuse = 0.9;
     mbrSpecular = 0.9;
     mbrShininess = 200.0;
+    mbrReflective = 0;
     mbrColor = Color(1,1,1);
     mbrPattern = std::make_unique<Pattern>(Pattern());
 }
@@ -22,6 +23,7 @@ Material::Material(const Material& other)
     mbrDiffuse = other.mbrDiffuse;
     mbrSpecular = other.mbrSpecular;
     mbrShininess = other.mbrShininess;
+    mbrReflective = other.mbrReflective;
     mbrColor = other.mbrColor;
     setPattern(other.mbrPattern.get());
 }
@@ -34,6 +36,7 @@ Material& Material::operator=(const Material other)
     mbrDiffuse = other.mbrDiffuse;
     mbrSpecular = other.mbrSpecular;
     mbrShininess = other.mbrShininess;
+    mbrReflective = other.mbrReflective;
     mbrColor = other.mbrColor;
     setPattern(other.mbrPattern.get());
     return *this;
