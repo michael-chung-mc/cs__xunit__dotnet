@@ -23,7 +23,7 @@ public:
     virtual ~Material();
 	Material& operator=(const Material other);
     bool checkEqual(Material other);
-    Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
+    Color getColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
     void setPattern(Pattern *argPattern);
 };
 

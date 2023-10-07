@@ -44,7 +44,7 @@ bool Material::checkEqual(Material other)
     return ce.checkTuple(mbrColor, other.mbrColor) && ce.checkFloat(mbrAmbient, other.mbrAmbient) && ce.checkFloat(mbrDiffuse, other.mbrDiffuse) && ce.checkFloat(mbrSpecular, other.mbrSpecular) && ce.checkFloat(mbrShininess, other.mbrShininess);
 }
 
-Color Material::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+Color Material::getColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
     Color varColor = mbrPattern->mbrColors.size() != 0 ? mbrPattern->getColorLocal(argPosition) : mbrColor;
     Color varShade = varColor * argLighting.mbrIntensity;
@@ -89,6 +89,10 @@ void Material::setPattern(Pattern *argPattern) {
     else if (PatternRing *varPS = dynamic_cast<PatternRing *>(argPattern))
     {
         mbrPattern = std::make_unique<PatternRing>(*varPS);
+    }
+    else if (PatternChecker *varPS = dynamic_cast<PatternChecker *>(argPattern))
+    {
+        mbrPattern = std::make_unique<PatternChecker>(*varPS);
     }
     else if (PatternChecker3d *varPS = dynamic_cast<PatternChecker3d *>(argPattern))
     {

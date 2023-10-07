@@ -7,16 +7,39 @@
 
 World::World ()
 {
+    mbrObjects.clear();
+}
+World::World (const World &argOther)
+{
+    mbrObjects.clear();
+    for (int i = 0; i < argOther.mbrObjects.size(); i++)
+    {
+        setObject(argOther.mbrObjects[i].get());
+        // mbrObjects.push_back(std::make_unique<Form>(*argOther.mbrObjects[i].get()));
+    }
+    mbrLights = argOther.mbrLights;
+}
+World& World::operator=(const World &argOther)
+{
+    if (this == &argOther) return *this;
+    mbrObjects.clear();
+    for (int i = 0; i < argOther.mbrObjects.size(); i++)
+    {
+        setObject(argOther.mbrObjects[i].get());
+        //mbrObjects.push_back(std::make_unique<Form>(*argOther.mbrObjects[i].get()));
+    }
+    mbrLights = argOther.mbrLights;
+    return *this;
 }
 Intersections World::getIntersect(Ray argRay)
 {
-    Intersections hits;
+    Intersections hits = Intersections();
     for (int i = 0; i < mbrObjects.size(); i++)
     {
-        std::vector<Intersection> hit = mbrObjects[i].getIntersections(argRay).mbrIntersections;
-        for (int j = 0; j < hit.size(); j++)
+        Intersections varIx = mbrObjects[i]->getIntersections(argRay);
+        for (int j = 0; j < varIx.mbrIntersections.size(); j++)
         {
-            hits.intersect(hit[j].mbrTime, hit[j].mbrObject);
+            hits.intersect(varIx.mbrIntersections[j]->mbrTime, varIx.mbrIntersections[j]->mbrObject.get());
         }
     }
     return hits;
@@ -27,17 +50,18 @@ Color World::getColorShaded(IntersectionState argIxState)
     Color varShade = Color(0,0,0);
     for (int i = 0; i < mbrLights.size();i++)
     {
-        varShade = varShade + argIxState.mbrObject.getColorShaded(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.mbrNormal, varInShadow);
+        varShade = varShade + argIxState.mbrObject->getColorShaded(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.mbrNormal, varInShadow);
     }
     return varShade;
 }
-Color World::getColor(Ray r)
+Color World::getColor(const Ray &r)
 {
-    Intersections xs = this->getIntersect(r);
+    Intersections xs = getIntersect(r);
     Intersection hit = xs.hit();
+    // if (!hit.mbrExists) return Color(50,205,50);
     if (!hit.mbrExists) return Color(0,0,0);
     IntersectionState is = hit.getState(r);
-    return this->getColorShaded(is);
+    return getColorShaded(is);
 }
 bool World::checkShadowed(Point argPoint) {
     bool varFlagShadow = false;
@@ -53,9 +77,23 @@ bool World::checkShadowed(Point argPoint) {
     }
     return varFlagShadow;
 }
-void World::setObject(Form argObject) {
-    mbrObjects.push_back(argObject);
+void World::setObject(Form* argObject) {
+    if (Sphere *varSphere = dynamic_cast<Sphere *>(argObject))
+    {
+        mbrObjects.push_back(std::make_unique<Sphere>(*varSphere));
+    }
+    else if (Plane *varPlane = dynamic_cast<Plane *>(argObject))
+    {
+        mbrObjects.push_back(std::make_unique<Plane>(*varPlane));
+    }
+    else {
+        mbrObjects.push_back(std::make_unique<Form>(*argObject));
+    }
 }
+// void World::setObject(std::unique_ptr<Form> &&argObject) {
+//     //mbrObjects.push_back(std::make_unique<Form>(*argObject.get()));
+//     mbrObjects.push_back(std::move(argObject));
+// }
 void World::setLight(PointSource argLight) {
     mbrLights.push_back(argLight);
 }
@@ -63,7 +101,7 @@ void World::setLight(PointSource argLight) {
 DefaultWorld::DefaultWorld() : World()
 {
     PointSource varDefaultLight = PointSource(Point(-10,10,-10), Color(1,1,1));
-    this->mbrLights.push_back(varDefaultLight);
+    setLight(varDefaultLight);
     Sphere s = Sphere();
     s.setMaterial(Material());
     s.mbrMaterial->mbrColor = Color (0.8,1.0,0.6);
@@ -71,6 +109,8 @@ DefaultWorld::DefaultWorld() : World()
     s.mbrMaterial->mbrSpecular = 0.2;
     Sphere t = Sphere();
     t.setTransform(ScalingMatrix(0.5,0.5,0.5));
-    this->mbrObjects.push_back(s);
-    this->mbrObjects.push_back(t);
+    setObject(new Sphere(s));
+    setObject(new Sphere(t));
+    // this->mbrObjects.push_back(std::make_unique<Sphere>(s));
+    // this->mbrObjects.push_back(std::make_unique<Sphere>(t));
 }

@@ -40,31 +40,37 @@ TEST_F(WorldTest, WorldDefaultCtor) {
     Sphere t = Sphere();
     t.setTransform(*(ScalingMatrix(0.5,0.5,0.5) * IdentityMatrix(4,4)));
     EXPECT_TRUE(l.checkEqual(varDefaultWorld.mbrLights[0]));
-    EXPECT_TRUE(varDefaultWorld.mbrObjects[0].checkEqual(s));
-    EXPECT_TRUE(varDefaultWorld.mbrObjects[1].checkEqual(t));
+    EXPECT_TRUE(varDefaultWorld.mbrObjects[0]->checkEqual(s));
+    EXPECT_TRUE(varDefaultWorld.mbrObjects[1]->checkEqual(t));
 };
 
 TEST_F(WorldTest, WorldRayIntersect) {
     Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
     Intersections xs = varDefaultWorld.getIntersect(r);
+    // EXPECT_EQ(xs.mbrIntersections.size(), 4);
+    // EXPECT_EQ(xs.mbrIntersections[0].mbrTime, 4);
+    // EXPECT_EQ(xs.mbrIntersections[1].mbrTime, 4.5);
+    // EXPECT_EQ(xs.mbrIntersections[2].mbrTime, 5.5);
+    // EXPECT_EQ(xs.mbrIntersections[3].mbrTime, 6);
     EXPECT_EQ(xs.mbrIntersections.size(), 4);
-    EXPECT_EQ(xs.mbrIntersections[0].mbrTime, 4);
-    EXPECT_EQ(xs.mbrIntersections[1].mbrTime, 4.5);
-    EXPECT_EQ(xs.mbrIntersections[2].mbrTime, 5.5);
-    EXPECT_EQ(xs.mbrIntersections[3].mbrTime, 6);
+    EXPECT_EQ(xs.mbrIntersections[0]->mbrTime, 4);
+    EXPECT_EQ(xs.mbrIntersections[1]->mbrTime, 4.5);
+    EXPECT_EQ(xs.mbrIntersections[2]->mbrTime, 5.5);
+    EXPECT_EQ(xs.mbrIntersections[3]->mbrTime, 6);
 };
 
 TEST_F(WorldTest, WorldIntersectionShading) {
     Ray r = Ray(Point(0,0,-5), Vector(0,0,1));
-    Form obj = varDefaultWorld.mbrObjects[0];
+    Form obj = *varDefaultWorld.mbrObjects[0].get();
     Sphere s = Sphere();
     s.setMaterial(Material());
     s.mbrMaterial->mbrColor = Color (0.8,1.0,0.6);
     s.mbrMaterial->mbrDiffuse = 0.7;
     s.mbrMaterial->mbrSpecular = 0.2;
     EXPECT_TRUE(obj.checkEqual(s));
-    Intersection i = Intersection(4,obj);
-    EXPECT_TRUE(i.mbrObject.checkEqual(obj));
+    // Intersection i = Intersection(4,std::make_unique<Form>(obj));
+    Intersection i = Intersection(4,new Form(obj));
+    EXPECT_TRUE(i.mbrObject->checkEqual(obj));
     IntersectionState is = i.getState(r);
     Color c = varDefaultWorld.getColorShaded(is);
     Color expectedColor = Color(0.38066, 0.47583, 0.2855);
@@ -74,13 +80,12 @@ TEST_F(WorldTest, WorldIntersectionShading) {
 TEST_F(WorldTest, WorldIntersectionInteriorShading) {
     varDefaultWorld.mbrLights[0] = PointSource(Point(0,0.25,0), Color(1,1,1));
     Ray r = Ray(Point(0,0,0), Vector(0,0,1));
-    Form obj = varDefaultWorld.mbrObjects[1];
-    Intersection i = Intersection(0.5,obj);
+    Form obj = *varDefaultWorld.mbrObjects[1].get();
+    // Intersection i = Intersection(0.5,std::make_unique<Form>(obj));
+    Intersection i = Intersection(0.5,new Form(obj));
     IntersectionState is = i.getState(r);
     Color c = varDefaultWorld.getColorShaded(is);
-    //exact color different due to transformation applied but as long as not == default
-    //Color expectedColor = Color(0.90498, 0.90498, 0.90498);
-    Color expectedColor = Color(0.97522, 0.97522, 0.97522);
+    Color expectedColor = Color(0.90498, 0.90498, 0.90498);
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
 
@@ -99,11 +104,11 @@ TEST_F(WorldTest, WorldColorHit) {
 };
 
 TEST_F(WorldTest, WorldColorHitInsideInnerSphere) {
-    varDefaultWorld.mbrObjects[0].mbrMaterial->mbrAmbient = 1;
-    varDefaultWorld.mbrObjects[1].mbrMaterial->mbrAmbient = 1;
+    varDefaultWorld.mbrObjects[0]->mbrMaterial->mbrAmbient = 1;
+    varDefaultWorld.mbrObjects[1]->mbrMaterial->mbrAmbient = 1;
     Ray r = Ray(Point(0,0,0.75), Vector(0,0,-1));
     Color c = varDefaultWorld.getColor(r);
-    Color expectedColor = varDefaultWorld.mbrObjects[1].mbrMaterial->mbrColor;
+    Color expectedColor = varDefaultWorld.mbrObjects[1]->mbrMaterial->mbrColor;
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };
 
@@ -132,12 +137,15 @@ TEST_F(WorldTest, ShadeWithShadowIntersections) {
     PointSource varLight = PointSource(Point(0,0,-10), Color(1,1,1));
     varWorld.setLight(varLight);
     Sphere varS1 = Sphere();
-    varWorld.setObject(varS1);
+    varWorld.setObject(new Sphere(varS1));
+    // varWorld.setObject(std::make_unique<Sphere>(varS1));
     Sphere varS2 = Sphere();
     varS2.setTransform(TranslationMatrix(0,0,10));
-    varWorld.setObject(varS2);
+    varWorld.setObject(new Sphere(varS2));
+    // varWorld.setObject(std::make_unique<Sphere>(varS2));
     Ray varRay = Ray(Point(0,0,5), Vector(0,0,1));
-    Intersection varIx = Intersection(4,varS2);
+    // Intersection varIx = Intersection(4,std::make_unique<Sphere>(varS2));
+    Intersection varIx = Intersection(4,new Sphere(varS2));
     IntersectionState varIs = varIx.getState(varRay);
     Color varClr = varWorld.getColorShaded(varIs);
     Color varExpectedClr = Color(0.1,0.1,0.1);

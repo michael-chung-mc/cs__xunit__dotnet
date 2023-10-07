@@ -5,6 +5,15 @@
 #include "world.h"
 #include <cmath>
 
+Camera::Camera(const Camera &argOther) {
+    mbrCanvasHorizontal = argOther.mbrCanvasHorizontal;
+    mbrCanvasVertical = argOther.mbrCanvasVertical;
+    mbrFieldOfView = argOther.mbrFieldOfView;
+    mbrHalfWidth = argOther.mbrHalfWidth;
+    mbrHalfHeight = argOther.mbrHalfHeight;
+    mbrPixelSquare = argOther.mbrPixelSquare;
+    setTransform(argOther.mbrTransform.get());
+}
 Camera::Camera(int argH, int argV, double argFOV)
 {
     mbrCanvasHorizontal = argH;
@@ -21,11 +30,20 @@ Camera::Camera(int argH, int argV, double argFOV)
         mbrHalfHeight = varHalfView;
     }
     mbrPixelSquare = (mbrHalfWidth * 2) / mbrCanvasHorizontal;
-    mbrTransform = new IdentityMatrix(4,4);
+    mbrTransform = std::make_unique<Matrix>(IdentityMatrix(4,4));
 }
 Camera::~Camera() {
-    delete mbrTransform;
-    mbrTransform = nullptr;
+}
+Camera& Camera::operator=(const Camera &argOther) {
+    if (this == &argOther) return *this;
+    mbrCanvasHorizontal = argOther.mbrCanvasHorizontal;
+    mbrCanvasVertical = argOther.mbrCanvasVertical;
+    mbrFieldOfView = argOther.mbrFieldOfView;
+    mbrHalfWidth = argOther.mbrHalfWidth;
+    mbrHalfHeight = argOther.mbrHalfHeight;
+    mbrPixelSquare = argOther.mbrPixelSquare;
+    setTransform(argOther.mbrTransform.get());
+    return *this;
 }
 Ray Camera::getRay(int argPxX, int argPxY)
 {
@@ -39,7 +57,7 @@ Ray Camera::getRay(int argPxX, int argPxY)
     return Ray(varOrigin, varDirection);
 }
 
-Canvas Camera::render(World argWorld)
+Canvas Camera::render(World &argWorld)
 {
     Canvas varCanvas = Canvas(mbrCanvasHorizontal, mbrCanvasVertical);
     for (int i = 0; i < mbrCanvasVertical; i++)
@@ -54,5 +72,5 @@ Canvas Camera::render(World argWorld)
     return varCanvas;
 }
 void Camera::setTransform (Matrix *argMatrix) {
-    mbrTransform = argMatrix;
+    mbrTransform = std::make_unique<Matrix>(*argMatrix);
 }

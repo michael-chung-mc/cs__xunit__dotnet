@@ -15,11 +15,13 @@ public:
     double mbrHalfWidth;
     double mbrHalfHeight;
     double mbrPixelSquare;
-    Matrix *mbrTransform;
+    std::unique_ptr<Matrix> mbrTransform;
+    Camera(const Camera &argOther);
     Camera(int argH, int argV, double argFOV);
     ~Camera();
+    Camera& operator=(const Camera &argOther);
     Ray getRay(int argPxX, int argPxY);
-    Canvas render(World argWorld);
+    Canvas render(World &argWorld);
     void setTransform (Matrix *argMatrix);
 };
 

@@ -12,14 +12,18 @@ class Color;
 
 class World {
 public:
-    std::vector<Form> mbrObjects;
+    std::vector<std::unique_ptr<Form>> mbrObjects;
     std::vector<PointSource> mbrLights;
     World();
+    World(const World &argOther);
+    ~World() = default;
+    World& operator=(const World &argOther);
     Intersections getIntersect(Ray argRay);
     Color getColorShaded(IntersectionState argIntersectionState);
-    Color getColor(Ray r);
+    Color getColor(const Ray &r);
     bool checkShadowed(Point argPoint);
-    void setObject(Form argObject);
+    void setObject(Form* argObject);
+    // void setObject(std::unique_ptr<Form> &&argObject);
     void setLight(PointSource argLight);
 };
 

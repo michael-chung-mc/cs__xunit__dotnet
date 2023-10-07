@@ -45,6 +45,14 @@ public:
     Color getColorLocal(Point argPoint) override;
 };
 
+class PatternChecker : public Pattern {
+public:
+    PatternChecker();
+	PatternChecker(const PatternChecker& other);
+    PatternChecker(Color argColorA, Color argColorB);
+    Color getColorLocal(Point argPoint) override;
+};
+
 class PatternChecker3d : public Pattern {
 public:
     PatternChecker3d();
