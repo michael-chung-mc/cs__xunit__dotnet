@@ -44,7 +44,16 @@ Intersections World::getIntersect(Ray argRay)
     }
     return hits;
 }
-Color World::getColorShaded(IntersectionState argIxState)
+Color World::getColor(const Ray &r)
+{
+    Intersections xs = getIntersect(r);
+    Intersection hit = xs.hit();
+    // if (!hit.mbrExists) return Color(50,205,50);
+    if (!hit.mbrExists) return Color(0,0,0);
+    IntersectionState is = hit.getState(r);
+    return getColorShaded(is);
+}
+Color World::getColorLighting(IntersectionState argIxState)
 {
     bool varInShadow = checkShadowed(argIxState.mbrOverPoint);
     Color varShade = Color(0,0,0);
@@ -54,14 +63,15 @@ Color World::getColorShaded(IntersectionState argIxState)
     }
     return varShade;
 }
-Color World::getColor(const Ray &r)
+Color World::getColorShaded(IntersectionState argIxState)
 {
-    Intersections xs = getIntersect(r);
-    Intersection hit = xs.hit();
-    // if (!hit.mbrExists) return Color(50,205,50);
-    if (!hit.mbrExists) return Color(0,0,0);
-    IntersectionState is = hit.getState(r);
-    return getColorShaded(is);
+    bool varInShadow = checkShadowed(argIxState.mbrOverPoint);
+    Color varShade = Color(0,0,0);
+    for (int i = 0; i < mbrLights.size();i++)
+    {
+        varShade = varShade + argIxState.mbrObject->getColor(mbrLights[i], argIxState.mbrPoint, argIxState.mbrEye, argIxState.mbrNormal, varInShadow);
+    }
+    return varShade;
 }
 bool World::checkShadowed(Point argPoint) {
     bool varFlagShadow = false;

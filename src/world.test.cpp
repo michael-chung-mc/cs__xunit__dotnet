@@ -84,7 +84,8 @@ TEST_F(WorldTest, WorldIntersectionInteriorShading) {
     // Intersection i = Intersection(0.5,std::make_unique<Form>(obj));
     Intersection i = Intersection(0.5,new Form(obj));
     IntersectionState is = i.getState(r);
-    Color c = varDefaultWorld.getColorShaded(is);
+    // Color c = varDefaultWorld.getColorShaded(is);
+    Color c = varDefaultWorld.getColorLighting(is);
     Color expectedColor = Color(0.90498, 0.90498, 0.90498);
     EXPECT_TRUE(c.checkEqual(expectedColor));
 };

@@ -19,8 +19,9 @@ public:
     ~World() = default;
     World& operator=(const World &argOther);
     Intersections getIntersect(Ray argRay);
-    Color getColorShaded(IntersectionState argIntersectionState);
     Color getColor(const Ray &r);
+    Color getColorShaded(IntersectionState argIntersectionState);
+    Color getColorLighting(IntersectionState argIntersectionState);
     bool checkShadowed(Point argPoint);
     void setObject(Form* argObject);
     // void setObject(std::unique_ptr<Form> &&argObject);

@@ -25,6 +25,7 @@ public:
 	virtual bool checkEqual(Form other);
 	virtual Vector getNormal(Point argPoint);
 	virtual Vector getNormalLocal(Point argPoint);
+	Color getColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
 	Color getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow);
 	Color getColorLocal(Point argPosition);
 	void setTransform(const Matrix &argMatrix);

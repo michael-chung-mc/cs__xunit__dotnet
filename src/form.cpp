@@ -43,12 +43,15 @@ Form &Form::operator=(const Form other)
 	setMaterial(*other.mbrMaterial.get());
 	return *this;
 }
-Color Form::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+Color Form::getColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 {
 	Point varObjP = *(mbrTransform->invert()) * argPosition;
 	Point varPatternP = *(mbrMaterial->mbrPattern->mbrTransform->invert()) * varObjP;
 	return mbrMaterial->getColor(argLighting, varPatternP, argEye, argNormal, argInShadow);
-	// return mbrMaterial->getColorShaded(argLighting, argPosition, argEye, argNormal, argInShadow);
+}
+Color Form::getColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+{
+	return mbrMaterial->getColor(argLighting, argPosition, argEye, argNormal, argInShadow);
 }
 Color Form::getColorLocal(Point argPosition)
 {
