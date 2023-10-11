@@ -244,7 +244,7 @@ public class TupleTest
 	{
 		Vector v = new Vector(1, -1, 0);
 		Vector n = new Vector(0, 1, 0);
-		SpaceTuple r = v.GetReflect(n);
+		Vector r = v.GetReflect(n);
 		Vector expectedR = new Vector(1,1,0);
 		Assert.True(_fieldComp.CheckTuple(r, expectedR));
 	}

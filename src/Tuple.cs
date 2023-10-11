@@ -29,7 +29,7 @@ public class SpaceTuple {
     public static SpaceTuple operator+(SpaceTuple argSelf, SpaceTuple argOther) { return new SpaceTuple(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ, argSelf._fieldW+argOther._fieldW); }
     public static SpaceTuple operator*(SpaceTuple argSelf, double multiple) { return new SpaceTuple(argSelf._fieldX * multiple, argSelf._fieldY * multiple, argSelf._fieldZ * multiple, argSelf._fieldW * multiple); }
     public static SpaceTuple operator/(SpaceTuple argSelf, double multiple) { return new SpaceTuple(argSelf._fieldX / multiple, argSelf._fieldY / multiple, argSelf._fieldZ / multiple, argSelf._fieldW / multiple); }
-    public double GetMagnitude() { return Math.Sqrt(_fieldX * _fieldX) + (_fieldY * _fieldY) + (_fieldZ * _fieldZ) + (_fieldW* _fieldW); }
+    public double GetMagnitude() { return Math.Sqrt(_fieldX * _fieldX + _fieldY * _fieldY + _fieldZ * _fieldZ + _fieldW * _fieldW); }
     public double GetDotProduct(SpaceTuple argOther) { return (_fieldX * argOther._fieldX) + (_fieldY * argOther._fieldY) + (_fieldZ * argOther._fieldZ) + (_fieldW * argOther._fieldW); }
     bool CheckEqual(SpaceTuple argOther)
     {
@@ -113,5 +113,5 @@ public class Vector : SpaceTuple {
     {
     	return new Vector(_fieldY * argOther._fieldZ - _fieldZ * argOther._fieldY, _fieldZ * argOther._fieldX - _fieldX * argOther._fieldZ, _fieldX * argOther._fieldY - _fieldY * argOther._fieldX);
     }
-    public Vector GetReflect(Vector argNormal) { return argNormal * 2.0 * GetDotProduct(argNormal); }
+    public Vector GetReflect(Vector argNormal) { return this - (argNormal * 2.0 * GetDotProduct(argNormal)); }
 }

@@ -9,7 +9,7 @@ public class Canvas {
 	public Canvas(int width, int height) {
 		mbrWidth = width;
 		mbrHeight = height;
-		mbrGrid.Clear();
+		mbrGrid = new List<List<Color>>();
 		for (int i = 0; i < mbrWidth; ++i)
 		{
 			mbrGrid.Add(new List<Color>());
