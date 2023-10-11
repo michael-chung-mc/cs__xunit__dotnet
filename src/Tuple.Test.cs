@@ -33,21 +33,21 @@ public class TupleTest
     [Fact]
 	public void TupleWZeroIsVector ()
 	{
-		SpaceTuple a = new SpaceTuple(4.3, -4.2, 3.1, 0.0);
-		Assert.Equal(4.3,a._fieldX);
-		Assert.Equal(-4,2,a._fieldY);
-		Assert.Equal(3.1,a._fieldZ);
-		Assert.Equal(0.0,a._fieldW);
+		SpaceTuple varTuple = new SpaceTuple(4.3, -4.2, 3.1, 0.0);
+		Assert.Equal(4.3,varTuple._fieldX);
+		Assert.True(_fieldComp.CheckFloat(-4.2, varTuple._fieldY));
+		Assert.Equal(3.1,varTuple._fieldZ);
+		Assert.Equal(0.0,varTuple._fieldW);
 		Point ap = new Point(4.3, -4.2, 3.1);
-		Assert.Equal(a._fieldX, ap._fieldX);
-		Assert.Equal(a._fieldY, ap._fieldY);
-		Assert.Equal(a._fieldZ, ap._fieldZ);
-		Assert.NotEqual(a._fieldW, ap._fieldW);
+		Assert.Equal(varTuple._fieldX, ap._fieldX);
+		Assert.Equal(varTuple._fieldY, ap._fieldY);
+		Assert.Equal(varTuple._fieldZ, ap._fieldZ);
+		Assert.NotEqual(varTuple._fieldW, ap._fieldW);
 		Vector av = new Vector(4.3, -4.2, 3.1);
-		Assert.Equal(a._fieldX, av._fieldX);
-		Assert.Equal(a._fieldY, av._fieldY);
-		Assert.Equal(a._fieldZ, av._fieldZ);
-		Assert.Equal(a._fieldW, av._fieldW);
+		Assert.Equal(varTuple._fieldX, av._fieldX);
+		Assert.Equal(varTuple._fieldY, av._fieldY);
+		Assert.Equal(varTuple._fieldZ, av._fieldZ);
+		Assert.Equal(varTuple._fieldW, av._fieldW);
 	}
     [Fact]
 	public void TuplePlusTupleEqualsTuple ()
@@ -217,7 +217,7 @@ public class TupleTest
 		norm = a.GetNormal();
 		Assert.True(_fieldComp.CheckTuple(unit, norm));
 		double GetMagnitude = norm.GetMagnitude();
-		Assert.Equal(GetMagnitude, 1);
+		Assert.Equal(1, GetMagnitude);
 	}
     [Fact]
 	public void TupleGetDotProductProduct ()
@@ -225,7 +225,7 @@ public class TupleTest
 		Vector a = new Vector(1, 2, 3);
 		Vector b = new Vector(2, 3, 4);
 		double GetDotProduct = a.GetDotProduct(b);
-		Assert.Equal(GetDotProduct, 20);
+		Assert.Equal(20, GetDotProduct);
 	}
     [Fact]
 	public void TupleGetCrossProductProduct ()

@@ -5,42 +5,42 @@ using LibProjectMeta;
 namespace LibIntersection;
 
 public class IntersectionState {
-	public double mbrTime;
-	public Form mbrObject;
-	public Point mbrPoint;
-	public Point mbrOverPoint;
-	public Point mbrUnderPoint;
-	public Vector mbrEye;
-	public Vector mbrNormal;
-	public Vector mbrReflect;
-	public bool mbrInside;
-	public double mbrRefractiveIndexOne;
-	public double mbrRefractiveIndexTwo;
+	public double _fieldTime;
+	public Form _fieldObject;
+	public Point _fieldPoint;
+	public Point _fieldOverPoint;
+	public Point _fieldUnderPoint;
+	public Vector _fieldPov;
+	public Vector _fieldNormal;
+	public Vector _fieldReflect;
+	public bool _fieldInside;
+	public double _fieldRefractiveIndexOne;
+	public double _fieldRefractiveIndexTwo;
 	public IntersectionState(){
-		mbrTime = 0;
-		mbrObject = new Form();
-		mbrPoint = new Point();
-		mbrEye = new Vector();
-		mbrNormal = new Vector();
-		mbrInside = false;
-		mbrUnderPoint = new Point();
-		mbrReflect = new Vector();
-		mbrOverPoint = new Point();
-		mbrRefractiveIndexOne = 0.0;
-		mbrRefractiveIndexTwo = 0.0;
+		_fieldTime = 0;
+		_fieldObject = new Form();
+		_fieldPoint = new Point();
+		_fieldPov = new Vector();
+		_fieldNormal = new Vector();
+		_fieldInside = false;
+		_fieldUnderPoint = new Point();
+		_fieldReflect = new Vector();
+		_fieldOverPoint = new Point();
+		_fieldRefractiveIndexOne = 0.0;
+		_fieldRefractiveIndexTwo = 0.0;
 	}
 	public IntersectionState(IntersectionState argOther) {
-		mbrTime = argOther.mbrTime;
-		setObject(argOther.mbrObject);
-		mbrPoint = argOther.mbrPoint;
-		mbrEye = argOther.mbrEye;
-		mbrNormal = argOther.mbrNormal;
-		mbrInside = argOther.mbrInside;
-		mbrOverPoint = argOther.mbrOverPoint;
-		mbrReflect = argOther.mbrReflect;
-		mbrOverPoint = argOther.mbrOverPoint;
-		mbrRefractiveIndexOne = argOther.mbrRefractiveIndexOne;
-		mbrRefractiveIndexTwo = argOther.mbrRefractiveIndexTwo;
+		_fieldTime = argOther._fieldTime;
+		SetObject(argOther._fieldObject);
+		_fieldPoint = argOther._fieldPoint;
+		_fieldPov = argOther._fieldPov;
+		_fieldNormal = argOther._fieldNormal;
+		_fieldInside = argOther._fieldInside;
+		_fieldOverPoint = argOther._fieldOverPoint;
+		_fieldReflect = argOther._fieldReflect;
+		_fieldOverPoint = argOther._fieldOverPoint;
+		_fieldRefractiveIndexOne = argOther._fieldRefractiveIndexOne;
+		_fieldRefractiveIndexTwo = argOther._fieldRefractiveIndexTwo;
 	}
 	// IntersectionState::IntersectionState( IntersectionState &&argOther) noexcept {
 	// 	mbrTime = argOther.mbrTime;
@@ -87,42 +87,42 @@ public class IntersectionState {
 	// 	mbrRefractiveIndexTwo = argOther.mbrRefractiveIndexTwo;
 	// 	return *this;
 	// }
-    public void setObject(Form argObject) {
-		mbrObject = argObject;
+    public void SetObject(Form argObject) {
+		_fieldObject = argObject;
 	}
-	public void renderConsole() {
+	public void RenderConsole() {
 		Console.WriteLine("IntersectionState::renderConsole()");
-		Console.WriteLine($"IntersectionState::mbrTime: {mbrTime}");
+		Console.WriteLine($"IntersectionState::mbrTime: {_fieldTime}");
 		Console.WriteLine("IntersectionState::mbrObject: ");
-		mbrObject.RenderConsole();
+		_fieldObject.RenderConsole();
 		Console.WriteLine("IntersectionState::mbrPoint: ");
-		mbrPoint.RenderConsole();
+		_fieldPoint.RenderConsole();
 		Console.WriteLine("IntersectionState::mbrEye: ");
-		mbrEye.RenderConsole();
+		_fieldPov.RenderConsole();
 		Console.WriteLine("IntersectionState::mbrNormal: ");
-		mbrNormal.RenderConsole();
-		Console.WriteLine($"IntersectionState::mbrInside: {mbrInside}");
+		_fieldNormal.RenderConsole();
+		Console.WriteLine($"IntersectionState::mbrInside: {_fieldInside}");
 		Console.WriteLine("IntersectionState::mbrOverPoint: ");
-		mbrOverPoint.RenderConsole();
+		_fieldOverPoint.RenderConsole();
 		Console.WriteLine("IntersectionState::mbrReflect: ");
-		mbrReflect.RenderConsole();
+		_fieldReflect.RenderConsole();
 	}
 };
 
 public class Intersection {
-	public bool mbrExists;
-	public double mbrTime;
-	public Form mbrObject;
+	public bool _fieldExists;
+	public double _fieldTime;
+	public Form _fieldObject;
 	public Intersection()
 	{
-		mbrObject = new Form();
-		mbrTime = 0;
-		mbrExists = true;
+		_fieldObject = new Form();
+		_fieldTime = 0;
+		_fieldExists = true;
 	}
 	public Intersection(Intersection argOther){
-		setObject(argOther.mbrObject);
-		mbrTime = argOther.mbrTime;
-		mbrExists = argOther.mbrExists;
+		SetObject(argOther._fieldObject);
+		_fieldTime = argOther._fieldTime;
+		_fieldExists = argOther._fieldExists;
 	}
 	// public Intersection(Intersection &&argOther) noexcept;
 	// public Intersection(double time, Form *s)
@@ -131,11 +131,11 @@ public class Intersection {
 	// 	mbrTime = time;
 	// 	mbrExists = true;
 	// }
-	public Intersection(double time, Form s)
+	public Intersection(double argTime, Form argObj)
 	{
-		setObject(s);
-		mbrTime = time;
-		mbrExists = true;
+		SetObject(argObj);
+		_fieldTime = argTime;
+		_fieldExists = true;
 	}
 	// Intersection(double time, Form> s);
 	// public virtual ~Intersection() = default;
@@ -162,9 +162,9 @@ public class Intersection {
 	// 	mbrExists = argOther.mbrExists;
 	// 	return *this;
 	// }
-	public bool checkEqual(Intersection other)
+	public bool CheckEqual(Intersection argOther)
 	{
-		return mbrTime == other.mbrTime && mbrObject.CheckEqual(other.mbrObject);
+		return _fieldTime == argOther._fieldTime && _fieldObject.CheckEqual(argOther._fieldObject);
 	}
 
 	// IntersectionState Intersection::getState(Ray argRay)
@@ -237,43 +237,43 @@ public class Intersection {
 	// 	}
 	// 	return is;
 	// }
-	public IntersectionState getState(Ray argRay, List<Intersection> argIntersections)
+	public IntersectionState GetState(Ray argRay, List<Intersection> argIntersections)
 	{
 		ProjectMeta varPM = new ProjectMeta();
 		IntersectionState varIs = new IntersectionState();
-		varIs.mbrTime = mbrTime;
+		varIs._fieldTime = _fieldTime;
 		// Console.WriteLine("Intersection::getState()::varIs.mbrTime=(" << varIs.mbrTime);
-		varIs.setObject(mbrObject);
-		varIs.mbrPoint = argRay.GetPosition(varIs.mbrTime);
+		varIs.SetObject(_fieldObject);
+		varIs._fieldPoint = argRay.GetPosition(varIs._fieldTime);
 		// Console.WriteLine("Intersection::getState()::varIs.mbrPoint=(x:" << varIs.mbrPoint.mbrX << ",y:" << varIs.mbrPoint.mbrY << ",z:" << varIs.mbrPoint.mbrZ << ",w:" << varIs.mbrPoint.mbrW);
-		varIs.mbrEye = -argRay._fieldDirection;
-		varIs.mbrNormal = varIs.mbrObject.GetNormal(varIs.mbrPoint);
-		if (varIs.mbrNormal.GetDotProduct(varIs.mbrEye) < 0) {
-			varIs.mbrInside = true;
-			varIs.mbrNormal = -varIs.mbrNormal;
+		varIs._fieldPov = -argRay._fieldDirection;
+		varIs._fieldNormal = varIs._fieldObject.GetNormal(varIs._fieldPoint);
+		if (varIs._fieldNormal.GetDotProduct(varIs._fieldPov) < 0) {
+			varIs._fieldInside = true;
+			varIs._fieldNormal = -varIs._fieldNormal;
 		}
 		else {
-			varIs.mbrInside = false;
+			varIs._fieldInside = false;
 		}
-		varIs.mbrOverPoint = varIs.mbrPoint + (varIs.mbrNormal * varPM.getEpsilon());
+		varIs._fieldOverPoint = varIs._fieldPoint + (varIs._fieldNormal * varPM.getEpsilon());
 		// Console.WriteLine("Intersection::getState()::varIs.mbrOverPoint=(x:" << varIs.mbrOverPoint.mbrX << ",y:" << varIs.mbrOverPoint.mbrY << ",z:" << varIs.mbrOverPoint.mbrZ << ",w:" << varIs.mbrOverPoint.mbrW;
 		// Console.WriteLine(" = Intersection::getState()::varIs.mbrNormal=(x:" << varIs.mbrNormal.mbrX << ",y:" << varIs.mbrNormal.mbrY << ",z:" << varIs.mbrNormal.mbrZ << ",w:" << varIs.mbrNormal.mbrW);
-		varIs.mbrReflect = argRay._fieldDirection.GetReflect(varIs.mbrNormal);
+		varIs._fieldReflect = argRay._fieldDirection.GetReflect(varIs._fieldNormal);
 		List<Form> varHitObjects = new List<Form>();
 		// Intersection varHit = argIntersections.hit();
-		Intersection varHit = new Intersection(varIs.mbrTime, mbrObject);
+		Intersection varHit = new Intersection(varIs._fieldTime, _fieldObject);
 		// Console.WriteLine("Intersection::getState()::hit.mbrTime(" << varHit.mbrTime);
 		for (int i = 0; i < argIntersections.Count(); ++i) {
 			// Console.WriteLine("Intersection::getState()::argIntersections[i].mbrTime(" << argIntersections[i].mbrTime);
 			// Console.WriteLine("Intersection::getState()::argIntersections[i].mbrObject.mbrMaterial.mbrRefractiveIndex(" << argIntersections[i].mbrObject.mbrMaterial.mbrRefractiveIndex);
-			if (varHit.checkEqual(argIntersections[i])) {
-				if (varHitObjects.Count() == 0) { varIs.mbrRefractiveIndexOne = 1.0; }
-				else { varIs.mbrRefractiveIndexOne = varHitObjects[varHitObjects.Count()-1]._fieldMaterial.mbrRefractiveIndex; }
+			if (varHit.CheckEqual(argIntersections[i])) {
+				if (varHitObjects.Count() == 0) { varIs._fieldRefractiveIndexOne = 1.0; }
+				else { varIs._fieldRefractiveIndexOne = varHitObjects[varHitObjects.Count()-1]._fieldMaterial.mbrRefractiveIndex; }
 			}
 			int varFound = -1;
 			for (int j = 0; j < varHitObjects.Count(); j++)
 			{
-				if (varHitObjects[j].CheckEqual(argIntersections[i].mbrObject)) {
+				if (varHitObjects[j].CheckEqual(argIntersections[i]._fieldObject)) {
 					// Console.WriteLine("Intersection::getState()::erase(argIntersections[i].mbrObject(" << argIntersections[i].mbrObject.mbrMaterial.mbrRefractiveIndex);
 					varHitObjects.RemoveAt(j);
 					varFound = 1;
@@ -288,12 +288,12 @@ public class Intersection {
 			// if (varFound > 0) {varHitObjects.erase(varHitObjects.begin()+varFound);}
 			// else {varHitObjects.Add(varHit.mbrObject);}
 			if (varFound < 0) {
-				varHitObjects.Add(argIntersections[i].mbrObject);
+				varHitObjects.Add(argIntersections[i]._fieldObject);
 				// Console.WriteLine("Intersection::getState()::varHitObjects.back().mbrMaterial.mbrRefractiveIndex(" << varHitObjects.back().mbrMaterial.mbrRefractiveIndex);
 			}
-			if (varHit.checkEqual(argIntersections[i])) {
-				if (varHitObjects.Count == 0) { varIs.mbrRefractiveIndexTwo = 1.0; }
-				else { varIs.mbrRefractiveIndexTwo = varHitObjects[varHitObjects.Count-1]._fieldMaterial.mbrRefractiveIndex; }
+			if (varHit.CheckEqual(argIntersections[i])) {
+				if (varHitObjects.Count == 0) { varIs._fieldRefractiveIndexTwo = 1.0; }
+				else { varIs._fieldRefractiveIndexTwo = varHitObjects[varHitObjects.Count-1]._fieldMaterial.mbrRefractiveIndex; }
 				break;
 			}
 			// Console.WriteLine("Intersection::getState()::varIs.mbrRefractiveIndexOne" << varIs.mbrRefractiveIndexOne);
@@ -302,36 +302,37 @@ public class Intersection {
 		// Console.WriteLine("Intersection::getState()::varIs.mbrRefractiveIndexOne" << varIs.mbrRefractiveIndexOne);
 		// Console.WriteLine("Intersection::getState()::varIs.mbrRefractiveIndexTwo" << varIs.mbrRefractiveIndexTwo);
 		// varIs.mbrUnderPoint = varIs.mbrPoint.subtract(varIs.mbrNormal * getEpsilon());
-		varIs.mbrUnderPoint = varIs.mbrPoint - (varIs.mbrNormal * varPM.getEpsilon());
+		varIs._fieldUnderPoint = varIs._fieldPoint - (varIs._fieldNormal * varPM.getEpsilon());
 		return varIs;
 	}
-	public void setObject(Form argObject) {
-		mbrObject = argObject;
+	public void SetObject(Form argObject) {
+		_fieldObject = argObject;
 	}
 }
 
 public class Intersections {
-    public List<Intersection> mbrIntersections;
+    public List<Intersection> _fieldIntersections;
 	public Intersections()
 	{
-		mbrIntersections = new List<Intersection>();
+		_fieldIntersections = new List<Intersection>();
 		//Intersection i = Intersection(0, Sphere());
 		//intersections.Add(i);
 	}
-	public Intersections(Intersections other)
+	public Intersections(Intersections argOther)
 	{
-		mbrIntersections.Clear();
-		for (int i = 0; i < other.mbrIntersections.Count(); ++i)
+		_fieldIntersections = new List<Intersection>();
+		for (int i = 0; i < argOther._fieldIntersections.Count(); ++i)
 		{
-			setIntersection(other.mbrIntersections[i]);
+			SetIntersection(argOther._fieldIntersections[i]);
 			// Intersection varIs = other.mbrIntersections[i];
 			// mbrIntersections.Add(varIs);
 		}
 		//mbrIntersections = other.mbrIntersections;
 	}
-	public Intersections(double time, Form s)
+	public Intersections(double argTime, Form argObj)
 	{
-		setIntersection(time, s);
+		_fieldIntersections = new List<Intersection>();
+		SetIntersection(argTime, argObj);
 		// Intersection i = Intersection(t,std::make_unique<Form>(*s));
 		// mbrIntersections.Add(i);
 	}
@@ -358,19 +359,19 @@ public class Intersections {
 	// 	//mbrIntersections.Add(Intersection(t, std::make_unique<Form>(*argObject)));
 	//     sort(mbrIntersections.begin(), mbrIntersections.end(), funcComp);
 	// }
-	public void intersect(double time, Form argObject)
+	public void setIntersect(double time, Form argObject)
 	{
-		setIntersection(time, argObject);
-		mbrIntersections.Sort(delegate(Intersection argA, Intersection argB) {
-			return argA.mbrTime < argB.mbrTime ? 1 : -1;
+		SetIntersection(time, argObject);
+		_fieldIntersections.Sort(delegate(Intersection argA, Intersection argB) {
+			return argA._fieldTime < argB._fieldTime ? 1 : -1;
 		});
 	}
-	public Intersection hit() {
+	public Intersection getHit() {
 		int index = -1;
-		for (int i = 0; i < mbrIntersections.Count(); ++i)
+		for (int i = 0; i < _fieldIntersections.Count(); ++i)
 		{
-			if ((mbrIntersections[i].mbrTime > 0)
-				&& ((index < 0) || (mbrIntersections[i].mbrTime <= mbrIntersections[index].mbrTime)))
+			if ((_fieldIntersections[i]._fieldTime > 0)
+				&& ((index < 0) || (_fieldIntersections[i]._fieldTime <= _fieldIntersections[index]._fieldTime)))
 			{
 				index = i;
 				break;
@@ -379,18 +380,18 @@ public class Intersections {
 		if (index < 0) {
 			//Console.WriteLine("hit missed");
 			Intersection varIx = new Intersection();
-			varIx.mbrExists = false;
+			varIx._fieldExists = false;
 			return varIx;
 		}
 		else {
 			//Console.WriteLine("hit");
-			return mbrIntersections[index];
+			return _fieldIntersections[index];
 		}
 	}
-	public void setIntersection(Intersection argIx) {
-		mbrIntersections.Add(argIx);
+	public void SetIntersection(Intersection argIx) {
+		_fieldIntersections.Add(argIx);
 	}
-    public void setIntersection(double t, Form argObject) {
-		mbrIntersections.Add(new Intersection(t, argObject));
+    public void SetIntersection(double argTime, Form argObject) {
+		_fieldIntersections.Add(new Intersection(argTime, argObject));
 	}
 };

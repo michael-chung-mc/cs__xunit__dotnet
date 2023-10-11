@@ -74,30 +74,30 @@ public class PatternTest
     public void StripePatternConstantInX()
     {
         PatternStripe varP = new PatternStripe();
-        Assert.True(varP.getColorLocal(new Point(0,0,0)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(0,1,0)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(0,2,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0,0,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0,1,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0,2,0)).CheckEqual(varP._fieldWhite));
     }
     [Fact]
     public void StripePatternConstantInZ()
     {
         PatternStripe varP = new PatternStripe();
-        Assert.True(varP.getColorLocal(new Point(0,0,0)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(0,0,1)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(0,0,2)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0,0,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0,0,1)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0,0,2)).CheckEqual(varP._fieldWhite));
     }
     [Fact]
     public void StripePatternAlternateInX()
     {
         PatternStripe varP = new PatternStripe();
-        Assert.True(varP.getColorLocal(new Point(0,0,0)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(0.9,0,0)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(1,0,0)).CheckEqual(varP._fieldBlack));
-        Assert.True(varP.getColorLocal(new Point(-0.1,0,0)).CheckEqual(varP._fieldBlack));
-        Assert.True(varP.getColorLocal(new Point(-1,0,0)).CheckEqual(varP._fieldBlack));
-        Assert.True(varP.getColorLocal(new Point(-1.1,0,0)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(-1.9,0,0)).CheckEqual(varP._fieldWhite));
-        Assert.True(varP.getColorLocal(new Point(-2,0,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0,0,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(0.9,0,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(1,0,0)).CheckEqual(varP._fieldBlack));
+        Assert.True(varP.GetColorLocal(new Point(-0.1,0,0)).CheckEqual(varP._fieldBlack));
+        Assert.True(varP.GetColorLocal(new Point(-1,0,0)).CheckEqual(varP._fieldBlack));
+        Assert.True(varP.GetColorLocal(new Point(-1.1,0,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(-1.9,0,0)).CheckEqual(varP._fieldWhite));
+        Assert.True(varP.GetColorLocal(new Point(-2,0,0)).CheckEqual(varP._fieldWhite));
     }
     [Fact]
     public void StripePatternObjectTransformation()
@@ -136,30 +136,30 @@ public class PatternTest
     public void GradientPattern()
     {
         PatternGradient varPG = new PatternGradient();
-        Assert.True(varPG.getColorLocal(new Point(0,0,0)).CheckEqual(new Color(1,1,1)));
-        Assert.True(varPG.getColorLocal(new Point(0.25,0,0)).CheckEqual(new Color(0.75,0.75,0.75)));
-        Assert.True(varPG.getColorLocal(new Point(0.5,0,0)).CheckEqual(new Color(0.5,0.5,0.5)));
-        Assert.True(varPG.getColorLocal(new Point(0.75,0,0)).CheckEqual(new Color(.25,.25,.25)));
+        Assert.True(varPG.GetColorLocal(new Point(0,0,0)).CheckEqual(new Color(1,1,1)));
+        Assert.True(varPG.GetColorLocal(new Point(0.25,0,0)).CheckEqual(new Color(0.75,0.75,0.75)));
+        Assert.True(varPG.GetColorLocal(new Point(0.5,0,0)).CheckEqual(new Color(0.5,0.5,0.5)));
+        Assert.True(varPG.GetColorLocal(new Point(0.75,0,0)).CheckEqual(new Color(.25,.25,.25)));
     }
     [Fact]
     public void RingPattern()
     {
         PatternRing varPR = new PatternRing();
-        Assert.True(varPR.getColorLocal(new Point(0,0,0)).CheckEqual(new Color(1,1,1)));
-        Assert.True(varPR.getColorLocal(new Point(1,0,0)).CheckEqual(new Color(0,0,0)));
-        Assert.True(varPR.getColorLocal(new Point(0,0,1)).CheckEqual(new Color(0,0,0)));
-        Assert.True(varPR.getColorLocal(new Point(0.708,0,0.708)).CheckEqual(new Color(0,0,0)));
+        Assert.True(varPR.GetColorLocal(new Point(0,0,0)).CheckEqual(new Color(1,1,1)));
+        Assert.True(varPR.GetColorLocal(new Point(1,0,0)).CheckEqual(new Color(0,0,0)));
+        Assert.True(varPR.GetColorLocal(new Point(0,0,1)).CheckEqual(new Color(0,0,0)));
+        Assert.True(varPR.GetColorLocal(new Point(0.708,0,0.708)).CheckEqual(new Color(0,0,0)));
     }
     [Fact]
     public void RingChecker()
     {
         PatternChecker varCh = new PatternChecker();
-        Assert.True(varCh.getColorLocal(new Point(0,0,0)).CheckEqual(new Color(1,1,1)));
-        Assert.True(varCh.getColorLocal(new Point(0.99,0,0)).CheckEqual(new Color(1,1,1)));
-        Assert.True(varCh.getColorLocal(new Point(1.01,0,0)).CheckEqual(new Color(0,0,0)));
-        Assert.True(varCh.getColorLocal(new Point(0,0.99,0)).CheckEqual(new Color(1,1,1)));
-        Assert.True(varCh.getColorLocal(new Point(0,1.01,0)).CheckEqual(new Color(0,0,0)));
-        Assert.True(varCh.getColorLocal(new Point(0,0,0.99)).CheckEqual(new Color(1,1,1)));
-        Assert.True(varCh.getColorLocal(new Point(0,0,1.01)).CheckEqual(new Color(0,0,0)));
+        Assert.True(varCh.GetColorLocal(new Point(0,0,0)).CheckEqual(new Color(1,1,1)));
+        Assert.True(varCh.GetColorLocal(new Point(0.99,0,0)).CheckEqual(new Color(1,1,1)));
+        Assert.True(varCh.GetColorLocal(new Point(1.01,0,0)).CheckEqual(new Color(0,0,0)));
+        Assert.True(varCh.GetColorLocal(new Point(0,0.99,0)).CheckEqual(new Color(1,1,1)));
+        Assert.True(varCh.GetColorLocal(new Point(0,1.01,0)).CheckEqual(new Color(0,0,0)));
+        Assert.True(varCh.GetColorLocal(new Point(0,0,0.99)).CheckEqual(new Color(1,1,1)));
+        Assert.True(varCh.GetColorLocal(new Point(0,0,1.01)).CheckEqual(new Color(0,0,0)));
     }
 }

@@ -181,8 +181,8 @@ public class Sphere : Form {
 		// 	varIntersections.intersect(intersectTwo, this);
 		// 	varIntersections.intersect(intersectOne, this);
 		// }
-		varIntersections.intersect(intersectOne, this);
-		varIntersections.intersect(intersectTwo, this);
+		varIntersections.setIntersect(intersectOne, this);
+		varIntersections.setIntersect(intersectTwo, this);
 		return varIntersections;
 	}
 	public Vector GetNormalLocal(Point argPoint)

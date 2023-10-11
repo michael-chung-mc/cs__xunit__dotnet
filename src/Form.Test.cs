@@ -34,9 +34,9 @@ public class FormTest
 		// Assert.Equal(xs.Count(), 2);
 		// Assert.Equal(xs[0].mbrTime, 4);
 		// Assert.Equal(xs[1].mbrTime, 6);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.Equal(varXs.mbrIntersections[0].mbrTime, 4);
-		Assert.Equal(varXs.mbrIntersections[1].mbrTime, 6);
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, 4);
+		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, 6);
 	}
 
 	public void RayIntersectTangent() {
@@ -47,9 +47,9 @@ public class FormTest
 		// Assert.Equal(xs.Count(), 2);
 		// Assert.Equal(xs[0].mbrTime, 5);
 		// Assert.Equal(xs[1].mbrTime, 5);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.Equal(varXs.mbrIntersections[0].mbrTime, 5);
-		Assert.Equal(varXs.mbrIntersections[1].mbrTime, 5);
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, 5);
+		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, 5);
 	}
 
 	public void RayIntersectMiss() {
@@ -57,7 +57,7 @@ public class FormTest
 		Ray r = new Ray(new Point(0, 2, -5), new Vector(0, 0, 1));
 		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs.mbrIntersections.Count(), 0);
+		Assert.Equal(varXs._fieldIntersections.Count(), 0);
 	}
 
 	public void RayIntersectWithinSphere() {
@@ -68,9 +68,9 @@ public class FormTest
 		// Assert.Equal(xs[0].mbrTime, -1);
 		// Assert.Equal(xs[1].mbrTime, 1);
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.Equal(varXs.mbrIntersections[0].mbrTime, -1);
-		Assert.Equal(varXs.mbrIntersections[1].mbrTime, 1);
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, -1);
+		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, 1);
 	}
 
 	public void RayIntersectBehindSphere() {
@@ -81,9 +81,9 @@ public class FormTest
 		// Assert.Equal(xs[0].mbrTime, -6);
 		// Assert.Equal(xs[1].mbrTime, -4);
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.Equal(varXs.mbrIntersections[0].mbrTime, -6);
-		Assert.Equal(varXs.mbrIntersections[1].mbrTime, -4);
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, -6);
+		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, -4);
 	}
 
 	public void RayIntersectSetsObject() {
@@ -94,9 +94,9 @@ public class FormTest
 		// Assert.True(s.CheckEqual(xs[0].mbrObject));
 		// Assert.True(s.CheckEqual(xs[1].mbrObject));
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.True(s.CheckEqual((varXs.mbrIntersections[0].mbrObject)));
-		Assert.True(s.CheckEqual((varXs.mbrIntersections[1].mbrObject)));
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.True(s.CheckEqual((varXs._fieldIntersections[0]._fieldObject)));
+		Assert.True(s.CheckEqual((varXs._fieldIntersections[1]._fieldObject)));
 	}
 
 	public void SphereDefaultTransformIsIdentity() {
@@ -123,9 +123,9 @@ public class FormTest
 		// Assert.Equal(xs[0].mbrTime, 4);
 		// Assert.Equal(xs[1].mbrTime, 6);
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.Equal(varXs.mbrIntersections[0].mbrTime, 4);
-		Assert.Equal(varXs.mbrIntersections[1].mbrTime, 6);
+		Assert.Equal(2, varXs._fieldIntersections.Count());
+		Assert.Equal(4, varXs._fieldIntersections[0]._fieldTime);
+		Assert.Equal(6, varXs._fieldIntersections[1]._fieldTime);
 	}
 
 	public void SphereScaledModifiesIntersections() {
@@ -141,9 +141,9 @@ public class FormTest
 		// Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay.mbrOrigin, Point(0,0,-2.5)));
 		// Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay.mbrDirection, new Vector(0,0,0.5)));
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.Equal(varXs.mbrIntersections[0].mbrTime, 3);
-		Assert.Equal(varXs.mbrIntersections[1].mbrTime, 7);
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, 3);
+		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, 7);
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldOrigin, new Point(0,0,-2.5)));
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldDirection, new Vector(0,0,0.5)));
 	}
@@ -161,9 +161,9 @@ public class FormTest
 		// Assert.Equal(xs.Count(), 2);
 		// Assert.True(_fieldComp.CheckFloat(xs[0].mbrTime, z));
 		// Assert.True(_fieldComp.CheckFloat(xs[1].mbrTime, y));
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.True(_fieldComp.CheckFloat(varXs.mbrIntersections[0].mbrTime, z));
-		Assert.True(_fieldComp.CheckFloat(varXs.mbrIntersections[1].mbrTime, y));
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.True(_fieldComp.CheckFloat(varXs._fieldIntersections[0]._fieldTime, z));
+		Assert.True(_fieldComp.CheckFloat(varXs._fieldIntersections[1]._fieldTime, y));
 	}
 
 	public void SphereTranslatedToMiss() {
@@ -174,7 +174,7 @@ public class FormTest
 		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 		Intersections varXs = s.GetIntersections(r);
 		// Assert.Equal(xs.Count(), 0);
-		Assert.Equal(varXs.mbrIntersections.Count(), 0);
+		Assert.Equal(varXs._fieldIntersections.Count(), 0);
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldOrigin, new Point(-5,0,-5)));
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldDirection, new Vector(0,0,1)));
 	}
@@ -189,9 +189,9 @@ public class FormTest
 		// Assert.Equal(xs.Count(), 2);
 		// Assert.Equal(xs[0].mbrTime, 5);
 		// Assert.Equal(xs[1].mbrTime, 7);
-		Assert.Equal(varXs.mbrIntersections.Count(), 2);
-		Assert.Equal(varXs.mbrIntersections[0].mbrTime, 5);
-		Assert.Equal(varXs.mbrIntersections[1].mbrTime, 7);
+		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, 5);
+		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, 7);
 	}
 
 	public void SphereNormalX() {
@@ -290,32 +290,32 @@ public class FormTest
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,10,0), new Vector(0,0,1));
 		Intersections varIx = varPlane.GetIntersections(varRay);
-		Assert.True(varIx.mbrIntersections.Count() == 0);
+		Assert.True(varIx._fieldIntersections.Count() == 0);
 	}
 	public void CoplanarRayToPlane() {
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,0,0), new Vector(0,0,1));
 		Intersections varIx = varPlane.GetIntersections(varRay);
-		Assert.True(varIx.mbrIntersections.Count() == 0);
+		Assert.True(varIx._fieldIntersections.Count() == 0);
 	}
 	public void RayIntersectingPlaneAbove() {
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,1,0), new Vector(0,-1,0));
 		Intersections varIx = varPlane.GetIntersections(varRay);
-		Assert.True(varIx.mbrIntersections.Count() == 1);
+		Assert.True(varIx._fieldIntersections.Count() == 1);
 		// Assert.Equal(varIx.mbrIntersections[0].mbrTime, 1);
 		// Assert.True(varIx.mbrIntersections[0].mbrObject.CheckEqual(varPlane));
-		Assert.Equal(varIx.mbrIntersections[0].mbrTime, 1);
-		Assert.True(varIx.mbrIntersections[0].mbrObject.CheckEqual(varPlane));
+		Assert.Equal(varIx._fieldIntersections[0]._fieldTime, 1);
+		Assert.True(varIx._fieldIntersections[0]._fieldObject.CheckEqual(varPlane));
 	}
 	public void RayIntersectingPlaneBelow() {
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,-1,0), new Vector(0,1,0));
 		Intersections varIx = varPlane.GetIntersections(varRay);
-		Assert.True(varIx.mbrIntersections.Count() == 1);
+		Assert.True(varIx._fieldIntersections.Count() == 1);
 		// Assert.Equal(varIx.mbrIntersections[0].mbrTime, 1);
 		// Assert.True(varIx.mbrIntersections[0].mbrObject.CheckEqual(varPlane));
-		Assert.Equal(varIx.mbrIntersections[0].mbrTime, 1);
-		Assert.True(varIx.mbrIntersections[0].mbrObject.CheckEqual(varPlane));
+		Assert.Equal(varIx._fieldIntersections[0]._fieldTime, 1);
+		Assert.True(varIx._fieldIntersections[0]._fieldObject.CheckEqual(varPlane));
 	}
 }

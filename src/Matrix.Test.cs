@@ -284,7 +284,7 @@ public class MatrixTest
 		SpaceTuple tup2 = new SpaceTuple(18, 24, 33, 1);
 		Assert.True(_fieldComp.CheckTuple(res,tup2));
 	}
-
+	[Fact]
 	public void IdentityMatrixMultiplication()
 	{
 		Matrix mx1 = new Matrix(4, 4);
@@ -310,8 +310,7 @@ public class MatrixTest
 		Matrix res = mx1 * im;
 		Assert.True(mx1.CheckEqual(res));
 	}
-
-
+	[Fact]
 	public void TransposeMatrix()
 	{
 		Matrix mx1 = new Matrix(4, 4);
@@ -353,7 +352,7 @@ public class MatrixTest
 		// Assert.True(mx2.CheckEqual(*res));
 		Assert.True(mx2.CheckEqual(res));
 	}
-
+	[Fact]
 	public void TransposeIdentityMatrix ()
 	{
 		IdentityMatrix im = new IdentityMatrix(4, 4);
@@ -362,7 +361,7 @@ public class MatrixTest
 		Matrix res = im.transpose();
 		Assert.True(im.CheckEqual(res));
 	}
-
+	[Fact]
 	public void MatrixDeterminant()
 	{
 		Matrix mx1 = new Matrix(2, 2);
@@ -374,7 +373,7 @@ public class MatrixTest
 		int expected = 17;
 		Assert.True(_fieldComp.CheckFloat(res, expected));
 	}
-
+	[Fact]
 	public void MatrixSub3x3()
 	{
 		Matrix mx1 = new Matrix(3, 3);
@@ -487,7 +486,7 @@ public class MatrixTest
 		int expected = -196;
 		Assert.Equal(m1d, expected);
 	}
-
+	[Fact]
 	public void MatrixDeteriminant4x4()
 	{
 		Matrix mx1 = new Matrix(4, 4);

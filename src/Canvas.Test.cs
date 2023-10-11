@@ -11,7 +11,7 @@ public class CanvasTest {
     {
         Assert.Equal(1, 1);
     }
-
+	[Fact]
 	public void CanvasInit ()
 	{
 		//Scenario: Creating a canvas
@@ -20,11 +20,11 @@ public class CanvasTest {
 		//And c.height = 20
 		//And every pixel of c is new Color(0, 0, 0)
 		Canvas c = new Canvas(10,20);
-		Assert.Equal(c.mbrWidth, 10);
-		Assert.Equal(c.mbrHeight, 20);
+		Assert.Equal(10, c.mbrWidth);
+		Assert.Equal(20, c.mbrHeight);
 		Assert.True(c.isClean());
 	}
-
+	[Fact]
 	public void CanvasSetColor ()
 	{
 		//Scenario: Writing pixels to a canvas
@@ -38,7 +38,7 @@ public class CanvasTest {
 		Color test = c.getPixel(2, 3);
 		Assert.True(test.CheckEqual(red));
 	}
-
+	[Fact]
 	public void CanvasPPM ()
 	{
 		//Scenario: Constructing the PPM header
