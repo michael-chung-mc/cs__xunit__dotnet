@@ -11,7 +11,7 @@ public class CalculatorCLI
     protected double _fieldNumY = 0;
     protected double _fieldResult = 0;
     protected string _fieldOperator = "";
-    protected List<LogData> _fieldHistory;
+    protected List<LogData> _fieldHistory = new List<LogData>();
     protected struct LogData : LibProjectMeta.LogData
     {
         double _fieldX = 0;
