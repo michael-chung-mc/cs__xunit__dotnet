@@ -29,32 +29,75 @@
 
 ## Goals
 ### About
-Ray Tracer implemented in C++ following Test Driven Development methodology using GoogleTest
+Ray Tracer implemented in C# following Test Driven Development methodology using xUnit
 ### Preview
+[SceneExample](./examples/example__scene__reflect_refract.ppm)
 ## Methodology
 ### Requirements
 ### Design
 ### Tools
-* C++
-* CMake
-* GTest
+* C#
+* xUnit
 * Visual Studio Code
 * Git
+* Xubuntu
 ### Roadmap
 <details>
 <summary>ray tracer</summary>
 
-- [x] Tuples & Vector & Point & Tuple Operations
-- [x] Color & Color Operations
-- [x] Canvas
-- [x] Matrix & Transformations
-- [x] Forms
+- [x] Operations
+    - [x] Tuples & Point & Vector
+    - [x] Matrix
+        - [x] Translation
+        - [x] Scale
+        - [x] Rotate
+        - [x] Shear
+    - [x] Rays
+- [x] Geometry
     - [x] Sphere
     - [x] Plane
-- [x] Ray Intersections
-- [x] Simple Shadow/Silhouette Cast Render
-- [x] Simple Shading Render
-- [x] Simple Scene Render
+    - [ ] Cube
+    - [ ] Cylinder
+    - [ ] Object Groups
+    - [ ] Triangle
+    - [ ] Constructive Solid Geometry
+    - [ ] Torus
+- [x] Material
+    - [x] Lighting
+        - [x] Phong Model
+        - [x] Shadow
+        - [x] Reflection
+        - [x] Refraction
+        - [x] Fresnel
+            -[x] Schlick
+    - [x] Pattern
+        - [x] Striped Pattern
+        - [x] Gradient Pattern
+        - [x] Ring Pattern
+        - [x] Checkered Pattern
+        - [ ] Radial Gradient
+        - [ ] Nested Patterns
+        - [ ] Blended Patterns
+        - [ ] Preturbed Patterns
+    - [ ] Texture Map
+- [x] World
+    - [x] Canvas
+        - [x] PPM
+    - [x] Camera
+        - [ ] Focal Blur
+        - [ ] Motion Blur
+    - [x] Lights
+        - [x] Point Source
+        - [ ] Area Light
+        - [ ] Spotlight
+- [x] Render
+    - [x] Single Object Shadow/Silhouette Cast Render
+    - [x] Single Matte Shading Render
+    - [x] Multiple Matte Shading Render
+    - [x] Single Transparent Render
+    - [x] Single Refraction Render
+    - [x] Multiple Matte/Transparent/Refraction Render
+
 </details>
 
 ## Usage
