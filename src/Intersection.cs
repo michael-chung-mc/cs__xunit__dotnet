@@ -359,11 +359,11 @@ public class Intersections {
 	// 	//mbrIntersections.Add(Intersection(t, std::make_unique<Form>(*argObject)));
 	//     sort(mbrIntersections.begin(), mbrIntersections.end(), funcComp);
 	// }
-	public void setIntersect(double time, Form argObject)
+	public void SetIntersect(double time, Form argObject)
 	{
 		SetIntersection(time, argObject);
 		_fieldIntersections.Sort(delegate(Intersection argA, Intersection argB) {
-			return argA._fieldTime < argB._fieldTime ? 1 : -1;
+			return argA._fieldTime.CompareTo(argB._fieldTime);
 		});
 	}
 	public Intersection getHit() {
@@ -388,10 +388,10 @@ public class Intersections {
 			return _fieldIntersections[index];
 		}
 	}
-	public void SetIntersection(Intersection argIx) {
+	protected void SetIntersection(Intersection argIx) {
 		_fieldIntersections.Add(argIx);
 	}
-    public void SetIntersection(double argTime, Form argObject) {
+    protected void SetIntersection(double argTime, Form argObject) {
 		_fieldIntersections.Add(new Intersection(argTime, argObject));
 	}
 };

@@ -48,7 +48,7 @@ public class World {
             Intersections varIx = _fieldObjects[i].GetIntersections(argRay);
             for (int j = 0; j < varIx._fieldIntersections.Count(); ++j)
             {
-                hits.setIntersect(varIx._fieldIntersections[j]._fieldTime, varIx._fieldIntersections[j]._fieldObject);
+                hits.SetIntersect(varIx._fieldIntersections[j]._fieldTime, varIx._fieldIntersections[j]._fieldObject);
             }
         }
         return hits;

@@ -87,6 +87,6 @@ public class Camera {
     }
     public void SetTransform (Matrix argMatrix) {
         _fieldTransform = argMatrix;
-        _fieldTransformInverse = _fieldTransform.getInverse();
+        _fieldTransformInverse = _fieldTransform.GetInverse();
     }
 }

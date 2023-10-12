@@ -68,7 +68,7 @@ public class Form {
 		this._fieldObjectRay = argRay.Transform(this._fieldTransformInverse);
 		return GetIntersectionsLocal(_fieldObjectRay);
 	}
-	public Intersections GetIntersectionsLocal(Ray argRay)
+	public virtual Intersections GetIntersectionsLocal(Ray argRay)
 	{
 		return new Intersections();
 	}
@@ -84,7 +84,7 @@ public class Form {
 		Vector varObjectNormal = GetNormalLocal(varObjectPoint);
 		// Matrix varTransform = (_fieldTransform.invert()).transpose();
 		// Matrix varTransform = (_fieldTransformInverse.transpose());
-		Matrix varTransform = _fieldTransformInverse.transpose();
+		Matrix varTransform = _fieldTransformInverse.GetTranspose();
 		Vector varWorldNormal = varTransform * varObjectNormal;
 		varWorldNormal._fieldW = 0;
 		return varWorldNormal.GetNormal();
@@ -131,7 +131,7 @@ public class Form {
 	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
-		this._fieldTransformInverse = argMatrix.getInverse();
+		this._fieldTransformInverse = argMatrix.GetInverse();
 	}
 	public void SetMaterial(Material argMaterial) {
 		this._fieldMaterial = argMaterial;
@@ -155,7 +155,7 @@ public class Sphere : Form {
 	{
 		_fieldRadius = 1.0;
 	}
-	public Intersections GetIntersectionsLocal(Ray argRay)
+	public override Intersections GetIntersectionsLocal(Ray argRay)
 	{
 		// Console.WriteLine("sphere get intersections";
 		Intersections varIntersections = new Intersections();
@@ -181,8 +181,8 @@ public class Sphere : Form {
 		// 	varIntersections.intersect(intersectTwo, this);
 		// 	varIntersections.intersect(intersectOne, this);
 		// }
-		varIntersections.setIntersect(intersectOne, this);
-		varIntersections.setIntersect(intersectTwo, this);
+		varIntersections.SetIntersect(intersectOne, this);
+		varIntersections.SetIntersect(intersectTwo, this);
 		return varIntersections;
 	}
 	public Vector GetNormalLocal(Point argPoint)
@@ -223,7 +223,7 @@ public class Plane : Form {
 	{
 		return new Vector(0, 1, 0);
 	}
-	public Intersections GetIntersectionsLocal(Ray argRay)
+	public override Intersections GetIntersectionsLocal(Ray argRay)
 	{
 		ProjectMeta varPM = new ProjectMeta();
 		// Console.WriteLine("plane get intersections";

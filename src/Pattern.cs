@@ -37,7 +37,7 @@ public class Pattern {
     }
     public void SetTransform(Matrix argMatrix){
         _fieldTransform = argMatrix;
-        _fieldTransformInverse = argMatrix.getInverse();
+        _fieldTransformInverse = argMatrix.GetInverse();
     }
     public void RenderConsole() {
         Console.WriteLine("rPattern::enderConsole()");
