@@ -27,56 +27,8 @@ public class ProjectMeta
     public int getPPMLineWidth() {
         return 70;
     }
-    public double getPI()
+    public double GetPI()
     {
         return 3.141592653589793238463;
-    }
-}
-
-public interface LogData
-{
-    public string ToJson ();
-}
-
-public class ProjectLog : ProjectMeta {
-    private string _fieldLogTxtPath;
-    private string _fieldLogJsonPath;
-    public ProjectLog () 
-    {
-        _fieldLogTxtPath = $"{GetDir()}__.log";
-        _fieldLogJsonPath = $"{GetDir()}__.json";
-        if (!File.Exists(_fieldLogTxtPath)) {
-            File.Create(_fieldLogTxtPath).Dispose();
-        }
-        using (StreamWriter txtStream = File.AppendText(_fieldLogTxtPath))
-        {
-            Trace.Listeners.Add(new TextWriterTraceListener(txtStream));
-            Trace.AutoFlush = true;
-            Trace.WriteLine($"{System.DateTime.Now} Calculator Log");
-        }
-    }
-    public void SetTxtLogPath(string path)
-    {
-        _fieldLogTxtPath = path;
-    }
-    public void SetJsonLogPath(string path)
-    {
-        _fieldLogJsonPath = path;
-    }
-    public void Log(string argData)
-    {
-        using (StreamWriter varTxtStream = File.AppendText(_fieldLogTxtPath))
-        {
-            varTxtStream.WriteLine(argData.ToString());
-            Trace.WriteLine(argData.ToString());
-        }
-    }
-    public void LogJson(LogData argData)
-    {
-        using (StreamWriter varJsonStream = File.AppendText(_fieldLogJsonPath))
-        {
-            varJsonStream.WriteLine(argData.ToJson());
-        }
-        Log(argData.ToJson());
     }
 }

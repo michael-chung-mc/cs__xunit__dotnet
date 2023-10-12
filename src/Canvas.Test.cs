@@ -22,7 +22,7 @@ public class CanvasTest {
 		Canvas c = new Canvas(10,20);
 		Assert.Equal(10, c.mbrWidth);
 		Assert.Equal(20, c.mbrHeight);
-		Assert.True(c.isClean());
+		Assert.True(c.CheckClean());
 	}
 	[Fact]
 	public void CanvasSetColor ()
@@ -34,8 +34,8 @@ public class CanvasTest {
 		//Then pixel_at(c, 2, 3) = red
 		Canvas c = new Canvas(10, 20);
 		Color red = new Color(1, 0, 0);
-		c.setPixel(2, 3, red);
-		Color test = c.getPixel(2, 3);
+		c.SetPixel(2, 3, red);
+		Color test = c.GetPixel(2, 3);
 		Assert.True(test.CheckEqual(red));
 	}
 	[Fact]
@@ -50,14 +50,14 @@ public class CanvasTest {
 		//And write_pixel(c, 4, 2, c3)
 		//And ppm ← canvas_to_ppm(c)
 		Canvas c = new Canvas(5, 3);
-		Assert.True(c.isClean());
+		Assert.True(c.CheckClean());
 		Color c1 = new Color(1.5, 0, 0);
 		Color c2 = new Color(0, 0.5, 0);
 		Color c3 = new Color(-.5, 0, 1);
-		c.setPixel(0, 0, c1);
-		c.setPixel(2, 1, c2);
-		c.setPixel(4, 2, c3);
-		String ppm = c.getPPM();
+		c.SetPixel(0, 0, c1);
+		c.SetPixel(2, 1, c2);
+		c.SetPixel(4, 2, c3);
+		String ppm = c.RenderStringPPM();
 		String cppm = "P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
 		Assert.Equal(ppm, cppm);
 	}
@@ -70,8 +70,8 @@ public class CanvasTest {
 		//And ppm ← canvas_to_ppm(c)
 		Canvas c = new Canvas(10, 2);
 		Color c1 = new Color(1, 0.8, 0.6);
-		c.fill(c1);
-		String ppm = c.getPPM();
+		c.SetFill(c1);
+		String ppm = c.RenderStringPPM();
 		String cppm = "P3\n10 2\n255\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n";
 		Assert.Equal(ppm, cppm);
 	}

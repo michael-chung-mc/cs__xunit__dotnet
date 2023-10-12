@@ -697,11 +697,11 @@ public class MatrixTest
 	public void TransformationRotationMatrixX()
 	{
 		Point p = new Point(0, 1, 0);
-		XRotationMatrix xrm90 = new XRotationMatrix(varPM.getPI()/4);
+		XRotationMatrix xrm90 = new XRotationMatrix(varPM.GetPI()/4);
 		Point res90 = xrm90 * p;
 		Point expected90 = new Point(0,Math.Sqrt(2)/2, Math.Sqrt(2)/2);
 		Assert.True(_fieldComp.CheckTuple(res90, expected90));
-		XRotationMatrix xrm180 = new XRotationMatrix(varPM.getPI() / 2);
+		XRotationMatrix xrm180 = new XRotationMatrix(varPM.GetPI() / 2);
 		Point res180 = xrm180 * p;
 		Point expected180 = new Point(0, 0, 1);
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
@@ -710,7 +710,7 @@ public class MatrixTest
 	public void TransformationRotationMatrixXInverse()
 	{
 		Point p = new Point(0, 1, 0);
-		XRotationMatrix xrm90 = new XRotationMatrix(varPM.getPI() / 4);
+		XRotationMatrix xrm90 = new XRotationMatrix(varPM.GetPI() / 4);
 		// Matrix* ixrm90 = xrm90.invert();
 		Matrix ixrm90 = xrm90.GetInverse();
 		// Point res = (*ixrm90) * p;
@@ -722,11 +722,11 @@ public class MatrixTest
 	public void TransformationRotationMatrixY()
 	{
 		Point p = new Point(0, 0, 1);
-		YRotationMatrix yrm90 = new YRotationMatrix(varPM.getPI() / 4);
+		YRotationMatrix yrm90 = new YRotationMatrix(varPM.GetPI() / 4);
 		Point res90 = yrm90 * p;
 		Point expected90 = new Point(Math.Sqrt(2) / 2, 0, Math.Sqrt(2) / 2);
 		Assert.True(_fieldComp.CheckTuple(res90, expected90));
-		YRotationMatrix yrm180 = new YRotationMatrix(varPM.getPI() / 2);
+		YRotationMatrix yrm180 = new YRotationMatrix(varPM.GetPI() / 2);
 		Point res180 = yrm180 * p;
 		Point expected180 = new Point(1, 0, 0);
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
@@ -735,11 +735,11 @@ public class MatrixTest
 	public void TransformationRotationMatrixZ()
 	{
 		Point p = new Point(0, 1, 0);
-		ZRotationMatrix zrm90 = new ZRotationMatrix(varPM.getPI() / 4);
+		ZRotationMatrix zrm90 = new ZRotationMatrix(varPM.GetPI() / 4);
 		Point res90 = zrm90 * p;
 		Point expected90 = new Point(-Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, 0);
 		Assert.True(_fieldComp.CheckTuple(res90, expected90));
-		ZRotationMatrix zrm180 = new ZRotationMatrix(varPM.getPI() / 2);
+		ZRotationMatrix zrm180 = new ZRotationMatrix(varPM.GetPI() / 2);
 		Point res180 = zrm180 * p;
 		Point expected180 = new Point(-1, 0, 0);
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
@@ -802,7 +802,7 @@ public class MatrixTest
 	public void ChainingTransformationInSequence()
 	{
 		Point p = new Point(1, 0, 1);
-		XRotationMatrix xrm = new XRotationMatrix(varPM.getPI() / 2);
+		XRotationMatrix xrm = new XRotationMatrix(varPM.GetPI() / 2);
 		ScalingMatrix sm = new ScalingMatrix(5, 5, 5);
 		TranslationMatrix tm = new TranslationMatrix(10, 5, 7);
 		Point rotated = xrm * p;
@@ -819,7 +819,7 @@ public class MatrixTest
 	public void ChainingTransformationAppliedInReverseOrder()
 	{
 		Point p = new Point(1, 0, 1);
-		XRotationMatrix xrm = new XRotationMatrix(varPM.getPI() / 2);
+		XRotationMatrix xrm = new XRotationMatrix(varPM.GetPI() / 2);
 		ScalingMatrix sm = new ScalingMatrix(5, 5, 5);
 		TranslationMatrix tm = new TranslationMatrix(10, 5, 7);
 		// Matrix* tsrm = *(tm * sm) * xrm;
@@ -829,7 +829,7 @@ public class MatrixTest
 		Point expected = new Point(15, 0, 7);
 		Assert.True(_fieldComp.CheckTuple(transformed, expected));
 		// Matrix tsrmc = *(*(*(*(Matrix(4, 4).identity())).translate(10, 5, 7)).scale(5, 5, 5)).rotateX(getPI() / 2);
-		Matrix tsrmc = new Matrix(4, 4).GetIdentity().GetTranslate(10, 5, 7).GetScale(5, 5, 5).GetRotateX(varPM.getPI() / 2);
+		Matrix tsrmc = new Matrix(4, 4).GetIdentity().GetTranslate(10, 5, 7).GetScale(5, 5, 5).GetRotateX(varPM.GetPI() / 2);
 		Assert.True(tsrm.CheckEqual(tsrmc));
 		Point transformedc = tsrmc * p;
 		Assert.True(_fieldComp.CheckTuple(transformedc, expected));

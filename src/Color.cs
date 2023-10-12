@@ -36,7 +36,7 @@ public class Color : SpaceTuple {
 		Comparinator ce = new Comparinator();
 		return ce.CheckFloat(_fieldRed,argOther._fieldRed) && ce.CheckFloat(_fieldGreen,argOther._fieldGreen) && ce.CheckFloat(_fieldBlue,argOther._fieldBlue);
 	}
-	public void RenderConsole()  {
+	public override void RenderConsole()  {
 		Console.Write("public renderConsole::Color(");
 		Console.Write($"= mbrRed:{_fieldRed}");
 		Console.Write($"= mbrGreen:{_fieldGreen}");

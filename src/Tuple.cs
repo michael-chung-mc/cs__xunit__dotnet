@@ -37,7 +37,7 @@ public class SpaceTuple {
         Comparinator varComp = new Comparinator ();
         return varComp.CheckTuple(this, argOther);
     }
-    public void RenderConsole() {
+    public virtual void RenderConsole() {
         Console.WriteLine($"Tuple::renderConsole() -> {{mbrX:{_fieldX}, mbrY:{_fieldY}, mbrZ:{_fieldZ}, mbrW:{_fieldW}}}");
     }
     public void SetAdd (SpaceTuple argOther) {
@@ -91,14 +91,6 @@ public class Vector : SpaceTuple {
 	    _fieldZ = argZ;
 	    _fieldW = 0.0;
     }
-    // Vector Vector::operator+(const Tuple &argOther)
-    // {
-    // 	return Vector(argOther.mbrX + mbrX, argOther.mbrY + mbrY, argOther.mbrZ + mbrZ);;
-    // }
-    // Vector Vector::operator-()
-    // {
-    // 	return Vector(-mbrX, -mbrY, -mbrZ);
-    // }
     public static Vector operator*(Vector argSelf, double multiple) {
     	return new Vector(argSelf._fieldX * multiple, argSelf._fieldY * multiple, argSelf._fieldZ * multiple);
     }

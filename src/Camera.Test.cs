@@ -24,7 +24,7 @@ public class CameraTest {
     {
         int varH = 160;
         int varV = 120;
-        double varFOV = _fieldPM.getPI()/2;
+        double varFOV = _fieldPM.GetPI()/2;
         IdentityMatrix varIdentity = new IdentityMatrix(4,4);
         Camera varCamera = new Camera(varH, varV, varFOV);
         Assert.Equal(varCamera._fieldCanvasHorizontal, varH);
@@ -35,19 +35,19 @@ public class CameraTest {
 
     public void CameraCanvasPixelSizeHorizontalGTVertical ()
     {
-        Camera varCamera = new Camera(200, 125, _fieldPM.getPI()/2);
+        Camera varCamera = new Camera(200, 125, _fieldPM.GetPI()/2);
         Assert.True(_fieldComp.CheckFloat(varCamera._fieldPixelSquare, 0.01));
     }
 
     public void CameraCanvasPixelSizeVerticalGTHorizontal ()
     {
-        Camera varCamera = new Camera(125, 200, _fieldPM.getPI()/2);
+        Camera varCamera = new Camera(125, 200, _fieldPM.GetPI()/2);
         Assert.True(_fieldComp.CheckFloat(varCamera._fieldPixelSquare, 0.01));
     }
 
     public void CameraRayCastToCanvasCenter ()
     {
-        Camera varCamera = new Camera(201, 101, _fieldPM.getPI()/2);
+        Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
         Ray varCast = varCamera.GetRay(100,50);
         Point varExpectedOrigin = new Point(0,0,0);
         Vector varExpectedDirection = new Vector(0,0,-1);
@@ -57,7 +57,7 @@ public class CameraTest {
 
     public void CameraRayCastToCanvasCorner ()
     {
-        Camera varCamera = new Camera(201, 101, _fieldPM.getPI()/2);
+        Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
         Ray varCast = varCamera.GetRay(0,0);
         Point varExpectedOrigin = new Point(0,0,0);
         Vector varExpectedDirection = new Vector(0.66519, 0.33259, -.66851);
@@ -67,9 +67,9 @@ public class CameraTest {
 
     public void TransformedCameraRayCastToCanvas ()
     {
-        Camera varCamera = new Camera(201, 101, _fieldPM.getPI()/2);
+        Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
         // varCamera.setTransform(YRotationMatrix(_fieldPM.getPI()/4) * TranslationMatrix(0,-2,5));
-        varCamera.SetTransform(new Matrix(new YRotationMatrix(_fieldPM.getPI()/4) * new TranslationMatrix(0,-2,5)));
+        varCamera.SetTransform(new Matrix(new YRotationMatrix(_fieldPM.GetPI()/4) * new TranslationMatrix(0,-2,5)));
         Ray varCast = varCamera.GetRay(100,50);
         Point varExpectedOrigin = new Point(0,2,-5);
         Vector varExpectedDirection = new Vector(Math.Sqrt(2)/2,0,-Math.Sqrt(2)/2);
@@ -80,11 +80,11 @@ public class CameraTest {
     public void CameraRenderDefaultWorld ()
     {
         DefaultWorld varWorld = new DefaultWorld();
-        Camera varCamera = new Camera(11, 11, _fieldPM.getPI()/2);
+        Camera varCamera = new Camera(11, 11, _fieldPM.GetPI()/2);
         // varCamera.setTransform(new ViewMatrix(Point(0,0,-5), Point(0,0,0), Vector(0,1,0)));
         varCamera.SetTransform(new ViewMatrix(new Point(0,0,-5), new Point(0,0,0), new Vector(0,1,0)));
         Canvas varImg = varCamera.RenderCanvas(varWorld);
         Color varExpectedColor = new Color(0.38066, 0.47583, 0.2855);
-        Assert.True(varImg.getPixel(5,5).CheckEqual(varExpectedColor));
+        Assert.True(varImg.GetPixel(5,5).CheckEqual(varExpectedColor));
     }
 }

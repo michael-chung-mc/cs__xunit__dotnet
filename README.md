@@ -31,7 +31,7 @@
 ### About
 Ray Tracer implemented in C# following Test Driven Development methodology using xUnit
 ### Preview
-[SceneExample](./examples/example__scene__reflect_refract.ppm)
+[Scene-Example](./examples/example__scene__reflect_refract.png)
 ## Methodology
 ### Requirements
 ### Design

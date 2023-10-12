@@ -233,7 +233,7 @@ public class FormTest
 	public void SphereTransformedNormalized() {
 		Sphere s = new Sphere();
 		// Matrix t = *(ScalingMatrix(1, 0.5, 1) * ZRotationMatrix(getPI()/5));
-		Matrix t = new ScalingMatrix(1, 0.5, 1) * new ZRotationMatrix(varPM.getPI()/5);
+		Matrix t = new ScalingMatrix(1, 0.5, 1) * new ZRotationMatrix(varPM.GetPI()/5);
 		s.SetTransform(t);
 		Point p = new Point(0,Math.Sqrt(2)/2,-Math.Sqrt(2)/2);
 		Vector normal = s.GetNormal(p);

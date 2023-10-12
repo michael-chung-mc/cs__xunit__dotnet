@@ -36,10 +36,8 @@ public class Matrix {
 	}
 	public Matrix(Matrix argOther)
 	{
-		//std::cout << "matrix copy ctor" << std::endl;
 		_fieldRows = argOther._fieldRows;
 		_fieldColumns = argOther._fieldColumns;
-		//std::cout << "this: " << mbrRows << mbrColumns << " other:" << other.mbrRows << other.mbrColumns << std::endl;
 		_fieldGrid = new List<List<double>>();
 		for (int i = 0; i < _fieldRows; ++i)
 		{
@@ -54,18 +52,6 @@ public class Matrix {
 	{
 		_fieldRows = argRows;
 		_fieldColumns = argColumns;
-		// mbrGrid = new double* [mbrRows];
-		// for (int i = 0; i < mbrRows; ++i)
-		// {
-		// 	mbrGrid[i] = new double[mbrColumns];
-		// }
-		// for (int i = 0; i < mbrRows; ++i)
-		// {
-		// 	for (int j = 0; j < mbrColumns; ++j)
-		// 	{
-		// 		mbrGrid[i][j] = values[(i * columns) + j];
-		// 	}
-		// }
 		_fieldGrid = new List<List<double>>();
 		for (int i = 0; i < _fieldRows; ++i)
 		{
@@ -76,44 +62,8 @@ public class Matrix {
 			}
 		}
 	}
-	// public Matrix operator=(Matrix other)
-	// {
-	// 	if (this == &other) return *this;
-	// 	//std::cout << "matrix copy assign" << std::endl;
-	// 	mbrRows = other.mbrRows;
-	// 	mbrColumns = other.mbrColumns;
-	// 	for (int i = 0; i < mbrRows; ++i)
-	// 	{
-	// 		mbrGrid.Add(List<double>());
-	// 		for (int j = 0; j < mbrColumns; ++j)
-	// 		{
-	// 			mbrGrid[i][j] = other.mbrGrid[i][j];
-	// 		}
-	// 	}
-		// for (int i = 0; i < mbrRows; ++i)
-		// {
-		// 	delete[] mbrGrid[i];
-		// 	mbrGrid[i] = nullptr;
-		// }
-		// delete[] mbrGrid;
-		// mbrGrid = nullptr;
-		// mbrGrid = new double* [mbrRows];
-		// for (int i = 0; i < mbrRows; ++i)
-		// {
-		// 	mbrGrid[i] = new double[mbrColumns];
-		// }
-		// for (int i = 0; i < mbrRows; ++i)
-		// {
-		// 	for (int j = 0; j < mbrColumns; ++j)
-		// 	{
-		// 		mbrGrid[i][j] = other.mbrGrid[i][j];
-		// 	}
-		// }
-	// 	return *this;
-	// }
 	public static bool operator==(Matrix argSelf, Matrix argOther)
 	{
-		//std::cout << "matrix equality operator" << std::endl;
 		if (argOther._fieldRows != argSelf._fieldRows || argOther._fieldColumns != argSelf._fieldColumns)
 		{
 			return false;
@@ -122,8 +72,6 @@ public class Matrix {
 		{
 			for (int j = 0; j < argSelf._fieldColumns; ++j)
 			{
-				//std::cout << "addresses this:" << &grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
-				//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
 				if (argOther._fieldGrid[i][j] != argSelf._fieldGrid[i][j])
 				{
 					return false;
@@ -134,7 +82,6 @@ public class Matrix {
 	}
 	public static bool operator!=(Matrix argSelf, Matrix other)
 	{
-		//std::cout << "matrix equality operator" << std::endl;
 		if (other._fieldRows != argSelf._fieldRows || other._fieldColumns != argSelf._fieldColumns)
 		{
 			return true;
@@ -143,8 +90,6 @@ public class Matrix {
 		{
 			for (int j = 0; j < argSelf._fieldColumns; ++j)
 			{
-				//std::cout << "addresses this:" << &grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
-				//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
 				if (other._fieldGrid[i][j] != argSelf._fieldGrid[i][j])
 				{
 					return true;
@@ -155,7 +100,6 @@ public class Matrix {
 	}
 	public static Matrix operator*(Matrix argSelf, Matrix argOther)
 	{
-		//std::cout << "matrix multiplication" << std::endl;
 		Matrix varResult = new Matrix(argOther._fieldRows, argOther._fieldColumns);
 		for (int i = 0; i < varResult._fieldRows; ++i)
 		{
@@ -164,10 +108,8 @@ public class Matrix {
 				double value = 0;
 				for (int k = 0; k < varResult._fieldColumns; k++)
 				{
-					//std::cout << "i:" << i << "j:" << j << "k:" << k << "=" << grid[i][k] << "*" << other.grid[k][j] << std::endl;
 					value += argSelf._fieldGrid[i][k] * argOther._fieldGrid[k][j];
 				}
-				//std::cout << value << std::endl;
 				varResult.SetRC(i, j, value);
 			}
 		}
@@ -176,7 +118,6 @@ public class Matrix {
 	public static SpaceTuple operator*(Matrix argSelf, SpaceTuple argOther)
 	{
 		if (argSelf._fieldRows != 4 && argSelf._fieldColumns != 4) return argOther;
-		//std::cout << "matrix tuple multiplication" << std::endl;
 		List<double> varPseudoMatrix = new List<double>{argOther._fieldX, argOther._fieldY, argOther._fieldZ, argOther._fieldW};
 		List<double> varResults = new List<double>{ 0,0,0,0 };
 		double res = 0;
@@ -185,7 +126,6 @@ public class Matrix {
 			res = 0;
 			for (int col = 0; col < argSelf._fieldColumns; col++)
 			{
-				//std::cout << "i:" << col << "j:" << tuple << "k:" << res << "=" << pseudoMatrix[col] << "*" << grid[tuple][col] << std::endl;
 				res += argSelf._fieldGrid[tuple][col] * varPseudoMatrix[col];
 			}
 			varResults[tuple] = res;
@@ -213,19 +153,15 @@ public class Matrix {
 	}
 	public bool CheckEqual(Matrix argOther)
 	{
-		//std::cout << "matrix equality" << std::endl;
 		if (argOther._fieldRows != _fieldRows || argOther._fieldColumns != _fieldColumns)
 		{
 			return false;
 		}
 		Comparinator varComp = new Comparinator();
-		//std::cout << "row == column" << std::endl;
 		for (int i = 0; i < _fieldRows; ++i)
 		{
 			for (int j = 0; j < _fieldColumns; ++j)
 			{
-				//std::cout << "addresses this:" << & grid[i][j] << ":other:" << &other.grid[i][j] << std::endl;
-				//std::cout << "values this:" << grid[i][j] << ":other:" << other.grid[i][j] << std::endl;
 				if (!varComp.CheckFloat(argOther._fieldGrid[i][j],_fieldGrid[i][j]))
 				{
 					return false;
@@ -278,7 +214,6 @@ public class Matrix {
 			for (int j = 0; j < varTranspose._fieldColumns; ++j)
 			{
 				varTranspose.SetRC(i, j, GetRC(j, i));
-				//std::cout << "i:" << i << "j:" << j << "now: " << getRC(j, i) << "=" << copy->getRC(i, j) << std::endl;
 			};
 		};
 		return varTranspose;
@@ -299,7 +234,6 @@ public class Matrix {
 			{
 				if (j == argColumns) { j += 1; }
 				varSubMatrix.SetRC(varSubRow, varSubCol, GetRC(i, j));
-				//std::cout << "i:" << subrow << "j:" << subcol << "now: " << getRC(i, j) << "=" << sub->getRC(subrow, subcol) << std::endl;
 				j += 1;
 				varSubCol += 1;
 			}
@@ -310,7 +244,6 @@ public class Matrix {
 	}
 	public virtual Matrix GetInverse()
 	{
-		// std::cout << "Matrix::invert()" << std::endl;
 		Matrix varInverse = new Matrix(_fieldRows, _fieldColumns);
 		if (!CheckInvertible()) return varInverse;
 		double dm = GetDeterminant();
@@ -320,7 +253,6 @@ public class Matrix {
 			{
 				double cf = GetCofactor(i, j);
 				varInverse.SetRC(j, i, cf / dm);
-				// std::cout << "j:" << j << "i:" << i << "now: " << cf << "/" << dm << "=" << inverse->getRC(j, i) << std::endl;
 			};
 		};
 		return varInverse;
@@ -479,8 +411,6 @@ public class ViewMatrix : Matrix {
 			for (int j = 0; j < _fieldColumns; ++j)
 			{
 				_fieldGrid[i][j] = varResult._fieldGrid[i][j];
-				// std::cout << "addresses this:" << & grid[i][j] << ":other:" << &varResult->grid[i][j] << std::endl;
-				// std::cout << "values this:" << grid[i][j] << ":other:" << varResult->grid[i][j] << std::endl;
 			};
 		};
 	}

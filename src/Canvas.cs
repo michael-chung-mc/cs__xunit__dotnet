@@ -19,20 +19,18 @@ public class Canvas {
 			}
 		}
 	}
-	public Color getPixel(int x, int y) {
-		if (inBounds(x, y)) { return mbrGrid[x][y]; }
+	public Color GetPixel(int x, int y) {
+		if (CheckBounds(x, y)) { return mbrGrid[x][y]; }
 		return new Color(0,0,0);
 	}
-	public String getPPM()
+	public String RenderStringPPM()
 	{
 		ProjectMeta varPM = new ProjectMeta();
-		//String ppm = "P3\n" + std::to_string(w) + " " + std::to_string(h) + "\n" + "255\n";
 		String ppm = "P3\n" + mbrWidth.ToString() + " " + mbrHeight.ToString() + "\n" + "255\n";
 		String buffer = "";
 		int cnr = 0;
 		int cng = 0;
 		int cnb = 0;
-		// width = row & height = column
 		for (int j = 0; j < mbrHeight; ++j)
 		{
 			for (int i = 0; i < mbrWidth; ++i)
@@ -80,14 +78,13 @@ public class Canvas {
 			ppm += buffer;
 			ppm = char.IsWhiteSpace(ppm[ppm.Count() - 1]) ? ppm.Substring(0, ppm.Count() - 1) : ppm;
 			buffer = "\n";
-			//Console.WriteLine("rendered line:" << std::to_string(j));
 		}
 		// cutoff extra whitespace
 		ppm = char.IsWhiteSpace(ppm[ppm.Count() - 1]) ? ppm.Substring(0, ppm.Count() - 1) : ppm;
 		ppm += "\n";
 		return ppm;
 	}
-	public bool isClean() {
+	public bool CheckClean() {
 		Comparinator ce = new Comparinator();
 		Color black = new Color(0, 0, 0);
 		bool clean = true;
@@ -104,18 +101,18 @@ public class Canvas {
 		}
 		return clean;
 	}
-	public bool inBounds(int x, int y) {
+	public bool CheckBounds(int x, int y) {
 		return mbrGrid.Count() > 0 && mbrGrid[0].Count() > 0 && x >= 0 && x < mbrGrid.Count() && y >= 0 && y < mbrGrid[0].Count();
 	}
-	public void setPixel(int x, int y, Color c) {
-		if (inBounds(x,y)) { mbrGrid[x][y] = c; }
+	public void SetPixel(int x, int y, Color c) {
+		if (CheckBounds(x,y)) { mbrGrid[x][y] = c; }
 	}
-	public void fill(Color x)  {
+	public void SetFill(Color x)  {
 		for (int i = 0; i < mbrGrid.Count(); ++i)
 		{
 			for (int j = 0; j < mbrGrid[i].Count(); ++j)
 			{
-				setPixel(i, j, x);
+				SetPixel(i, j, x);
 			}
 		}
 	}
@@ -124,7 +121,7 @@ public class Canvas {
 		String varFileName = varPm.getPPMFilename(argName);
 		Console.WriteLine($"Saving to: {varFileName}");
 		using (StreamWriter writer = new StreamWriter(varFileName)) {
-			writer.WriteLine(getPPM());
+			writer.WriteLine(RenderStringPPM());
 		}
 		Console.WriteLine("saved");
 	}

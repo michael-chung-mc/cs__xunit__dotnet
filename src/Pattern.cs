@@ -18,11 +18,15 @@ public class Pattern {
     }
 	public Pattern(Pattern other)
     {
+        _fieldWhite = new Color(1,1,1);
+        _fieldBlack = new Color(0,0,0);
         _fieldColors = new List<Color>();
         _fieldColors = other._fieldColors;
         SetTransform(other._fieldTransform);
     }
     public Pattern(Color argColorA, Color argColorB) {
+        _fieldWhite = new Color(1,1,1);
+        _fieldBlack = new Color(0,0,0);
         _fieldColors = new List<Color>{argColorA, argColorB};
         SetTransform(new IdentityMatrix(4,4));
     }
@@ -31,6 +35,13 @@ public class Pattern {
     }
     public virtual Color GetColorLocal(Point argPoint) {
         return new Color(argPoint._fieldX, argPoint._fieldY, argPoint._fieldZ);
+    }
+    public virtual bool CheckEqual(Pattern argOther) {
+        var varFirstNotSecond = this._fieldColors.Except(argOther._fieldColors).ToList();
+        var varSecondNotFirst = argOther._fieldColors.Except(this._fieldColors).ToList();
+        return !varFirstNotSecond.Any() && !varSecondNotFirst.Any()
+            && this._fieldTransform.CheckEqual(argOther._fieldTransform)
+            && this._fieldTransformInverse.CheckEqual(argOther._fieldTransformInverse);
     }
     public void SetTransform(Matrix argMatrix){
         _fieldTransform = argMatrix;

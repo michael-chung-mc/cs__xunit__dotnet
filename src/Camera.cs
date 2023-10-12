@@ -45,24 +45,12 @@ public class Camera {
         _fieldPixelSquare = (_fieldHalfWidth * 2) / _fieldCanvasHorizontal;
         SetTransform(new IdentityMatrix(4,4));
     }
-    // public static Camera operator=(Camera argOther) {
-    //     mbrCanvasHorizontal = argOther.mbrCanvasHorizontal;
-    //     mbrCanvasVertical = argOther.mbrCanvasVertical;
-    //     mbrFieldOfView = argOther.mbrFieldOfView;
-    //     mbrHalfWidth = argOther.mbrHalfWidth;
-    //     mbrHalfHeight = argOther.mbrHalfHeight;
-    //     mbrPixelSquare = argOther.mbrPixelSquare;
-    //     // setTransform(argOther.mbrTransform);
-    //     SetTransform(argOther.mbrTransform);
-    // }
     public Ray GetRay(int argPxX, int argPxY)
     {
         double varOffsetX = (argPxX + 0.5) * _fieldPixelSquare;
         double varOffsetY = (argPxY + 0.5) * _fieldPixelSquare;
         double varWorldX = _fieldHalfWidth - varOffsetX;
         double varWorldY = _fieldHalfHeight - varOffsetY;
-        // Point varPixelPos = *mbrTransform->invert() * Point(varWorldX, varWorldY, -1);
-        // Point varOrigin = *mbrTransform->invert() * Point(0,0,0);
         Point varPixelPos = _fieldTransformInverse * new Point(varWorldX, varWorldY, -1);
         Point varOrigin = _fieldTransformInverse * new Point(0,0,0);
         Vector varDirection = (varPixelPos - varOrigin).GetNormal();
@@ -80,7 +68,7 @@ public class Camera {
             {
                 Ray varRay = GetRay(j, i);
                 Color varColor = argWorld.GetColor(varRay);
-                varCanvas.setPixel(j, i, varColor);
+                varCanvas.SetPixel(j, i, varColor);
             }
             if ((i * _fieldCanvasHorizontal) % varCounterLimit == 0) { Console.WriteLine($"rendered pixel: {i * _fieldCanvasHorizontal}/{_fieldCanvasVertical*_fieldCanvasHorizontal})"); }
         }
