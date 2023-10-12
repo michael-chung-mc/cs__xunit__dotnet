@@ -32,7 +32,7 @@ public class CalculatorCLI
     }
     public void Run()
     {
-        ProjectMeta varPM = new ProjectMeta();
+        ProjectLog varPM = new ProjectLog();
         Calculator varCalculator = new Calculator();
         _fieldHistory = new List<LogData>();
         bool varFlagEndApp = false;

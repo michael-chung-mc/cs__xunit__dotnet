@@ -22,18 +22,15 @@ public class Pattern {
         _fieldColors = other._fieldColors;
         SetTransform(other._fieldTransform);
     }
-    public Pattern(Color argColorA, Color argColorB){
-        _fieldColors = new List<Color>();
-        _fieldColors.Add(argColorA);
-        _fieldColors.Add(argColorB);
+    public Pattern(Color argColorA, Color argColorB) {
+        _fieldColors = new List<Color>{argColorA, argColorB};
         SetTransform(new IdentityMatrix(4,4));
     }
+    public Color GetColor(Point argPoint) {
+		return GetColorLocal(this._fieldTransformInverse * argPoint);
+    }
     public virtual Color GetColorLocal(Point argPoint) {
-        // Console.WriteLine("Pattern::GetColorLocal(x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << ")");
-        Color varRes = new Color(argPoint._fieldX, argPoint._fieldY, argPoint._fieldZ);
-        // Console.WriteLine("Pattern::GetColorLocal::varRes(r:" << varRes._fieldRed << ",b:" << varRes._fieldBlue << ",g:" << varRes._fieldGreen);
-        return varRes;
-        // return Color(argPoint._fieldX, argPoint._fieldY, argPoint._fieldZ);
+        return new Color(argPoint._fieldX, argPoint._fieldY, argPoint._fieldZ);
     }
     public void SetTransform(Matrix argMatrix){
         _fieldTransform = argMatrix;
@@ -65,11 +62,7 @@ public class PatternStripe : Pattern {
         _fieldColors.Add(argColorB);
     }
     public override Color GetColorLocal(Point argPoint) {
-        // Console.WriteLine("PatternStripe::GetColorLocal(x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << ")");
-        Color res = (int)Math.Floor(argPoint._fieldX) % 2 == 0 ? _fieldColors[0] : _fieldColors[1];
-        // Console.WriteLine("stripe: x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << "C: r:" << res._fieldRed << " b:" << res._fieldBlue << " g:" << res._fieldGreen);
-        return res;
-        // return (int)std::floor(argPoint._fieldX) % 2 == 0 ? _fieldColors[0] : _fieldColors[1];
+        return (int)(Math.Floor(argPoint._fieldX) % 2) == 0 ? _fieldColors[0] : _fieldColors[1];
     }
 };
 
@@ -88,11 +81,7 @@ public class PatternGradient : Pattern {
         _fieldColors.Add(argColorB);
     }
     public override Color GetColorLocal(Point argPoint){
-        // Console.WriteLine("PatternGradient::GetColorLocal(x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << ")");
-        Color res = _fieldColors[0] + (_fieldColors[1]-_fieldColors[0]) * (argPoint._fieldX - Math.Floor(argPoint._fieldX));
-        // Console.WriteLine("gradient: x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << "C: r:" << res._fieldRed << " b:" << res._fieldBlue << " g:" << res._fieldGreen);
-        return res;
-        // return _fieldColors[0] + (_fieldColors[1]-_fieldColors[0]) * (argPoint._fieldX - floor(argPoint._fieldX));
+        return _fieldColors[0] + (_fieldColors[1]-_fieldColors[0]) * (argPoint._fieldX - Math.Floor(argPoint._fieldX));
     }
 };
 
@@ -110,11 +99,7 @@ public class PatternRing : Pattern {
         _fieldColors.Add(argColorB);
     }
     public override Color GetColorLocal(Point argPoint) {
-        // Console.WriteLine("PatternRing::GetColorLocal(x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << ")");
-        Color res = (int)(Math.Floor(Math.Sqrt((argPoint._fieldX*argPoint._fieldX) + (argPoint._fieldZ * argPoint._fieldZ)))%2.0) == 0 ? _fieldColors[0]: _fieldColors[1];
-        // Console.WriteLine("ring: x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << "C: r:" << res._fieldRed << " b:" << res._fieldBlue << " g:" << res._fieldGreen);
-        return res;
-        // return (int)fmod(floor(sqrt(pow(argPoint._fieldX,2) + pow(argPoint._fieldZ,2))),2) == 0 ? _fieldColors[0]: _fieldColors[1];
+        return (int)(Math.Floor(Math.Sqrt((argPoint._fieldX*argPoint._fieldX) + (argPoint._fieldZ * argPoint._fieldZ)))%2) == 0 ? _fieldColors[0]: _fieldColors[1];
     }
 };
 
@@ -132,10 +117,6 @@ public class PatternChecker : Pattern {
         _fieldColors.Add(argColorB);
     }
     public override Color GetColorLocal(Point argPoint) {
-        // Console.WriteLine("PatternChecker::GetColorLocal(x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << ")");
-        Color res = (int)(Math.Floor(Math.Sqrt((argPoint._fieldX*argPoint._fieldX) + (argPoint._fieldY*argPoint._fieldY) + (argPoint._fieldZ * argPoint._fieldZ)))%2.0) == 0 ? _fieldColors[0]: _fieldColors[1];
-        // Console.WriteLine("checker 3d: x:" << argPoint._fieldX << " y:" << argPoint._fieldY << " z:" << argPoint._fieldZ << "C: r:" << res._fieldRed << " b:" << res._fieldBlue << " g:" << res._fieldGreen);
-        return res;
-        // return (int)fmod(floor(argPoint._fieldX) + floor(argPoint._fieldZ),2) == 0 ? _fieldColors[0]: _fieldColors[1];
+        return (int)((Math.Floor(argPoint._fieldX) + Math.Floor(argPoint._fieldY) + Math.Floor(argPoint._fieldZ)))%2 == 0 ? _fieldColors[0]: _fieldColors[1];
     }
 };

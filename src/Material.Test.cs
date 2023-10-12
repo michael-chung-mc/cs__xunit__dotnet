@@ -27,14 +27,14 @@ public class MaterialTest
    public void MaterialCtor ()
     {
         Material varMat = new Material();
-        Assert.True(_fieldComp.CheckTuple(varMat.mbrColor, new Color(1,1,1)));
-        Assert.True(_fieldComp.CheckFloat(varMat.mbrAmbient, 0.1));
-        Assert.True(_fieldComp.CheckFloat(varMat.mbrDiffuse, 0.9));
-        Assert.True(_fieldComp.CheckFloat(varMat.mbrSpecular, 0.9));
-        Assert.True(_fieldComp.CheckFloat(varMat.mbrShininess, 200.0));
-        Assert.True(_fieldComp.CheckFloat(varMat.mbrReflective, 0.0));
-        Assert.True(_fieldComp.CheckFloat(varMat.mbrTransparency, 0.0));
-        Assert.True(_fieldComp.CheckFloat(varMat.mbrRefractiveIndex, 1.0));
+        Assert.True(_fieldComp.CheckTuple(varMat._fieldColor, new Color(1,1,1)));
+        Assert.True(_fieldComp.CheckFloat(varMat._fieldAmbient, 0.1));
+        Assert.True(_fieldComp.CheckFloat(varMat._fieldDiffuse, 0.9));
+        Assert.True(_fieldComp.CheckFloat(varMat._fieldSpecular, 0.9));
+        Assert.True(_fieldComp.CheckFloat(varMat._fieldShininess, 200.0));
+        Assert.True(_fieldComp.CheckFloat(varMat._fieldReflective, 0.0));
+        Assert.True(_fieldComp.CheckFloat(varMat._fieldTransparency, 0.0));
+        Assert.True(_fieldComp.CheckFloat(varMat._fieldRefractiveIndex, 1.0));
     }
 
    public void LightingStraightOn()
@@ -114,9 +114,9 @@ public class MaterialTest
         Material varMat = new Material();
         // varMat.setPattern(new PatternStripe(Color(1,1,1), Color(0,0,0)));
         varMat.SetPattern(new PatternStripe(new Color(1,1,1), new Color(0,0,0)));
-        varMat.mbrAmbient = 1;
-        varMat.mbrDiffuse = 0;
-        varMat.mbrSpecular = 0;
+        varMat._fieldAmbient = 1;
+        varMat._fieldDiffuse = 0;
+        varMat._fieldSpecular = 0;
         Vector varPov = new Vector(0,0,-1);
         Vector varNormal = new Vector(0,0,-1);
         PointSource varLight = new PointSource(new Point(0,0,-10),new Color(1,1,1));

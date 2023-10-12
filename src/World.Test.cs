@@ -31,9 +31,9 @@ public class WorldTest {
         PointSource l = new PointSource(new Point(-10,10,-10), new Color(1,1,1));
         Sphere s = new Sphere();
         s.SetMaterial(new Material());
-        s._fieldMaterial.mbrColor = new Color(0.8,1.0,0.6);
-        s._fieldMaterial.mbrDiffuse = 0.7;
-        s._fieldMaterial.mbrSpecular = 0.2;
+        s._fieldMaterial._fieldColor = new Color(0.8,1.0,0.6);
+        s._fieldMaterial._fieldDiffuse = 0.7;
+        s._fieldMaterial._fieldSpecular = 0.2;
         Sphere t = new Sphere();
         // t.setTransform(*(ScalingMatrix(0.5,0.5,0.5) * IdentityMatrix(4,4)));
         t.SetTransform(new ScalingMatrix(0.5,0.5,0.5) * new IdentityMatrix(4,4));
@@ -64,15 +64,15 @@ public class WorldTest {
         Form obj = varDefaultWorld._fieldObjects[0];
         Sphere s = new Sphere();
         s.SetMaterial(new Material());
-        s._fieldMaterial.mbrColor = new Color(0.8,1.0,0.6);
-        s._fieldMaterial.mbrDiffuse = 0.7;
-        s._fieldMaterial.mbrSpecular = 0.2;
+        s._fieldMaterial._fieldColor = new Color(0.8,1.0,0.6);
+        s._fieldMaterial._fieldDiffuse = 0.7;
+        s._fieldMaterial._fieldSpecular = 0.2;
         Assert.True(obj.CheckEqual(s));
         // Intersection i = Intersection(4,std::make_unique<Form>(obj));
         // Intersection i = Intersection(4,new Form(obj));
         Intersections varIx = new Intersections(4,new Form(obj));
         // Assert.True(varIx.mbrObject.CheckEqual(obj));
-        IntersectionState varIs = varIx.getHit().GetState(r, varIx._fieldIntersections);
+        IntersectionState varIs = varIx.GetHit().GetState(r, varIx._fieldIntersections);
         Color c = varDefaultWorld.GetColorShaded(varIs);
         Color expectedColor = new Color(0.38066, 0.47583, 0.2855);
         Assert.True(c.CheckEqual(expectedColor));
@@ -86,8 +86,8 @@ public class WorldTest {
         // Intersection i = Intersection(0.5,std::make_unique<Form>(obj));
         // Intersection i = Intersection(0.5,new Form(obj));
         Intersections varIx = new Intersections(0.5,obj);
-        IntersectionState varIs = varIx.getHit().GetState(r, varIx._fieldIntersections);
-        // Color c = varDefaultWorld.getColorShaded(varIs);
+        IntersectionState varIs = varIx.GetHit().GetState(r, varIx._fieldIntersections);
+        // Color c = varDefaultWorld.GetColorShaded(varIs);
         Color c = varDefaultWorld.GetColorLighting(varIs);
         Color expectedColor = new Color(0.90498, 0.90498, 0.90498);
         Assert.True(c.CheckEqual(expectedColor));
@@ -111,11 +111,11 @@ public class WorldTest {
     [Fact]
     public void WorldColorHitInsideInnerSphere() {
         DefaultWorld varDefaultWorld = new DefaultWorld();
-        varDefaultWorld._fieldObjects[0]._fieldMaterial.mbrAmbient = 1;
-        varDefaultWorld._fieldObjects[1]._fieldMaterial.mbrAmbient = 1;
+        varDefaultWorld._fieldObjects[0]._fieldMaterial._fieldAmbient = 1;
+        varDefaultWorld._fieldObjects[1]._fieldMaterial._fieldAmbient = 1;
         Ray r = new Ray(new Point(0,0,0.75), new Vector(0,0,-1));
         Color c = varDefaultWorld.GetColor(r);
-        Color expectedColor = varDefaultWorld._fieldObjects[1]._fieldMaterial.mbrColor;
+        Color expectedColor = varDefaultWorld._fieldObjects[1]._fieldMaterial._fieldColor;
         Assert.True(c.CheckEqual(expectedColor));
     }
     [Fact]
@@ -158,8 +158,8 @@ public class WorldTest {
         // Intersection varIx = Intersection(4,std::make_unique<Sphere>(varS2));
         // Intersection varIx = Intersection(4,new Sphere(varS2));
         Intersections varIx = new Intersections(4, varS2);
-        IntersectionState varvarIs = varIx.getHit().GetState(varRay, varIx._fieldIntersections);
-        Color varClr = varWorld.GetColorShaded(varvarIs);
+        IntersectionState varIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
+        Color varClr = varWorld.GetColorShaded(varIs);
         Color varExpectedClr = new Color(0.1,0.1,0.1);
         Assert.True(varExpectedClr.CheckEqual(varClr));
     }
@@ -168,25 +168,25 @@ public class WorldTest {
         DefaultWorld varWorld = new DefaultWorld();
         Ray varRay = new Ray(new Point(0,0,0), new Vector(0,0,1));
         Form varObj = varWorld._fieldObjects[1];
-        varObj._fieldMaterial.mbrAmbient = 1;
+        varObj._fieldMaterial._fieldAmbient = 1;
         // Intersection varIx = Intersection(1, varObj);
         Intersections varIx = new Intersections(1, varObj);
-        IntersectionState varvarIs = varIx.getHit().GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorReflect(varvarIs);
+        IntersectionState varIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorReflect(varIs);
         Assert.True(varColor.CheckEqual(new Color(0,0,0)));
     }
     [Fact]
     public void ReflectiveReflectedColor() {
         DefaultWorld varWorld = new DefaultWorld();
         Plane varPlane = new Plane();
-        varPlane._fieldMaterial.mbrReflective = 0.5;
+        varPlane._fieldMaterial._fieldReflective = 0.5;
         varPlane.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varPlane);
         Ray varRay = new Ray(new Point(0,0,-3), new Vector(0,-Math.Sqrt(2)/2,Math.Sqrt(2)/2));
         // Intersection varIx = Intersection(Math.Sqrt(2), varPlane);
         Intersections varIx = new Intersections(Math.Sqrt(2), varPlane);
-        IntersectionState varvarIs = varIx.getHit().GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorReflect(varvarIs);
+        IntersectionState varIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorReflect(varIs);
         Assert.True(varColor.CheckEqual(new Color(0.19032,0.2379,0.14274)));
         // Color varExpectedColor = new Color(0.19033,0.23791, 0.14274);
         // Assert.True(varExpectedColor.CheckEqual(varColor));
@@ -195,15 +195,15 @@ public class WorldTest {
     public void ReflectiveShading() {
         DefaultWorld varWorld = new DefaultWorld();
         Plane varPlane = new Plane();
-        varPlane._fieldMaterial.mbrReflective = 0.5;
+        varPlane._fieldMaterial._fieldReflective = 0.5;
         varPlane.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varPlane);
         Ray varRay = new Ray(new Point(0,0,-3), new Vector(0,-Math.Sqrt(2)/2,Math.Sqrt(2)/2));
         // Intersection varIx = Intersection(Math.Sqrt(2), varPlane);
         Intersections varIx = new Intersections(Math.Sqrt(2), varPlane);
-        IntersectionState varvarIs = varIx.getHit().GetState(varRay, varIx._fieldIntersections);
+        IntersectionState varIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
         // std::cout << "expect . t=1.41421 c(.6864,.6864,.6864) + r(.1903, .2379, .1428)" << std::endl;
-        Color varColor = varWorld.GetColorShaded(varvarIs);
+        Color varColor = varWorld.GetColorShaded(varIs);
         Assert.True(varColor.CheckEqual(new Color(0.87677, 0.92436, 0.82918)));
     }
     [Fact]
@@ -211,11 +211,11 @@ public class WorldTest {
         World varWorld = new World();
         varWorld.SetLight(new PointSource(new Point(0,0,0), new Color(1,1,1)));
         Plane varLower = new Plane();
-        varLower._fieldMaterial.mbrReflective = 1;
+        varLower._fieldMaterial._fieldReflective = 1;
         varLower.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varLower);
         Plane varUpper = new Plane();
-        varUpper._fieldMaterial.mbrReflective = 1;
+        varUpper._fieldMaterial._fieldReflective = 1;
         varUpper.SetTransform(new TranslationMatrix(0,1,0));
         varWorld.SetObject(varUpper);
         Ray varRay = new Ray(new Point(0,0,0), new Vector(0,1,0));
@@ -226,14 +226,14 @@ public class WorldTest {
     public void InfiniteReflectionsAtMaxDepth() {
         DefaultWorld varWorld = new DefaultWorld();
         Plane varPlane = new Plane();
-        varPlane._fieldMaterial.mbrReflective = 0.5;
+        varPlane._fieldMaterial._fieldReflective = 0.5;
         varPlane.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varPlane);
         Ray varRay = new Ray(new Point(0,0,-3), new Vector(0,-Math.Sqrt(2)/2,Math.Sqrt(2)/2));
         Intersections varIx = new Intersections(Math.Sqrt(2), varPlane);
         // Intersection varIx = Intersection(Math.Sqrt(2), varPlane);
-        IntersectionState varvarIs = varIx.getHit().GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorReflect(varvarIs, 0);
+        IntersectionState varIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorReflect(varIs, 0);
         Assert.True(varColor.CheckEqual(new Color(0,0,0)));
     }
     [Fact]
@@ -244,55 +244,53 @@ public class WorldTest {
         Intersections varIx = new Intersections();
         varIx.SetIntersect(4, varObj);
         varIx.SetIntersect(4, varObj);
-        IntersectionState varvarIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorRefracted(varvarIs, 5);
+        IntersectionState varIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorRefracted(varIs, 5);
         Assert.True(varColor.CheckEqual(new Color(0,0,0)));
     }
     [Fact]
     public void InfiniteRefractionvarIsBlack() {
         DefaultWorld varWorld = new DefaultWorld();
         Form varObj = varWorld._fieldObjects[0];
-        varObj._fieldMaterial.mbrTransparency = 1.0;
-        varObj._fieldMaterial.mbrTransparency = 1.5;
+        varObj._fieldMaterial._fieldTransparency = 1.0;
+        varObj._fieldMaterial._fieldTransparency = 1.5;
         Ray varRay = new Ray(new Point(0,0,-5), new Vector(0,0,1));
         Intersections varIx = new Intersections();
         varIx.SetIntersect(4, varObj);
         varIx.SetIntersect(4, varObj);
-        IntersectionState varvarIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorRefracted(varvarIs, 0);
+        IntersectionState varIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorRefracted(varIs, 0);
         Assert.True(varColor.CheckEqual(new Color(0,0,0)));
     }
     [Fact]
     public void TotalInternalRefractionvarIsBlack() {
         DefaultWorld varWorld = new DefaultWorld();
         Form varObj = varWorld._fieldObjects[0];
-        varObj._fieldMaterial.mbrTransparency = 1.0;
-        varObj._fieldMaterial.mbrRefractiveIndex = 1.5;
+        varObj._fieldMaterial._fieldTransparency = 1.0;
+        varObj._fieldMaterial._fieldRefractiveIndex = 1.5;
         Ray varRay = new Ray(new Point(0,0,Math.Sqrt(2)/2), new Vector(0,1,0));
         Intersections varIx = new Intersections();
         varIx.SetIntersect(-Math.Sqrt(2)/2, varObj);
         varIx.SetIntersect(Math.Sqrt(2)/2, varObj);
-        IntersectionState varvarIs = varIx._fieldIntersections[1].GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorRefracted(varvarIs, 5);
+        IntersectionState varIs = varIx._fieldIntersections[1].GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorRefracted(varIs, 5);
         Assert.True(varColor.CheckEqual(new Color(0,0,0)));
     }
     [Fact]
     public void RefractionBasic() {
         DefaultWorld varWorld = new DefaultWorld();
-        varWorld._fieldObjects[0]._fieldMaterial.mbrAmbient = 1.0;
-        // varWorld.mbrObjects[0].mbrMaterial.setPattern(new Pattern(new Color(0,0,0), new Color(1,1,1)));
+        varWorld._fieldObjects[0]._fieldMaterial._fieldAmbient = 1.0;
         varWorld._fieldObjects[0]._fieldMaterial.SetPattern(new Pattern(new Color(0,0,0), new Color(1,1,1)));
-        varWorld._fieldObjects[0]._fieldMaterial.mbrPattern.GetColorLocal(new Point(0,0,0));
-        varWorld._fieldObjects[1]._fieldMaterial.mbrTransparency = 1.0;
-        varWorld._fieldObjects[1]._fieldMaterial.mbrRefractiveIndex = 1.5;
+        varWorld._fieldObjects[1]._fieldMaterial._fieldTransparency = 1.0;
+        varWorld._fieldObjects[1]._fieldMaterial._fieldRefractiveIndex = 1.5;
         Ray varRay = new Ray(new Point(0,0,0.1), new Vector(0,1,0));
         Intersections varIx = new Intersections();
         varIx.SetIntersect(-0.9899, varWorld._fieldObjects[0]);
         varIx.SetIntersect(-0.4899, varWorld._fieldObjects[1]);
         varIx.SetIntersect(0.4899, varWorld._fieldObjects[1]);
         varIx.SetIntersect(0.9899, varWorld._fieldObjects[0]);
-        IntersectionState varvarIs = varIx._fieldIntersections[2].GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorRefracted(varvarIs, 5);
+        IntersectionState varIs = varIx._fieldIntersections[2].GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorRefracted(varIs, 5);
         // World::getColorRefracted()::varNToN = n1/n2 = 1.5/1 = 1.5
         // World::getColorRefracted()::varCosThetaI = (0,-1,0,0)dot(0,-0.979796, -0.19999,0) = 0.979796073
         // World::getColorRefracted()::varSinThetaTSquared = 1.5^2 * (1-0.979796^2) = 0.08999
@@ -326,18 +324,38 @@ public class WorldTest {
         DefaultWorld varWorld = new DefaultWorld();
         Plane varFloor = new Plane();
         varFloor.SetTransform(new TranslationMatrix(0,-1,0));
-        varFloor._fieldMaterial.mbrTransparency = 0.5;
-        varFloor._fieldMaterial.mbrRefractiveIndex = 1.5;
+        varFloor._fieldMaterial._fieldTransparency = 0.5;
+        varFloor._fieldMaterial._fieldRefractiveIndex = 1.5;
         varWorld.SetObject(varFloor);
         Sphere varSphere = new Sphere();
         varSphere.SetTransform(new TranslationMatrix(0,-3.5,-.5));
-        varSphere._fieldMaterial.mbrColor=new Color(1,0,0);
-        varSphere._fieldMaterial.mbrAmbient = 0.5;
+        varSphere._fieldMaterial._fieldColor=new Color(1,0,0);
+        varSphere._fieldMaterial._fieldAmbient = 0.5;
         varWorld.SetObject(varSphere);
         Ray varRay = new Ray(new Point(0,0,-3), new Vector(0,-Math.Sqrt(2)/2,Math.Sqrt(2)/2));
         Intersections varIx = new Intersections(Math.Sqrt(2), varFloor);
-        IntersectionState varvarIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorShaded(varvarIs, 5);
+        IntersectionState varIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorShaded(varIs, 5);
         Assert.True(varColor.CheckEqual(new Color(0.93642, 0.68642, 0.68642)));
+    }
+    [Fact]
+    public void ReflectiveTransparentReflectanceMaterial() {
+        DefaultWorld varWorld = new DefaultWorld();
+        Ray varRay = new Ray(new Point(0,0,-3), new Vector(0,-Math.Sqrt(2)/2,Math.Sqrt(2)/2));
+        Plane varFloor = new Plane();
+        varFloor.SetTransform(new TranslationMatrix(0,-1,0));
+        varFloor._fieldMaterial._fieldReflective = 0.5;
+        varFloor._fieldMaterial._fieldTransparency = 0.5;
+        varFloor._fieldMaterial._fieldRefractiveIndex = 1.5;
+        varWorld.SetObject(varFloor);
+        Sphere varSphere = new Sphere();
+        varSphere.SetTransform(new TranslationMatrix(0,-3.5,-.5));
+        varSphere._fieldMaterial._fieldColor=new Color(1,0,0);
+        varSphere._fieldMaterial._fieldAmbient = 0.5;
+        varWorld.SetObject(varSphere);
+        Intersections varIx = new Intersections(Math.Sqrt(2), varFloor);
+        IntersectionState varIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
+        Color varColor = varWorld.GetColorShaded(varIs, 5);
+        Assert.True(varColor.CheckEqual(new Color(0.93391,0.69643,0.69243)));
     }
 }

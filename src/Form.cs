@@ -72,7 +72,7 @@ public class Form {
 	{
 		return new Intersections();
 	}
-	public bool CheckEqual(Form argOther)
+	public virtual bool CheckEqual(Form argOther)
 	{
 		Comparinator ce = new Comparinator();
 		return ce.CheckTuple(_fieldOrigin, argOther._fieldOrigin) && _fieldTransform.CheckEqual(argOther._fieldTransform) && _fieldMaterial.CheckEqual(argOther._fieldMaterial) && _fieldObjectRay.CheckEqual(argOther._fieldObjectRay);
@@ -89,7 +89,7 @@ public class Form {
 		varWorldNormal._fieldW = 0;
 		return varWorldNormal.GetNormal();
 	}
-	public Vector GetNormalLocal(Point argPoint)
+	public virtual Vector GetNormalLocal(Point argPoint)
 	{
 		return new Vector(argPoint._fieldX,argPoint._fieldY,argPoint._fieldZ);
 	}
@@ -105,7 +105,7 @@ public class Form {
 		// _fieldTransform.invert().renderConsole();
 		// Console.WriteLine("  argPosition(x:" << argPosition._fieldX << ",y:" << argPosition._fieldY << ",z:" << argPosition._fieldZ << ",w:" << argPosition._fieldW);
 		// Point varPatternP = (_fieldMaterial._fieldPattern._fieldTransform.invert())  varObjP;
-		Point varPatternP = (this._fieldMaterial.mbrPattern._fieldTransformInverse) * varObjP;
+		Point varPatternP = (this._fieldMaterial._fieldPattern._fieldTransformInverse) * varObjP;
 		// Console.WriteLine("public getColor()::varPatternP(x:" << varPatternP._fieldX << ",y:" << varPatternP._fieldY << ",z:" << varPatternP._fieldZ << ",w:" << varPatternP._fieldW << ")");
 		// Console.WriteLine("= inverse(_fieldTransform(");
 		// _fieldMaterial._fieldPattern._fieldTransform.renderConsole();
@@ -113,7 +113,7 @@ public class Form {
 		// _fieldMaterial._fieldPattern._fieldTransform.invert().renderConsole();
 		// Console.WriteLine(" varObjP");
 		Color varRes = this._fieldMaterial.GetColor(argLighting, varPatternP, argEye, argNormal, argInShadow);
-		// Color varRes = _fieldMaterial.getColor(argLighting, argPosition, argEye, argNormal, argInShadow);
+		// Color varRes = _fieldMaterial.GetColor(argLighting, argPosition, argEye, argNormal, argInShadow);
 		// Console.WriteLine("public getColor().varRes(r:" << varRes._fieldRed << "g:" << varRes._fieldGreen << "b:" << varRes._fieldBlue);
 		return varRes;
 		// return _fieldMaterial.getColor(argLighting, varPatternP, argEye, argNormal, argInShadow);
@@ -126,8 +126,8 @@ public class Form {
 		// Point varObjP = (_fieldTransform.invert())  argPosition;
 		// Point varPatternP = (_fieldMaterial._fieldPattern._fieldTransform.invert())  varObjP;
 		Point varObjP = this._fieldTransformInverse * argPosition;
-		Point varPatternP = this._fieldMaterial.mbrPattern._fieldTransformInverse * varObjP;
-		return this._fieldMaterial.mbrPattern.GetColorLocal(varPatternP);
+		Point varPatternP = this._fieldMaterial._fieldPattern._fieldTransformInverse * varObjP;
+		return this._fieldMaterial._fieldPattern.GetColorLocal(varPatternP);
 	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
@@ -159,11 +159,11 @@ public class Sphere : Form {
 	{
 		// Console.WriteLine("sphere get intersections";
 		Intersections varIntersections = new Intersections();
-		Vector sphereToRay = argRay._fieldOrigin - (new Point(0, 0, 0));
+		Vector sphereToRay = argRay._fieldOrigin - new Point(0, 0, 0);
 		double a = argRay._fieldDirection.GetDotProduct(argRay._fieldDirection);
 		double b = 2 * argRay._fieldDirection.GetDotProduct(sphereToRay);
 		double c = sphereToRay.GetDotProduct(sphereToRay) - 1;
-		double discriminant = (b*b) - 4 * a * c;
+		double discriminant = (b*b) - (4 * a * c);
 		if (discriminant < 0) { return varIntersections; }
 		double intersectOne = (-b - Math.Sqrt(discriminant)) / (2 * a);
 		double intersectTwo = (-b + Math.Sqrt(discriminant)) / (2 * a);
@@ -185,7 +185,7 @@ public class Sphere : Form {
 		varIntersections.SetIntersect(intersectTwo, this);
 		return varIntersections;
 	}
-	public Vector GetNormalLocal(Point argPoint)
+	public override Vector GetNormalLocal(Point argPoint)
 	{
 		// Point varObjectPoint = (_fieldTransform.invert())  argPoint;
 		Vector varObjectNormal = argPoint - _fieldOrigin;
@@ -201,7 +201,7 @@ public class Sphere : Form {
 	// 	varWorldNormal._fieldW = 0;
 	// 	return varWorldNormal.normalize();
 	// }
-	public bool CheckEqual(Form other)
+	public override bool CheckEqual(Form other)
 	{
 		Comparinator ce = new Comparinator();
 		return ce.CheckTuple(_fieldOrigin, other._fieldOrigin) && _fieldRadius == other._fieldRadius && _fieldTransform.CheckEqual(other._fieldTransform) && _fieldMaterial.CheckEqual(other._fieldMaterial);
@@ -210,8 +210,8 @@ public class Sphere : Form {
 
 public class SphereGlass : Sphere {
 	public SphereGlass() {
-		this._fieldMaterial.mbrTransparency = 1.0;
-		this._fieldMaterial.mbrRefractiveIndex = 1.5;
+		this._fieldMaterial._fieldTransparency = 1.0;
+		this._fieldMaterial._fieldRefractiveIndex = 1.5;
 	}
 	public SphereGlass(SphereGlass argOther) {
 		this._fieldMaterial = argOther._fieldMaterial;
@@ -219,7 +219,7 @@ public class SphereGlass : Sphere {
 };
 
 public class Plane : Form {
-	public Vector GetNormalLocal(Point argPoint)
+	public override Vector GetNormalLocal(Point argPoint)
 	{
 		return new Vector(0, 1, 0);
 	}

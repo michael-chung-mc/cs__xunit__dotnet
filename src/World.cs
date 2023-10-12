@@ -57,7 +57,7 @@ public class World {
     {
         // std::cout << "getColor( #:" << argLimit << " )" << std::endl;
         Intersections xs = GetIntersect(argRay);
-        Intersection hit = xs.getHit();
+        Intersection hit = xs.GetHit();
         // if (!hit.mbrExists) return Color(50,205,50);
         if (!hit._fieldExists) return new Color(0,0,0);
         IntersectionState varIs = hit.GetState(argRay, xs._fieldIntersections);
@@ -72,13 +72,12 @@ public class World {
     {
         if (argLimit < 1) return new Color(0,0,0);
         bool varInShadow = CheckShadowed(argIxState._fieldOverPoint);
-        Color varShade = new Color(0,0,0);
+        Color varDiffuse = new Color(0,0,0);
         for (int i = 0; i < _fieldLights.Count();++i)
         {
-            varShade = varShade + argIxState._fieldObject.GetColor(_fieldLights[i], argIxState._fieldPoint, argIxState._fieldPov, argIxState._fieldNormal, varInShadow);
-            // varShade = varShade + argIxState.mbrObject.getColor(mbrLights[i], argIxState.mbrOverPoint, argIxState.mbrEye, argIxState.mbrNormal, varInShadow);
+            varDiffuse = varDiffuse + argIxState._fieldObject.GetColor(_fieldLights[i], argIxState._fieldOverPoint, argIxState._fieldPov, argIxState._fieldNormal, varInShadow);
         }
-        return varShade;
+        return varDiffuse;
     }
     public Color GetColorShaded(IntersectionState argIxState, int argLimit = 5)
     {
@@ -101,7 +100,12 @@ public class World {
         // std::cout << "getColorShaded()::Reflect(r:" << varReflect.mbrRed << ",g:" << varReflect.mbrGreen << ",b:" << varReflect.mbrBlue << std::endl;
         Color varRefract = GetColorRefracted(argIxState, argLimit);
         // std::cout << "getColorShaded()::Refract(r:" << varRefract.mbrRed << ",g:" << varRefract.mbrGreen << ",b:" << varRefract.mbrBlue << std::endl;
+        Material varMat = argIxState._fieldObject._fieldMaterial;
         Color varRes = varDiffuse + varReflect + varRefract;
+        if (varMat._fieldReflective > 0 && varMat._fieldTransparency > 0) {
+            double varReflectance = argIxState.GetSchlick();
+            varRes = varDiffuse + (varReflect * varReflectance) + (varRefract * (1-varReflectance));
+        }
         // std::cout << "getColorShaded().Color(r:" << varRes.mbrRed << ",g:" << varRes.mbrGreen << ",b:" << varRes.mbrBlue << ")" << std::endl;
         // return varDiffuse + varReflect;
         return varRes;
@@ -115,14 +119,14 @@ public class World {
         // std::cout << "getColorShaded()::argIntersectionState.mbrNormal(x:" << argIntersectionState.mbrNormal.mbrX << ",y:" << argIntersectionState.mbrNormal.mbrY << ",z:" << argIntersectionState.mbrNormal.mbrZ << ",w:" << argIntersectionState.mbrNormal.mbrW << std::endl;
         if (argLimit < 1) return new Color(0,0,0);
         Comparinator varComp = new Comparinator();
-        if (varComp.CheckFloat(argIntersectionState._fieldObject._fieldMaterial.mbrReflective, 0)) return new Color(0,0,0);
+        if (varComp.CheckFloat(argIntersectionState._fieldObject._fieldMaterial._fieldReflective, 0)) return new Color(0,0,0);
         Ray varRayReflect = new Ray(argIntersectionState._fieldOverPoint, argIntersectionState._fieldReflect);
         // std::cout << "getColorShaded()::varRayReflect.mbrOrigin(x:" << varRayReflect.mbrOrigin.mbrX << ",y:" << varRayReflect.mbrOrigin.mbrY << ",z:" << varRayReflect.mbrOrigin.mbrZ << ",w:" << varRayReflect.mbrOrigin.mbrW << std::endl;
         // std::cout << "getColorShaded()::varRayReflect.mbrDirection(x:" << varRayReflect.mbrDirection.mbrX << ",y:" << varRayReflect.mbrDirection.mbrY << ",z:" << varRayReflect.mbrDirection.mbrZ << ",w:" << varRayReflect.mbrDirection.mbrW << std::endl;
         Color varColor = GetColor(varRayReflect, argLimit - 1);
         // std::cout << "getColorReflect()::Color(r:" << varColor.mbrRed << ",g:" << varColor.mbrGreen << ",b:" << varColor.mbrBlue << ")" << " mbrReflective(" << argIntersectionState.mbrObject.mbrMaterial.mbrReflective << std::endl;
         // return varColor * argIntersectionState.mbrObject._fieldMaterial.mbrReflective;;
-        Color varRes = varColor * argIntersectionState._fieldObject._fieldMaterial.mbrReflective;
+        Color varRes = varColor * argIntersectionState._fieldObject._fieldMaterial._fieldReflective;
         // std::cout << "getColorReflect()::Color(r:" << varRes.mbrRed << ",g:" << varRes.mbrGreen << ",b:" << varRes.mbrBlue << ")" << std::endl;
         return varRes;
     }
@@ -131,7 +135,7 @@ public class World {
         // argIntersectionState.renderConsole("Color getColorRefracted");
         if (argLimit < 1) { return new Color(0,0,0); }
         Comparinator varComp = new Comparinator();
-        if (varComp.CheckFloat(argIntersectionState._fieldObject._fieldMaterial.mbrTransparency, 0)) { return new Color(0,0,0); }
+        if (varComp.CheckFloat(argIntersectionState._fieldObject._fieldMaterial._fieldTransparency, 0)) { return new Color(0,0,0); }
         double varNToN = argIntersectionState._fieldRefractiveIndexOne/argIntersectionState._fieldRefractiveIndexTwo;
         double varCosThetaI = argIntersectionState._fieldPov.GetDotProduct(argIntersectionState._fieldNormal);
         double varSinThetaTSquared = varNToN*varNToN * (1.0-(varCosThetaI*varCosThetaI));
@@ -144,7 +148,7 @@ public class World {
         // std::cout << "getColorRefracted()::varRefractDirection(x:" << varRefractDirection.mbrX << ",y:" << varRefractDirection.mbrY << ",z:" << varRefractDirection.mbrZ << ",w:" << varRefractDirection.mbrW << std::endl;
         Ray varRefractRay = new Ray(argIntersectionState._fieldUnderPoint, varRefractDirection);
         // std::cout << "getColorRefracted()::argIntersectionState.mbrUnderPoint(x:" << argIntersectionState.mbrUnderPoint.mbrX << ",y:" << argIntersectionState.mbrUnderPoint.mbrY << ",z:" << argIntersectionState.mbrUnderPoint.mbrZ << ",w:" << argIntersectionState.mbrUnderPoint.mbrW << std::endl;
-        Color varRefractColor = GetColor(varRefractRay, argLimit-1) * argIntersectionState._fieldObject._fieldMaterial.mbrTransparency;
+        Color varRefractColor = GetColor(varRefractRay, argLimit-1) * argIntersectionState._fieldObject._fieldMaterial._fieldTransparency;
         // std::cout << "getColorRefracted().Color(r:" << varRefractColor.mbrRed << ",g:" << varRefractColor.mbrGreen << ",b:" << varRefractColor.mbrBlue << ")" << std::endl;
         return varRefractColor;
     }
@@ -156,7 +160,7 @@ public class World {
             double varDistance = varDirection.GetMagnitude();
             Vector varDirectionNormalized = varDirection.GetNormal();
             Ray varRay = new Ray (argPoint, varDirectionNormalized);
-            Intersection varHit = GetIntersect(varRay).getHit();
+            Intersection varHit = GetIntersect(varRay).GetHit();
             bool varShadow = varHit._fieldExists && (varHit._fieldTime < varDistance);
             varFlagShadow = varShadow ? true : varFlagShadow;
         }
@@ -192,9 +196,9 @@ public class DefaultWorld : World {
         SetLight(varDefaultLight);
         Sphere s = new Sphere();
         s.SetMaterial(new Material());
-        s._fieldMaterial.mbrColor = new Color (0.8,1.0,0.6);
-        s._fieldMaterial.mbrDiffuse = 0.7;
-        s._fieldMaterial.mbrSpecular = 0.2;
+        s._fieldMaterial._fieldColor = new Color (0.8,1.0,0.6);
+        s._fieldMaterial._fieldDiffuse = 0.7;
+        s._fieldMaterial._fieldSpecular = 0.2;
         Sphere t = new Sphere();
         t.SetTransform(new ScalingMatrix(0.5,0.5,0.5));
         SetObject(s);

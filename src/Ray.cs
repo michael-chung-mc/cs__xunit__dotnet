@@ -49,14 +49,14 @@ public class Ray {
 	{
 		return new Ray(matrix * _fieldOrigin, matrix * _fieldDirection);
 	}
-	public Ray Transform(TranslationMatrix matrix)
-	{
-		return new Ray(matrix * _fieldOrigin, matrix * _fieldDirection);
-	}
-	public Ray Transform(ScalingMatrix matrix)
-	{
-		return new Ray(matrix * _fieldOrigin, matrix * _fieldDirection);
-	}
+	// public Ray Transform(TranslationMatrix matrix)
+	// {
+	// 	return new Ray(matrix * _fieldOrigin, matrix * _fieldDirection);
+	// }
+	// public Ray Transform(ScalingMatrix matrix)
+	// {
+	// 	return new Ray(matrix * _fieldOrigin, matrix * _fieldDirection);
+	// }
 	public void RenderConsole() {
 		Console.WriteLine("Ray::renderConsole()");
 		Console.WriteLine("Ray::renderConsole()::_fieldOrigin(");

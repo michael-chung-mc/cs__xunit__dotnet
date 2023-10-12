@@ -1,3 +1,4 @@
+using System.Numerics;
 using LibComparinator;
 
 namespace LibTuple;
@@ -75,6 +76,7 @@ public class Point : SpaceTuple {
     public static Vector operator-(Point argSelf, Point argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
     public static Point operator-(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
     public static Point operator+(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
+    public static Point operator+(Point argSelf, Vector argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
 }
 public class Vector : SpaceTuple {
     public Vector() {
@@ -103,6 +105,7 @@ public class Vector : SpaceTuple {
     public static Vector operator-(Vector argSelf) { return new Vector(-argSelf._fieldX, -argSelf._fieldY, -argSelf._fieldZ); }
     public static Vector operator-(Vector argSelf, SpaceTuple argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
     public static Vector operator-(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
+    public static Vector operator+(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
     public Vector GetNormal()
     {
     	Comparinator varComp = new Comparinator();

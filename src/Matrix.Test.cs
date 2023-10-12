@@ -829,7 +829,7 @@ public class MatrixTest
 		Point expected = new Point(15, 0, 7);
 		Assert.True(_fieldComp.CheckTuple(transformed, expected));
 		// Matrix tsrmc = *(*(*(*(Matrix(4, 4).identity())).translate(10, 5, 7)).scale(5, 5, 5)).rotateX(getPI() / 2);
-		Matrix tsrmc = new Matrix(4, 4).Identity().getTranslate(10, 5, 7).GetScale(5, 5, 5).GetRotateX(varPM.getPI() / 2);
+		Matrix tsrmc = new Matrix(4, 4).GetIdentity().GetTranslate(10, 5, 7).GetScale(5, 5, 5).GetRotateX(varPM.getPI() / 2);
 		Assert.True(tsrm.CheckEqual(tsrmc));
 		Point transformedc = tsrmc * p;
 		Assert.True(_fieldComp.CheckTuple(transformedc, expected));

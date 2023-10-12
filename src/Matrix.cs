@@ -270,7 +270,7 @@ public class Matrix {
 	{
 		return (argPositionRow + argPositionColumn) % 2 == 0 ? GetMinor(argPositionRow, argPositionColumn) : -1 * GetMinor(argPositionRow, argPositionColumn);
 	}
-	public Matrix GetTranspose()
+	public virtual Matrix GetTranspose()
 	{
 		Matrix varTranspose = new Matrix(_fieldColumns, _fieldRows);
 		for (int i = 0; i < varTranspose._fieldRows; ++i)
@@ -283,7 +283,7 @@ public class Matrix {
 		};
 		return varTranspose;
 	}
-	public Matrix GetSubMatrix(int argRows, int argColumns)
+	public virtual Matrix GetSubMatrix(int argRows, int argColumns)
 	{
 		Matrix varSubMatrix = new Matrix(_fieldRows - 1, _fieldColumns - 1);
 		int varSubRow = 0;
@@ -308,7 +308,7 @@ public class Matrix {
 		}
 		return varSubMatrix;
 	}
-	public Matrix GetInverse()
+	public virtual Matrix GetInverse()
 	{
 		// std::cout << "Matrix::invert()" << std::endl;
 		Matrix varInverse = new Matrix(_fieldRows, _fieldColumns);
@@ -325,7 +325,7 @@ public class Matrix {
 		};
 		return varInverse;
 	}
-	public Matrix Identity()
+	public virtual Matrix GetIdentity()
 	{
 		Matrix varIdentity = new Matrix(_fieldRows, _fieldColumns);
 		for (int i = 0; i < varIdentity._fieldRows; ++i)
@@ -337,37 +337,37 @@ public class Matrix {
 		};
 		return varIdentity;
 	}
-	public Matrix GetRotateX(double argRadians)
+	public virtual Matrix GetRotateX(double argRadians)
 	{
 		XRotationMatrix rotate = new XRotationMatrix(argRadians);
 		return this * rotate;
 	}
-	public Matrix GetRotateY(double argRadians)
+	public virtual Matrix GetRotateY(double argRadians)
 	{
 		YRotationMatrix rotate = new YRotationMatrix(argRadians);
 		return this * rotate;
 	}
-	public Matrix GetRotateZ(double argRadians)
+	public virtual Matrix GetRotateZ(double argRadians)
 	{
 		ZRotationMatrix rotate = new ZRotationMatrix(argRadians);
 		return this * rotate;
 	}
-	public Matrix GetScale(double x, double y, double z)
+	public virtual Matrix GetScale(double x, double y, double z)
 	{
 		ScalingMatrix scale = new ScalingMatrix(x,y,z);
 		return this * scale;
 	}
-	public Matrix getTranslate(double x, double y, double z)
+	public virtual Matrix GetTranslate(double x, double y, double z)
 	{
 		TranslationMatrix translate = new TranslationMatrix(x,y,z);
 		return this * translate;
 	}
-	public Matrix GetShear(double xy, double xz, double yx, double yz, double zx, double zy)
+	public virtual Matrix GetShear(double xy, double xz, double yx, double yz, double zx, double zy)
 	{
 		ShearingMatrix shear = new ShearingMatrix(xy, xz, yx, yz, zx, zy);
 		return this * shear;
 	}
-	public void RenderConsole() 
+	public virtual void RenderConsole() 
 	{
 		Console.WriteLine("Matrix::renderConsole()");
 		for (int i = 0; i < _fieldRows; ++i)

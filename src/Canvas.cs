@@ -119,16 +119,11 @@ public class Canvas {
 			}
 		}
 	}
-	public void save(){
+	public void RenderFile(String argName = ""){
 		ProjectMeta varPm = new ProjectMeta();
-		// std::ofstream file(varPm.getPPMFilename(true));
-		// Console.WriteLine("to saving ...");
-		// String data = getPPM();
-		// if (file.is_open()) {
-		// 	file << data;
-		// }
-		// file.close();
-		using (StreamWriter writer = new StreamWriter(varPm.getPPMFilename(true))) {
+		String varFileName = varPm.getPPMFilename(argName);
+		Console.WriteLine($"Saving to: {varFileName}");
+		using (StreamWriter writer = new StreamWriter(varFileName)) {
 			writer.WriteLine(getPPM());
 		}
 		Console.WriteLine("saved");

@@ -102,8 +102,8 @@ namespace wip__cs__xunit
             // Simulation sim;
             // sim.fire(firepower);
 
-            // RayTracer rh = RayTracer();
-            // rh.test();
+            RayTracer varRT = new RayTracer();
+            varRT.Test();
         }
     }
 }

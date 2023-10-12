@@ -6,38 +6,38 @@ using LibPattern;
 namespace LibMaterial;
 
 public class Material {
-    public double mbrAmbient;
-    public double mbrDiffuse;
-    public double mbrSpecular;
-    public double mbrShininess;
-    public double mbrReflective;
-    public double mbrTransparency;
-    public double mbrRefractiveIndex;
-    public Color mbrColor;
-    public Pattern mbrPattern;
+    public double _fieldAmbient;
+    public double _fieldDiffuse;
+    public double _fieldSpecular;
+    public double _fieldShininess;
+    public double _fieldReflective;
+    public double _fieldTransparency;
+    public double _fieldRefractiveIndex;
+    public Color _fieldColor;
+    public Pattern _fieldPattern;
     public Material()
     {
-        mbrAmbient = 0.1;
-        mbrDiffuse = 0.9;
-        mbrSpecular = 0.9;
-        mbrShininess = 200.0;
-        mbrReflective = 0.0;
-        mbrTransparency = 0.0;
-        mbrRefractiveIndex = 1.0;
-        mbrColor = new Color(1,1,1);
+        _fieldAmbient = 0.1;
+        _fieldDiffuse = 0.9;
+        _fieldSpecular = 0.9;
+        _fieldShininess = 200.0;
+        _fieldReflective = 0.0;
+        _fieldTransparency = 0.0;
+        _fieldRefractiveIndex = 1.0;
+        _fieldColor = new Color(1,1,1);
         SetPattern(new Pattern());
     }
 	public Material(Material other)
     {
-        mbrAmbient = other.mbrAmbient;
-        mbrDiffuse = other.mbrDiffuse;
-        mbrSpecular = other.mbrSpecular;
-        mbrShininess = other.mbrShininess;
-        mbrReflective = other.mbrReflective;
-        mbrTransparency = other.mbrTransparency;
-        mbrRefractiveIndex = other.mbrRefractiveIndex;
-        mbrColor = other.mbrColor;
-        SetPattern(other.mbrPattern);
+        _fieldAmbient = other._fieldAmbient;
+        _fieldDiffuse = other._fieldDiffuse;
+        _fieldSpecular = other._fieldSpecular;
+        _fieldShininess = other._fieldShininess;
+        _fieldReflective = other._fieldReflective;
+        _fieldTransparency = other._fieldTransparency;
+        _fieldRefractiveIndex = other._fieldRefractiveIndex;
+        _fieldColor = other._fieldColor;
+        SetPattern(other._fieldPattern);
     }
 // Material& Material::operator=(const Material other)
 // {
@@ -54,20 +54,20 @@ public class Material {
 //     setPattern(std::make_unique<Pattern>(*other.mbrPattern.get()));
 //     return *this;
 // }
-    public bool CheckEqual(Material other)
+    public bool CheckEqual(Material argOther)
     {
-        Comparinator ce = new Comparinator();
-        return ce.CheckTuple(this.mbrColor, other.mbrColor) && ce.CheckFloat(this.mbrAmbient, other.mbrAmbient) && ce.CheckFloat(this.mbrDiffuse, other.mbrDiffuse) && ce.CheckFloat(this.mbrSpecular, other.mbrSpecular) && ce.CheckFloat(this.mbrShininess, other.mbrShininess);
+        Comparinator varComp = new Comparinator();
+        return varComp.CheckTuple(this._fieldColor, argOther._fieldColor) && varComp.CheckFloat(this._fieldAmbient, argOther._fieldAmbient) && varComp.CheckFloat(this._fieldDiffuse, argOther._fieldDiffuse) && varComp.CheckFloat(this._fieldSpecular, argOther._fieldSpecular) && varComp.CheckFloat(this._fieldShininess, argOther._fieldShininess);
     }
     public Color GetColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
     {
         // Console.WriteLine("Material::getColor()");
-        Color varColor = mbrPattern._fieldColors.Count() != 0 ? mbrPattern.GetColorLocal(argPosition) : mbrColor;
+        Color varColor = _fieldPattern._fieldColors.Count() != 0 ? _fieldPattern.GetColor(argPosition) : _fieldColor;
         // Console.WriteLine("Material::getColor()::varColor(r:" << varColor.mbrRed << ",g:" << varColor.mbrGreen << ",b:" << varColor.mbrBlue << ")");
         Color varShade = varColor * argLighting.mbrIntensity;
         // Console.WriteLine("Material::getColor()::varShade(r:" << varShade.mbrRed << ",g:" << varShade.mbrGreen << ",b:" << varShade.mbrBlue << ")";
         // Console.WriteLine(" = varColor * argLighting.mbrIntensity(r." << argLighting.mbrIntensity.mbrRed << ",g:" << argLighting.mbrIntensity.mbrGreen << ",b:" << argLighting.mbrIntensity.mbrBlue);
-        Color varResAmbient = varShade * mbrAmbient;
+        Color varResAmbient = varShade * _fieldAmbient;
         // Console.WriteLine("Material::getColor()::varResAmbient(r:" << varResAmbient.mbrRed << ",g:" << varResAmbient.mbrGreen << ",b:" << varResAmbient.mbrBlue << ")";
         // Console.WriteLine(" = varShade * mbrAmbient(" << mbrAmbient);
         if (argInShadow) return varResAmbient;
@@ -90,7 +90,7 @@ public class Material {
         }
         else
         {
-            varResDiffuse = varShade * (mbrDiffuse * varLightDotNormal);
+            varResDiffuse = varShade * (_fieldDiffuse * varLightDotNormal);
             // Console.WriteLine("Material::getColor()::varShade(r:" << varShade.mbrRed << ",g:" << varShade.mbrGreen << ",b:" << varShade.mbrBlue << ")";
             // Console.WriteLine(" = varColor * argLighting.mbrIntensity(r." << argLighting.mbrIntensity.mbrRed << ",g:" << argLighting.mbrIntensity.mbrGreen << ",b:" << argLighting.mbrIntensity.mbrBlue);
             // Console.WriteLine("* Material::getColor()::varResDiffuse = varShade * mbrDiffuse(" << mbrDiffuse << " * varLightDotNormal=(" << varLightDotNormal);
@@ -104,10 +104,10 @@ public class Material {
             }
             else
             {
-                varFactor = Math.Pow(varReflectDotEye, mbrShininess);
+                varFactor = Math.Pow(varReflectDotEye, _fieldShininess);
                 // Console.WriteLine("Material::getColor()::varFactor(" << varFactor;
                 // Console.WriteLine(" = varReflectDotEye ^ mbrShininess(x:" << mbrShininess);
-                varResSpecular = argLighting.mbrIntensity * (mbrSpecular * varFactor);
+                varResSpecular = argLighting.mbrIntensity * (_fieldSpecular * varFactor);
                 // Console.WriteLine("Material::getColor()::varResSpecular = argLighting.mbrIntensity * mbrSpecular" << mbrSpecular << "* varFactor");
             }
         }
@@ -123,18 +123,18 @@ public class Material {
         return varRes;
     }
     public void SetPattern(Pattern argPattern) {
-        mbrPattern = argPattern;
+        _fieldPattern = argPattern;
     }
     public void RenderConsole() {
         Console.WriteLine("Material::renderConsole()");
-        Console.WriteLine($"Material::renderConsole()::mbrAmbient({mbrAmbient}");
-        Console.WriteLine($"Material::renderConsole()::mbrDiffuse({mbrDiffuse}");
-        Console.WriteLine($"Material::renderConsole()::mbrSpecular({mbrSpecular}");
-        Console.WriteLine($"Material::renderConsole()::mbrShininess({mbrShininess}");
-        Console.WriteLine($"Material::renderConsole()::mbrReflective({mbrReflective}");
+        Console.WriteLine($"Material::renderConsole()::mbrAmbient({_fieldAmbient}");
+        Console.WriteLine($"Material::renderConsole()::mbrDiffuse({_fieldDiffuse}");
+        Console.WriteLine($"Material::renderConsole()::mbrSpecular({_fieldSpecular}");
+        Console.WriteLine($"Material::renderConsole()::mbrShininess({_fieldShininess}");
+        Console.WriteLine($"Material::renderConsole()::mbrReflective({_fieldReflective}");
         Console.WriteLine($"Material::renderConsole()::mbrColor( ");
-        mbrColor.RenderConsole();
+        _fieldColor.RenderConsole();
         Console.WriteLine("Material::renderConsole()::mbrPattern( ");
-        mbrPattern.RenderConsole();
+        _fieldPattern.RenderConsole();
     }
 };

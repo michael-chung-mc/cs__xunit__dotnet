@@ -48,7 +48,7 @@ public class PatternTest
         // varObj._fieldMaterial.setPattern(new Pattern(new Color(0,0,0), Color(1,1,1)));
         varObj._fieldMaterial.SetPattern(new Pattern(new Color(0,0,0), new Color(1,1,1)));
         ScalingMatrix varM = new ScalingMatrix(2,2,2);
-        varObj._fieldMaterial.mbrPattern.SetTransform(varM);
+        varObj._fieldMaterial._fieldPattern.SetTransform(varM);
         Color varColor = varObj.GetColorLocal(new Point(2,3,4));
         Assert.True(varColor.CheckEqual(new Color(1,1.5,2)));
     }
@@ -59,7 +59,7 @@ public class PatternTest
         varObj.SetTransform(new ScalingMatrix(2,2,2));
         // varObj._fieldMaterial.setPattern(new Pattern(new Color(0,0,0), Color(1,1,1)));
         varObj._fieldMaterial.SetPattern(new Pattern(new Color(0,0,0), new Color(1,1,1)));
-        varObj._fieldMaterial.mbrPattern.SetTransform(new TranslationMatrix(0.5,1,1.5));
+        varObj._fieldMaterial._fieldPattern.SetTransform(new TranslationMatrix(0.5,1,1.5));
         Color varColor = varObj.GetColorLocal(new Point(2.5,3,3.5));
         Assert.True(varColor.CheckEqual(new Color(0.75,0.5,0.25)));
     }
@@ -116,7 +116,7 @@ public class PatternTest
         ScalingMatrix varMS = new ScalingMatrix(2,2,2);
         // varObj._fieldMaterial.setPattern(new PatternStripe());
         varObj._fieldMaterial.SetPattern(new PatternStripe());
-        varObj._fieldMaterial.mbrPattern.SetTransform(varMS);
+        varObj._fieldMaterial._fieldPattern.SetTransform(varMS);
         Color varColor = varObj.GetColorLocal(new Point(1.5,0,0));
         Assert.True(varColor.CheckEqual(new Color(1,1,1)));
     }
@@ -128,7 +128,7 @@ public class PatternTest
         varObj.SetTransform(new ScalingMatrix(2,2,2));
         // varObj._fieldMaterial.setPattern(new PatternStripe());
         varObj._fieldMaterial.SetPattern(new PatternStripe());
-        varObj._fieldMaterial.mbrPattern.SetTransform(varMT);
+        varObj._fieldMaterial._fieldPattern.SetTransform(varMT);
         Color varColor = varObj.GetColorLocal(new Point(2.5,0,0));
         Assert.True(varColor.CheckEqual(new Color(1,1,1)));
     }
