@@ -7,7 +7,6 @@ namespace app__ray_tracer
     {
         static void Main()
         {
-            //DatabasePostgres varDB = new();
             
             // int firepower = 10;
             // std::cout << "Firing: " << firepower << std::endl;

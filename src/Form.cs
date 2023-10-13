@@ -164,3 +164,6 @@ public class Plane : Form {
 		return new Intersections(varTime, this);
 	}
 };
+
+public class AABBox : Form {
+}

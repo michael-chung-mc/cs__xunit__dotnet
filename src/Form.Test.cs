@@ -19,115 +19,100 @@ public class FormTest
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
-
+}
+public class SphereTest
+{
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+    [Fact]
 	public void EqualityTest() {
 		Sphere s = new Sphere();
 		Sphere t = new Sphere();
 		Assert.True(s.CheckEqual(t));
 	}
-
+    [Fact]
 	public void RayIntersectTwo() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 		Intersections varXs = s.GetIntersections(r);
-		// Assert.Equal(xs.Count(), 2);
-		// Assert.Equal(xs[0].mbrTime, 4);
-		// Assert.Equal(xs[1].mbrTime, 6);
 		Assert.Equal(2, varXs._fieldIntersections.Count());
 		Assert.Equal(4, varXs._fieldIntersections[0]._fieldTime);
 		Assert.Equal(6, varXs._fieldIntersections[1]._fieldTime);
 	}
-
+    [Fact]
 	public void RayIntersectTangent() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 1, -5), new Vector(0, 0, 1));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 		Intersections varXs = s.GetIntersections(r);
-		// Assert.Equal(xs.Count(), 2);
-		// Assert.Equal(xs[0].mbrTime, 5);
-		// Assert.Equal(xs[1].mbrTime, 5);
-		Assert.Equal(varXs._fieldIntersections.Count(), 2);
-		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, 5);
-		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, 5);
+		Assert.Equal(2, varXs._fieldIntersections.Count());
+		Assert.Equal(5 , varXs._fieldIntersections[0]._fieldTime);
+		Assert.Equal(5 , varXs._fieldIntersections[1]._fieldTime);
 	}
-
+    [Fact]
 	public void RayIntersectMiss() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 2, -5), new Vector(0, 0, 1));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs._fieldIntersections.Count(), 0);
+		Assert.Empty(varXs._fieldIntersections);
 	}
-
+    [Fact]
 	public void RayIntersectWithinSphere() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, 0),new Vector(0, 0, 1));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
-		// Assert.Equal(xs.Count(), 2);
-		// Assert.Equal(xs[0].mbrTime, -1);
-		// Assert.Equal(xs[1].mbrTime, 1);
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs._fieldIntersections.Count(), 2);
-		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, -1);
-		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, 1);
+		Assert.Equal(2 , varXs._fieldIntersections.Count());
+		Assert.Equal(-1 , varXs._fieldIntersections[0]._fieldTime);
+		Assert.Equal(1 , varXs._fieldIntersections[1]._fieldTime);
 	}
-
+    [Fact]
 	public void RayIntersectBehindSphere() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, 5), new Vector(0, 0, 1));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
-		// Assert.Equal(xs.Count(), 2);
-		// Assert.Equal(xs[0].mbrTime, -6);
-		// Assert.Equal(xs[1].mbrTime, -4);
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs._fieldIntersections.Count(), 2);
-		Assert.Equal(varXs._fieldIntersections[0]._fieldTime, -6);
-		Assert.Equal(varXs._fieldIntersections[1]._fieldTime, -4);
+		Assert.Equal(2 , varXs._fieldIntersections.Count());
+		Assert.Equal(-6 , varXs._fieldIntersections[0]._fieldTime);
+		Assert.Equal(-4 , varXs._fieldIntersections[1]._fieldTime);
 	}
-
+    [Fact]
 	public void RayIntersectSetsObject() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
-		// Assert.Equal(xs.Count(), 2);
-		// Assert.True(s.CheckEqual(xs[0].mbrObject));
-		// Assert.True(s.CheckEqual(xs[1].mbrObject));
 		Intersections varXs = s.GetIntersections(r);
-		Assert.Equal(varXs._fieldIntersections.Count(), 2);
+		Assert.Equal(2 , varXs._fieldIntersections.Count());
 		Assert.True(s.CheckEqual((varXs._fieldIntersections[0]._fieldObject)));
 		Assert.True(s.CheckEqual((varXs._fieldIntersections[1]._fieldObject)));
 	}
-
+    [Fact]
 	public void SphereDefaultTransformIsIdentity() {
 		Sphere s = new Sphere();
 		IdentityMatrix m = new IdentityMatrix(4, 4);
 		Assert.True(m.CheckEqual(s._fieldTransform));
 	}
-
+    [Fact]
 	public void SphereModifyTransform() {
 		Sphere s = new Sphere();
 		TranslationMatrix m = new TranslationMatrix(2, 3, 4);
 		s.SetTransform(m);
 		Assert.True(m.CheckEqual(s._fieldTransform));
 	}
-
+    [Fact]
 	public void SphereIdentityDoesNotModifyIntersections() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		ScalingMatrix m = new ScalingMatrix(1, 1, 1);
 		s.SetTransform(m);
 		Assert.True(m.CheckEqual(s._fieldTransform));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
-		// Assert.Equal(xs.Count(), 2);
-		// Assert.Equal(xs[0].mbrTime, 4);
-		// Assert.Equal(xs[1].mbrTime, 6);
 		Intersections varXs = s.GetIntersections(r);
 		Assert.Equal(2, varXs._fieldIntersections.Count());
 		Assert.Equal(4, varXs._fieldIntersections[0]._fieldTime);
 		Assert.Equal(6, varXs._fieldIntersections[1]._fieldTime);
 	}
-
+    [Fact]
 	public void SphereScaledModifiesIntersections() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
@@ -140,14 +125,13 @@ public class FormTest
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldOrigin, new Point(0,0,-2.5)));
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldDirection, new Vector(0,0,0.5)));
 	}
-
+    [Fact]
 	public void SphereScaledTo5Intersections() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		ScalingMatrix m = new ScalingMatrix(5, 5, 5);
 		s.SetTransform(m);
 		Assert.True(m.CheckEqual(s._fieldTransform));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 		Intersections varXs = s.GetIntersections(r);
 		double z = 0;
 		double y = 10;
@@ -155,20 +139,18 @@ public class FormTest
 		Assert.True(_fieldComp.CheckFloat(varXs._fieldIntersections[0]._fieldTime, z));
 		Assert.True(_fieldComp.CheckFloat(varXs._fieldIntersections[1]._fieldTime, y));
 	}
-
+    [Fact]
 	public void SphereTranslatedToMiss() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		TranslationMatrix m = new TranslationMatrix(5, 0, 0);
 		s.SetTransform(new Matrix(m));
-		// std::vector<Intersection> xs = s.getIntersections(r).mbrIntersections;
 		Intersections varXs = s.GetIntersections(r);
-		// Assert.Equal(xs.Count(), 0);
-		Assert.Equal(varXs._fieldIntersections.Count(), 0);
+		Assert.Empty(varXs._fieldIntersections);
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldOrigin, new Point(-5,0,-5)));
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldDirection, new Vector(0,0,1)));
 	}
-
+    [Fact]
 	public void SphereTranslatedAway() {
 		Sphere s = new Sphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
@@ -179,7 +161,7 @@ public class FormTest
 		Assert.Equal(5, varXs._fieldIntersections[0]._fieldTime);
 		Assert.Equal(7, varXs._fieldIntersections[1]._fieldTime);
 	}
-
+    [Fact]
 	public void SphereNormalX() {
 		Sphere s = new Sphere();
 		Point p = new Point(1,0,0);
@@ -187,7 +169,7 @@ public class FormTest
 		Vector expectedV = new Vector(1,0,0);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
-
+    [Fact]
 	public void SphereNormalY() {
 		Sphere s = new Sphere();
 		Point p = new Point(0,1,0);
@@ -195,7 +177,7 @@ public class FormTest
 		Vector expectedV = new Vector(0,1,0);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
-
+    [Fact]
 	public void SphereNormalZ() {
 		Sphere s = new Sphere();
 		Point p = new Point(0,0,1);
@@ -203,7 +185,7 @@ public class FormTest
 		Vector expectedV = new Vector(0,0,1);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
-
+    [Fact]
 	public void SphereNormal() {
 		Sphere s = new Sphere();
 		Point p = new Point(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
@@ -211,7 +193,7 @@ public class FormTest
 		Vector expectedV = new Vector(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
-
+    [Fact]
 	public void SphereNormalNormalized() {
 		Sphere s = new Sphere();
 		Point p = new Point(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
@@ -219,7 +201,7 @@ public class FormTest
 		Vector expectedV = normal.GetNormal();
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
-
+    [Fact]
 	public void SphereTranslatedNormalized() {
 		Sphere s = new Sphere();
 		Matrix t = new TranslationMatrix(0,1,0);
@@ -229,7 +211,7 @@ public class FormTest
 		Vector expectedV = new Vector(0, 0.70711, -0.70711);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
-
+    [Fact]
 	public void SphereTransformedNormalized() {
 		Sphere s = new Sphere();
 		// Matrix t = *(ScalingMatrix(1, 0.5, 1) * ZRotationMatrix(getPI()/5));
@@ -241,12 +223,14 @@ public class FormTest
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
 
+    [Fact]
 	public void SphereMaterialCtor() {
 		Sphere s = new Sphere();
 		Material m = new Material();
 		Assert.True(m.CheckEqual(s._fieldMaterial));
 	}
 
+    [Fact]
 	public void SphereMaterialAssignment() {
 		Sphere s = new Sphere();
 		Material m = new Material();
@@ -254,14 +238,34 @@ public class FormTest
 		s.SetMaterial(m);
 		Assert.True(m.CheckEqual(s._fieldMaterial));
 	}
+}
+public class SphereGlassTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
 
+    [Fact]
 	public void GlassSphereCtor() {
 		SphereGlass varObj = new SphereGlass();
 		Assert.True(varObj._fieldTransform.CheckEqual(new IdentityMatrix(4,4)));
 		Assert.Equal(1.0, varObj._fieldMaterial._fieldTransparency);
 		Assert.Equal(1.5, varObj._fieldMaterial._fieldRefractiveIndex);
 	}
+}
+public class PlaneTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
 
+    [Fact]
 	public void PlaneNormalSameEverywhere() {
 		Plane varPlane = new Plane();
 		Vector varN1 = varPlane.GetNormal(new Point(0,0,0));
@@ -272,18 +276,23 @@ public class FormTest
 		Assert.True(_fieldComp.CheckTuple(varN3, new Vector(0,1,0)));
 
 	}
+
+    [Fact]
 	public void RayParallelToPlane() {
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,10,0), new Vector(0,0,1));
 		Intersections varIx = varPlane.GetIntersections(varRay);
 		Assert.True(varIx._fieldIntersections.Count() == 0);
 	}
+
+    [Fact]
 	public void CoplanarRayToPlane() {
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,0,0), new Vector(0,0,1));
 		Intersections varIx = varPlane.GetIntersections(varRay);
 		Assert.True(varIx._fieldIntersections.Count() == 0);
 	}
+    [Fact]
 	public void RayIntersectingPlaneAbove() {
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,1,0), new Vector(0,-1,0));
@@ -292,6 +301,7 @@ public class FormTest
 		Assert.Equal(1, varIx._fieldIntersections[0]._fieldTime);
 		Assert.True(varIx._fieldIntersections[0]._fieldObject.CheckEqual(varPlane));
 	}
+    [Fact]
 	public void RayIntersectingPlaneBelow() {
 		Plane varPlane = new Plane();
 		Ray varRay = new Ray(new Point(0,-1,0), new Vector(0,1,0));
@@ -299,5 +309,23 @@ public class FormTest
 		Assert.True(varIx._fieldIntersections.Count() == 1);
 		Assert.Equal(1, varIx._fieldIntersections[0]._fieldTime);
 		Assert.True(varIx._fieldIntersections[0]._fieldObject.CheckEqual(varPlane));
+	}
+}
+public class AABBTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+    [Fact]
+	public void Ray_Intersect_Cube() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(5,0.5,0), new Vector(-1,0,0));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(4, varXs[0]._fieldTime);
+		Assert.Equal(6, varXs[1]._fieldTime);
 	}
 }

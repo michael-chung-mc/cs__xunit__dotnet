@@ -107,6 +107,7 @@ public class RayTracer {
         CameraRenderPlane("OrangePlaneCheckerTilt", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(-_fieldPM.GetPI()/4), varTestMatChecker);
         CameraRenderPlane("OrangePlaneRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatRing);
 
+        ExampleSphereMirror();
         ExampleSphereSphere();
         ExampleMirroRoom();
 
@@ -202,6 +203,95 @@ public class RayTracer {
         varEnv.SetObject(varObj);
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile(argSpecs);
+    }
+    void ExampleSphereMirror() {
+        Camera varCamera = new Camera(200,200,0.5);
+        varCamera.SetTransform(new ViewMatrix(new Point(-4.5, 0.85, -4), new Point(0, 0.85, 0), new Vector(0,1,0)));
+
+        World varEnv = new World();
+
+        PointSource varLight = new PointSource(new Point(-4.9, 4.9, 1), new Color(1, 1, 1));
+        varEnv.SetLight(varLight);
+
+        Material varWallMaterial = new Material();
+        varWallMaterial.SetPattern(new PatternChecker(new Color(0, 0, 0), new Color(0.75,0.75,0.75)));
+        varWallMaterial._fieldPattern.SetTransform(new ScalingMatrix(0.5, 0.5, 0.5));
+        varWallMaterial._fieldSpecular = 0;
+        
+        Plane varFloor = new Plane();
+        varFloor.SetTransform(new YRotationMatrix(0.31415));
+        varFloor.SetMaterial(new Material());
+        varFloor._fieldMaterial.SetPattern(new PatternChecker(new Color(0, 0, 0), new Color(0.75,0.75,0.75)));
+        varFloor._fieldMaterial._fieldAmbient = 0.5;
+        varFloor._fieldMaterial._fieldDiffuse = 0.4;
+        varFloor._fieldMaterial._fieldSpecular = 0.8;
+        varFloor._fieldMaterial._fieldReflective = 0.1;
+        varEnv.SetObject(varFloor);
+
+        Plane varCeiling = new Plane();
+        varCeiling.SetTransform(new TranslationMatrix(0,5,0));
+        varCeiling.SetMaterial(new Material());
+        varCeiling._fieldMaterial.SetPattern(new PatternChecker(new Color(0.85, 0.85, 0.85), new Color(1, 1, 1)));
+        varCeiling._fieldMaterial._fieldAmbient = 0.5;
+        varCeiling._fieldMaterial._fieldSpecular = 0;
+        varEnv.SetObject(varCeiling);
+
+        Plane varWallWest = new Plane();
+        varWallWest.SetTransform(new TranslationMatrix(-5,0,0).GetRotateZ(1.5708).GetRotateY(1.5708));
+        varWallWest.SetMaterial(varWallMaterial);
+        varEnv.SetObject(varWallWest);
+
+        Plane varWallEast = new Plane();
+        varWallEast.SetTransform(new TranslationMatrix(5,0,0).GetRotateZ(1.5708).GetRotateY(1.5708));
+        varWallEast.SetMaterial(varWallMaterial);
+        varEnv.SetObject(varWallEast);
+
+        Plane varWallNorth = new Plane();
+        varWallNorth.SetTransform(new TranslationMatrix(0,0,5).GetRotateX(1.5708));
+        varWallNorth.SetMaterial(varWallMaterial);
+        varEnv.SetObject(varWallNorth);
+
+        Plane varWallSouth = new Plane();
+        varWallSouth.SetTransform(new TranslationMatrix(0,0,-5).GetRotateX(1.5708));
+        varWallSouth.SetMaterial(varWallMaterial);
+        varEnv.SetObject(varWallSouth);
+
+        Sphere varObjBg1 = new Sphere();
+        varObjBg1.SetTransform(new TranslationMatrix(4,1,4));
+        varObjBg1.SetMaterial(new Material());
+        varObjBg1._fieldMaterial._fieldColor = new Color(.8,.1,.3);
+        varObjBg1._fieldMaterial._fieldSpecular = 0;
+        varEnv.SetObject(varObjBg1);
+
+        Sphere varObjBg2 = new Sphere();
+        varObjBg2.SetTransform(new TranslationMatrix(4.6,0.4,2.9).GetScale(.4,.4,.4));
+        varObjBg2.SetMaterial(new Material());
+        varObjBg2._fieldMaterial._fieldColor = new Color(.1,.8,.2);
+        varObjBg2._fieldMaterial._fieldShininess = 200;
+        varEnv.SetObject(varObjBg2);
+
+        Sphere varObjBg3 = new Sphere();
+        varObjBg3.SetTransform(new TranslationMatrix(2.6,0.6,4.4).GetScale(.6,.6,.6));
+        varObjBg3.SetMaterial(new Material());
+        varObjBg3._fieldMaterial._fieldColor = new Color(.2,.1,.8);
+        varObjBg3._fieldMaterial._fieldShininess = 10;
+        varObjBg3._fieldMaterial._fieldSpecular = 0.4;
+        varEnv.SetObject(varObjBg3);
+
+        Sphere varObjFg1 = new Sphere();
+        varObjFg1.SetTransform(new TranslationMatrix(.25,1,0).GetScale(1,1,1));
+        varObjFg1.SetMaterial(new Material());
+        varObjFg1._fieldMaterial._fieldColor = new Color(.8,.8,.9);
+        varObjFg1._fieldMaterial._fieldAmbient = 0;
+        varObjFg1._fieldMaterial._fieldDiffuse = 0.2;
+        varObjFg1._fieldMaterial._fieldSpecular = 0.9;
+        varObjFg1._fieldMaterial._fieldShininess = 300;
+        varObjFg1._fieldMaterial._fieldTransparency = 0.8;
+        varObjFg1._fieldMaterial._fieldRefractiveIndex = 1.57;
+        varEnv.SetObject(varObjFg1);
+
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("RayTracerChallenge__Chapter11__Refraction");
     }
     void ExampleSphereSphere()
     {
