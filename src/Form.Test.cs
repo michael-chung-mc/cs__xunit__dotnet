@@ -424,4 +424,68 @@ public class AABBTest {
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
+    [Fact]
+	public void Cube_Normal__Positive_X() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(1,0.5,-0.8);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(1,0,0);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
+    [Fact]
+	public void Cube_Normal__Negative_X() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(-1,-0.2,0.9);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(-1,0,0);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
+    [Fact]
+	public void Cube_Normal__Positive_Y() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(-0.4,1,-0.1);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(0,1,0);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
+    [Fact]
+	public void Cube_Normal__Negative_Y() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(0.3,-1,1);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(0,-1,0);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
+    [Fact]
+	public void Cube_Normal__Positive_Z() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(-0.6,0.3,1);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(0,0,1);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
+    [Fact]
+	public void Cube_Normal__Negative_Z() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(0.4,0.4,-1);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(0,0,-1);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
+    [Fact]
+	public void Cube_Normal__Corner_X() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(1,1,1);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(1,0,0);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
+    [Fact]
+	public void Cube_Normal__Corner_Negative_X() {
+		AABBox varCube = new AABBox();
+		Point varPoint = new Point(-1,-1,-1);
+		Vector varNormal = varCube.GetNormalLocal(varPoint);
+		Vector varExpectedNormal = new Vector(-1,0,0);
+		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
+	}
 }

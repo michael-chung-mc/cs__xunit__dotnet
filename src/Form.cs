@@ -149,14 +149,14 @@ public class SphereGlass : Sphere {
 };
 
 public class Plane : Form {
+	private ProjectMeta _fieldPM = new ProjectMeta();
 	public override Vector GetNormalLocal(Point argPoint)
 	{
 		return new Vector(0, 1, 0);
 	}
 	public override Intersections GetIntersectionsLocal(Ray argRay)
 	{
-		ProjectMeta varPM = new ProjectMeta();
-		if (Math.Abs(argRay._fieldDirection._fieldY) <= varPM.getEpsilon())
+		if (Math.Abs(argRay._fieldDirection._fieldY) <= _fieldPM.getEpsilon())
 		{
 			return new Intersections();
 		}
@@ -167,6 +167,16 @@ public class Plane : Form {
 
 public class AABBox : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
+	public override Vector GetNormalLocal(Point argPoint)
+	{
+		double varMax = Math.Max(Math.Abs(argPoint._fieldX), Math.Max(Math.Abs(argPoint._fieldY),Math.Abs(argPoint._fieldZ)));
+		if (varMax == Math.Abs(argPoint._fieldX)) {
+			return new Vector(argPoint._fieldX, 0,0);
+		} else if (varMax == Math.Abs(argPoint._fieldY)) {
+			return new Vector(0,argPoint._fieldY, 0);
+		}
+		return new Vector(0,0,argPoint._fieldZ);
+	}
 	public override Intersections GetIntersectionsLocal(Ray argRay) {
 		Tuple<double, double> varX = CheckAxis(argRay._fieldOrigin._fieldX, argRay._fieldDirection._fieldX);
 		Tuple<double, double> varY = CheckAxis(argRay._fieldOrigin._fieldY, argRay._fieldDirection._fieldY);
