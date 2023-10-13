@@ -382,4 +382,46 @@ public class AABBTest {
 		Assert.Equal(-1, varXs[0]._fieldTime);
 		Assert.Equal(1, varXs[1]._fieldTime);
 	}
+    [Fact]
+	public void Ray_Miss_Cube__Away_X() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(-2,0,0), new Vector(0.2673,0.5345,0.8018));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Ray_Miss_Cube__Away_Y() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(0,-2,0), new Vector(0.8018,0.2673,0.5345));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Ray_Miss_Cube__Away_Z() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(0,0,-2), new Vector(0.5345, 0.8018,0.2673));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Ray_Miss_Cube__Parallel_X_Z() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(2,0,2), new Vector(0,0,-1));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Ray_Miss_Cube__Parallel_Y_Z() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(0,2,2), new Vector(0,-1,0));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Ray_Miss_Cube__Parallel_X_Y() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(2,2,0), new Vector(-1,0,0));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
 }

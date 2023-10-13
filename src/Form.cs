@@ -173,7 +173,9 @@ public class AABBox : Form {
 		Tuple<double, double> varZ = CheckAxis(argRay._fieldOrigin._fieldZ, argRay._fieldDirection._fieldZ);
 		double varMin = Math.Max(Math.Max(varX.Item1, varY.Item1), varZ.Item1);
 		double varMax = Math.Min(Math.Min(varX.Item2, varY.Item2), varZ.Item2);
-		Intersections varXs = new Intersections(varMin, this);
+		Intersections varXs = new Intersections();
+		if (varMin > varMax) {return varXs; }
+		varXs.SetIntersect(varMin, this);
 		varXs.SetIntersect(varMax, this);
 		return varXs;
 	}
