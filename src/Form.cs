@@ -166,4 +166,34 @@ public class Plane : Form {
 };
 
 public class AABBox : Form {
+	private ProjectMeta _fieldPM = new ProjectMeta();
+	public override Intersections GetIntersectionsLocal(Ray argRay) {
+		Tuple<double, double> varX = CheckAxis(argRay._fieldOrigin._fieldX, argRay._fieldDirection._fieldX);
+		Tuple<double, double> varY = CheckAxis(argRay._fieldOrigin._fieldY, argRay._fieldDirection._fieldY);
+		Tuple<double, double> varZ = CheckAxis(argRay._fieldOrigin._fieldZ, argRay._fieldDirection._fieldZ);
+		double varMin = Math.Max(Math.Max(varX.Item1, varY.Item1), varZ.Item1);
+		double varMax = Math.Min(Math.Min(varX.Item2, varY.Item2), varZ.Item2);
+		Intersections varXs = new Intersections(varMin, this);
+		varXs.SetIntersect(varMax, this);
+		return varXs;
+	}
+	public Tuple<double, double> CheckAxis (double argOrigin, double argDirection) {
+		double varMinNumerator = (-1-argOrigin);
+		double varMaxNumerator = (1-argOrigin);
+		double varMin = 0;
+		double varMax = 0;
+		if (Math.Abs(argDirection) >= _fieldPM.getEpsilon()) {
+			varMin = varMinNumerator / argDirection;
+			varMax = varMaxNumerator / argDirection;
+		} else {
+			varMin = varMinNumerator * double.PositiveInfinity;
+			varMax = varMaxNumerator * double.PositiveInfinity;
+		}
+		if (varMin > varMax) { 
+			double varTmp = varMin;
+			varMin = varMax;
+			varMax = varTmp;
+		}
+		return new Tuple<double, double> (varMin, varMax);
+	}
 }

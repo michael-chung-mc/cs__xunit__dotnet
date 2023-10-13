@@ -320,12 +320,66 @@ public class AABBTest {
 		Assert.True(true);
 	}
     [Fact]
-	public void Ray_Intersect_Cube() {
+	public void Ray_Intersect_Cube__Positive_X() {
 		AABBox varCube = new AABBox();
 		Ray varRay = new Ray(new Point(5,0.5,0), new Vector(-1,0,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
 		Assert.Equal(4, varXs[0]._fieldTime);
 		Assert.Equal(6, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Ray_Intersect_Cube__Negative_X() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(-5,0.5,0), new Vector(1,0,0));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(4, varXs[0]._fieldTime);
+		Assert.Equal(6, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Ray_Intersect_Cube__Positive_Y() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(.5,5,0), new Vector(0,-1,0));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(4, varXs[0]._fieldTime);
+		Assert.Equal(6, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Ray_Intersect_Cube__Negative_Y() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(.5,-5,0), new Vector(0,1,0));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(4, varXs[0]._fieldTime);
+		Assert.Equal(6, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Ray_Intersect_Cube__Positive_Z() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(.5,0,5), new Vector(0,0,-1));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(4, varXs[0]._fieldTime);
+		Assert.Equal(6, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Ray_Intersect_Cube__Negative_Z() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(.5,0,-5), new Vector(0,0,1));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(4, varXs[0]._fieldTime);
+		Assert.Equal(6, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Ray_Intersect_Cube__Interior() {
+		AABBox varCube = new AABBox();
+		Ray varRay = new Ray(new Point(0,0.5,0), new Vector(0,0,1));
+		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(-1, varXs[0]._fieldTime);
+		Assert.Equal(1, varXs[1]._fieldTime);
 	}
 }
