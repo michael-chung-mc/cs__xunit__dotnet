@@ -10,6 +10,7 @@ using LibProjectMeta;
 namespace LibForm;
 
 public class Form {
+	public bool _fieldCastsShadow;
 	public Point _fieldOrigin;
 	public double _fieldRadius;
 	public Matrix _fieldTransform;
@@ -18,6 +19,7 @@ public class Form {
 	public Ray _fieldObjectRay;
 	public Form()
 	{
+		_fieldCastsShadow = true;
 		_fieldOrigin = new Point(0, 0, 0);
 		_fieldRadius = 0;
 		SetTransform(new IdentityMatrix(4, 4));
@@ -26,6 +28,7 @@ public class Form {
 	}
 	public Form(Form argOther)
 	{
+		_fieldCastsShadow = true;
 		_fieldOrigin = argOther._fieldOrigin;
 		_fieldRadius = argOther._fieldRadius;
 		SetTransform(argOther._fieldTransform);
@@ -47,7 +50,8 @@ public class Form {
 		return ce.CheckTuple(_fieldOrigin, argOther._fieldOrigin)
 			&& _fieldTransform.CheckEqual(argOther._fieldTransform)
 			&& _fieldMaterial.CheckEqual(argOther._fieldMaterial)
-			&& _fieldObjectRay.CheckEqual(argOther._fieldObjectRay);
+			&& _fieldObjectRay.CheckEqual(argOther._fieldObjectRay)
+			&& _fieldCastsShadow == argOther._fieldCastsShadow;
 	}
 	public Vector GetNormal(Point argPoint)
 	{
@@ -79,7 +83,7 @@ public class Form {
 	{
 		Point varObjP = this._fieldTransformInverse * argPosition;
 		Point varPatternP = this._fieldMaterial._fieldPattern._fieldTransformInverse * varObjP;
-		return this._fieldMaterial._fieldPattern.GetColorLocal(varPatternP);
+		return this._fieldMaterial._fieldPattern.GetColor(varPatternP);
 	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
@@ -134,7 +138,8 @@ public class Sphere : Form {
 			&& ce.CheckTuple(_fieldOrigin, argOther._fieldOrigin)
 			&& _fieldTransform.CheckEqual(argOther._fieldTransform)
 			&& _fieldMaterial.CheckEqual(argOther._fieldMaterial)
-			&& _fieldObjectRay.CheckEqual(argOther._fieldObjectRay);
+			&& _fieldObjectRay.CheckEqual(argOther._fieldObjectRay)
+			&& _fieldCastsShadow == argOther._fieldCastsShadow;
 	}
 };
 
@@ -178,18 +183,18 @@ public class AABBox : Form {
 		return new Vector(0,0,argPoint._fieldZ);
 	}
 	public override Intersections GetIntersectionsLocal(Ray argRay) {
-		Tuple<double, double> varX = CheckAxis(argRay._fieldOrigin._fieldX, argRay._fieldDirection._fieldX);
-		Tuple<double, double> varY = CheckAxis(argRay._fieldOrigin._fieldY, argRay._fieldDirection._fieldY);
-		Tuple<double, double> varZ = CheckAxis(argRay._fieldOrigin._fieldZ, argRay._fieldDirection._fieldZ);
-		double varMin = Math.Max(Math.Max(varX.Item1, varY.Item1), varZ.Item1);
-		double varMax = Math.Min(Math.Min(varX.Item2, varY.Item2), varZ.Item2);
+		Tuple<double, double> varXMinToMax = GetAxisMinToMax(argRay._fieldOrigin._fieldX, argRay._fieldDirection._fieldX);
+		Tuple<double, double> varYMinToMax = GetAxisMinToMax(argRay._fieldOrigin._fieldY, argRay._fieldDirection._fieldY);
+		Tuple<double, double> varZMinToMax = GetAxisMinToMax(argRay._fieldOrigin._fieldZ, argRay._fieldDirection._fieldZ);
+		double varMin = Math.Max(Math.Max(varXMinToMax.Item1, varYMinToMax.Item1), varZMinToMax.Item1);
+		double varMax = Math.Min(Math.Min(varXMinToMax.Item2, varYMinToMax.Item2), varZMinToMax.Item2);
 		Intersections varXs = new Intersections();
 		if (varMin > varMax) {return varXs; }
 		varXs.SetIntersect(varMin, this);
 		varXs.SetIntersect(varMax, this);
 		return varXs;
 	}
-	public Tuple<double, double> CheckAxis (double argOrigin, double argDirection) {
+	public Tuple<double, double> GetAxisMinToMax (double argOrigin, double argDirection) {
 		double varMinNumerator = (-1-argOrigin);
 		double varMaxNumerator = (1-argOrigin);
 		double varMin = 0;

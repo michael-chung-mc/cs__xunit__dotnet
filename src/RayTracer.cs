@@ -109,8 +109,8 @@ public class RayTracer {
 
         ExampleSphereMirror();
         ExampleSphereSphere();
-        ExampleMirroRoom();
-
+        ExampleMirrorRoom();
+        ExampleCubesRoom();
         // World varEmptyRoom = GetMirrorRoom();
         // CameraRender("EmptyRoom", varEmptyRoom);
 
@@ -340,7 +340,7 @@ public class RayTracer {
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("RayTracerChallenge__Chapter11__SphereWithinSphere");
     }
-    void ExampleMirroRoom()
+    void ExampleMirrorRoom()
     {
         Camera varCamera = new Camera(400,200,1.152);
         varCamera.SetTransform(new ViewMatrix(new Point(-2.6,1.5,-3.9), new Point(-0.6,1,-0.8), new Vector(0,1,0)));
@@ -469,6 +469,173 @@ public class RayTracer {
 
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("RayTracerChallenge__Chapter11__ReflectionAndRefraction");
+    }
+    void ExampleCubesRoom()
+    {
+        Camera varCamera = new Camera(400,200,0.785);
+        varCamera.SetTransform(new ViewMatrix(new Point(8,6,-8), new Point(0,3,0), new Vector(0,1,0)));
+
+        World varEnv = new World();
+
+        PointSource varLight = new PointSource(new Point(0,6.9,-5), new Color(1,1,0.9));
+        varEnv.SetLight(varLight);
+
+        AABBox varFloorCeiling = new AABBox();
+        varFloorCeiling.SetTransform(new ScalingMatrix(20,7,20).GetTranslate(0,1,0));
+        varFloorCeiling.SetMaterial(new Material());
+        varFloorCeiling._fieldMaterial.SetPattern(new PatternChecker(new Color(0,0,0), new Color(0.25,0.25,0.25)));
+        varFloorCeiling._fieldMaterial._fieldPattern.SetTransform(new ScalingMatrix(.07,.07,.07));
+        varFloorCeiling._fieldMaterial._fieldAmbient = 0.25;
+        varFloorCeiling._fieldMaterial._fieldDiffuse = 0.7;
+        varFloorCeiling._fieldMaterial._fieldSpecular = 0.9;
+        varFloorCeiling._fieldMaterial._fieldShininess = 300;
+        varFloorCeiling._fieldMaterial._fieldReflective = 0.1;
+        varEnv.SetObject(varFloorCeiling);
+
+        AABBox varWalls = new AABBox();
+        // varWallWest.SetTransform(new YRotationMatrix(1.5708).GetRotateZ(1.5708).GetTranslate(-5,0,0));
+        varWalls.SetTransform(new ScalingMatrix(10,10,10));
+        varWalls.SetMaterial(new Material());
+        varWalls._fieldMaterial.SetPattern(new PatternChecker(new Color(0.4863, 0.3765, 0.2941), new Color(0.3725, 0.2902, 0.2275)));
+        varWalls._fieldMaterial._fieldPattern.SetTransform(new ScalingMatrix(0.05,20,0.05));
+        varWalls._fieldMaterial._fieldAmbient = .1;
+        varWalls._fieldMaterial._fieldDiffuse = 0.7;
+        varWalls._fieldMaterial._fieldSpecular = 0.9;
+        varWalls._fieldMaterial._fieldShininess = 300;
+        varWalls._fieldMaterial._fieldReflective = 0.1;
+        varEnv.SetObject(varWalls);
+
+        AABBox varTableTop = new AABBox();
+        varTableTop.SetTransform(new TranslationMatrix(0,3.1,0).GetScale(3,.1,2));
+        varTableTop.SetMaterial(new Material());
+        varTableTop._fieldMaterial.SetPattern(new PatternStripe(new Color(0.5529,0.4235,0.3255), new Color(0.6588, 0.5098, 0.4)));
+        varTableTop._fieldMaterial._fieldPattern.SetTransform(new ScalingMatrix(0.05,0.05,0.05).GetRotateY(0.1));
+        varTableTop._fieldMaterial._fieldAmbient = 0.1;
+        varTableTop._fieldMaterial._fieldDiffuse = 0.7;
+        varTableTop._fieldMaterial._fieldSpecular = 0.9;
+        varTableTop._fieldMaterial._fieldShininess = 300;
+        varTableTop._fieldMaterial._fieldReflective = 0.2;
+        varEnv.SetObject(varTableTop);
+
+        AABBox varTableLeg1 = new AABBox();
+        varTableLeg1.SetTransform(new TranslationMatrix(2.7,1.5,-1.7).GetScale(.1,1.5,.1));
+        varTableLeg1.SetMaterial(new Material());
+        varTableLeg1._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
+        varTableLeg1._fieldMaterial._fieldAmbient = 0.2;
+        varTableLeg1._fieldMaterial._fieldDiffuse = 0.7;
+        varEnv.SetObject(varTableLeg1);
+
+        AABBox varTableLeg2 = new AABBox();
+        varTableLeg2.SetTransform(new TranslationMatrix(2.7,1.5,1.7).GetScale(.1,1.5,.1));
+        varTableLeg2.SetMaterial(new Material());
+        varTableLeg2._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
+        varTableLeg2._fieldMaterial._fieldAmbient = 0.2;
+        varTableLeg2._fieldMaterial._fieldDiffuse = 0.7;
+        varEnv.SetObject(varTableLeg2);
+
+        AABBox varTableLeg3 = new AABBox();
+        varTableLeg3.SetTransform(new TranslationMatrix(-2.7,1.5,-1.7).GetScale(.1,1.5,.1));
+        varTableLeg3.SetMaterial(new Material());
+        varTableLeg3._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
+        varTableLeg3._fieldMaterial._fieldAmbient = 0.2;
+        varTableLeg3._fieldMaterial._fieldDiffuse = 0.7;
+        varEnv.SetObject(varTableLeg3);
+
+        AABBox varTableLeg4 = new AABBox();
+        varTableLeg4.SetTransform(new TranslationMatrix(-2.7,1.5,1.7).GetScale(.1,1.5,.1));
+        varTableLeg4.SetMaterial(new Material());
+        varTableLeg4._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
+        varTableLeg4._fieldMaterial._fieldAmbient = 0.2;
+        varTableLeg4._fieldMaterial._fieldDiffuse = 0.7;
+        varEnv.SetObject(varTableLeg4);
+
+        AABBox varCubeGlass = new AABBox();
+        varCubeGlass.SetTransform(new TranslationMatrix(0,3.45001,0).GetRotateY(0.2).GetScale(.25,.25,.25));
+        varCubeGlass._fieldCastsShadow = false;
+        varCubeGlass.SetMaterial(new Material());
+        varCubeGlass._fieldMaterial._fieldColor = new Color(1,1,0.8);
+        varCubeGlass._fieldMaterial._fieldAmbient = 0;
+        varCubeGlass._fieldMaterial._fieldDiffuse = 0.3;
+        varCubeGlass._fieldMaterial._fieldSpecular = 0.9;
+        varCubeGlass._fieldMaterial._fieldShininess = 300;
+        varCubeGlass._fieldMaterial._fieldReflective = 0.7;
+        varCubeGlass._fieldMaterial._fieldTransparency = 0.7;
+        varCubeGlass._fieldMaterial._fieldRefractiveIndex = 1.5;
+        varEnv.SetObject(varCubeGlass);
+
+        AABBox varCubeMini1 = new AABBox();
+        varCubeMini1.SetTransform(new TranslationMatrix(1,3.35,-0.9).GetRotateY(-0.4).GetScale(.15,.15,.15));
+        varCubeMini1.SetMaterial(new Material());
+        varCubeMini1._fieldMaterial._fieldColor = new Color(1,.5,.5);
+        varCubeMini1._fieldMaterial._fieldDiffuse = 0.4;
+        varCubeMini1._fieldMaterial._fieldReflective = 0.6;
+        varEnv.SetObject(varCubeMini1);
+
+        AABBox varCubeMini2 = new AABBox();
+        varCubeMini2.SetTransform(new TranslationMatrix(-1.5,3.27,.3).GetRotateY(0.4).GetScale(.15,.07,.15));
+        varCubeMini2.SetMaterial(new Material());
+        varCubeMini2._fieldMaterial._fieldColor = new Color(1,1,.5);
+        varEnv.SetObject(varCubeMini2);
+
+        AABBox varCubeMini3 = new AABBox();
+        varCubeMini3.SetTransform(new TranslationMatrix(0,3.25,1).GetRotateY(0.4).GetScale(.2,0.05,0.05));
+        varCubeMini3.SetMaterial(new Material());
+        varCubeMini3._fieldMaterial._fieldColor = new Color(.5,1,.5);
+        varEnv.SetObject(varCubeMini3);
+
+        AABBox varCubeMini4 = new AABBox();
+        varCubeMini4.SetTransform(new TranslationMatrix(-0.6,3.4,-1).GetRotateY(0.8).GetScale(.05,.2,.05));
+        varCubeMini4.SetMaterial(new Material());
+        varCubeMini4._fieldMaterial._fieldColor = new Color(.5,.5,1);
+        varEnv.SetObject(varCubeMini4);
+
+        AABBox varCubeMini5 = new AABBox();
+        varCubeMini5.SetTransform(new TranslationMatrix(2,3.4,1).GetRotateY(0.8).GetScale(.05,.2,.05));
+        varCubeMini5.SetMaterial(new Material());
+        varCubeMini5._fieldMaterial._fieldColor = new Color(.5,1,1);
+        varEnv.SetObject(varCubeMini5);
+
+        AABBox varFrame1 = new AABBox();
+        varFrame1.SetTransform(new TranslationMatrix(-10,4,1).GetScale(.05,1,1));
+        varFrame1.SetMaterial(new Material());
+        varFrame1._fieldMaterial._fieldColor = new Color(.7098,.2471,.2196);
+        varFrame1._fieldMaterial._fieldDiffuse = 0.6;
+        varEnv.SetObject(varFrame1);
+
+        AABBox varFrame2 = new AABBox();
+        varFrame2.SetTransform(new TranslationMatrix(-10,3.4,2.7).GetScale(.05,.4,.4));
+        varFrame2.SetMaterial(new Material());
+        varFrame2._fieldMaterial._fieldColor = new Color(.2667,.2706,.6902);
+        varFrame2._fieldMaterial._fieldDiffuse = 0.6;
+        varEnv.SetObject(varFrame2);
+
+        AABBox varFrame3 = new AABBox();
+        varFrame3.SetTransform(new TranslationMatrix(-10,4.6,2.7).GetScale(.05,.4,.4));
+        varFrame3.SetMaterial(new Material());
+        varFrame3._fieldMaterial._fieldColor = new Color(.3098,.5961,.3098);
+        varFrame3._fieldMaterial._fieldDiffuse = 0.6;
+        varEnv.SetObject(varFrame3);
+
+        AABBox varMirror = new AABBox();
+        varMirror.SetTransform(new TranslationMatrix(-2,3.5,9.95).GetScale(4.8,1.4,.06));
+        varMirror.SetMaterial(new Material());
+        varMirror._fieldMaterial._fieldColor = new Color(0,0,0);
+        varMirror._fieldMaterial._fieldDiffuse = 0;
+        varMirror._fieldMaterial._fieldAmbient = 0;
+        varMirror._fieldMaterial._fieldSpecular = 1;
+        varMirror._fieldMaterial._fieldShininess = 300;
+        varMirror._fieldMaterial._fieldReflective = 1;
+        varEnv.SetObject(varMirror);
+
+        AABBox varMirrorFrame = new AABBox();
+        varMirrorFrame.SetTransform(new TranslationMatrix(-2,3.5,9.95).GetScale(5,1.5,.05));
+        varMirrorFrame.SetMaterial(new Material());
+        varMirrorFrame._fieldMaterial._fieldColor = new Color(.3882,.2627,.1882);
+        varMirrorFrame._fieldMaterial._fieldDiffuse = 0.7;
+        varEnv.SetObject(varMirrorFrame);
+
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("RayTracerChallenge__Chapter12__CubesRoom");
     }
 
     void CameraRender(String argSpecs, World argWorld) {
