@@ -49,29 +49,29 @@ public class World {
         return GetColorShaded(varIs, argLimit);
     }
 
-    public Color GetColorLighting(IntersectionState argIxState, int argLimit = 5)
-    {
-        bool varInShadow = CheckShadowed(argIxState._fieldOverPoint);
-        Color varDiffuse = new Color(0,0,0);
-        for (int i = 0; i < _fieldLights.Count();++i)
-        {
-            varDiffuse = varDiffuse + argIxState._fieldObject.GetColorShaded(_fieldLights[i], argIxState._fieldOverPoint, argIxState._fieldPov, argIxState._fieldNormal, varInShadow);
-        }
-        Color varReflect = GetColorReflect(argIxState, argLimit);
-        Color varRefract = GetColorRefracted(argIxState, argLimit);
-        Color varRes = varDiffuse + varReflect + varRefract;
-        if (argIxState._fieldObject._fieldMaterial._fieldReflective > 0 && argIxState._fieldObject._fieldMaterial._fieldTransparency > 0) {
-            double varReflectance = argIxState.GetSchlick();
-            varRes = varDiffuse + (varReflect * varReflectance) + (varRefract * (1-varReflectance));
-        }
-        return varRes;
-    }
+    // public Color GetColorLighting(IntersectionState argIxState, int argLimit = 5)
+    // {
+    //     Color varDiffuse = new Color(0,0,0);
+    //     for (int i = 0; i < _fieldLights.Count();++i)
+    //     {
+    //         bool varInShadow = CheckShadowed(_fieldLights[i], argIxState._fieldOverPoint);
+    //         varDiffuse = varDiffuse + argIxState._fieldObject.GetColorShaded(_fieldLights[i], argIxState._fieldOverPoint, argIxState._fieldPov, argIxState._fieldNormal, varInShadow);
+    //     }
+    //     Color varReflect = GetColorReflect(argIxState, argLimit);
+    //     Color varRefract = GetColorRefracted(argIxState, argLimit);
+    //     Color varRes = varDiffuse + varReflect + varRefract;
+    //     if (argIxState._fieldObject._fieldMaterial._fieldReflective > 0 && argIxState._fieldObject._fieldMaterial._fieldTransparency > 0) {
+    //         double varReflectance = argIxState.GetSchlick();
+    //         varRes = varDiffuse + (varReflect * varReflectance) + (varRefract * (1-varReflectance));
+    //     }
+    //     return varRes;
+    // }
     public Color GetColorShaded(IntersectionState argIxState, int argLimit = 5)
     {
-        bool varInShadow = CheckShadowed(argIxState._fieldOverPoint);
         Color varDiffuse = new Color(0,0,0);
         for (int i = 0; i < _fieldLights.Count();++i)
         {
+            bool varInShadow = CheckShadowed(_fieldLights[i], argIxState._fieldOverPoint);
             varDiffuse = varDiffuse + argIxState._fieldObject.GetColor(_fieldLights[i], argIxState._fieldOverPoint, argIxState._fieldPov, argIxState._fieldNormal, varInShadow);
         }
         Color varReflect = GetColorReflect(argIxState, argLimit);
@@ -98,7 +98,7 @@ public class World {
         if (varComp.CheckFloat(argIntersectionState._fieldObject._fieldMaterial._fieldTransparency, 0)) { return new Color(0,0,0); }
         double varNToN = argIntersectionState._fieldRefractiveIndexOne/argIntersectionState._fieldRefractiveIndexTwo;
         double varCosThetaI = argIntersectionState._fieldPov.GetDotProduct(argIntersectionState._fieldNormal);
-        double varSinThetaTSquared = varNToN*varNToN * (1.0-(varCosThetaI*varCosThetaI));
+        double varSinThetaTSquared = (varNToN*varNToN) * (1.0-(varCosThetaI*varCosThetaI));
         if (varSinThetaTSquared > 1) { return new Color(0,0,0); }
         double varCosThetaT = Math.Sqrt(1.0-varSinThetaTSquared);
         Vector varRefractDirection = (argIntersectionState._fieldNormal * ((varNToN * varCosThetaI) - varCosThetaT)) - (argIntersectionState._fieldPov * varNToN);
@@ -106,18 +106,15 @@ public class World {
         Color varRefractColor = GetColor(varRefractRay, argLimit-1) * argIntersectionState._fieldObject._fieldMaterial._fieldTransparency;
         return varRefractColor;
     }
-    public bool CheckShadowed(Point argPoint) {
+    public bool CheckShadowed(PointSource argLight, Point argPoint) {
         bool varFlagShadow = false;
-        for (int i = 0; i < _fieldLights.Count(); ++i)
-        {
-            Vector varDirection = _fieldLights[i].mbrPosition - argPoint;
-            double varDistance = varDirection.GetMagnitude();
-            Vector varDirectionNormalized = varDirection.GetNormal();
-            Ray varRay = new Ray (argPoint, varDirectionNormalized);
-            Intersection varHit = GetIntersect(varRay).GetHit();
-            bool varShadow = varHit._fieldExists && (varHit._fieldTime < varDistance);
-            varFlagShadow = varShadow ? true : varFlagShadow;
-        }
+        Vector varDirection = argLight.mbrPosition - argPoint;
+        double varDistance = varDirection.GetMagnitude();
+         Vector varDirectionNormalized = varDirection.GetNormal();
+        Ray varRay = new Ray (argPoint, varDirectionNormalized);
+        Intersection varHit = GetIntersect(varRay).GetHit();
+        bool varShadow = varHit._fieldExists && (varHit._fieldTime < varDistance);
+        varFlagShadow = varShadow ? true : varFlagShadow;
         return varFlagShadow;
     }
     public void SetObject(Form argObject) {

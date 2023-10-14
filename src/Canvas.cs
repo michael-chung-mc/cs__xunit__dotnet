@@ -23,7 +23,7 @@ public class Canvas {
 		if (CheckBounds(x, y)) { return mbrGrid[x][y]; }
 		return new Color(0,0,0);
 	}
-	public String RenderStringPPM()
+	public String RenderStringPPMP3()
 	{
 		ProjectMeta varPM = new ProjectMeta();
 		String ppm = "P3\n" + mbrWidth.ToString() + " " + mbrHeight.ToString() + "\n" + "255\n";
@@ -121,7 +121,7 @@ public class Canvas {
 		String varFileName = varPm.getPPMFilename(argName);
 		Console.WriteLine($"Saving to: {varFileName}");
 		using (StreamWriter writer = new StreamWriter(varFileName)) {
-			writer.WriteLine(RenderStringPPM());
+			writer.WriteLine(RenderStringPPMP3());
 		}
 		Console.WriteLine("saved");
 	}

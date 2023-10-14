@@ -87,7 +87,8 @@ public class WorldTest {
         Intersections varIx = new Intersections(0.5,obj);
         IntersectionState varIs = varIx.GetHit().GetState(r, varIx._fieldIntersections);
         // Color c = varDefaultWorld.GetColorShaded(varIs);
-        Color c = varDefaultWorld.GetColorLighting(varIs);
+        // Color c = varDefaultWorld.GetColorLighting(varIs);
+        Color c = varDefaultWorld.GetColorShaded(varIs);
         Color expectedColor = new Color(0.90498, 0.90498, 0.90498);
         Assert.True(c.CheckEqual(expectedColor));
     }
@@ -121,25 +122,25 @@ public class WorldTest {
     public void NoShadowIfObjectCollinearWithPointLight() {
         DefaultWorld varDefaultWorld = new DefaultWorld();
         Point varPoint= new Point(0,10,0);
-        Assert.False(varDefaultWorld.CheckShadowed(varPoint));
+        Assert.False(varDefaultWorld.CheckShadowed(varDefaultWorld._fieldLights[0], varPoint));
     }
     [Fact]
     public void ShadowIfObjectBetweenPointLight() {
         DefaultWorld varDefaultWorld = new DefaultWorld();
         Point varPoint= new Point(10,-10,10);
-        Assert.True(varDefaultWorld.CheckShadowed(varPoint));
+        Assert.True(varDefaultWorld.CheckShadowed(varDefaultWorld._fieldLights[0], varPoint));
     }
     [Fact]
     public void NoShadowIfObjectBehindLight() {
         DefaultWorld varDefaultWorld = new DefaultWorld();
         Point varPoint= new Point(-20,20,-20);
-        Assert.False(varDefaultWorld.CheckShadowed(varPoint));
+        Assert.False(varDefaultWorld.CheckShadowed(varDefaultWorld._fieldLights[0], varPoint));
     }
     [Fact]
     public void NoShadowIfObjectBehindPoint() {
         DefaultWorld varDefaultWorld = new DefaultWorld();
         Point varPoint= new Point(-2,2,-2);
-        Assert.False(varDefaultWorld.CheckShadowed(varPoint));
+        Assert.False(varDefaultWorld.CheckShadowed(varDefaultWorld._fieldLights[0], varPoint));
     }
     [Fact]
     public void ShadeWithShadowIntersections() {
@@ -201,7 +202,8 @@ public class WorldTest {
         Intersections varIx = new Intersections(Math.Sqrt(2), varPlane);
         IntersectionState varIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
         //  t=1.41421 c(.6864,.6864,.6864) + r(.1903, .2379, .1428)
-        Color varColor = varWorld.GetColorLighting(varIs);
+        // Color varColor = varWorld.GetColorLighting(varIs);
+        Color varColor = varWorld.GetColorShaded(varIs, 5);
         Assert.True(varColor.CheckEqual(new Color(0.87677, 0.92436, 0.82918)));
     }
     [Fact]
@@ -333,7 +335,8 @@ public class WorldTest {
         Ray varRay = new Ray(new Point(0,0,-3), new Vector(0,-Math.Sqrt(2)/2,Math.Sqrt(2)/2));
         Intersections varIx = new Intersections(Math.Sqrt(2), varFloor);
         IntersectionState varIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorLighting(varIs, 5);
+        // Color varColor = varWorld.GetColorLighting(varIs, 5);
+        Color varColor = varWorld.GetColorShaded(varIs, 5);
         Assert.True(varColor.CheckEqual(new Color(0.93642, 0.68642, 0.68642)));
     }
     [Fact]
@@ -353,7 +356,8 @@ public class WorldTest {
         varWorld.SetObject(varSphere);
         Intersections varIx = new Intersections(Math.Sqrt(2), varFloor);
         IntersectionState varIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
-        Color varColor = varWorld.GetColorLighting(varIs, 5);
+        // Color varColor = varWorld.GetColorLighting(varIs, 5);
+        Color varColor = varWorld.GetColorShaded(varIs, 5);
         Assert.True(varColor.CheckEqual(new Color(0.93391,0.69643,0.69243)));
     }
 }

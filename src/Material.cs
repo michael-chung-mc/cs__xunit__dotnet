@@ -3,6 +3,7 @@ using LibComparinator;
 using LibTuple;
 using LibLight;
 using LibPattern;
+using LibMatrix;
 namespace LibMaterial;
 
 public class Material {
@@ -51,37 +52,26 @@ public class Material {
             && varComp.CheckTuple(this._fieldColor, argOther._fieldColor)
             && this._fieldPattern.CheckEqual(argOther._fieldPattern);
     }
-    public Color GetColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+    public Color GetColor(Matrix argObjectTransformInverse, PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
     {
-        Color varColor = _fieldPattern._fieldColors.Count() != 0 ? _fieldPattern.GetColor(argPosition) : _fieldColor;
+        Color varColor = _fieldPattern._fieldColors.Count() != 0 ? _fieldPattern.GetColor(argObjectTransformInverse, argPosition) : _fieldColor;
         Color varShade = varColor * argLighting.mbrIntensity;
         Color varResAmbient = varShade * _fieldAmbient;
         if (argInShadow) return varResAmbient;
         Vector varLight = (argLighting.mbrPosition - argPosition).GetNormal();
         double varLightDotNormal = varLight.GetDotProduct(argNormal);
-        Color varResDiffuse;
-        Color varResSpecular;
+        Color varResDiffuse = new Color(0,0,0);
+        Color varResSpecular = new Color(0,0,0);
         Vector varReflect;
         double varReflectDotEye;
-        double varFactor;
-        if (varLightDotNormal < 0.0)
-        {
-            varResDiffuse = new Color(0,0,0);
-            varResSpecular = new Color(0,0,0);
-        }
-        else
-        {
+        // double varFactor;
+        if (varLightDotNormal >= 0.0) {
             varResDiffuse = varShade * (_fieldDiffuse * varLightDotNormal);
-            varReflect = (-varLight).GetReflect(argNormal);
+            varReflect = -(varLight.GetReflect(argNormal));
             varReflectDotEye = varReflect.GetDotProduct(argEye);
-            if (varReflectDotEye <= 0.0)
-            {
-                varResSpecular = new Color(0,0,0);
-            }
-            else
-            {
-                varFactor = Math.Pow(varReflectDotEye, _fieldShininess);
-                varResSpecular = argLighting.mbrIntensity * (_fieldSpecular * varFactor);
+            if (varReflectDotEye > 0.0) {
+                // varFactor = Math.Pow(varReflectDotEye, _fieldShininess);
+                varResSpecular = argLighting.mbrIntensity * (_fieldSpecular * Math.Pow(varReflectDotEye, _fieldShininess));
             }
         }
         Color varRes = varResAmbient + (varResDiffuse + varResSpecular);

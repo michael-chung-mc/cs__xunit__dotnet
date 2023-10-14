@@ -57,7 +57,7 @@ public class CanvasTest {
 		c.SetPixel(0, 0, c1);
 		c.SetPixel(2, 1, c2);
 		c.SetPixel(4, 2, c3);
-		String ppm = c.RenderStringPPM();
+		String ppm = c.RenderStringPPMP3();
 		String cppm = "P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
 		Assert.Equal(ppm, cppm);
 	}
@@ -71,7 +71,7 @@ public class CanvasTest {
 		Canvas c = new Canvas(10, 2);
 		Color c1 = new Color(1, 0.8, 0.6);
 		c.SetFill(c1);
-		String ppm = c.RenderStringPPM();
+		String ppm = c.RenderStringPPMP3();
 		String cppm = "P3\n10 2\n255\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n255 204 153 255 204 153 255 204 153 255 204 153 255 204 153 255 204\n153 255 204 153 255 204 153 255 204 153 255 204 153\n";
 		Assert.Equal(ppm, cppm);
 	}

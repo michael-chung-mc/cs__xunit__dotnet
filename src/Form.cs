@@ -77,22 +77,22 @@ public class Form {
 	}
 	public Color GetColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
 	{
-		Point varObjP = (this._fieldTransformInverse) * argPosition;
-		Point varPatternP = (this._fieldMaterial._fieldPattern._fieldTransformInverse) * varObjP;
-		Color varRes = this._fieldMaterial.GetColor(argLighting, varPatternP, argEye, argNormal, argInShadow);
-		// Color varRes = _fieldMaterial.GetColor(argLighting, argPosition, argEye, argNormal, argInShadow);
+		// Point varObjP = (this._fieldTransformInverse) * argPosition;
+		// Point varPatternP = (this._fieldMaterial._fieldPattern._fieldTransformInverse) * varObjP;
+		// Color varRes = this._fieldMaterial.GetColor(argLighting, varPatternP, argEye, argNormal, argInShadow);
+		Color varRes = _fieldMaterial.GetColor(this._fieldTransformInverse, argLighting, argPosition, argEye, argNormal, argInShadow);
 		return varRes;
 	}
-	public Color GetColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
-	{
-		Color varRes = _fieldMaterial.GetColor(argLighting, argPosition, argEye, argNormal, argInShadow);
-		return varRes;
-	}
+	// public Color GetColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+	// {
+	// 	Color varRes = _fieldMaterial.GetColor(argLighting, argPosition, argEye, argNormal, argInShadow);
+	// 	return varRes;
+	// }
 	public Color GetColorLocal(Point argPosition)
 	{
-		Point varObjP = this._fieldTransformInverse * argPosition;
-		Point varPatternP = this._fieldMaterial._fieldPattern._fieldTransformInverse * varObjP;
-		return this._fieldMaterial._fieldPattern.GetColor(varPatternP);
+		// Point varObjectP = this._fieldTransformInverse * argPosition;
+		// Point varPatternP = this._fieldMaterial._fieldPattern._fieldTransformInverse * varObjP;
+		return this._fieldMaterial._fieldPattern.GetColor(this._fieldTransformInverse, argPosition);
 	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;

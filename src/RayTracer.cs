@@ -77,6 +77,7 @@ public class RayTracer {
         Color varOrange = new Color(.8, 0.333, 0);
         Material varTestMat = new Material();
         varTestMat._fieldColor = varOrange;
+        // varTestMat._fieldColor = varWhite;
         varTestMat._fieldDiffuse = 0.7;
         varTestMat._fieldSpecular = 0.3;
         Material varTestMatStripe = new Material();
@@ -91,6 +92,7 @@ public class RayTracer {
         varTestMatRing.SetPattern(new PatternRing(varOrange, varWhite));
         //varTestMatRing._fieldPattern.SetTransform(new ScalingMatrix(0.05,0.01,0.05));
 
+        DirectTracerShadow("Circle", varTestEye, 10,10, 100, new Color(1,1,1));
         DirectTracerShadow("OrangeCircle", varTestEye, 10,10, 100, varOrange);
         DirectRenderSphere("OrangeSphere", varTestEye, varTestLight, 10, 10, 100, varOrange);
         
@@ -174,7 +176,7 @@ public class RayTracer {
                     Point p = r.GetPosition(xs[0]._fieldTime);
                     Vector normal = xs[0]._fieldObject.GetNormal(p);
                     Vector pov = -r._fieldDirection;
-                    Color shade = varObj._fieldMaterial.GetColor(argLight, p, pov, normal, false);
+                    Color shade = varObj._fieldMaterial.GetColor(varObj._fieldTransformInverse, argLight, p, pov, normal, false);
                     varCanvas.SetPixel(i,j,shade);
                 }
             }
