@@ -34,6 +34,8 @@ Ray Tracer implemented in C# following Test Driven Development methodology using
 ![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
 ![Refraction-Example](./examples/refraction.png)
 ![Refraction-Air-Pocket-Example](./examples/refraction__sphere_with_air_pocket.png)
+![Cube-Room-Made-Of-Cubes-Example](./examples/cube_room_made_of_aabb_cubes.png)
+![Cylinders-Example](./examples/cylinders.png)
 ## Methodology
 ### Requirements
 ### Design
@@ -58,8 +60,8 @@ Ray Tracer implemented in C# following Test Driven Development methodology using
 - [x] Geometry
     - [x] Sphere
     - [x] Plane
-    - [ ] Cube
-    - [ ] Cylinder
+    - [x] Cube
+    - [x] Cylinder
     - [ ] Object Groups
     - [ ] Triangle
     - [ ] Constructive Solid Geometry

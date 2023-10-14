@@ -11,8 +11,11 @@ namespace LibForm;
 
 public class Form {
 	public bool _fieldCastsShadow;
+	public bool _fieldClosed;
 	public Point _fieldOrigin;
 	public double _fieldRadius;
+	public double _fieldHeightMax;
+	public double _fieldHeightMin;
 	public Matrix _fieldTransform;
 	public Matrix _fieldTransformInverse;
 	public Material _fieldMaterial;
@@ -20,17 +23,23 @@ public class Form {
 	public Form()
 	{
 		_fieldCastsShadow = true;
+		_fieldClosed = false;
 		_fieldOrigin = new Point(0, 0, 0);
 		_fieldRadius = 0;
+		_fieldHeightMax = 0;
+		_fieldHeightMin = 0;
 		SetTransform(new IdentityMatrix(4, 4));
 		_fieldMaterial = new Material();
 		_fieldObjectRay = new Ray();
 	}
 	public Form(Form argOther)
 	{
-		_fieldCastsShadow = true;
+		_fieldCastsShadow = argOther._fieldCastsShadow;
+		_fieldClosed = argOther._fieldClosed;
 		_fieldOrigin = argOther._fieldOrigin;
 		_fieldRadius = argOther._fieldRadius;
+		_fieldHeightMax = argOther._fieldHeightMax;
+		_fieldHeightMin = argOther._fieldHeightMin;
 		SetTransform(argOther._fieldTransform);
 		SetMaterial(argOther._fieldMaterial);
 		_fieldObjectRay = argOther._fieldObjectRay;
@@ -212,5 +221,57 @@ public class AABBox : Form {
 			varMax = varTmp;
 		}
 		return new Tuple<double, double> (varMin, varMax);
+	}
+}
+
+public class Cylinder : Form {
+	private ProjectMeta _fieldPM = new ProjectMeta();
+	public Cylinder() {
+		_fieldHeightMax = double.MaxValue;
+		_fieldHeightMin = double.MinValue;
+	}
+	public override Vector GetNormalLocal(Point argPoint)
+	{
+		double varDistance = argPoint._fieldX * argPoint._fieldX + argPoint._fieldZ * argPoint._fieldZ;
+		if (varDistance < 1 && argPoint._fieldY >= _fieldHeightMax - _fieldPM.getEpsilon()) { return new Vector(0,1,0); }
+		else if (varDistance < 1 && argPoint._fieldY <= _fieldHeightMin + _fieldPM.getEpsilon()) { return new Vector(0,-1,0); }
+		return new Vector(argPoint._fieldX, 0, argPoint._fieldZ);
+	}
+	public override Intersections GetIntersectionsLocal(Ray argRay) {
+		Intersections varXs = new Intersections();
+		double varA = argRay._fieldDirection._fieldX * argRay._fieldDirection._fieldX + argRay._fieldDirection._fieldZ * argRay._fieldDirection._fieldZ;
+		if (Math.Abs(varA) > _fieldPM.getEpsilon()) {
+			double varB = (2 * argRay._fieldOrigin._fieldX * argRay._fieldDirection._fieldX) + (2 * argRay._fieldOrigin._fieldZ * argRay._fieldDirection._fieldZ);
+			double varC = (argRay._fieldOrigin._fieldX * argRay._fieldOrigin._fieldX) + (argRay._fieldOrigin._fieldZ * argRay._fieldOrigin._fieldZ) - 1;
+			double varDiscriminant = (varB*varB) - (4 * varA * varC);
+			if (varDiscriminant < 0) { return varXs; }
+			double varTimeZero = (-varB - Math.Sqrt(varDiscriminant)) / (2*varA);
+			double varTimeOne = (-varB + Math.Sqrt(varDiscriminant)) / (2*varA);
+			if (varTimeZero > varTimeOne) {
+				double varTmp = varTimeZero;
+				varTimeZero = varTimeOne;
+				varTimeOne = varTmp;
+			}
+			double varIntersectYZero = argRay._fieldOrigin._fieldY + varTimeZero * argRay._fieldDirection._fieldY;
+			if (_fieldHeightMin < varIntersectYZero && varIntersectYZero < _fieldHeightMax) {varXs.SetIntersect(varTimeZero, this); }
+			double varIntersectYOne = argRay._fieldOrigin._fieldY + varTimeOne * argRay._fieldDirection._fieldY;
+			if (_fieldHeightMin < varIntersectYOne && varIntersectYOne < _fieldHeightMax) {varXs.SetIntersect(varTimeOne, this); }
+
+		}
+		SetIntersectionsCaps(argRay, ref varXs);
+		return varXs;
+	}
+	public bool CheckCaps(Ray argRay, double time) {
+		double varX = argRay._fieldOrigin._fieldX + time * argRay._fieldDirection._fieldX;
+		double varZ = argRay._fieldOrigin._fieldZ + time * argRay._fieldDirection._fieldZ;
+		return (varX*varX + varZ*varZ) <= 1.0;
+	}
+	public void SetIntersectionsCaps (Ray argRay, ref Intersections argXs) {
+		if (_fieldClosed && Math.Abs(argRay._fieldDirection._fieldY) > _fieldPM.getEpsilon()) {
+			double varTime = (_fieldHeightMin - argRay._fieldOrigin._fieldY) / argRay._fieldDirection._fieldY;
+			if (CheckCaps(argRay, varTime)) {argXs.SetIntersect(varTime, this);}
+			varTime = (_fieldHeightMax - argRay._fieldOrigin._fieldY) / argRay._fieldDirection._fieldY;
+			if (CheckCaps(argRay, varTime)) {argXs.SetIntersect(varTime, this);}
+		}
 	}
 }

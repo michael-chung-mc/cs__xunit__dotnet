@@ -489,3 +489,271 @@ public class AABBTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
 }
+
+public class CylinderTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+    [Fact]
+	public void Cylinder_Intersection_Miss__On_Surface() {
+		Cylinder varObj = new Cylinder();
+		Vector varDirection = new Vector(0,1,0).GetNormal();
+		Ray varRay = new Ray(new Point(1,0,0), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Intersection_Miss__Inside_Surface() {
+		Cylinder varObj = new Cylinder();
+		Vector varDirection = new Vector(0,1,0).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,0), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Intersection_Miss__Away_Surface() {
+		Cylinder varObj = new Cylinder();
+		Vector varDirection = new Vector(1,1,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Intersection_Hit__Tangent() {
+		Cylinder varObj = new Cylinder();
+		Vector varDirection = new Vector(0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(1,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(5, varXs[0]._fieldTime);
+		Assert.Equal(5, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Cylinder_Intersection_Hit__Perpendicular() {
+		Cylinder varObj = new Cylinder();
+		Vector varDirection = new Vector(0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.Equal(4, varXs[0]._fieldTime);
+		Assert.Equal(6, varXs[1]._fieldTime);
+	}
+    [Fact]
+	public void Cylinder_Intersection_Hit__Skewed() {
+		Cylinder varObj = new Cylinder();
+		Vector varDirection = new Vector(0.1,1,1).GetNormal();
+		Ray varRay = new Ray(new Point(0.5,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.True(_fieldComp.CheckFloat(6.80798, varXs[0]._fieldTime));
+		Assert.True(_fieldComp.CheckFloat(7.08872, varXs[1]._fieldTime));
+	}
+    [Fact]
+	public void Cylinder_Normal__Positive_X() {
+		Cylinder varObj = new Cylinder();
+		Vector varNormal = varObj.GetNormalLocal(new Point(1,0,0));
+		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(1,0,0)));
+	}
+    [Fact]
+	public void Cylinder_Normal__Negative_Z() {
+		Cylinder varObj = new Cylinder();
+		Vector varNormal = varObj.GetNormalLocal(new Point(0,5,-1));
+		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,-1)));
+	}
+    [Fact]
+	public void Cylinder_Normal__Positive_Z() {
+		Cylinder varObj = new Cylinder();
+		Vector varNormal = varObj.GetNormalLocal(new Point(0,-2,1));
+		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,1)));
+	}
+    [Fact]
+	public void Cylinder_Normal__Negative_x() {
+		Cylinder varObj = new Cylinder();
+		Vector varNormal = varObj.GetNormalLocal(new Point(-1,1,0));
+		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(-1,0,0)));
+	}
+    [Fact]
+	public void Cylinder_Height__Default_Infinity() {
+		Cylinder varObj = new Cylinder();
+		Assert.Equal(double.MaxValue, varObj._fieldHeightMax);
+		Assert.Equal(double.MinValue, varObj._fieldHeightMin);
+	}
+    [Fact]
+	public void Cylinder_Height_Constrained_1_2__Intersection_Angled() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		Vector varDirection = new Vector(0.1,1,0).GetNormal();
+		Ray varRay = new Ray(new Point(0,1.5,0), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Height_Constrained_1_2__Intersection_Above() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		Vector varDirection = new Vector(0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,3,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Height_Constrained_1_2__Intersection_Below() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		Vector varDirection = new Vector(0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Height_Constrained_1_2__Intersection_Max_Exclusive() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		Vector varDirection = new Vector(0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,2,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Height_Constrained_1_2__Intersection_Min_Exclusive() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		Vector varDirection = new Vector(0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,1,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cylinder_Height_Constrained_1_2__Intersection_Hit() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		Vector varDirection = new Vector(0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,1.5,-2), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+	}
+    [Fact]
+	public void Closed_Cylinder_Default() {
+		Cylinder varObj = new Cylinder();
+		Assert.False(varObj._fieldClosed);
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Above_Middle__2_Intersections() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector(0,-1,0).GetNormal();
+		Ray varRay = new Ray(new Point(0,3,0), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Above__2_Intersections() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector(0,-1,2).GetNormal();
+		Ray varRay = new Ray(new Point(0,3,-2), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Above_Corner() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector(0,-1,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,4,-2), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Below_2_Intersections() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector(0,1,2).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-2), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Below_Corner() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector(0,1,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,-1,-2), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Below_Negative() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = varObj.GetNormalLocal(new Point(0,1,0));
+		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Right_Below_Negative() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = varObj.GetNormalLocal(new Point(0.5,1,0));
+		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Left_Below_Negative() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = varObj.GetNormalLocal(new Point(0,1,0.5));
+		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Above_Positive() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = varObj.GetNormalLocal(new Point(0,2,0));
+		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Right_Above_Positive() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = varObj.GetNormalLocal(new Point(0.5,2,0));
+		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
+	}
+    [Fact]
+	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Left_Above_Positive() {
+		Cylinder varObj = new Cylinder();
+		varObj._fieldHeightMax = 2;
+		varObj._fieldHeightMin = 1;
+		varObj._fieldClosed = true;
+		Vector varDirection = varObj.GetNormalLocal(new Point(0,2,0.5));
+		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
+	}
+}

@@ -91,26 +91,27 @@ public class RayTracer {
         varTestMatRing.SetPattern(new PatternRing(varOrange, varWhite));
         //varTestMatRing._fieldPattern.SetTransform(new ScalingMatrix(0.05,0.01,0.05));
 
-        DirectTracerShadow("OrangeCircle", varTestEye, 10,10, 100, varOrange);
-        DirectRenderSphere("OrangeSphere", varTestEye, varTestLight, 10, 10, 100, varOrange);
+        // DirectTracerShadow("OrangeCircle", varTestEye, 10,10, 100, varOrange);
+        // DirectRenderSphere("OrangeSphere", varTestEye, varTestLight, 10, 10, 100, varOrange);
         
-        CameraRenderSphere("OrangeSphere", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMat);
-        CameraRenderSphere("OrangeSphereStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatStripe);
-        CameraRenderSphere("OrangeSphereGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatGradient);
-        CameraRenderSphere("OrangeSphereCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatChecker);
-        CameraRenderSphere("OrangeSphereRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatRing);
+        // CameraRenderSphere("OrangeSphere", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMat);
+        // CameraRenderSphere("OrangeSphereStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatStripe);
+        // CameraRenderSphere("OrangeSphereGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatGradient);
+        // CameraRenderSphere("OrangeSphereCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatChecker);
+        // CameraRenderSphere("OrangeSphereRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatRing);
 
-        CameraRenderPlane("OrangePlane", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMat);
-        CameraRenderPlane("OrangePlaneStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatStripe);
-        CameraRenderPlane("OrangePlaneGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatGradient);
-        CameraRenderPlane("OrangePlaneCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatChecker);
-        CameraRenderPlane("OrangePlaneCheckerTilt", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(-_fieldPM.GetPI()/4), varTestMatChecker);
-        CameraRenderPlane("OrangePlaneRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatRing);
+        // CameraRenderPlane("OrangePlane", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMat);
+        // CameraRenderPlane("OrangePlaneStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatStripe);
+        // CameraRenderPlane("OrangePlaneGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatGradient);
+        // CameraRenderPlane("OrangePlaneCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatChecker);
+        // CameraRenderPlane("OrangePlaneCheckerTilt", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(-_fieldPM.GetPI()/4), varTestMatChecker);
+        // CameraRenderPlane("OrangePlaneRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatRing);
 
-        ExampleSphereMirror();
-        ExampleSphereSphere();
-        ExampleMirrorRoom();
-        ExampleCubesRoom();
+        // ExampleSphereMirror();
+        // ExampleSphereSphere();
+        // ExampleMirrorRoom();
+        // ExampleCubesRoom();
+        ExampleCylinders();
         // World varEmptyRoom = GetMirrorRoom();
         // CameraRender("EmptyRoom", varEmptyRoom);
 
@@ -637,7 +638,159 @@ public class RayTracer {
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("RayTracerChallenge__Chapter12__CubesRoom");
     }
+    void ExampleCylinders() {
+        Camera varCamera = new Camera(400,200,0.314);
+        varCamera.SetTransform(new ViewMatrix(new Point(8,3.5,-9), new Point(0,.3,0), new Vector(0,1,0)));
 
+        World varEnv = new World();
+
+        PointSource varLight = new PointSource(new Point(1,6.9,-4.9), new Color(1,1,1));
+        varEnv.SetLight(varLight);
+
+        Plane varFloor = new Plane();
+        varFloor.SetMaterial(new Material());
+        varFloor._fieldMaterial.SetPattern(new PatternChecker(new Color(0.5,0.5,0.5), new Color(0.75,0.75,0.75)));
+        varFloor._fieldMaterial._fieldPattern.SetTransform(new YRotationMatrix(0.3).GetScale(.25,.25,.25));
+        varFloor._fieldMaterial._fieldAmbient = 0.2;
+        varFloor._fieldMaterial._fieldDiffuse = 0.9;
+        varFloor._fieldMaterial._fieldSpecular = 0;
+        varEnv.SetObject(varFloor);
+
+        Cylinder varCylinder = new Cylinder();
+        varCylinder._fieldHeightMin = 0;
+        varCylinder._fieldHeightMax = 0.75;
+        varCylinder._fieldClosed = true;
+        varCylinder.SetTransform(new TranslationMatrix(-1,0,1).GetScale(.5,1,.5));
+        varCylinder.SetMaterial(new Material());
+        varCylinder._fieldMaterial._fieldColor = new Color(0,0,0.6);
+        varCylinder._fieldMaterial._fieldDiffuse = 0.1;
+        varCylinder._fieldMaterial._fieldSpecular = 0.9;
+        varCylinder._fieldMaterial._fieldShininess = 300;
+        varCylinder._fieldMaterial._fieldReflective = 0.9;
+        varEnv.SetObject(varCylinder);
+
+        Cylinder varCylinderConcentric1 = new Cylinder();
+        varCylinderConcentric1._fieldHeightMin = 0;
+        varCylinderConcentric1._fieldHeightMax = 0.2;
+        varCylinderConcentric1._fieldClosed = false;
+        varCylinderConcentric1.SetTransform(new TranslationMatrix(1,0,0).GetScale(.8,1,.8));
+        varCylinderConcentric1.SetMaterial(new Material());
+        varCylinderConcentric1._fieldMaterial._fieldColor = new Color(1,1,0.3);
+        varCylinderConcentric1._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderConcentric1._fieldMaterial._fieldDiffuse = 0.8;
+        varCylinderConcentric1._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderConcentric1._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderConcentric1);
+
+        Cylinder varCylinderConcentric2 = new Cylinder();
+        varCylinderConcentric2._fieldHeightMin = 0;
+        varCylinderConcentric2._fieldHeightMax = 0.3;
+        varCylinderConcentric2._fieldClosed = false;
+        varCylinderConcentric2.SetTransform(new TranslationMatrix(1,0,0).GetScale(.6,1,.6));
+        varCylinderConcentric2.SetMaterial(new Material());
+        varCylinderConcentric2._fieldMaterial._fieldColor = new Color(1,.9,.4);
+        varCylinderConcentric2._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderConcentric2._fieldMaterial._fieldDiffuse = 0.8;
+        varCylinderConcentric2._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderConcentric2._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderConcentric2);
+
+        Cylinder varCylinderConcentric3 = new Cylinder();
+        varCylinderConcentric3._fieldHeightMin = 0;
+        varCylinderConcentric3._fieldHeightMax = 0.4;
+        varCylinderConcentric3._fieldClosed = false;
+        varCylinderConcentric3.SetTransform(new TranslationMatrix(1,0,0).GetScale(.4,1,.4));
+        varCylinderConcentric3.SetMaterial(new Material());
+        varCylinderConcentric3._fieldMaterial._fieldColor = new Color(1,.8,.5);
+        varCylinderConcentric3._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderConcentric3._fieldMaterial._fieldDiffuse = 0.8;
+        varCylinderConcentric3._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderConcentric3._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderConcentric3);
+
+        Cylinder varCylinderConcentric4 = new Cylinder();
+        varCylinderConcentric4._fieldHeightMin = 0;
+        varCylinderConcentric4._fieldHeightMax = 0.5;
+        varCylinderConcentric4._fieldClosed = true;
+        varCylinderConcentric4.SetTransform(new TranslationMatrix(1,0,0).GetScale(.2,1,.2));
+        varCylinderConcentric4.SetMaterial(new Material());
+        varCylinderConcentric4._fieldMaterial._fieldColor = new Color(1,.7,.6);
+        varCylinderConcentric4._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderConcentric4._fieldMaterial._fieldDiffuse = 0.8;
+        varCylinderConcentric4._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderConcentric4._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderConcentric4);
+
+        Cylinder varCylinderRed = new Cylinder();
+        varCylinderRed._fieldHeightMin = 0;
+        varCylinderRed._fieldHeightMax = 0.3;
+        varCylinderRed._fieldClosed = true;
+        varCylinderRed.SetTransform(new TranslationMatrix(0,0,-0.75).GetScale(.05,1,.05));
+        varCylinderRed.SetMaterial(new Material());
+        varCylinderRed._fieldMaterial._fieldColor = new Color(1,0,0);
+        varCylinderRed._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderRed._fieldMaterial._fieldDiffuse = 0.9;
+        varCylinderRed._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderRed._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderRed);
+
+        Cylinder varCylinderRedGreen = new Cylinder();
+        varCylinderRedGreen._fieldHeightMin = 0;
+        varCylinderRedGreen._fieldHeightMax = 0.3;
+        varCylinderRedGreen._fieldClosed = true;
+        varCylinderRedGreen.SetTransform(new TranslationMatrix(0,0,-2.25).GetRotateY(-.15).GetTranslate(0,0,1.5).GetScale(.05,1,.05));
+        varCylinderRedGreen.SetMaterial(new Material());
+        varCylinderRedGreen._fieldMaterial._fieldColor = new Color(1,1,0);
+        varCylinderRedGreen._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderRedGreen._fieldMaterial._fieldDiffuse = 0.9;
+        varCylinderRedGreen._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderRedGreen._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderRedGreen);
+
+        Cylinder varCylinderGreen = new Cylinder();
+        varCylinderGreen._fieldHeightMin = 0;
+        varCylinderGreen._fieldHeightMax = 0.3;
+        varCylinderGreen._fieldClosed = true;
+        varCylinderGreen.SetTransform(new TranslationMatrix(0,0,-2.25).GetRotateY(-.3).GetTranslate(0,0,1.5).GetScale(.05,1,.05));
+        varCylinderGreen.SetMaterial(new Material());
+        varCylinderGreen._fieldMaterial._fieldColor = new Color(0,1,0);
+        varCylinderGreen._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderGreen._fieldMaterial._fieldDiffuse = 0.9;
+        varCylinderGreen._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderGreen._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderGreen);
+
+        Cylinder varCylinderGreenBlue = new Cylinder();
+        varCylinderGreenBlue._fieldHeightMin = 0;
+        varCylinderGreenBlue._fieldHeightMax = 0.3;
+        varCylinderGreenBlue._fieldClosed = true;
+        varCylinderGreenBlue.SetTransform(new TranslationMatrix(0,0,-2.25).GetRotateY(-.45).GetTranslate(0,0,1.5).GetScale(.05,1,.05));
+        varCylinderGreenBlue.SetMaterial(new Material());
+        varCylinderGreenBlue._fieldMaterial._fieldColor = new Color(0,1,1);
+        varCylinderGreenBlue._fieldMaterial._fieldAmbient = 0.1;
+        varCylinderGreenBlue._fieldMaterial._fieldDiffuse = 0.9;
+        varCylinderGreenBlue._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderGreenBlue._fieldMaterial._fieldShininess = 300;
+        varEnv.SetObject(varCylinderGreenBlue);
+
+        Cylinder varCylinderGlass = new Cylinder();
+        varCylinderGlass._fieldHeightMin = 0.0001;
+        varCylinderGlass._fieldHeightMax = 0.5;
+        varCylinderGlass._fieldClosed = true;
+        varCylinderGlass.SetTransform(new TranslationMatrix(0,0,-1.5).GetScale(.33,1,.33));
+        varCylinderGlass.SetMaterial(new Material());
+        varCylinderGlass._fieldMaterial._fieldColor = new Color(.25,0,0);
+        varCylinderGlass._fieldMaterial._fieldDiffuse = 0.1;
+        varCylinderGlass._fieldMaterial._fieldSpecular = 0.9;
+        varCylinderGlass._fieldMaterial._fieldShininess = 300;
+        varCylinderGlass._fieldMaterial._fieldReflective = 0.9;
+        varCylinderGlass._fieldMaterial._fieldTransparency = 0.9;
+        varCylinderGlass._fieldMaterial._fieldRefractiveIndex = 1.5;
+        varEnv.SetObject(varCylinderGlass);
+
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("RayTracerChallenge__Chapter13__Cylinders");
+    }
     void CameraRender(String argSpecs, World argWorld) {
         Camera varCamera = new Camera(400,200,1.152);
         varCamera.SetTransform(new ViewMatrix(new Point(-2.6,1.5,-3.9), new Point(-0.6,1,-0.8), new Vector(0,1,0)));

@@ -6,10 +6,11 @@ namespace LibLight;
 public class PointSource {
     public Point mbrPosition;
     public Color mbrIntensity;
+    private Comparinator _fieldComp = new Comparinator();
     public PointSource()
     {
         mbrPosition = new Point(0,0,0);
-        mbrIntensity = new Color(0,0,0);
+        mbrIntensity = new Color(1,1,1);
     }
     public PointSource(Point position, Color intensity)
     {
@@ -18,7 +19,6 @@ public class PointSource {
     }
     public bool CheckEqual(PointSource other)
     {
-        Comparinator ce = new Comparinator();
-        return ce.CheckTuple(mbrPosition,other.mbrPosition) && mbrIntensity.CheckEqual(other.mbrIntensity);
+        return _fieldComp.CheckTuple(mbrPosition,other.mbrPosition) && mbrIntensity.CheckEqual(other.mbrIntensity);
     }
 };
