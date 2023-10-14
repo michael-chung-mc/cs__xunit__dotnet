@@ -31,9 +31,11 @@
 ### About
 Ray Tracer implemented in C# following Test Driven Development methodology using xUnit
 ### Preview
+![Refraction-Air-Pocket-Background-Checker-Example](./examples/refraction__sphere_with_air_pocket__checker.png)
+![Refraction-Air-Pocket-Background-Ring-Example](./examples/refraction__sphere_with_air_pocket__ring.png)
+![Refraction-Air-Pocket-Background-Gradient-Example](./examples/refraction__sphere_with_air_pocket__gradient.png)
 ![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
 ![Refraction-Example](./examples/refraction.png)
-![Refraction-Air-Pocket-Example](./examples/refraction__sphere_with_air_pocket.png)
 ![Cube-Room-Made-Of-Cubes-Example](./examples/cube_room_made_of_aabb_cubes.png)
 ![Cylinders-Example](./examples/cylinders.png)
 ## Methodology

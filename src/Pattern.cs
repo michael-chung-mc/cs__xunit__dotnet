@@ -92,8 +92,8 @@ public class PatternGradient : Pattern {
         // c = a + t(b-a)
         // return _fieldColors[0] + (_fieldColors[1]-_fieldColors[0]) * (argPoint._fieldX - Math.Floor(argPoint._fieldX));
         // c = (1-t) * a + t * b == c = a + t(b-a)
-        // var fraction = (argPoint._fieldX + 1.0) * 0.5;
-        var fraction = (1-argPoint._fieldX);
+        var fraction = (argPoint._fieldX + 1.0) * 0.5;
+        // var fraction = (1-argPoint._fieldX);
         return _fieldColors[0] + (_fieldColors[1] - _fieldColors[0]) * fraction;
     }
 };
