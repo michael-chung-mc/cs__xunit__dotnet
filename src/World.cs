@@ -113,7 +113,7 @@ public class World {
          Vector varDirectionNormalized = varDirection.GetNormal();
         Ray varRay = new Ray (argPoint, varDirectionNormalized);
         Intersection varHit = GetIntersect(varRay).GetHit();
-        bool varShadow = varHit._fieldExists && (varHit._fieldTime < varDistance);
+        bool varShadow = varHit._fieldExists && (varHit._fieldTime < varDistance) && varHit._fieldObject._fieldCastsShadow;
         varFlagShadow = varShadow ? true : varFlagShadow;
         return varFlagShadow;
     }
