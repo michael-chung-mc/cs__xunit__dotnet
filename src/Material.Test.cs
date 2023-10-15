@@ -24,8 +24,8 @@ public class MaterialTest
         Assert.True(_fieldComp.CheckTuple(c,ps.mbrIntensity));
         Assert.True(_fieldComp.CheckTuple(p,ps.mbrPosition));
     }
-
-   public void MaterialCtor ()
+    [Fact]
+    public void MaterialCtor ()
     {
         Material varMat = new Material();
         Assert.True(_fieldComp.CheckTuple(varMat._fieldColor, new Color(1,1,1)));
@@ -37,8 +37,8 @@ public class MaterialTest
         Assert.True(_fieldComp.CheckFloat(varMat._fieldTransparency, 0.0));
         Assert.True(_fieldComp.CheckFloat(varMat._fieldRefractiveIndex, 1.0));
     }
-
-   public void LightingStraightOn()
+    [Fact]
+    public void LightingStraightOn()
     {
         Material varMat = new Material();
         Point p = new Point(0,0,0);
@@ -49,8 +49,8 @@ public class MaterialTest
         Color expectedLight = new Color(1.9,1.9,1.9);
         Assert.True(_fieldComp.CheckTuple(res,expectedLight));
     }
-
-   public void Lighting45PovShift()
+    [Fact]
+    public void Lighting45PovShift()
     {
         Material m = new Material();
         Point p = new Point(0,0,0);
@@ -61,8 +61,8 @@ public class MaterialTest
         Color expectedLight = new Color(1.0,1.0,1.0);
         Assert.True(_fieldComp.CheckTuple(res,expectedLight));
     }
-
-   public void Lighting45LightShift()
+    [Fact]
+    public void Lighting45LightShift()
     {
         Material m = new Material();
         Point p = new Point(0,0,0);
@@ -73,8 +73,8 @@ public class MaterialTest
         Color expectedLight = new Color(0.7364,0.7364,0.7364);
         Assert.True(_fieldComp.CheckTuple(res,expectedLight));
     }
-
-   public void Lighting45EyeLightShift()
+    [Fact]
+    public void Lighting45EyeLightShift()
     {
         Material m = new Material();
         Point p = new Point(0,0,0);
@@ -85,8 +85,8 @@ public class MaterialTest
         Color expectedLight = new Color(1.6364,1.6364,1.6364);
         Assert.True(_fieldComp.CheckTuple(res,expectedLight));
     }
-
-   public void LightingBehindSurface()
+    [Fact]
+    public void LightingBehindSurface()
     {
         Material m = new Material();
         Point p = new Point(0,0,0);
@@ -97,8 +97,8 @@ public class MaterialTest
         Color expectedLight = new Color(0.1,0.1,0.1);
         Assert.True(_fieldComp.CheckTuple(res,expectedLight));
     }
-
-   public void LightingShadow()
+    [Fact]
+    public void LightingShadow()
     {
         Material m = new Material();
         Point p = new Point(0,0,0);
@@ -109,8 +109,8 @@ public class MaterialTest
         Color expectedLight = new Color(0.1,0.1,0.1);
         Assert.True(_fieldComp.CheckTuple(res,expectedLight));
     }
-
-   public void LightingPatternCtor()
+    [Fact]
+    public void LightingPatternCtor()
     {
         Material varMat = new Material();
         // varMat.setPattern(new PatternStripe(Color(1,1,1), Color(0,0,0)));

@@ -116,8 +116,8 @@ public class Intersection {
 		else {
 			varIs._fieldInside = false;
 		}
-		varIs._fieldOverPoint = varIs._fieldPoint + (varIs._fieldNormal * varPM.getEpsilon());
-		varIs._fieldUnderPoint = varIs._fieldPoint - (varIs._fieldNormal * varPM.getEpsilon());
+		varIs._fieldOverPoint = varIs._fieldPoint + (varIs._fieldNormal * varPM.GetEpsilon());
+		varIs._fieldUnderPoint = varIs._fieldPoint - (varIs._fieldNormal * varPM.GetEpsilon());
 		varIs._fieldReflect = argRay._fieldDirection.GetReflect(varIs._fieldNormal);
 		List<Form> varHitObjects = new List<Form>();
 		Intersection varHit = new Intersection(varIs._fieldTime, varIs._fieldObject);

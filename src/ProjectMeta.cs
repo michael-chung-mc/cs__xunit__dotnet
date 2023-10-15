@@ -14,17 +14,18 @@ public class ProjectMeta
         String time = DateTime.Now.ToString("yyyyMMdd_HHmmss");
         return $"{GetDir()}{time}__{argName}.ppm";
     }
-    public double getEpsilon() {
-        return 0.0001;
+    public double GetEpsilon() {
+        // return 0.0001;
         // return 0.00001;
+        return 0.000001;
     }
-    public int getPPMWidth() {
+    public int GetPPMWidth() {
         return 720;
     }
-    public int getPPMHeight() {
+    public int GetPPMHeight() {
         return 480;
     }
-    public int getPPMLineWidth() {
+    public int GetPPMLineWidth() {
         return 70;
     }
     public double GetPI()

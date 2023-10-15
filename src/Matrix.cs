@@ -62,42 +62,42 @@ public class Matrix {
 			}
 		}
 	}
-	public static bool operator==(Matrix argSelf, Matrix argOther)
-	{
-		if (argOther._fieldRows != argSelf._fieldRows || argOther._fieldColumns != argSelf._fieldColumns)
-		{
-			return false;
-		}
-		for (int i = 0; i < argSelf._fieldRows; ++i)
-		{
-			for (int j = 0; j < argSelf._fieldColumns; ++j)
-			{
-				if (argOther._fieldGrid[i][j] != argSelf._fieldGrid[i][j])
-				{
-					return false;
-				}
-			}
-		}
-		return true;
-	}
-	public static bool operator!=(Matrix argSelf, Matrix other)
-	{
-		if (other._fieldRows != argSelf._fieldRows || other._fieldColumns != argSelf._fieldColumns)
-		{
-			return true;
-		}
-		for (int i = 0; i < argSelf._fieldRows; ++i)
-		{
-			for (int j = 0; j < argSelf._fieldColumns; ++j)
-			{
-				if (other._fieldGrid[i][j] != argSelf._fieldGrid[i][j])
-				{
-					return true;
-				}
-			}
-		}
-		return false;
-	}
+	// public static bool operator==(Matrix argSelf, Matrix argOther)
+	// {
+	// 	if (argOther._fieldRows != argSelf._fieldRows || argOther._fieldColumns != argSelf._fieldColumns)
+	// 	{
+	// 		return false;
+	// 	}
+	// 	for (int i = 0; i < argSelf._fieldRows; ++i)
+	// 	{
+	// 		for (int j = 0; j < argSelf._fieldColumns; ++j)
+	// 		{
+	// 			if (argOther._fieldGrid[i][j] != argSelf._fieldGrid[i][j])
+	// 			{
+	// 				return false;
+	// 			}
+	// 		}
+	// 	}
+	// 	return true;
+	// }
+	// public static bool operator!=(Matrix argSelf, Matrix other)
+	// {
+	// 	if (other._fieldRows != argSelf._fieldRows || other._fieldColumns != argSelf._fieldColumns)
+	// 	{
+	// 		return true;
+	// 	}
+	// 	for (int i = 0; i < argSelf._fieldRows; ++i)
+	// 	{
+	// 		for (int j = 0; j < argSelf._fieldColumns; ++j)
+	// 		{
+	// 			if (other._fieldGrid[i][j] != argSelf._fieldGrid[i][j])
+	// 			{
+	// 				return true;
+	// 			}
+	// 		}
+	// 	}
+	// 	return false;
+	// }
 	public static Matrix operator*(Matrix argSelf, Matrix argOther)
 	{
 		Matrix varResult = new Matrix(argOther._fieldRows, argOther._fieldColumns);

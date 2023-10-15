@@ -153,7 +153,7 @@ public class IntersectionTest
 		Intersections varIntersection = new Intersections(5, varSphere);
 		// IntersectionState varvarIs = varIntersection.getState(varRay);
 		IntersectionState varvarIs = varIntersection.GetHit().GetState(varRay, varIntersection._fieldIntersections);
-		Assert.True(varvarIs._fieldOverPoint._fieldZ < -varPM.getEpsilon()/2);
+		Assert.True(varvarIs._fieldOverPoint._fieldZ < -varPM.GetEpsilon()/2);
 		Assert.True(varvarIs._fieldPoint._fieldZ > varvarIs._fieldOverPoint._fieldZ);
 	}
 	[Fact]
@@ -213,7 +213,7 @@ public class IntersectionTest
 		varObj.SetTransform(new TranslationMatrix(0,0,1));
 		Intersections varIx = new Intersections(5, varObj);
 		IntersectionState varvarIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
-		Assert.True(varvarIs._fieldUnderPoint._fieldZ > varPM.getEpsilon()/2);
+		Assert.True(varvarIs._fieldUnderPoint._fieldZ > varPM.GetEpsilon()/2);
 		Assert.True(varvarIs._fieldPoint._fieldZ < varvarIs._fieldUnderPoint._fieldZ);
 	}
 	[Fact]

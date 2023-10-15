@@ -38,7 +38,7 @@ public class Canvas {
 				cnr = Math.Min((int)Math.Round((255 * mbrGrid[i][j]._fieldRed)), 255);
 				cnr = cnr > 0 ? cnr : 0;
 				String clampedNormalizedRed = cnr.ToString();
-				if (buffer.Count() + clampedNormalizedRed.Count() > varPM.getPPMLineWidth())
+				if (buffer.Count() + clampedNormalizedRed.Count() > varPM.GetPPMLineWidth())
 				{
 					ppm += buffer;
 					ppm = char.IsWhiteSpace(ppm[ppm.Count() - 1]) ? ppm.Substring(0, ppm.Count() - 1) : ppm;
@@ -51,7 +51,7 @@ public class Canvas {
 				cng = Math.Min((int)Math.Round((255 * mbrGrid[i][j]._fieldGreen)), 255);
 				cng = cng > 0 ? cng : 0;
 				String clampedNormalizedGreen = cng.ToString();
-				if (buffer.Count() + clampedNormalizedGreen.Count() > varPM.getPPMLineWidth())
+				if (buffer.Count() + clampedNormalizedGreen.Count() > varPM.GetPPMLineWidth())
 				{
 					ppm += buffer;
 					ppm = char.IsWhiteSpace(ppm[ppm.Count() - 1]) ? ppm.Substring(0, ppm.Count() - 1) : ppm;
@@ -64,7 +64,7 @@ public class Canvas {
 				cnb = Math.Min((int)Math.Round((255 * mbrGrid[i][j]._fieldBlue)), 255);
 				cnb = cnb > 0 ? cnb : 0;
 				String clampedNormalizedBlue = cnb.ToString();
-				if (buffer.Count() + clampedNormalizedBlue.Count() > varPM.getPPMLineWidth())
+				if (buffer.Count() + clampedNormalizedBlue.Count() > varPM.GetPPMLineWidth())
 				{
 					ppm += buffer;
 					ppm = char.IsWhiteSpace(ppm[ppm.Count() - 1]) ? ppm.Substring(0, ppm.Count() - 1) : ppm;

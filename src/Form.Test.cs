@@ -757,3 +757,103 @@ public class CylinderTest {
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
 	}
 }
+
+public class DNConeTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+    [Fact]
+	public void Cone_Intersection__Below() {
+		DNCone varObj = new DNCone();
+		Vector varDirection = new Vector (0,0,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.True(_fieldComp.CheckFloat(5, varXs[0]._fieldTime));
+		Assert.True(_fieldComp.CheckFloat(5, varXs[1]._fieldTime));
+	}
+    [Fact]
+	public void Cone_Intersection__Below_Angled() {
+		DNCone varObj = new DNCone();
+		Vector varDirection = new Vector (1,1,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.True(_fieldComp.CheckFloat(8.66025, varXs[0]._fieldTime));
+		Assert.True(_fieldComp.CheckFloat(8.66025, varXs[1]._fieldTime));
+	}
+    [Fact]
+	public void Cone_Intersection__Above_Angled() {
+		DNCone varObj = new DNCone();
+		Vector varDirection = new Vector (-0.5,-1,1).GetNormal();
+		Ray varRay = new Ray(new Point(1,1,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+		Assert.True(_fieldComp.CheckFloat(4.55006, varXs[0]._fieldTime));
+		Assert.True(_fieldComp.CheckFloat(49.44994, varXs[1]._fieldTime));
+	}
+    [Fact]
+	public void Cone_Intersection__Only_One_Cone() {
+		DNCone varObj = new DNCone();
+		Vector varDirection = new Vector (0,1,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-1), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Single(varXs);
+		Assert.True(_fieldComp.CheckFloat(0.35355, varXs[0]._fieldTime));
+	}
+    [Fact]
+	public void Cone_Intersection__End_Cap__Miss() {
+		DNCone varObj = new DNCone();
+		varObj._fieldHeightMin = -0.5;
+		varObj._fieldHeightMax = 0.5;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector (0,1,0).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Cone_Intersection__End_Cap__Hit_2() {
+		DNCone varObj = new DNCone();
+		varObj._fieldHeightMin = -0.5;
+		varObj._fieldHeightMax = 0.5;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector (0,1,1).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-.25), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
+	}
+    [Fact]
+	public void Cone_Intersection__End_Cap__Hit_4() {
+		DNCone varObj = new DNCone();
+		varObj._fieldHeightMin = -0.5;
+		varObj._fieldHeightMax = 0.5;
+		varObj._fieldClosed = true;
+		Vector varDirection = new Vector (0,1,0).GetNormal();
+		Ray varRay = new Ray(new Point(0,0,-.25), varDirection);
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(4, varXs.Count);
+	}
+    [Fact]
+	public void Cone_Normal_Origin() {
+		DNCone varObj = new DNCone();
+		Vector varNormal = varObj.GetNormalLocal(new Point(0,0,0));
+		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,0)));
+	}
+    [Fact]
+	public void Cone_Normal_Above() {
+		DNCone varObj = new DNCone();
+		Vector varNormal = varObj.GetNormalLocal(new Point(1,1,1));
+		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(1, -Math.Sqrt(2),1)));
+	}
+    [Fact]
+	public void Cone_Normal_Below() {
+		DNCone varObj = new DNCone();
+		Vector varNormal = varObj.GetNormalLocal(new Point(-1,-1,0));
+		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(-1, 1, 0)));
+	}
+}

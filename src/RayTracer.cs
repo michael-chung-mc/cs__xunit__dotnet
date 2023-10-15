@@ -35,7 +35,7 @@ public class Environment {
 
 public class Simulation {
     public Simulation () {
-        c = new Canvas(_fieldPM.getPPMWidth(), _fieldPM.getPPMHeight());
+        c = new Canvas(_fieldPM.GetPPMWidth(), _fieldPM.GetPPMHeight());
         _fieldPM = new ProjectMeta();
     }
 	public Projectile tick(Environment env, Projectile ball)
@@ -52,7 +52,7 @@ public class Simulation {
 		{
 			b = tick(e,b);
 			Color white = new Color(0, 0, 0);
-			c.SetPixel((int)b.position._fieldX, (int)(_fieldPM.getPPMHeight() - b.position._fieldY), white);
+			c.SetPixel((int)b.position._fieldX, (int)(_fieldPM.GetPPMHeight() - b.position._fieldY), white);
 		}
 		c.RenderFile();
 	}

@@ -19,7 +19,7 @@ public class CameraTest {
     {
         Assert.Equal(1, 1);
     }
-
+    [Fact]
     public void CameraDefault ()
     {
         int varH = 160;
@@ -32,19 +32,19 @@ public class CameraTest {
         Assert.True(_fieldComp.CheckFloat(varCamera._fieldFieldOfView, varFOV));
         Assert.True(varIdentity.CheckEqual(varCamera._fieldTransform));
     }
-
+    [Fact]
     public void CameraCanvasPixelSizeHorizontalGTVertical ()
     {
         Camera varCamera = new Camera(200, 125, _fieldPM.GetPI()/2);
         Assert.True(_fieldComp.CheckFloat(varCamera._fieldPixelSquare, 0.01));
     }
-
+    [Fact]
     public void CameraCanvasPixelSizeVerticalGTHorizontal ()
     {
         Camera varCamera = new Camera(125, 200, _fieldPM.GetPI()/2);
         Assert.True(_fieldComp.CheckFloat(varCamera._fieldPixelSquare, 0.01));
     }
-
+    [Fact]
     public void CameraRayCastToCanvasCenter ()
     {
         Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
@@ -54,7 +54,7 @@ public class CameraTest {
         Assert.True(_fieldComp.CheckTuple(varCast._fieldOrigin, varExpectedOrigin));
         Assert.True(_fieldComp.CheckTuple(varCast._fieldDirection, varExpectedDirection));
     }
-
+    [Fact]
     public void CameraRayCastToCanvasCorner ()
     {
         Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
@@ -64,7 +64,7 @@ public class CameraTest {
         Assert.True(_fieldComp.CheckTuple(varCast._fieldOrigin, varExpectedOrigin));
         Assert.True(_fieldComp.CheckTuple(varCast._fieldDirection, varExpectedDirection));
     }
-
+    [Fact]
     public void TransformedCameraRayCastToCanvas ()
     {
         Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
@@ -76,7 +76,7 @@ public class CameraTest {
         Assert.True(_fieldComp.CheckTuple(varCast._fieldOrigin, varExpectedOrigin));
         Assert.True(_fieldComp.CheckTuple(varCast._fieldDirection, varExpectedDirection));
     }
-
+    [Fact]
     public void CameraRenderDefaultWorld ()
     {
         DefaultWorld varWorld = new DefaultWorld();
