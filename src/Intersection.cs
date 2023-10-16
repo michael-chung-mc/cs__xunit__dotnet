@@ -38,7 +38,7 @@ public class IntersectionState {
 		_fieldInside = argOther._fieldInside;
 		_fieldOverPoint = argOther._fieldOverPoint;
 		_fieldReflect = argOther._fieldReflect;
-		_fieldOverPoint = argOther._fieldOverPoint;
+		_fieldUnderPoint = argOther._fieldUnderPoint;
 		_fieldRefractiveIndexOne = argOther._fieldRefractiveIndexOne;
 		_fieldRefractiveIndexTwo = argOther._fieldRefractiveIndexTwo;
 	}

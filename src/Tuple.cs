@@ -67,6 +67,12 @@ public class Point : SpaceTuple {
 	    _fieldZ = 0.0;
 	    _fieldW = 1.0;
     }
+    public Point(Point argOther) {
+        _fieldX = argOther._fieldX;
+        _fieldY = argOther._fieldY;
+        _fieldZ = argOther._fieldZ;
+        _fieldW = argOther._fieldW;
+    }
     public Point(double argX, double argY, double argZ) {
 	    _fieldX = argX;
 	    _fieldY = argY;

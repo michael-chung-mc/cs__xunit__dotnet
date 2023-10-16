@@ -61,7 +61,7 @@ public class CanvasTest {
 		String cppm = "P3\n5 3\n255\n255 0 0 0 0 0 0 0 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 128 0 0 0 0 0 0 0\n0 0 0 0 0 0 0 0 0 0 0 0 0 0 255\n";
 		Assert.Equal(ppm, cppm);
 	}
-
+	[Fact]
 	public void CanvasPPMLength ()
 	{
 		//Scenario: Splitting long lines in PPM files

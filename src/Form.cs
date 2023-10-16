@@ -21,6 +21,7 @@ public class Form {
 	public Material _fieldMaterial;
 	public Ray _fieldObjectRay;
 	public Form? _fieldParent;
+	public List<Form> _fieldForms;
 	public Form()
 	{
 		_fieldCastsShadow = true;
@@ -33,6 +34,7 @@ public class Form {
 		_fieldMaterial = new Material();
 		_fieldObjectRay = new Ray();
 		_fieldParent = null;
+		_fieldForms = new List<Form>();
 	}
 	public Form(Form argOther)
 	{
@@ -46,6 +48,7 @@ public class Form {
 		SetMaterial(argOther._fieldMaterial);
 		_fieldObjectRay = argOther._fieldObjectRay;
 		_fieldParent = argOther._fieldParent;
+		_fieldForms = argOther._fieldForms;
 	}
 	public Intersections GetIntersections(Ray argRay)
 	{
@@ -96,6 +99,13 @@ public class Form {
 		// Point varObjectP = this._fieldTransformInverse * argPosition;
 		// Point varPatternP = this._fieldMaterial._fieldPattern._fieldTransformInverse * varObjP;
 		return this._fieldMaterial._fieldPattern.GetColor(this._fieldTransformInverse, argPosition);
+	}
+	public Point GetObjectPointFromWorldSpace(Point argPosition) {
+		// Point varUntransformed = new Point(argPosition);
+		// if (_fieldParent != null) { varUntransformed = new Point(_fieldParent.GetObjectPointFromWorldSpace(varUntransformed)); }
+		// return _fieldTransform.GetInverse() * varUntransformed;
+		if (_fieldParent != null) { argPosition = new Point(_fieldParent.GetObjectPointFromWorldSpace(argPosition)); }
+		return _fieldTransform.GetInverse() * argPosition;
 	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
@@ -339,10 +349,6 @@ public class DNCone : Form {
 }
 
 class Group : Form {
-	public List<Form> _fieldForms;
-	public Group () {
-		_fieldForms = new List<Form>();
-	}
 	public void SetObject(Form argObject) {
 		argObject._fieldParent = this;
 		_fieldForms.Add(argObject);

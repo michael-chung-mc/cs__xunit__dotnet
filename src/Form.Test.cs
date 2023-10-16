@@ -13,7 +13,7 @@ namespace LibForm.Test;
 public class FormTest
 {
 	Comparinator _fieldComp = new Comparinator();
-	ProjectMeta varPM = new ProjectMeta();
+	ProjectMeta _fieldPM = new ProjectMeta();
     [Fact]
 	public void CanaryTest() {
 		Assert.Equal(1, 1);
@@ -23,6 +23,24 @@ public class FormTest
 	public void Default_Form__Empty_Parent() {
 		Form varObj = new Form();
 		Assert.Null(varObj._fieldParent);
+	}
+    [Fact]
+	public void World_To_Object_Space_Conversion() {
+		Group varGroupInner = new Group();
+		varGroupInner.SetTransform(new ScalingMatrix(2,2,2));
+		Sphere varSphere = new Sphere();
+		varSphere.SetTransform(new TranslationMatrix(5,0,0));
+		varGroupInner.SetObject(varSphere);
+		Assert.True(varGroupInner._fieldForms[0]._fieldTransform.CheckEqual(varSphere._fieldTransform));
+		Group varGroupOuter = new Group();
+		varGroupOuter.SetTransform(new YRotationMatrix(_fieldPM.GetPI()/2));
+		varGroupOuter.SetObject(varGroupInner);
+		Assert.True(varGroupOuter._fieldForms[0]._fieldTransform.CheckEqual(varGroupInner._fieldTransform));
+		Point varPoint = new Point(-2,0,-10);
+		Point varExpectedPoint = new Point(0,0,-1);
+		Assert.True(_fieldComp.CheckTuple(varExpectedPoint, varGroupOuter._fieldForms[0]._fieldForms[0]._fieldTransform.GetInverse() * varGroupOuter._fieldForms[0]._fieldTransform.GetInverse() * varGroupOuter._fieldTransform.GetInverse() * varPoint));
+		Point varTransformedPoint = varGroupOuter._fieldForms[0]._fieldForms[0].GetObjectPointFromWorldSpace(varPoint);
+		Assert.True(_fieldComp.CheckTuple(varTransformedPoint, varExpectedPoint));
 	}
 }
 public class SphereTest
