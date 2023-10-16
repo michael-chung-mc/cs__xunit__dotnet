@@ -1,6 +1,7 @@
 using LibMatrix;
 using LibColor;
 using LibTuple;
+using LibForm;
 namespace LibPattern;
 
 public class Pattern {
@@ -30,9 +31,9 @@ public class Pattern {
         _fieldColors = new List<Color>{argColorA, argColorB};
         SetTransform(new IdentityMatrix(4,4));
     }
-    public Color GetColor(Matrix argObjTransformInverse, Point argPoint) {
-		Point varObjP = argObjTransformInverse * argPoint;
-		Point varPatternP = this._fieldTransformInverse * varObjP;
+    public Color GetColor(Form argObj, Point argPoint) {
+		// Point varObjP = argObj._fieldTransformInverse * argObj.GetObjectPointFromWorldSpace(argPoint);
+		Point varPatternP = this._fieldTransformInverse * argObj.GetObjectPointFromWorldSpace(argPoint);
         return GetColorLocal(varPatternP);
     }
     public virtual Color GetColorLocal(Point argPoint) {

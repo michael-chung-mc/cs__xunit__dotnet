@@ -42,6 +42,38 @@ public class FormTest
 		Point varTransformedPoint = varGroupOuter._fieldForms[0]._fieldForms[0].GetObjectPointFromWorldSpace(varPoint);
 		Assert.True(_fieldComp.CheckTuple(varTransformedPoint, varExpectedPoint));
 	}
+    [Fact]
+	public void Object_To_World_Normal_Conversion() {
+		Sphere varSphere = new Sphere();
+		varSphere.SetTransform(new TranslationMatrix(5,0,0));
+		Group varGroupInner = new Group();
+		varGroupInner.SetTransform(new ScalingMatrix(1,2,3));
+		varGroupInner.SetObject(varSphere);
+		Assert.True(varGroupInner._fieldForms[0]._fieldTransform.CheckEqual(varSphere._fieldTransform));
+		Group varGroupOuter = new Group();
+		varGroupOuter.SetTransform(new YRotationMatrix(_fieldPM.GetPI()/2));
+		varGroupOuter.SetObject(varGroupInner);
+		Vector varNormal = new Vector(Math.Sqrt(3)/3, Math.Sqrt(3)/3,Math.Sqrt(3)/3);
+		Vector varTransformedNormal = varGroupOuter._fieldForms[0]._fieldForms[0].GetWorldNormalFromObjectSpace(varNormal);
+		Vector varExpectedNormal = new Vector(0.2857, 0.4286, -0.8571);
+		Assert.True(_fieldComp.CheckTuple(varTransformedNormal, varExpectedNormal));
+	}
+    [Fact]
+	public void Child_Normal_Within_Group() {
+		Sphere varSphere = new Sphere();
+		varSphere.SetTransform(new TranslationMatrix(5,0,0));
+		Group varGroupInner = new Group();
+		varGroupInner.SetTransform(new ScalingMatrix(1,2,3));
+		varGroupInner.SetObject(varSphere);
+		Assert.True(varGroupInner._fieldForms[0]._fieldTransform.CheckEqual(varSphere._fieldTransform));
+		Group varGroupOuter = new Group();
+		varGroupOuter.SetTransform(new YRotationMatrix(_fieldPM.GetPI()/2));
+		varGroupOuter.SetObject(varGroupInner);
+		Point varPoint = new Point(1.7321, 1.1547, -5.5774);
+		Vector varTransformedNormal = varGroupOuter._fieldForms[0]._fieldForms[0].GetNormal(varPoint);
+		Vector varExpectedNormal = new Vector(0.2857, 0.4286, -0.8571);
+		Assert.True(_fieldComp.CheckTuple(varTransformedNormal, varExpectedNormal));
+	}
 }
 public class SphereTest
 {
@@ -883,7 +915,7 @@ public class DNConeTest {
 
 public class GroupTest {
 	Comparinator _fieldComp = new Comparinator();
-	ProjectMeta varPM = new ProjectMeta();
+	ProjectMeta _fieldPM = new ProjectMeta();
     [Fact]
 	public void CanaryTest() {
 		Assert.Equal(1, 1);
@@ -941,4 +973,17 @@ public class GroupTest {
 		List<Intersection> varXs = varGroup.GetIntersections(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
 	}
+    // [Fact]
+	// public void Group_Transform_Affects_Containing_Group() {
+	// 	Group varGroupInner = new Group();
+	// 	varGroupInner.SetTransform(new ScalingMatrix(2,2,2));
+	// 	Sphere varSphere = new Sphere();
+	// 	varSphere.SetTransform(new TranslationMatrix(5,0,0));
+	// 	varGroupInner.SetObject(varSphere);
+	// 	Assert.True(varGroupInner._fieldForms[0]._fieldTransform.CheckEqual(varSphere._fieldTransform));
+	// 	Group varGroupOuter = new Group();
+	// 	varGroupOuter.SetTransform(new YRotationMatrix(_fieldPM.GetPI()/2));
+	// 	varGroupOuter.SetObject(varGroupInner);
+	// 	Assert.Equal(2, varGroupOuter.GetIntersections(new Ray(new Point(10,0,-10), new Vector(0,0,1)))._fieldIntersections.Count);
+	// }
 }

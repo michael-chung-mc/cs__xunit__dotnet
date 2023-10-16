@@ -160,20 +160,13 @@ public class Intersections {
 		_fieldIntersections = new List<Intersection>();
 		for (int i = 0; i < argOther._fieldIntersections.Count(); ++i)
 		{
-			SetIntersection(argOther._fieldIntersections[i]);
+			SetIntersect(argOther._fieldIntersections[i]);
 		}
 	}
 	public Intersections(double argTime, Form argObj)
 	{
 		_fieldIntersections = new List<Intersection>();
-		SetIntersection(argTime, argObj);
-	}
-	public void SetIntersect(double time, Form argObject)
-	{
-		SetIntersection(time, argObject);
-		_fieldIntersections.Sort(delegate(Intersection argA, Intersection argB) {
-			return argA._fieldTime.CompareTo(argB._fieldTime);
-		});
+		SetIntersect(argTime, argObj);
 	}
 	public Intersection GetHit() {
 		int index = -1;
@@ -195,10 +188,18 @@ public class Intersections {
 			return _fieldIntersections[index];
 		}
 	}
-	protected void SetIntersection(Intersection argIx) {
-		_fieldIntersections.Add(argIx);
-	}
-    protected void SetIntersection(double argTime, Form argObject) {
+	public void SetIntersect(double argTime, Form argObject)
+	{
 		_fieldIntersections.Add(new Intersection(argTime, argObject));
+		SortIntersections();
+	}
+	public void SetIntersect(Intersection argIx) {
+		_fieldIntersections.Add(argIx);
+		SortIntersections();
+	}
+	private void SortIntersections () {
+		_fieldIntersections.Sort(delegate(Intersection argA, Intersection argB) {
+			return argA._fieldTime.CompareTo(argB._fieldTime);
+		});
 	}
 };

@@ -4,6 +4,7 @@ using LibTuple;
 using LibLight;
 using LibPattern;
 using LibMatrix;
+using LibForm;
 namespace LibMaterial;
 
 public class Material {
@@ -52,9 +53,9 @@ public class Material {
             && varComp.CheckTuple(this._fieldColor, argOther._fieldColor)
             && this._fieldPattern.CheckEqual(argOther._fieldPattern);
     }
-    public Color GetColor(Matrix argObjectTransformInverse, PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+    public Color GetColor(Form argObject, PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
     {
-        Color varColor = _fieldPattern._fieldColors.Count() != 0 ? _fieldPattern.GetColor(argObjectTransformInverse, argPosition) : _fieldColor;
+        Color varColor = _fieldPattern._fieldColors.Count() != 0 ? _fieldPattern.GetColor(argObject, argPosition) : _fieldColor;
         Color varShade = varColor * argLighting.mbrIntensity;
         Color varResAmbient = varShade * _fieldAmbient;
         if (argInShadow) return varResAmbient;

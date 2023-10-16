@@ -70,23 +70,28 @@ public class Form {
 	}
 	public Vector GetNormal(Point argPoint)
 	{
-		Point varObjectPoint = _fieldTransformInverse * argPoint;
+		// Point varObjectPoint = _fieldTransformInverse * argPoint;
+		// Vector varObjectNormal = GetNormalLocal(varObjectPoint);
+		// Matrix varTransform = _fieldTransformInverse.GetTranspose();
+		// Vector varWorldNormal = varTransform * varObjectNormal;
+		// varWorldNormal._fieldW = 0;
+		// return varWorldNormal.GetNormal();
+		Point varObjectPoint = GetObjectPointFromWorldSpace(argPoint);
 		Vector varObjectNormal = GetNormalLocal(varObjectPoint);
-		Matrix varTransform = _fieldTransformInverse.GetTranspose();
-		Vector varWorldNormal = varTransform * varObjectNormal;
-		varWorldNormal._fieldW = 0;
-		return varWorldNormal.GetNormal();
+		return GetWorldNormalFromObjectSpace(varObjectNormal);
 	}
 	public virtual Vector GetNormalLocal(Point argPoint)
 	{
 		return new Vector(argPoint._fieldX,argPoint._fieldY,argPoint._fieldZ);
 	}
-	public Color GetColor(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+	public Color GetColor(PointSource argLighting, Point argWorldPosition, Vector argEye, Vector argNormal, bool argInShadow)
 	{
 		// Point varObjP = (this._fieldTransformInverse) * argPosition;
 		// Point varPatternP = (this._fieldMaterial._fieldPattern._fieldTransformInverse) * varObjP;
 		// Color varRes = this._fieldMaterial.GetColor(argLighting, varPatternP, argEye, argNormal, argInShadow);
-		Color varRes = _fieldMaterial.GetColor(this._fieldTransformInverse, argLighting, argPosition, argEye, argNormal, argInShadow);
+		Color varRes = _fieldMaterial.GetColor(this, argLighting, argWorldPosition, argEye, argNormal, argInShadow);
+		// Point varTransformedPoint = GetObjectPointFromWorldSpace(argWorldPosition);
+		// Color varRes = _fieldMaterial.GetColor(this._fieldTransformInverse, argLighting, argWorldPosition, argEye, argNormal, argInShadow);
 		return varRes;
 	}
 	// public Color GetColorShaded(PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
@@ -98,14 +103,20 @@ public class Form {
 	{
 		// Point varObjectP = this._fieldTransformInverse * argPosition;
 		// Point varPatternP = this._fieldMaterial._fieldPattern._fieldTransformInverse * varObjP;
-		return this._fieldMaterial._fieldPattern.GetColor(this._fieldTransformInverse, argPosition);
+		return this._fieldMaterial._fieldPattern.GetColor(this, argPosition);
 	}
 	public Point GetObjectPointFromWorldSpace(Point argPosition) {
-		// Point varUntransformed = new Point(argPosition);
-		// if (_fieldParent != null) { varUntransformed = new Point(_fieldParent.GetObjectPointFromWorldSpace(varUntransformed)); }
-		// return _fieldTransform.GetInverse() * varUntransformed;
 		if (_fieldParent != null) { argPosition = new Point(_fieldParent.GetObjectPointFromWorldSpace(argPosition)); }
 		return _fieldTransform.GetInverse() * argPosition;
+	}
+	public Vector GetWorldNormalFromObjectSpace(Vector argNormal) {
+		Vector varNormal = _fieldTransform.GetInverse().GetTranspose() * argNormal;
+		varNormal._fieldW = 0;
+		varNormal = varNormal.GetNormal();
+		if (_fieldParent != null) {
+			varNormal = _fieldParent.GetWorldNormalFromObjectSpace(varNormal);
+		}
+		return varNormal;
 	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
@@ -348,7 +359,11 @@ public class DNCone : Form {
 	}
 }
 
-class Group : Form {
+public class Group : Form {
+	public override Vector GetNormalLocal(Point argPoint)
+	{
+		throw new InvalidOperationException("Groups Don't Have Normals");
+	}
 	public void SetObject(Form argObject) {
 		argObject._fieldParent = this;
 		_fieldForms.Add(argObject);

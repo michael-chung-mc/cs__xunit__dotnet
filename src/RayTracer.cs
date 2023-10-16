@@ -35,8 +35,8 @@ public class Environment {
 
 public class Simulation {
     public Simulation () {
-        c = new Canvas(_fieldPM.GetPPMWidth(), _fieldPM.GetPPMHeight());
         _fieldPM = new ProjectMeta();
+        c = new Canvas(_fieldPM.GetPPMWidth(), _fieldPM.GetPPMHeight());
     }
 	public Projectile tick(Environment env, Projectile ball)
 	{
@@ -92,32 +92,31 @@ public class RayTracer {
         varTestMatRing.SetPattern(new PatternRing(varOrange, varWhite));
         //varTestMatRing._fieldPattern.SetTransform(new ScalingMatrix(0.05,0.01,0.05));
 
-        DirectTracerShadow("Circle", varTestEye, 10,10, 100, new Color(1,1,1));
-        DirectTracerShadow("OrangeCircle", varTestEye, 10,10, 100, varOrange);
-        DirectRenderSphere("OrangeSphere", varTestEye, varTestLight, 10, 10, 100, varOrange);
+        // DirectTracerShadow("Circle", varTestEye, 10,10, 100, new Color(1,1,1));
+        // DirectTracerShadow("OrangeCircle", varTestEye, 10,10, 100, varOrange);
+        // DirectRenderSphere("OrangeSphere", varTestEye, varTestLight, 10, 10, 100, varOrange);
         
-        CameraRenderSphere("OrangeSphere", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMat);
-        CameraRenderSphere("OrangeSphereStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatStripe);
-        CameraRenderSphere("OrangeSphereGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatGradient);
-        CameraRenderSphere("OrangeSphereCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatChecker);
-        CameraRenderSphere("OrangeSphereRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatRing);
+        // CameraRenderSphere("OrangeSphere", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMat);
+        // CameraRenderSphere("OrangeSphereStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatStripe);
+        // CameraRenderSphere("OrangeSphereGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatGradient);
+        // CameraRenderSphere("OrangeSphereCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatChecker);
+        // CameraRenderSphere("OrangeSphereRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new ScalingMatrix(1.5,1.5,1.5), varTestMatRing);
 
-        CameraRenderPlane("OrangePlane", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMat);
-        CameraRenderPlane("OrangePlaneStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatStripe);
-        CameraRenderPlane("OrangePlaneGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatGradient);
-        CameraRenderPlane("OrangePlaneCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatChecker);
-        CameraRenderPlane("OrangePlaneCheckerTilt", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(-_fieldPM.GetPI()/4), varTestMatChecker);
-        CameraRenderPlane("OrangePlaneRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatRing);
+        // CameraRenderPlane("OrangePlane", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMat);
+        // CameraRenderPlane("OrangePlaneStripe", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatStripe);
+        // CameraRenderPlane("OrangePlaneGradient", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatGradient);
+        // CameraRenderPlane("OrangePlaneCheckered", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatChecker);
+        // CameraRenderPlane("OrangePlaneCheckerTilt", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(-_fieldPM.GetPI()/4), varTestMatChecker);
+        // CameraRenderPlane("OrangePlaneRing", new ViewMatrix(varTestEye, new Point(0,0,0), new Vector(0,1,0)), varTestCanvasWidthSingle, varTestCanvasHeightSingle, varTestCanvasAngleSingle, varTestLight, new XRotationMatrix(_fieldPM.GetPI()/2), varTestMatRing);
 
-        ExampleSphereMirror();
-        ExampleSphereSphere("Checker", new PatternChecker(new Color(0.15, 0.15, 0.15), new Color(0.85, 0.85, 0.85)));
-        ExampleSphereSphere("Gradient", new PatternGradient(new Color(0.15, 0.15, 0.15), new Color(0.85, 0.85, 0.85)));
-        ExampleSphereSphere("Ring", new PatternRing(new Color(0.15, 0.15, 0.15), new Color(0.85, 0.85, 0.85)));
-        ExampleMirrorRoom();
-        ExampleCubesRoom();
-        ExampleCylinders();
-
-        
+        // ExampleSphereMirror();
+        // ExampleSphereSphere("Checker", new PatternChecker(new Color(0.15, 0.15, 0.15), new Color(0.85, 0.85, 0.85)));
+        // ExampleSphereSphere("Gradient", new PatternGradient(new Color(0.15, 0.15, 0.15), new Color(0.85, 0.85, 0.85)));
+        // ExampleSphereSphere("Ring", new PatternRing(new Color(0.15, 0.15, 0.15), new Color(0.85, 0.85, 0.85)));
+        // ExampleMirrorRoom();
+        // ExampleCubesRoom();
+        // ExampleCylinders();
+        ExampleCompositeHexagon();
         // World varEmptyRoom = GetMirrorRoom();
         // CameraRender("EmptyRoom", varEmptyRoom);
 
@@ -178,7 +177,7 @@ public class RayTracer {
                     Point p = r.GetPosition(xs[0]._fieldTime);
                     Vector normal = xs[0]._fieldObject.GetNormal(p);
                     Vector pov = -r._fieldDirection;
-                    Color shade = varObj._fieldMaterial.GetColor(varObj._fieldTransformInverse, argLight, p, pov, normal, false);
+                    Color shade = varObj._fieldMaterial.GetColor(varObj, argLight, p, pov, normal, false);
                     varCanvas.SetPixel(i,j,shade);
                 }
             }
@@ -797,9 +796,66 @@ public class RayTracer {
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("RayTracerChallenge__Chapter13__Cylinders");
     }
-    void CameraRender(String argSpecs, World argWorld) {
+
+    void ExampleCompositeHexagon() {
         Camera varCamera = new Camera(400,200,1.152);
-        varCamera.SetTransform(new ViewMatrix(new Point(-2.6,1.5,-3.9), new Point(-0.6,1,-0.8), new Vector(0,1,0)));
+        varCamera.SetTransform(new ViewMatrix(new Point(0,2.5,-4.9), new Point(0,0,0), new Vector(0,1,0)));
+        // World varEnv = new World();
+        World varEnv = GetMirrorRoom();
+        // PointSource varLight = new PointSource(new Point(0,4.9,2), new Color(1,1,1));
+        // varEnv.SetLight(varLight);
+        varEnv._fieldLights[0] = new PointSource(new Point(0,4.9,2), new Color(1,1,1));
+        // Sphere varHexagonVertex = GetHexagonCompositeVertex();
+        // varHexagonVertex._fieldTransform = new TranslationMatrix(0,2.5,0);
+        // varEnv.SetObject(varHexagonVertex);
+        // CameraRender("CompositeHexagonVertex", varEnv);
+        // varEnv = GetMirrorRoom();
+        // Cylinder varHexagonEdge = GetHexagonCompositeEdge();
+        // varHexagonEdge._fieldTransform = new TranslationMatrix(0,2.5,0);
+        // varEnv.SetObject(varHexagonEdge);
+        // CameraRender("CompositeHexagonEdge", varEnv);
+        // varEnv = GetMirrorRoom();
+        // Group varHexagonSide = GetHexagonCompositeSide();
+        // varHexagonSide._fieldTransform = new TranslationMatrix(0,2.5,0);
+        // varEnv.SetObject(varHexagonSide);
+        // CameraRender("CompositeHexagonSide", varEnv);
+        // varEnv = GetMirrorRoom();
+        Group varHexagon = GetHexagonComposite();
+        varEnv.SetObject(varHexagon);
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("CompositeHexagon");
+    }
+
+    Sphere GetHexagonCompositeVertex() {
+        Sphere varVertex = new Sphere();
+        varVertex.SetTransform(new TranslationMatrix(0,0,-1).GetScale(0.25,0.25,0.25));
+        return varVertex;
+    }
+    Cylinder GetHexagonCompositeEdge() {
+        Cylinder varEdge = new Cylinder();
+        varEdge._fieldHeightMin = 0;
+        varEdge._fieldHeightMax = 1;
+        varEdge.SetTransform(new TranslationMatrix(0,0,-1).GetRotateY(-_fieldPM.GetPI()/6).GetRotateZ(-_fieldPM.GetPI()/2).GetScale(0.25,1,0.25));
+        return varEdge;
+    }
+    Group GetHexagonCompositeSide() {
+        Group varHexagonSide = new Group();
+        varHexagonSide.SetObject(GetHexagonCompositeVertex());
+        varHexagonSide.SetObject(GetHexagonCompositeEdge());
+        return varHexagonSide;
+    }
+    Group GetHexagonComposite() {
+        Group varHexagon = new Group();
+        for (int i=0; i < 6; i++) {
+            Group varHexagonSide = GetHexagonCompositeSide();
+            varHexagonSide.SetTransform(new YRotationMatrix(i * _fieldPM.GetPI()/3));
+            varHexagon.SetObject(varHexagonSide);
+        }
+        return varHexagon;
+    }
+    void CameraRenderViewAngledFromAbove(String argSpecs, World argWorld) {
+        Camera varCamera = new Camera(400,200,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(0,2.5,-4.9), new Point(0,0,0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(argWorld);
         img.RenderFile(argSpecs);
     }
@@ -807,7 +863,7 @@ public class RayTracer {
     {
         World varEnv = new World();
 
-        PointSource varLight = new PointSource(new Point(-4.9,4.9,-1), new Color(1,1,1));
+        PointSource varLight = new PointSource(new Point(0,4.9,0), new Color(1,1,1));
         varEnv.SetLight(varLight);
 
         Material varWallMaterial = new Material();
@@ -820,7 +876,6 @@ public class RayTracer {
         varWallMaterial._fieldReflective = 0.3;
 
         Plane varFloor = new Plane();
-        varFloor.SetTransform(new YRotationMatrix(0.31415));
         varFloor.SetMaterial(new Material());
         varFloor._fieldMaterial.SetPattern(new PatternChecker(new Color(0.35,0.35,0.35), new Color(0.65,0.65,0.65)));
         varFloor._fieldMaterial._fieldSpecular = 0;
@@ -836,14 +891,12 @@ public class RayTracer {
         varEnv.SetObject(varCeiling);
 
         Plane varWallWest = new Plane();
-        // varWallWest.SetTransform(new YRotationMatrix(1.5708).GetRotateZ(1.5708).GetTranslate(-5,0,0));
-        varWallWest.SetTransform(new TranslationMatrix(-5,0,0).GetRotateZ(1.5708).GetRotateY(1.5708));
+        varWallWest.SetTransform(new TranslationMatrix(-5,0,0).GetRotateZ(1.5708));
         varWallWest.SetMaterial(varWallMaterial);
         varEnv.SetObject(varWallWest);
 
         Plane varWallEast = new Plane();
-        // varWallEast.SetTransform(new YRotationMatrix(1.5708).GetRotateZ(1.5708).GetTranslate(5,0,0));
-        varWallEast.SetTransform(new TranslationMatrix(5,0,0).GetRotateZ(1.5708).GetRotateY(1.5708));
+        varWallEast.SetTransform(new TranslationMatrix(5,0,0).GetRotateZ(1.5708));
         varWallEast.SetMaterial(varWallMaterial);
         varEnv.SetObject(varWallEast);
 
