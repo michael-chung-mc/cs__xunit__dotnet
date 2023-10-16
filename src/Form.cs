@@ -20,6 +20,7 @@ public class Form {
 	public Matrix _fieldTransformInverse;
 	public Material _fieldMaterial;
 	public Ray _fieldObjectRay;
+	public Form? _fieldParent;
 	public Form()
 	{
 		_fieldCastsShadow = true;
@@ -31,6 +32,7 @@ public class Form {
 		SetTransform(new IdentityMatrix(4, 4));
 		_fieldMaterial = new Material();
 		_fieldObjectRay = new Ray();
+		_fieldParent = null;
 	}
 	public Form(Form argOther)
 	{
@@ -43,6 +45,7 @@ public class Form {
 		SetTransform(argOther._fieldTransform);
 		SetMaterial(argOther._fieldMaterial);
 		_fieldObjectRay = argOther._fieldObjectRay;
+		_fieldParent = argOther._fieldParent;
 	}
 	public Intersections GetIntersections(Ray argRay)
 	{
@@ -332,5 +335,26 @@ public class DNCone : Form {
 			varTime = (_fieldHeightMax - argRay._fieldOrigin._fieldY) / argRay._fieldDirection._fieldY;
 			if (CheckCaps(argRay, _fieldHeightMin, varTime)) {argXs.SetIntersect(varTime, this);}
 		}
+	}
+}
+
+class Group : Form {
+	public List<Form> _fieldForms;
+	public Group () {
+		_fieldForms = new List<Form>();
+	}
+	public void SetObject(Form argObject) {
+		argObject._fieldParent = this;
+		_fieldForms.Add(argObject);
+	}
+	public override Intersections GetIntersectionsLocal(Ray argRay) {
+		Intersections varXs = new Intersections();
+		for ( int i = 0; i < _fieldForms.Count; ++i ) {
+			List<Intersection> varLocalXs = _fieldForms[i].GetIntersections(argRay)._fieldIntersections;
+			for (int j=0; j < varLocalXs.Count; ++j) {
+				varXs.SetIntersect(varLocalXs[j]._fieldTime, varLocalXs[j]._fieldObject);
+			}
+		}
+		return varXs;
 	}
 }

@@ -19,6 +19,11 @@ public class FormTest
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
+    [Fact]
+	public void Default_Form__Empty_Parent() {
+		Form varObj = new Form();
+		Assert.Null(varObj._fieldParent);
+	}
 }
 public class SphereTest
 {
@@ -855,5 +860,67 @@ public class DNConeTest {
 		DNCone varObj = new DNCone();
 		Vector varNormal = varObj.GetNormalLocal(new Point(-1,-1,0));
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(-1, 1, 0)));
+	}
+}
+
+public class GroupTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+    [Fact]
+	public void Default_Group__Empty_List() {
+		Group varGroup = new Group();
+		Assert.True(varGroup._fieldTransform.CheckEqual(new IdentityMatrix(4,4)));
+		Assert.Empty(varGroup._fieldForms);
+	}
+    [Fact]
+	public void Add_Child_To_Group() {
+		Group varGroup = new Group();
+		Form varForm = new Form();
+		varGroup.SetObject(varForm);
+		Assert.Single(varGroup._fieldForms);
+		Assert.Contains(varForm,varGroup._fieldForms);
+		Assert.True(varGroup._fieldForms[0].CheckEqual(varGroup));
+	}
+    [Fact]
+	public void Ray_Intersect_Empty_Group__No_Intersections() {
+		Group varGroup = new Group();
+		Ray varRay = new Ray(new Point(0,0,0), new Vector(0,0,1));
+		List<Intersection> varXs = varGroup.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+    [Fact]
+	public void Ray_Intersect_Group_Of_Three_Spheres__Intersects_Two() {
+		Group varGroup = new Group();
+		Sphere varSphereOne = new Sphere();
+		varGroup.SetObject(varSphereOne);
+		Sphere varSphereTwo = new Sphere();
+		varSphereTwo.SetTransform(new TranslationMatrix(0,0,-3));
+		varGroup.SetObject(varSphereTwo);
+		Sphere varSphereThree = new Sphere();
+		varSphereThree.SetTransform(new TranslationMatrix(5,0,0));
+		varGroup.SetObject(varSphereThree);
+		Ray varRay = new Ray(new Point(0,0,-5), new Vector(0,0,1));
+		List<Intersection> varXs = varGroup.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(4, varXs.Count);
+		Assert.True(varSphereTwo.CheckEqual(varXs[0]._fieldObject));
+		Assert.True(varSphereTwo.CheckEqual(varXs[1]._fieldObject));
+		Assert.True(varSphereOne.CheckEqual(varXs[2]._fieldObject));
+		Assert.True(varSphereOne.CheckEqual(varXs[3]._fieldObject));
+	}
+    [Fact]
+	public void Group_Transform_Affects_Containing_Shape() {
+		Group varGroup = new Group();
+		varGroup.SetTransform(new ScalingMatrix(2,2,2));
+		Sphere varSphere = new Sphere();
+		varSphere.SetTransform(new TranslationMatrix(5,0,0));
+		varGroup.SetObject(varSphere);
+		Ray varRay = new Ray(new Point(10,0,-10), new Vector(0,0,1));
+		List<Intersection> varXs = varGroup.GetIntersections(varRay)._fieldIntersections;
+		Assert.Equal(2, varXs.Count);
 	}
 }
