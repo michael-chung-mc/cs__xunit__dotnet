@@ -20,6 +20,12 @@ public class Form {
 	public Matrix _fieldTransformInverse;
 	public Material _fieldMaterial;
 	public Ray _fieldObjectRay;
+	public Point _fieldVertexOne;
+	public Point _fieldVertexTwo;
+	public Point _fieldVertexThree;
+	public Vector _fieldEdgeOneTwo;
+	public Vector _fieldEdgeOneThree;
+	public Vector _fieldNormal;
 	public Form? _fieldParent;
 	public List<Form> _fieldForms;
 	public Form()
@@ -364,6 +370,10 @@ public class CompositeGroup : Form {
 	{
 		throw new InvalidOperationException("Groups Don't Have Normals");
 	}
+	public void SetObject(CompositeGroup argObject) {
+		argObject._fieldParent = this;
+		_fieldForms.Add(argObject);
+	}
 	public void SetObject(Form argObject) {
 		argObject._fieldParent = this;
 		_fieldForms.Add(argObject);
@@ -380,14 +390,7 @@ public class CompositeGroup : Form {
 	}
 }
 
-public class UnitTriangle : Form{
-	public Point _fieldVertexOne;
-	public Point _fieldVertexTwo;
-	public Point _fieldVertexThree;
-	public Vector _fieldEdgeOneTwo;
-	public Vector _fieldEdgeOneThree;
-	public Vector _fieldNormal;
-	private ProjectMeta _fieldPM = new ProjectMeta();
+public class UnitTriangle : Form{	private ProjectMeta _fieldPM = new ProjectMeta();
 	public UnitTriangle(Point argVertexOne, Point argVertexTwo, Point argVertexThree) {
 		_fieldVertexOne = argVertexOne;
 		_fieldVertexTwo = argVertexTwo;
