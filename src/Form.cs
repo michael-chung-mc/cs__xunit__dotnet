@@ -139,8 +139,8 @@ public class Form {
 	}
 };
 
-public class Sphere : Form {
-	public Sphere()
+public class UnitSphere : Form {
+	public UnitSphere()
 	{
 		_fieldRadius = 1.0;
 	}
@@ -176,17 +176,17 @@ public class Sphere : Form {
 	}
 };
 
-public class SphereGlass : Sphere {
-	public SphereGlass() {
+public class UnitSphereGlass : UnitSphere {
+	public UnitSphereGlass() {
 		this._fieldMaterial._fieldTransparency = 1.0;
 		this._fieldMaterial._fieldRefractiveIndex = 1.5;
 	}
-	public SphereGlass(SphereGlass argOther) {
+	public UnitSphereGlass(UnitSphereGlass argOther) {
 		this._fieldMaterial = argOther._fieldMaterial;
 	}
 };
 
-public class Plane : Form {
+public class UnitPlane : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
 	public override Vector GetNormalLocal(Point argPoint)
 	{
@@ -203,7 +203,7 @@ public class Plane : Form {
 	}
 };
 
-public class AABBox : Form {
+public class UnitAABBox : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
 	public override Vector GetNormalLocal(Point argPoint)
 	{
@@ -248,9 +248,9 @@ public class AABBox : Form {
 	}
 }
 
-public class Cylinder : Form {
+public class UnitCylinder : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
-	public Cylinder() {
+	public UnitCylinder() {
 		_fieldHeightMax = double.MaxValue;
 		_fieldHeightMin = double.MinValue;
 	}
@@ -300,9 +300,9 @@ public class Cylinder : Form {
 	}
 }
 
-public class DNCone : Form {
+public class UnitDNCone : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
-	public DNCone() {
+	public UnitDNCone() {
 		_fieldHeightMax = double.MaxValue;
 		_fieldHeightMin = double.MinValue;
 	}
@@ -359,7 +359,7 @@ public class DNCone : Form {
 	}
 }
 
-public class Group : Form {
+public class CompositeGroup : Form {
 	public override Vector GetNormalLocal(Point argPoint)
 	{
 		throw new InvalidOperationException("Groups Don't Have Normals");
@@ -377,5 +377,22 @@ public class Group : Form {
 			}
 		}
 		return varXs;
+	}
+}
+
+public class UnitTriangle : Form{
+	public Point _fieldVertexOne;
+	public Point _fieldVertexTwo;
+	public Point _fieldVertexThree;
+	public Vector _fieldEdgeOne;
+	public Vector _fieldEdgeTwo;
+	public Vector _fieldNormal;
+	public UnitTriangle(Point argVertexOne, Point argVertexTwo, Point argVertexThree) {
+		_fieldVertexOne = argVertexOne;
+		_fieldVertexTwo = argVertexTwo;
+		_fieldVertexThree = argVertexThree;
+		_fieldEdgeOne = _fieldVertexTwo - _fieldVertexOne;
+		_fieldEdgeTwo = _fieldVertexThree - _fieldVertexOne;
+		_fieldNormal = (_fieldEdgeTwo.GetCrossProduct(_fieldEdgeOne)).GetNormal();
 	}
 }

@@ -34,7 +34,7 @@ public class PatternTest
     [Fact]
     public void PatternObjectTransformation()
     {
-        Sphere varObj = new Sphere();
+        UnitSphere varObj = new UnitSphere();
         varObj.SetTransform(new ScalingMatrix(2,2,2));
         // varObj._fieldMaterial.setPattern(new Pattern(new Color(0,0,0), Color(1,1,1)));
         varObj._fieldMaterial.SetPattern(new Pattern(new Color(0,0,0), new Color(1,1,1)));
@@ -44,7 +44,7 @@ public class PatternTest
     [Fact]
     public void PatternPatternTransformation()
     {
-        Sphere varObj = new Sphere();
+        UnitSphere varObj = new UnitSphere();
         // varObj._fieldMaterial.setPattern(new Pattern(new Color(0,0,0), Color(1,1,1)));
         varObj._fieldMaterial.SetPattern(new Pattern(new Color(0,0,0), new Color(1,1,1)));
         ScalingMatrix varM = new ScalingMatrix(2,2,2);
@@ -55,7 +55,7 @@ public class PatternTest
     [Fact]
     public void PatternObjectPatternTransformation()
     {
-        Sphere varObj = new Sphere();
+        UnitSphere varObj = new UnitSphere();
         varObj.SetTransform(new ScalingMatrix(2,2,2));
         // varObj._fieldMaterial.setPattern(new Pattern(new Color(0,0,0), Color(1,1,1)));
         varObj._fieldMaterial.SetPattern(new Pattern(new Color(0,0,0), new Color(1,1,1)));
@@ -102,7 +102,7 @@ public class PatternTest
     [Fact]
     public void StripePatternObjectTransformation()
     {
-        Sphere varObj = new Sphere();
+        UnitSphere varObj = new UnitSphere();
         varObj.SetTransform(new ScalingMatrix(2,2,2));
         // varObj._fieldMaterial.setPattern(new PatternStripe());
         varObj._fieldMaterial.SetPattern(new PatternStripe());
@@ -112,7 +112,7 @@ public class PatternTest
     [Fact]
     public void StripePatternPatternTransformation()
     {
-        Sphere varObj = new Sphere();
+        UnitSphere varObj = new UnitSphere();
         ScalingMatrix varMS = new ScalingMatrix(2,2,2);
         // varObj._fieldMaterial.setPattern(new PatternStripe());
         varObj._fieldMaterial.SetPattern(new PatternStripe());
@@ -123,7 +123,7 @@ public class PatternTest
     [Fact]
     public void StripePatternObjectPatternTransformation()
     {
-        Sphere varObj = new Sphere();
+        UnitSphere varObj = new UnitSphere();
         TranslationMatrix varMT = new TranslationMatrix(0.5,0,0);
         varObj.SetTransform(new ScalingMatrix(2,2,2));
         // varObj._fieldMaterial.setPattern(new PatternStripe());

@@ -29,12 +29,12 @@ public class WorldTest {
     public void WorldDefaultCtor() {
         DefaultWorld varDefaultWorld = new DefaultWorld();
         PointSource l = new PointSource(new Point(-10,10,-10), new Color(1,1,1));
-        Sphere s = new Sphere();
+        UnitSphere s = new UnitSphere();
         s.SetMaterial(new Material());
         s._fieldMaterial._fieldColor = new Color(0.8,1.0,0.6);
         s._fieldMaterial._fieldDiffuse = 0.7;
         s._fieldMaterial._fieldSpecular = 0.2;
-        Sphere t = new Sphere();
+        UnitSphere t = new UnitSphere();
         t.SetTransform(new ScalingMatrix(0.5,0.5,0.5));
         Assert.True(l.CheckEqual(varDefaultWorld._fieldLights[0]));
         Assert.True(varDefaultWorld._fieldObjects[0].CheckEqual(s));
@@ -61,7 +61,7 @@ public class WorldTest {
         DefaultWorld varDefaultWorld = new DefaultWorld();
         Ray r = new Ray(new Point(0,0,-5), new Vector(0,0,1));
         Form obj = varDefaultWorld._fieldObjects[0];
-        Sphere s = new Sphere();
+        UnitSphere s = new UnitSphere();
         s.SetMaterial(new Material());
         s._fieldMaterial._fieldColor = new Color(0.8,1.0,0.6);
         s._fieldMaterial._fieldDiffuse = 0.7;
@@ -147,10 +147,10 @@ public class WorldTest {
         World varWorld = new World();
         PointSource varLight = new PointSource(new Point(0,0,-10), new Color(1,1,1));
         varWorld.SetLight(varLight);
-        Sphere varS1 = new Sphere();
+        UnitSphere varS1 = new UnitSphere();
         varWorld.SetObject(varS1);
         // varWorld.setObject(std::make_unique<Sphere>(varS1));
-        Sphere varS2 = new Sphere();
+        UnitSphere varS2 = new UnitSphere();
         varS2.SetTransform(new TranslationMatrix(0,0,10));
         varWorld.SetObject(varS2);
         // varWorld.setObject(std::make_unique<Sphere>(varS2));
@@ -178,7 +178,7 @@ public class WorldTest {
     [Fact]
     public void ReflectiveReflectedColor() {
         DefaultWorld varWorld = new DefaultWorld();
-        Plane varPlane = new Plane();
+        UnitPlane varPlane = new UnitPlane();
         varPlane._fieldMaterial._fieldReflective = 0.5;
         varPlane.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varPlane);
@@ -194,7 +194,7 @@ public class WorldTest {
     [Fact]
     public void ReflectiveShading() {
         DefaultWorld varWorld = new DefaultWorld();
-        Plane varPlane = new Plane();
+        UnitPlane varPlane = new UnitPlane();
         varPlane._fieldMaterial._fieldReflective = 0.5;
         varPlane.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varPlane);
@@ -210,11 +210,11 @@ public class WorldTest {
     public void InfiniteReflectionsBetweenMirrors() {
         World varWorld = new World();
         varWorld.SetLight(new PointSource(new Point(0,0,0), new Color(1,1,1)));
-        Plane varLower = new Plane();
+        UnitPlane varLower = new UnitPlane();
         varLower._fieldMaterial._fieldReflective = 1;
         varLower.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varLower);
-        Plane varUpper = new Plane();
+        UnitPlane varUpper = new UnitPlane();
         varUpper._fieldMaterial._fieldReflective = 1;
         varUpper.SetTransform(new TranslationMatrix(0,1,0));
         varWorld.SetObject(varUpper);
@@ -225,7 +225,7 @@ public class WorldTest {
     [Fact]
     public void InfiniteReflectionsAtMaxDepth() {
         DefaultWorld varWorld = new DefaultWorld();
-        Plane varPlane = new Plane();
+        UnitPlane varPlane = new UnitPlane();
         varPlane._fieldMaterial._fieldReflective = 0.5;
         varPlane.SetTransform(new TranslationMatrix(0,-1,0));
         varWorld.SetObject(varPlane);
@@ -322,12 +322,12 @@ public class WorldTest {
     [Fact]
     public void RefractionTransparentColor() {
         DefaultWorld varWorld = new DefaultWorld();
-        Plane varFloor = new Plane();
+        UnitPlane varFloor = new UnitPlane();
         varFloor.SetTransform(new TranslationMatrix(0,-1,0));
         varFloor._fieldMaterial._fieldTransparency = 0.5;
         varFloor._fieldMaterial._fieldRefractiveIndex = 1.5;
         varWorld.SetObject(varFloor);
-        Sphere varSphere = new Sphere();
+        UnitSphere varSphere = new UnitSphere();
         varSphere.SetTransform(new TranslationMatrix(0,-3.5,-.5));
         varSphere._fieldMaterial._fieldColor=new Color(1,0,0);
         varSphere._fieldMaterial._fieldAmbient = 0.5;
@@ -343,13 +343,13 @@ public class WorldTest {
     public void ReflectiveTransparentReflectanceMaterial() {
         DefaultWorld varWorld = new DefaultWorld();
         Ray varRay = new Ray(new Point(0,0,-3), new Vector(0,-Math.Sqrt(2)/2,Math.Sqrt(2)/2));
-        Plane varFloor = new Plane();
+        UnitPlane varFloor = new UnitPlane();
         varFloor.SetTransform(new TranslationMatrix(0,-1,0));
         varFloor._fieldMaterial._fieldReflective = 0.5;
         varFloor._fieldMaterial._fieldTransparency = 0.5;
         varFloor._fieldMaterial._fieldRefractiveIndex = 1.5;
         varWorld.SetObject(varFloor);
-        Sphere varSphere = new Sphere();
+        UnitSphere varSphere = new UnitSphere();
         varSphere.SetTransform(new TranslationMatrix(0,-3.5,-.5));
         varSphere._fieldMaterial._fieldColor=new Color(1,0,0);
         varSphere._fieldMaterial._fieldAmbient = 0.5;

@@ -130,12 +130,12 @@ public class DefaultWorld : World {
     {
         PointSource varDefaultLight = new PointSource(new Point(-10,10,-10), new Color(1,1,1));
         SetLight(varDefaultLight);
-        Sphere s = new Sphere();
+        UnitSphere s = new UnitSphere();
         s.SetMaterial(new Material());
         s._fieldMaterial._fieldColor = new Color (0.8,1.0,0.6);
         s._fieldMaterial._fieldDiffuse = 0.7;
         s._fieldMaterial._fieldSpecular = 0.2;
-        Sphere t = new Sphere();
+        UnitSphere t = new UnitSphere();
         t.SetTransform(new ScalingMatrix(0.5,0.5,0.5));
         SetObject(s);
         SetObject(t);
