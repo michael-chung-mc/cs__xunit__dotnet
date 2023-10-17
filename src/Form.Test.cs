@@ -1009,4 +1009,14 @@ public class TriangleTest {
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldEdgeTwo, new Vector(1,-1,0)));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, new Vector(0,0,-1)));
 	}
+	[Fact]
+	public void Triangle_Normal () {
+		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
+		Vector varNormalOne = varObj.GetNormalLocal(new Point(0,0.5,0));
+		Vector varNormalTwo = varObj.GetNormalLocal(new Point(-0.5,0.75,0));
+		Vector varNormalThree = varObj.GetNormalLocal(new Point(0.5,0.25,0));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalOne));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalTwo));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalThree));
+	}
 }

@@ -395,4 +395,8 @@ public class UnitTriangle : Form{
 		_fieldEdgeTwo = _fieldVertexThree - _fieldVertexOne;
 		_fieldNormal = (_fieldEdgeTwo.GetCrossProduct(_fieldEdgeOne)).GetNormal();
 	}
+	public override Vector GetNormalLocal(Point argPoint)
+	{
+		return _fieldNormal;
+	}
 }
