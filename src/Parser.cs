@@ -8,19 +8,22 @@ public class Parser { }
 
 public class ParserWaveFrontObj : Parser {
     public List<Point> _fieldVertices;
-    public CompositeGroup _fieldGroup;
+    public Dictionary<String, CompositeGroup> _fieldGroups;
     private Regex _fieldRgxVertex;
     private Regex _fieldRgxFace;
     private Regex _fieldRgxFaceVertex;
+    private Regex _fieldRgxGroup;
     public ParserWaveFrontObj () {
         _fieldVertices = new List<Point>{new Point(0,0,0)};
-        _fieldGroup = new CompositeGroup();
+        _fieldGroups = new Dictionary<String, CompositeGroup>();
         _fieldRgxVertex = new Regex(@"^v\s(?<PointOne>-?\d*\.?\d*)\s(?<PointTwo>-?\d*\.?\d*)\s(?<PointThree>-?\d*\.?\d*)");
         _fieldRgxFace = new Regex(@"^f(?<Vertex>\s\d)+");
         _fieldRgxFaceVertex = new Regex(@"\d");
+        _fieldRgxGroup = new Regex(@"^g\s\d*");
     }
     public int ParseWaveFrontObj(String argData) {
         int varSkipped = 0;
+        String varGroupName = "default";
         using (StringReader varRdr = new StringReader(argData)) {
             String varLine;
             while ((varLine = varRdr.ReadLine()) != null) {
@@ -31,8 +34,13 @@ public class ParserWaveFrontObj : Parser {
                     MatchCollection varGroups = _fieldRgxFaceVertex.Matches(varLine);
                     for (int i = 1; i < varGroups.Count-1; ++i) {
                         UnitTriangle varFace = new UnitTriangle(_fieldVertices[int.Parse(varGroups[0].Value)], _fieldVertices[int.Parse(varGroups[i].Value)], _fieldVertices[int.Parse(varGroups[i+1].Value)]);
-                        _fieldGroup.SetObject(varFace);
+                        if (!_fieldGroups.ContainsKey(varGroupName)) {
+                            _fieldGroups[varGroupName] = new CompositeGroup();
+                        }
+                        _fieldGroups[varGroupName].SetObject(varFace);
                     }
+                } else if (_fieldRgxGroup.IsMatch(varLine)) {
+                    varGroupName = varLine.Split(" ")[1];
                 } else {
                     varSkipped += 1;
                 }

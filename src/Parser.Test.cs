@@ -53,9 +53,9 @@ public class WaveFrontObjParserTest
         Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[2],new Point (-1,0,0)));
         Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[3],new Point (1,0,0)));
         Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[4],new Point (1,1,0)));
-        Assert.Equal(2, varParser._fieldGroup._fieldForms.Count);
-        Form varFaceOne = varParser._fieldGroup._fieldForms[0];
-        Form varFaceTwo = varParser._fieldGroup._fieldForms[1];
+        Assert.Equal(2, varParser._fieldGroups["default"]._fieldForms.Count);
+        Form varFaceOne = varParser._fieldGroups["default"]._fieldForms[0];
+        Form varFaceTwo = varParser._fieldGroups["default"]._fieldForms[1];
         Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexOne, varParser._fieldVertices[1]));
         Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexTwo, varParser._fieldVertices[2]));
         Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexThree, varParser._fieldVertices[3]));
@@ -75,10 +75,10 @@ public class WaveFrontObjParserTest
         Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[3],new Point (1,0,0)));
         Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[4],new Point (1,1,0)));
         Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[5],new Point (0,2,0)));
-        Assert.Equal(3, varParser._fieldGroup._fieldForms.Count);
-        Form varFaceOne = varParser._fieldGroup._fieldForms[0];
-        Form varFaceTwo = varParser._fieldGroup._fieldForms[1];
-        Form varFaceThree = varParser._fieldGroup._fieldForms[2];
+        Assert.Equal(3, varParser._fieldGroups["default"]._fieldForms.Count);
+        Form varFaceOne = varParser._fieldGroups["default"]._fieldForms[0];
+        Form varFaceTwo = varParser._fieldGroups["default"]._fieldForms[1];
+        Form varFaceThree = varParser._fieldGroups["default"]._fieldForms[2];
         Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexOne, varParser._fieldVertices[1]));
         Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexTwo, varParser._fieldVertices[2]));
         Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexThree, varParser._fieldVertices[3]));
@@ -88,5 +88,27 @@ public class WaveFrontObjParserTest
         Assert.True(_fieldComp.CheckTuple(varFaceThree._fieldVertexOne, varParser._fieldVertices[1]));
         Assert.True(_fieldComp.CheckTuple(varFaceThree._fieldVertexTwo, varParser._fieldVertices[4]));
         Assert.True(_fieldComp.CheckTuple(varFaceThree._fieldVertexThree, varParser._fieldVertices[5]));
+    }
+    [Fact]
+    public void ParseWaveFrontObj_With_WaveFrontFormattedGroupedData_Expect_ContainGroupedData () {
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        String varData = "v -1 1 0\nv -1 0 0\nv 1 0 0\nv 1 1 0\ng FirstGroup\nf 1 2 3\ng SecondGroup\nf 1 3 4";
+        int varSkippedLines = varParser.ParseWaveFrontObj(varData);
+        Assert.Equal(0,varSkippedLines);
+        Assert.Equal(5, varParser._fieldVertices.Count);
+        Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[1],new Point (-1,1,0)));
+        Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[2],new Point (-1,0,0)));
+        Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[3],new Point (1,0,0)));
+        Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[4],new Point (1,1,0)));
+        Assert.Single(varParser._fieldGroups["FirstGroup"]._fieldForms);
+        Assert.Single(varParser._fieldGroups["SecondGroup"]._fieldForms);
+        Form varFaceOne = varParser._fieldGroups["FirstGroup"]._fieldForms[0];
+        Form varFaceTwo = varParser._fieldGroups["SecondGroup"]._fieldForms[0];
+        Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexOne, varParser._fieldVertices[1]));
+        Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexTwo, varParser._fieldVertices[2]));
+        Assert.True(_fieldComp.CheckTuple(varFaceOne._fieldVertexThree, varParser._fieldVertices[3]));
+        Assert.True(_fieldComp.CheckTuple(varFaceTwo._fieldVertexOne, varParser._fieldVertices[1]));
+        Assert.True(_fieldComp.CheckTuple(varFaceTwo._fieldVertexTwo, varParser._fieldVertices[3]));
+        Assert.True(_fieldComp.CheckTuple(varFaceTwo._fieldVertexThree, varParser._fieldVertices[4]));
     }
 }
