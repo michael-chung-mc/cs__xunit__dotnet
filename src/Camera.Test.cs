@@ -20,7 +20,7 @@ public class CameraTest {
         Assert.Equal(1, 1);
     }
     [Fact]
-    public void CameraDefault ()
+    public void Constructor_With_160_120_90_Expect_160_120_90 ()
     {
         int varH = 160;
         int varV = 120;
