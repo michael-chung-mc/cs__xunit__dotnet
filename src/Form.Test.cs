@@ -1005,8 +1005,8 @@ public class TriangleTest {
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldVertexOne, varVertexOne));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldVertexTwo, varVertexTwo));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldVertexThree, varVertexThree));
-		Assert.True(_fieldComp.CheckTuple(varObj._fieldEdgeOne, new Vector(-1,-1,0)));
-		Assert.True(_fieldComp.CheckTuple(varObj._fieldEdgeTwo, new Vector(1,-1,0)));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldEdgeOneTwo, new Vector(-1,-1,0)));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldEdgeOneThree, new Vector(1,-1,0)));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, new Vector(0,0,-1)));
 	}
 	[Fact]
@@ -1018,5 +1018,41 @@ public class TriangleTest {
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalOne));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalTwo));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalThree));
+	}
+	[Fact]
+	public void Triangle__Intersection_Miss_Parallel () {
+		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
+		Ray varRay = new Ray(new Point(0,-1,-2), new Vector(0,1,0));
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+	[Fact]
+	public void Triangle__Intersection_Miss_V1_V3_Edge () {
+		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
+		Ray varRay = new Ray(new Point(1,1,-2), new Vector(0,0,1));
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+	[Fact]
+	public void Triangle__Intersection_Miss_V1_V2_Edge () {
+		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
+		Ray varRay = new Ray(new Point(-1,1,-2), new Vector(0,0,1));
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+	[Fact]
+	public void Triangle__Intersection_Miss_V2_V3_Edge () {
+		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
+		Ray varRay = new Ray(new Point(0,-1,-2), new Vector(0,0,1));
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Empty(varXs);
+	}
+	[Fact]
+	public void Triangle__Intersection_Hit () {
+		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
+		Ray varRay = new Ray(new Point(0,0.5,-2), new Vector(0,0,1));
+		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.Equal(1, varXs.Count);
+		Assert.True(_fieldComp.CheckFloat(2,varXs[0]._fieldTime));
 	}
 }

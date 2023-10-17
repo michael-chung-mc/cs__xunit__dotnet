@@ -384,19 +384,43 @@ public class UnitTriangle : Form{
 	public Point _fieldVertexOne;
 	public Point _fieldVertexTwo;
 	public Point _fieldVertexThree;
-	public Vector _fieldEdgeOne;
-	public Vector _fieldEdgeTwo;
+	public Vector _fieldEdgeOneTwo;
+	public Vector _fieldEdgeOneThree;
 	public Vector _fieldNormal;
+	private ProjectMeta _fieldPM = new ProjectMeta();
 	public UnitTriangle(Point argVertexOne, Point argVertexTwo, Point argVertexThree) {
 		_fieldVertexOne = argVertexOne;
 		_fieldVertexTwo = argVertexTwo;
 		_fieldVertexThree = argVertexThree;
-		_fieldEdgeOne = _fieldVertexTwo - _fieldVertexOne;
-		_fieldEdgeTwo = _fieldVertexThree - _fieldVertexOne;
-		_fieldNormal = (_fieldEdgeTwo.GetCrossProduct(_fieldEdgeOne)).GetNormal();
+		_fieldEdgeOneTwo = _fieldVertexTwo - _fieldVertexOne;
+		_fieldEdgeOneThree = _fieldVertexThree - _fieldVertexOne;
+		_fieldNormal = (_fieldEdgeOneThree.GetCrossProduct(_fieldEdgeOneTwo)).GetNormal();
 	}
 	public override Vector GetNormalLocal(Point argPoint)
 	{
 		return _fieldNormal;
+	}
+	public override Intersections GetIntersectionsLocal(Ray argRay) {
+		Intersections varXs = new Intersections();
+		Vector varDirCrossEdge = argRay._fieldDirection.GetCrossProduct(_fieldEdgeOneThree);
+		double varDeterminant = _fieldEdgeOneTwo.GetDotProduct(varDirCrossEdge);
+		double varUncertainty = _fieldPM.GetEpsilon();
+		if (Math.Abs(varDeterminant) <= varUncertainty) {
+			return varXs;
+		}
+		double varF = 1.0 / varDeterminant;
+		Vector varPointToOrigin = argRay._fieldOrigin - _fieldVertexOne;
+		double varU = varF * varPointToOrigin.GetDotProduct(varDirCrossEdge);
+		if (varU < 0 || varU > 1) {
+			return varXs;
+		}
+		Vector varOriginCrossEdgeOne = varPointToOrigin.GetCrossProduct(_fieldEdgeOneTwo);
+		double varV = varF * argRay._fieldDirection.GetDotProduct(varOriginCrossEdgeOne);
+		if (varV < 0 || (varU + varV) > 1) {
+			return varXs;
+		}
+		double varTime = varF * _fieldEdgeOneThree.GetDotProduct(varOriginCrossEdgeOne);
+		varXs.SetIntersect(varTime, this);
+		return varXs;
 	}
 }
