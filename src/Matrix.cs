@@ -117,23 +117,42 @@ public class Matrix {
 	}
 	public static SpaceTuple operator*(Matrix argSelf, SpaceTuple argOther)
 	{
+		// if (argSelf._fieldRows != 4 && argSelf._fieldColumns != 4) return argOther;
+		// List<double> varPseudoMatrix = new List<double>{argOther._fieldX, argOther._fieldY, argOther._fieldZ, argOther._fieldW};
+		// SpaceTuple varResults = new SpaceTuple(0,0,0,0);
+		// // List<double> varResults = new List<double>{ 0,0,0,0 };
+		// double res = 0;
+		// for (int tuple = 0; tuple < 4; tuple++)
+		// {
+		// 	res = 0;
+		// 	for (int col = 0; col < argSelf._fieldColumns; col++)
+		// 	{
+		// 		res += argSelf._fieldGrid[tuple][col] * varPseudoMatrix[col];
+		// 	}
+		// 	if (tuple == 0) { varResults._fieldX = res; }
+		// 	else if (tuple == 1) { varResults._fieldY = res; }
+		// 	else if (tuple == 2) { varResults._fieldZ = res; }
+		// 	else if (tuple == 3) { varResults._fieldW = res; }
+		// }
+		// return varResults;
 		if (argSelf._fieldRows != 4 && argSelf._fieldColumns != 4) return argOther;
-		List<double> varPseudoMatrix = new List<double>{argOther._fieldX, argOther._fieldY, argOther._fieldZ, argOther._fieldW};
 		SpaceTuple varResults = new SpaceTuple(0,0,0,0);
-		// List<double> varResults = new List<double>{ 0,0,0,0 };
-		double res = 0;
-		for (int tuple = 0; tuple < 4; tuple++)
-		{
-			res = 0;
-			for (int col = 0; col < argSelf._fieldColumns; col++)
-			{
-				res += argSelf._fieldGrid[tuple][col] * varPseudoMatrix[col];
-			}
-			if (tuple == 0) { varResults._fieldX = res; }
-			else if (tuple == 1) { varResults._fieldY = res; }
-			else if (tuple == 2) { varResults._fieldZ = res; }
-			else if (tuple == 3) { varResults._fieldW = res; }
-		}
+		varResults._fieldX += argSelf._fieldGrid[0][0] * argOther._fieldX;
+		varResults._fieldX += argSelf._fieldGrid[0][1] * argOther._fieldY;
+		varResults._fieldX += argSelf._fieldGrid[0][2] * argOther._fieldZ;
+		varResults._fieldX += argSelf._fieldGrid[0][3] * argOther._fieldW;
+		varResults._fieldY += argSelf._fieldGrid[1][0] * argOther._fieldX;
+		varResults._fieldY += argSelf._fieldGrid[1][1] * argOther._fieldY;
+		varResults._fieldY += argSelf._fieldGrid[1][2] * argOther._fieldZ;
+		varResults._fieldY += argSelf._fieldGrid[1][3] * argOther._fieldW;
+		varResults._fieldZ += argSelf._fieldGrid[2][0] * argOther._fieldX;
+		varResults._fieldZ += argSelf._fieldGrid[2][1] * argOther._fieldY;
+		varResults._fieldZ += argSelf._fieldGrid[2][2] * argOther._fieldZ;
+		varResults._fieldZ += argSelf._fieldGrid[2][3] * argOther._fieldW;
+		varResults._fieldW += argSelf._fieldGrid[3][0] * argOther._fieldX;
+		varResults._fieldW += argSelf._fieldGrid[3][1] * argOther._fieldY;
+		varResults._fieldW += argSelf._fieldGrid[3][2] * argOther._fieldZ;
+		varResults._fieldW += argSelf._fieldGrid[3][3] * argOther._fieldW;
 		return varResults;
 	}
 	// public static Point operator*(Matrix argSelf, Point argOther)

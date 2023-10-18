@@ -18,8 +18,8 @@ public class ParserWaveFrontObj : Parser {
         _fieldGroups = new Dictionary<String, CompositeGroup>();
         _fieldRgxVertex = new Regex(@"^v\s+(?<PointOne>-?\d*\.?\d*)\s+(?<PointTwo>-?\d*\.?\d*)\s+(?<PointThree>-?\d*\.?\d*)");
         _fieldRgxFace = new Regex(@"^f(?<Vertex>\s+\d)+");
-        _fieldRgxFaceVertex = new Regex(@"\d");
-        _fieldRgxGroup = new Regex(@"^g\s\d*");
+        _fieldRgxFaceVertex = new Regex(@"\d+");
+        _fieldRgxGroup = new Regex(@"^g\s.*");
     }
     public int ParseWaveFrontObj(String argData) {
         int varSkipped = 0;
@@ -31,6 +31,7 @@ public class ParserWaveFrontObj : Parser {
                     GroupCollection varGroups = _fieldRgxVertex.Matches(varLine)[0].Groups;
                     _fieldVertices.Add(new Point(double.Parse(varGroups[1].Value), double.Parse(varGroups[2].Value), double.Parse(varGroups[3].Value)));
                 } else if (_fieldRgxFace.IsMatch(varLine)) {
+                    Console.WriteLine($"ParseWaveFrontObj()::Face({varLine}");
                     MatchCollection varGroups = _fieldRgxFaceVertex.Matches(varLine);
                     for (int i = 1; i < varGroups.Count-1; ++i) {
                         UnitTriangle varFace = new UnitTriangle(_fieldVertices[int.Parse(varGroups[0].Value)], _fieldVertices[int.Parse(varGroups[i].Value)], _fieldVertices[int.Parse(varGroups[i+1].Value)]);
@@ -38,6 +39,9 @@ public class ParserWaveFrontObj : Parser {
                             _fieldGroups[varGroupName] = new CompositeGroup();
                         }
                         _fieldGroups[varGroupName].SetObject(varFace);
+                        varFace._fieldVertexOne.RenderConsole();
+                        varFace._fieldVertexTwo.RenderConsole();
+                        varFace._fieldVertexThree.RenderConsole();
                     }
                 } else if (_fieldRgxGroup.IsMatch(varLine)) {
                     varGroupName = varLine.Split(" ")[1];

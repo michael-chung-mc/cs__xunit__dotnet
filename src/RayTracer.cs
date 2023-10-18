@@ -118,13 +118,13 @@ public class RayTracer {
         // ExampleCubesRoom();
         // ExampleCylinders();
         // ExampleCompositeHexagon();
-        // World varEmptyRoom = GetMirrorRoom();
-        // CameraRender("EmptyRoom", varEmptyRoom);
+
         // RenderOBJOctahedron();
         // RenderOBJPyramid();
         // RenderOBJHumanoidTri();
         // RenderOBJHumanoidQuad();
         RenderOBJTeapot();
+
 //         // cameraRenderSpheres();
 //         // cameraRenderPlanes();
 
@@ -136,14 +136,22 @@ public class RayTracer {
 
     public void RenderOBJTeapot() {
         World varEnv = new World();
-        PointSource varLight = new PointSource(new Point(0,5,0), new Color(1,1,1));
-        varEnv.SetLight(varLight);
+        varEnv.SetLight(new PointSource(new Point(0,120,0), new Color(1,1,1)));
+        // varEnv.SetLight(new PointSource(new Point(0,3,0), new Color(1,1,1)));
+        // varEnv.SetLight(new PointSource(new Point(0,-3,0), new Color(1,1,1)));
+        // varEnv.SetLight(new PointSource(new Point(0,0,300), new Color(1,1,1)));
+        // varEnv.SetLight(new PointSource(new Point(0,0,-300), new Color(1,1,1)));
+        // varEnv.SetLight(new PointSource(new Point(300,0,0), new Color(1,1,1)));
+        // varEnv.SetLight(new PointSource(new Point(-300,0,0), new Color(1,1,1)));
         String varData = File.ReadAllText("../data/utah-teapot.obj");
+        // String varData = File.ReadAllText("../data/diamond.obj");
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         varParser.ParseWaveFrontObj(varData);
-        varEnv.SetObject(varParser.GetGroup());
-        Camera varCamera = new Camera(200,100,1.152);
-        varCamera.SetTransform(new ViewMatrix(new Point(0,2.5,-2.5), new Point(0,0,0), new Vector(0,1,0)));
+        CompositeGroup varObj = varParser.GetGroup();
+        varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2);
+        varEnv.SetObject(varObj);
+        Camera varCamera = new Camera(100,100,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(1,-1,0), new Point(0,0,0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("teapot");        
     }
@@ -175,14 +183,14 @@ public class RayTracer {
     }
     public void RenderOBJHumanoidTri() {
         World varEnv = new World();
-        PointSource varLight = new PointSource(new Point(0,10,0), new Color(1,1,1));
+        PointSource varLight = new PointSource(new Point(0,30,0), new Color(1,1,1));
         varEnv.SetLight(varLight);
         String varData = File.ReadAllText("../data/humanoid_tri.obj");
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         varParser.ParseWaveFrontObj(varData);
         varEnv.SetObject(varParser.GetGroup());
         Camera varCamera = new Camera(200,100,1.152);
-        varCamera.SetTransform(new ViewMatrix(new Point(10,10,-10), new Point(0,0,0), new Vector(0,1,0)));
+        varCamera.SetTransform(new ViewMatrix(new Point(30,30,-30), new Point(0,0,0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("humanoid_tri");        
     }

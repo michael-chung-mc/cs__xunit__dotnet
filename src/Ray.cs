@@ -37,9 +37,8 @@ public class Ray {
 	{
 		_fieldOrigin = matrix * _fieldOrigin;
 		_fieldDirection = matrix * _fieldDirection;
-		// return new Ray(matrix * _fieldOrigin, matrix * _fieldDirection);
 	}
-	public Ray GetTransform(Matrix matrix)
+	public Ray GetTransformed(Matrix matrix)
 	{
 		return new Ray(matrix * _fieldOrigin, matrix * _fieldDirection);
 	}

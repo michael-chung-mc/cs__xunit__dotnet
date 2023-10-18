@@ -59,9 +59,8 @@ public class Form {
 	}
 	public Intersections GetIntersections(Ray argRay)
 	{
-		this._fieldObjectRay = argRay.GetTransform(this._fieldTransformInverse);
-		// this._fieldObjectRay.ChangeTransform(this._fieldTransformInverse);
-		return GetIntersectionsLocal(_fieldObjectRay);
+		this._fieldObjectRay = argRay.GetTransformed(this._fieldTransformInverse);
+		return GetIntersectionsLocal(this._fieldObjectRay);
 	}
 	public virtual Intersections GetIntersectionsLocal(Ray argRay)
 	{

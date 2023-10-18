@@ -47,7 +47,7 @@ public class RayTest
 		TranslationMatrix m = new TranslationMatrix(3, 4, 5);
 		Point expectedP = new Point(4, 6, 8);
 		Vector expectedV = new Vector(0,1,0);
-		Ray t = r.GetTransform(m);
+		Ray t = r.GetTransformed(m);
 		Assert.True(_fieldComp.CheckTuple(t._fieldOrigin, expectedP));
 		Assert.True(_fieldComp.CheckTuple(t._fieldDirection, expectedV));
 		Assert.True(_fieldComp.CheckTuple(r._fieldOrigin, p));
@@ -64,7 +64,7 @@ public class RayTest
 		ScalingMatrix m = new ScalingMatrix(2, 3, 4);
 		Point expectedP = new Point(2, 6, 12);
 		Vector expectedV = new Vector(0,3,0);
-		Ray t = r.GetTransform(m);
+		Ray t = r.GetTransformed(m);
 		Assert.True(_fieldComp.CheckTuple(t._fieldOrigin, expectedP));
 		Assert.True(_fieldComp.CheckTuple(t._fieldDirection, expectedV));
 		Assert.True(_fieldComp.CheckTuple(r._fieldOrigin, p));

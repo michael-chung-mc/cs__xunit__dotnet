@@ -59,7 +59,7 @@ public class Camera {
 
     public Canvas RenderCanvas(World argWorld)
     {
-        Console.WriteLine("Rendering to Canvas");
+        Console.WriteLine($"{DateTime.Now.ToLocalTime()} Rendering to Canvas");
         int varCounterLimit = 1000;
         Canvas varCanvas = new Canvas(_fieldCanvasHorizontal, _fieldCanvasVertical);
         for (int i = 0; i < _fieldCanvasVertical; ++i)
@@ -70,7 +70,7 @@ public class Camera {
                 Color varColor = argWorld.GetColor(varRay);
                 varCanvas.SetPixel(j, i, varColor);
             }
-            if ((i * _fieldCanvasHorizontal) % varCounterLimit == 0) { Console.WriteLine($"rendered pixel: {i * _fieldCanvasHorizontal}/{_fieldCanvasVertical*_fieldCanvasHorizontal})"); }
+            if ((i * _fieldCanvasHorizontal) % varCounterLimit == 0) { Console.WriteLine($"{DateTime.Now.ToLocalTime()} Rendered Pixel: {i * _fieldCanvasHorizontal}/{_fieldCanvasVertical*_fieldCanvasHorizontal})"); }
         }
         return varCanvas;
     }
