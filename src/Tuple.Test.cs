@@ -87,7 +87,7 @@ public class TupleTest
 		Point a = new Point(3, 2, 1);
 		Vector b = new Vector(5, 6, 7);
 		Point c = new Point(-2, -4, -6);
-		Point result = a - b;
+		SpaceTuple result = a - b;
 		Assert.True(_fieldComp.CheckTuple(c, result));
 	}
     [Fact]
@@ -96,7 +96,7 @@ public class TupleTest
 		Vector a = new Vector(3, 2, 1);
 		Vector b = new Vector(5, 6, 7);
 		Vector c = new Vector(-2, -4, -6);
-		Vector result = a - b;
+		SpaceTuple result = a - b;
 		Assert.True(_fieldComp.CheckTuple(c, result));
 	}
     [Fact]
@@ -105,7 +105,7 @@ public class TupleTest
 		Vector a = new Vector(0, 0, 0);
 		Vector b = new Vector(1, -2, 3);
 		Vector c = new Vector(-1, 2, -3);
-		Vector result = a - b;
+		SpaceTuple result = a - b;
 		Assert.True(_fieldComp.CheckTuple(c, result));
 	}
     [Fact]
@@ -210,7 +210,7 @@ public class TupleTest
 	{
 		Vector unit = new Vector(1, 0, 0);
 		Vector a = new Vector(4, 0, 0);
-		Vector norm = a.GetNormal();
+		SpaceTuple norm = a.GetNormal();
 		Assert.True(_fieldComp.CheckTuple(unit, norm));
 		unit = new Vector(1 / Math.Sqrt(14), 2 / Math.Sqrt(14), 3 / Math.Sqrt(14));
 		a = new Vector(1, 2, 3);
@@ -232,10 +232,10 @@ public class TupleTest
 	{
 		Vector a = new Vector(1, 2, 3);
 		Vector b = new Vector(2, 3, 4);
-		Vector ab = a.GetCrossProduct(b);
+		SpaceTuple ab = a.GetCrossProduct(b);
 		Vector c = new Vector(-1, 2, -1);
 		Assert.True(_fieldComp.CheckTuple(ab, c));
-		Vector ba = b.GetCrossProduct(a);
+		SpaceTuple ba = b.GetCrossProduct(a);
 		c = new Vector(1, -2, 1);
 		Assert.True(_fieldComp.CheckTuple(ba, c));
 	}
@@ -244,7 +244,7 @@ public class TupleTest
 	{
 		Vector v = new Vector(1, -1, 0);
 		Vector n = new Vector(0, 1, 0);
-		Vector r = v.GetReflect(n);
+		SpaceTuple r = v.GetReflect(n);
 		Vector expectedR = new Vector(1,1,0);
 		Assert.True(_fieldComp.CheckTuple(r, expectedR));
 	}

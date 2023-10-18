@@ -32,6 +32,19 @@ public class SpaceTuple {
     public static SpaceTuple operator/(SpaceTuple argSelf, double multiple) { return new SpaceTuple(argSelf._fieldX / multiple, argSelf._fieldY / multiple, argSelf._fieldZ / multiple, argSelf._fieldW / multiple); }
     public double GetMagnitude() { return Math.Sqrt(_fieldX * _fieldX + _fieldY * _fieldY + _fieldZ * _fieldZ + _fieldW * _fieldW); }
     public double GetDotProduct(SpaceTuple argOther) { return (_fieldX * argOther._fieldX) + (_fieldY * argOther._fieldY) + (_fieldZ * argOther._fieldZ) + (_fieldW * argOther._fieldW); }
+    public SpaceTuple GetNormal()
+    {
+    	Comparinator varComp = new Comparinator();
+    	double varMagnitude = GetMagnitude();
+    	return varComp.CheckFloat(varMagnitude, 0) ? new Vector(0.0,0.0,0.0) : new Vector(_fieldX/varMagnitude, _fieldY/varMagnitude, _fieldZ/varMagnitude);
+    }
+    public SpaceTuple GetCrossProduct(SpaceTuple argOther)
+    {
+    	return new Vector(_fieldY * argOther._fieldZ - _fieldZ * argOther._fieldY, _fieldZ * argOther._fieldX - _fieldX * argOther._fieldZ, _fieldX * argOther._fieldY - _fieldY * argOther._fieldX);
+    }
+    public SpaceTuple GetReflect(SpaceTuple argNormal) { 
+        return new Vector(this._fieldX, this._fieldY, this._fieldZ) - (argNormal * 2.0 * GetDotProduct(argNormal));
+    }
     bool CheckEqual(SpaceTuple argOther)
     {
         Comparinator varComp = new Comparinator ();
@@ -67,11 +80,11 @@ public class Point : SpaceTuple {
 	    _fieldZ = 0.0;
 	    _fieldW = 1.0;
     }
-    public Point(Point argOther) {
+    public Point(SpaceTuple argOther) {
         _fieldX = argOther._fieldX;
         _fieldY = argOther._fieldY;
         _fieldZ = argOther._fieldZ;
-        _fieldW = argOther._fieldW;
+        _fieldW = 1.0;
     }
     public Point(double argX, double argY, double argZ) {
 	    _fieldX = argX;
@@ -79,10 +92,10 @@ public class Point : SpaceTuple {
 	    _fieldZ = argZ;
 	    _fieldW = 1.0;
     }
-    public static Vector operator-(Point argSelf, Point argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    public static Point operator-(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    public static Point operator+(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
-    public static Point operator+(Point argSelf, Vector argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
+    // public static Vector operator-(Point argSelf, Point argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
+    // public static Point operator-(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
+    // public static Point operator+(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
+    // public static Point operator+(Point argSelf, Vector argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
 }
 public class Vector : SpaceTuple {
     public Vector() {
@@ -91,28 +104,23 @@ public class Vector : SpaceTuple {
 	    _fieldZ = 0.0;
 	    _fieldW = 0.0;
     }
+    public Vector(SpaceTuple argOther) {
+        _fieldX = argOther._fieldX;
+        _fieldY = argOther._fieldY;
+        _fieldZ = argOther._fieldZ;
+        _fieldW = 0.0;
+    }
     public Vector(double argX, double argY, double argZ) {
 	    _fieldX = argX;
 	    _fieldY = argY;
 	    _fieldZ = argZ;
 	    _fieldW = 0.0;
     }
-    public static Vector operator*(Vector argSelf, double multiple) {
-    	return new Vector(argSelf._fieldX * multiple, argSelf._fieldY * multiple, argSelf._fieldZ * multiple);
-    }
-    public static Vector operator-(Vector argSelf) { return new Vector(-argSelf._fieldX, -argSelf._fieldY, -argSelf._fieldZ); }
-    public static Vector operator-(Vector argSelf, SpaceTuple argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    public static Vector operator-(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    public static Vector operator+(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
-    public Vector GetNormal()
-    {
-    	Comparinator varComp = new Comparinator();
-    	double varMagnitude = GetMagnitude();
-    	return varComp.CheckFloat(varMagnitude, 0) ? new Vector(0.0,0.0,0.0) : new Vector(_fieldX/varMagnitude, _fieldY/varMagnitude, _fieldZ/varMagnitude);
-    }
-    public Vector GetCrossProduct(Vector argOther)
-    {
-    	return new Vector(_fieldY * argOther._fieldZ - _fieldZ * argOther._fieldY, _fieldZ * argOther._fieldX - _fieldX * argOther._fieldZ, _fieldX * argOther._fieldY - _fieldY * argOther._fieldX);
-    }
-    public Vector GetReflect(Vector argNormal) { return this - (argNormal * 2.0 * GetDotProduct(argNormal)); }
+    // public static Vector operator*(Vector argSelf, double multiple) {
+    // 	return new Vector(argSelf._fieldX * multiple, argSelf._fieldY * multiple, argSelf._fieldZ * multiple);
+    // }
+    // public static Vector operator-(Vector argSelf) { return new Vector(-argSelf._fieldX, -argSelf._fieldY, -argSelf._fieldZ); }
+    // public static Vector operator-(Vector argSelf, SpaceTuple argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
+    // public static Vector operator-(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
+    // public static Vector operator+(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
 }

@@ -111,4 +111,19 @@ public class WaveFrontObjParserTest
         Assert.True(_fieldComp.CheckTuple(varFaceTwo._fieldVertexTwo, varParser._fieldVertices[3]));
         Assert.True(_fieldComp.CheckTuple(varFaceTwo._fieldVertexThree, varParser._fieldVertices[4]));
     }
+    [Fact]
+    public void ParseWaveFrontObj_With_WaveFrontFormattedGroupedData_Expect_Group () {
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        String varData = "v -1 1 0\nv -1 0 0\nv 1 0 0\nv 1 1 0\ng FirstGroup\nf 1 2 3\ng SecondGroup\nf 1 3 4";
+        int varSkippedLines = varParser.ParseWaveFrontObj(varData);
+        CompositeGroup varObj = varParser.GetGroup();
+        Assert.Single(varObj._fieldForms[0]._fieldForms);
+        Assert.Single(varObj._fieldForms[1]._fieldForms);
+        Assert.True(_fieldComp.CheckTuple(varObj._fieldForms[0]._fieldForms[0]._fieldVertexOne, varParser._fieldVertices[1]));
+        Assert.True(_fieldComp.CheckTuple(varObj._fieldForms[0]._fieldForms[0]._fieldVertexTwo, varParser._fieldVertices[2]));
+        Assert.True(_fieldComp.CheckTuple(varObj._fieldForms[0]._fieldForms[0]._fieldVertexThree, varParser._fieldVertices[3]));
+        Assert.True(_fieldComp.CheckTuple(varObj._fieldForms[1]._fieldForms[0]._fieldVertexOne, varParser._fieldVertices[1]));
+        Assert.True(_fieldComp.CheckTuple(varObj._fieldForms[1]._fieldForms[0]._fieldVertexTwo, varParser._fieldVertices[3]));
+        Assert.True(_fieldComp.CheckTuple(varObj._fieldForms[1]._fieldForms[0]._fieldVertexThree, varParser._fieldVertices[4]));
+    }
 }

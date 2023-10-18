@@ -629,7 +629,7 @@ public class MatrixTest
 	{
 		TranslationMatrix tm = new TranslationMatrix(5, -3,2);
 		Point p = new Point(-3, 4, 5);
-		Point res = tm * p;
+		SpaceTuple res = tm * p;
 		Point expected = new Point(2, 1, 7);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -641,7 +641,7 @@ public class MatrixTest
 		Matrix itm = tm.GetInverse();
 		Point p = new Point(-3, 4, 5);
 		// Point res = (*itm) * p;
-		Point res = itm * p;
+		SpaceTuple res = itm * p;
 		Point expected = new Point(-8, 7, 3);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -650,7 +650,7 @@ public class MatrixTest
 	{
 		TranslationMatrix tm = new TranslationMatrix(5, -3, 2);
 		Vector v = new Vector(-3, 4, 5);
-		Vector res = tm * v;
+		SpaceTuple res = tm * v;
 		Vector expected = new Vector(-3, 4, 5);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -659,7 +659,7 @@ public class MatrixTest
 	{
 		ScalingMatrix sm = new ScalingMatrix(2, 3, 4);
 		Point p = new Point(-4, 6, 8);
-		Point res = sm * p;
+		SpaceTuple res = sm * p;
 		Point expected = new Point(-8, 18, 32);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -668,7 +668,7 @@ public class MatrixTest
 	{
 		ScalingMatrix sm = new ScalingMatrix(2, 3, 4);
 		Vector p = new Vector(-4, 6, 8);
-		Vector res = sm * p;
+		SpaceTuple res = sm * p;
 		Vector expected = new Vector(-8, 18, 32);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -680,7 +680,7 @@ public class MatrixTest
 		Matrix im = sm.GetInverse();
 		Vector p = new Vector(-4, 6, 8);
 		// Vector res = (*im) * p;
-		Vector res = im * p;
+		SpaceTuple res = im * p;
 		Vector expected = new Vector(-2, 2, 2);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -689,7 +689,7 @@ public class MatrixTest
 	{
 		ScalingMatrix rm = new ScalingMatrix(-1, 1, 1);
 		Point p = new Point(2, 3, 4);
-		Point res = rm * p;
+		SpaceTuple res = rm * p;
 		Point expected = new Point(-2, 3, 4);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -698,11 +698,11 @@ public class MatrixTest
 	{
 		Point p = new Point(0, 1, 0);
 		XRotationMatrix xrm90 = new XRotationMatrix(varPM.GetPI()/4);
-		Point res90 = xrm90 * p;
+		SpaceTuple res90 = xrm90 * p;
 		Point expected90 = new Point(0,Math.Sqrt(2)/2, Math.Sqrt(2)/2);
 		Assert.True(_fieldComp.CheckTuple(res90, expected90));
 		XRotationMatrix xrm180 = new XRotationMatrix(varPM.GetPI() / 2);
-		Point res180 = xrm180 * p;
+		SpaceTuple res180 = xrm180 * p;
 		Point expected180 = new Point(0, 0, 1);
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
 	}
@@ -714,7 +714,7 @@ public class MatrixTest
 		// Matrix* ixrm90 = xrm90.invert();
 		Matrix ixrm90 = xrm90.GetInverse();
 		// Point res = (*ixrm90) * p;
-		Point res = ixrm90 * p;
+		SpaceTuple res = ixrm90 * p;
 		Point expected = new Point(0, Math.Sqrt(2) / 2, -Math.Sqrt(2) / 2);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -723,11 +723,11 @@ public class MatrixTest
 	{
 		Point p = new Point(0, 0, 1);
 		YRotationMatrix yrm90 = new YRotationMatrix(varPM.GetPI() / 4);
-		Point res90 = yrm90 * p;
+		SpaceTuple res90 = yrm90 * p;
 		Point expected90 = new Point(Math.Sqrt(2) / 2, 0, Math.Sqrt(2) / 2);
 		Assert.True(_fieldComp.CheckTuple(res90, expected90));
 		YRotationMatrix yrm180 = new YRotationMatrix(varPM.GetPI() / 2);
-		Point res180 = yrm180 * p;
+		SpaceTuple res180 = yrm180 * p;
 		Point expected180 = new Point(1, 0, 0);
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
 	}
@@ -736,11 +736,11 @@ public class MatrixTest
 	{
 		Point p = new Point(0, 1, 0);
 		ZRotationMatrix zrm90 = new ZRotationMatrix(varPM.GetPI() / 4);
-		Point res90 = zrm90 * p;
+		SpaceTuple res90 = zrm90 * p;
 		Point expected90 = new Point(-Math.Sqrt(2) / 2, Math.Sqrt(2) / 2, 0);
 		Assert.True(_fieldComp.CheckTuple(res90, expected90));
 		ZRotationMatrix zrm180 = new ZRotationMatrix(varPM.GetPI() / 2);
-		Point res180 = zrm180 * p;
+		SpaceTuple res180 = zrm180 * p;
 		Point expected180 = new Point(-1, 0, 0);
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
 	}
@@ -749,7 +749,7 @@ public class MatrixTest
 	{
 		ShearingMatrix sm = new ShearingMatrix(1, 0, 0, 0, 0, 0);
 		Point p = new Point(2, 3, 4);
-		Point res = sm * p;
+		SpaceTuple res = sm * p;
 		Point expected = new Point(5, 3, 4);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -758,7 +758,7 @@ public class MatrixTest
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 1, 0, 0, 0, 0);
 		Point p = new Point(2, 3, 4);
-		Point res = sm * p;
+		SpaceTuple res = sm * p;
 		Point expected = new Point(6, 3, 4);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -767,7 +767,7 @@ public class MatrixTest
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 1, 0, 0, 0);
 		Point p = new Point(2, 3, 4);
-		Point res = sm * p;
+		SpaceTuple res = sm * p;
 		Point expected = new Point(2, 5, 4);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -776,7 +776,7 @@ public class MatrixTest
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 0, 1, 0, 0);
 		Point p = new Point(2, 3, 4);
-		Point res = sm * p;
+		SpaceTuple res = sm * p;
 		Point expected = new Point(2, 7, 4);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -785,7 +785,7 @@ public class MatrixTest
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 0, 0, 1, 0);
 		Point p = new Point(2, 3, 4);
-		Point res = sm * p;
+		SpaceTuple res = sm * p;
 		Point expected = new Point(2, 3, 6);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -794,7 +794,7 @@ public class MatrixTest
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 0, 0, 0, 1);
 		Point p = new Point(2, 3, 4);
-		Point res = sm * p;
+		SpaceTuple res = sm * p;
 		Point expected = new Point(2, 3, 7);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
@@ -805,13 +805,13 @@ public class MatrixTest
 		XRotationMatrix xrm = new XRotationMatrix(varPM.GetPI() / 2);
 		ScalingMatrix sm = new ScalingMatrix(5, 5, 5);
 		TranslationMatrix tm = new TranslationMatrix(10, 5, 7);
-		Point rotated = xrm * p;
+		SpaceTuple rotated = xrm * p;
 		Point rotatedExpected = new Point(1, -1, 0);
 		Assert.True(_fieldComp.CheckTuple(rotated, rotatedExpected));
-		Point scaled = sm * rotated;
+		SpaceTuple scaled = sm * rotated;
 		Point scaledExpected = new Point(5,-5,0);
 		Assert.True(_fieldComp.CheckTuple(scaled, scaledExpected));
-		Point translated = tm * scaled;
+		SpaceTuple translated = tm * scaled;
 		Point translatedExpected = new Point(15, 0, 7);
 		Assert.True(_fieldComp.CheckTuple(translated, translatedExpected));
 	}
@@ -825,13 +825,13 @@ public class MatrixTest
 		// Matrix* tsrm = *(tm * sm) * xrm;
 		Matrix tsrm = tm * sm * xrm;
 		// Point transformed = (*tsrm) * p;
-		Point transformed = tsrm * p;
+		SpaceTuple transformed = tsrm * p;
 		Point expected = new Point(15, 0, 7);
 		Assert.True(_fieldComp.CheckTuple(transformed, expected));
 		// Matrix tsrmc = *(*(*(*(Matrix(4, 4).identity())).translate(10, 5, 7)).scale(5, 5, 5)).rotateX(getPI() / 2);
 		Matrix tsrmc = new Matrix(4, 4).GetIdentity().GetTranslate(10, 5, 7).GetScale(5, 5, 5).GetRotateX(varPM.GetPI() / 2);
 		Assert.True(tsrm.CheckEqual(tsrmc));
-		Point transformedc = tsrmc * p;
+		SpaceTuple transformedc = tsrmc * p;
 		Assert.True(_fieldComp.CheckTuple(transformedc, expected));
 	}
 	[Fact]

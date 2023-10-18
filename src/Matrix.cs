@@ -119,7 +119,8 @@ public class Matrix {
 	{
 		if (argSelf._fieldRows != 4 && argSelf._fieldColumns != 4) return argOther;
 		List<double> varPseudoMatrix = new List<double>{argOther._fieldX, argOther._fieldY, argOther._fieldZ, argOther._fieldW};
-		List<double> varResults = new List<double>{ 0,0,0,0 };
+		SpaceTuple varResults = new SpaceTuple(0,0,0,0);
+		// List<double> varResults = new List<double>{ 0,0,0,0 };
 		double res = 0;
 		for (int tuple = 0; tuple < 4; tuple++)
 		{
@@ -128,22 +129,27 @@ public class Matrix {
 			{
 				res += argSelf._fieldGrid[tuple][col] * varPseudoMatrix[col];
 			}
-			varResults[tuple] = res;
+			if (tuple == 0) { varResults._fieldX = res; }
+			else if (tuple == 1) { varResults._fieldY = res; }
+			else if (tuple == 2) { varResults._fieldZ = res; }
+			else if (tuple == 3) { varResults._fieldW = res; }
 		}
-		return new SpaceTuple(varResults[0],varResults[1],varResults[2],varResults[3]);
+		return varResults;
 	}
-	public static Point operator*(Matrix argSelf, Point argOther)
-	{
-		SpaceTuple varTuple = new SpaceTuple(argOther._fieldX, argOther._fieldY, argOther._fieldZ, argOther._fieldW);
-		SpaceTuple varResult = argSelf * varTuple;
-		return new Point(varResult._fieldX, varResult._fieldY, varResult._fieldZ);
-	}
-	public static Vector operator*(Matrix argSelf, Vector other)
-	{
-		SpaceTuple varTuple = new SpaceTuple(other._fieldX, other._fieldY, other._fieldZ, other._fieldW);
-		SpaceTuple varResult = argSelf * varTuple;
-		return new Vector(varResult._fieldX, varResult._fieldY, varResult._fieldZ);
-	}
+	// public static Point operator*(Matrix argSelf, Point argOther)
+	// {
+	// 	// SpaceTuple varTuple = new SpaceTuple(argOther._fieldX, argOther._fieldY, argOther._fieldZ, argOther._fieldW);
+	// 	// SpaceTuple varResult = argSelf * varTuple;
+	// 	SpaceTuple varResult = argSelf * argOther;
+	// 	return new Point(varResult._fieldX, varResult._fieldY, varResult._fieldZ);
+	// }
+	// public static Vector operator*(Matrix argSelf, Vector argOther)
+	// {
+	// 	// SpaceTuple varTuple = new SpaceTuple(argOther._fieldX, argOther._fieldY, argOther._fieldZ, argOther._fieldW);
+	// 	// SpaceTuple varResult = argSelf * varTuple;
+	// 	SpaceTuple varResult = argSelf * argOther;
+	// 	return new Vector(varResult._fieldX, varResult._fieldY, varResult._fieldZ);
+	// }
 	public bool CheckInvertible() {
 		return GetDeterminant() != 0;
 	}
@@ -400,9 +406,9 @@ public class ViewMatrix : Matrix {
 		};
 	}
 	public ViewMatrix(Point argStart, Point argEnd, Vector argUp) {
-		Vector varForward = (argEnd - argStart).GetNormal();
-		Vector varLeft = varForward.GetCrossProduct(argUp.GetNormal());
-		Vector varUp = varLeft.GetCrossProduct(varForward);
+		SpaceTuple varForward = (argEnd - argStart).GetNormal();
+		SpaceTuple varLeft = varForward.GetCrossProduct(argUp.GetNormal());
+		SpaceTuple varUp = varLeft.GetCrossProduct(varForward);
 		List<double> varValues = new List<double>{varLeft._fieldX, varLeft._fieldY, varLeft._fieldZ, 0, varUp._fieldX, varUp._fieldY, varUp._fieldZ, 0, -varForward._fieldX, -varForward._fieldY, -varForward._fieldZ, 0, 0, 0, 0, 1};
 		Matrix varOrientation = new Matrix(4,4, varValues);
 		Matrix varResult = varOrientation * new TranslationMatrix(-argStart._fieldX, -argStart._fieldY, -argStart._fieldZ);

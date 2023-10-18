@@ -16,8 +16,8 @@ public class ParserWaveFrontObj : Parser {
     public ParserWaveFrontObj () {
         _fieldVertices = new List<Point>{new Point(0,0,0)};
         _fieldGroups = new Dictionary<String, CompositeGroup>();
-        _fieldRgxVertex = new Regex(@"^v\s(?<PointOne>-?\d*\.?\d*)\s(?<PointTwo>-?\d*\.?\d*)\s(?<PointThree>-?\d*\.?\d*)");
-        _fieldRgxFace = new Regex(@"^f(?<Vertex>\s\d)+");
+        _fieldRgxVertex = new Regex(@"^v\s+(?<PointOne>-?\d*\.?\d*)\s+(?<PointTwo>-?\d*\.?\d*)\s+(?<PointThree>-?\d*\.?\d*)");
+        _fieldRgxFace = new Regex(@"^f(?<Vertex>\s+\d)+");
         _fieldRgxFaceVertex = new Regex(@"\d");
         _fieldRgxGroup = new Regex(@"^g\s\d*");
     }
@@ -47,5 +47,12 @@ public class ParserWaveFrontObj : Parser {
             }
         }
         return varSkipped;
+    }
+    public CompositeGroup GetGroup() {
+        CompositeGroup varGroup = new CompositeGroup();
+        foreach (KeyValuePair<String,CompositeGroup> varKey in _fieldGroups) {
+            varGroup.SetObject(varKey.Value);
+        }
+        return varGroup;
     }
 }

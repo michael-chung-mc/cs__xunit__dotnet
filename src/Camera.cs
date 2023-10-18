@@ -51,9 +51,9 @@ public class Camera {
         double varOffsetY = (argPxY + 0.5) * _fieldPixelSquare;
         double varWorldX = _fieldHalfWidth - varOffsetX;
         double varWorldY = _fieldHalfHeight - varOffsetY;
-        Point varPixelPos = _fieldTransformInverse * new Point(varWorldX, varWorldY, -1);
-        Point varOrigin = _fieldTransformInverse * new Point(0,0,0);
-        Vector varDirection = (varPixelPos - varOrigin).GetNormal();
+        SpaceTuple varPixelPos = _fieldTransformInverse * new Point(varWorldX, varWorldY, -1);
+        SpaceTuple varOrigin = _fieldTransformInverse * new Point(0,0,0);
+        SpaceTuple varDirection = (varPixelPos - varOrigin).GetNormal();
         return new Ray(varOrigin, varDirection);
     }
 

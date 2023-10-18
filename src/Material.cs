@@ -53,17 +53,17 @@ public class Material {
             && varComp.CheckTuple(this._fieldColor, argOther._fieldColor)
             && this._fieldPattern.CheckEqual(argOther._fieldPattern);
     }
-    public Color GetColor(Form argObject, PointSource argLighting, Point argPosition, Vector argEye, Vector argNormal, bool argInShadow)
+    public Color GetColor(Form argObject, PointSource argLighting, SpaceTuple argPosition, SpaceTuple argEye, SpaceTuple argNormal, bool argInShadow)
     {
         Color varColor = _fieldPattern._fieldColors.Count() != 0 ? _fieldPattern.GetColor(argObject, argPosition) : _fieldColor;
         Color varShade = varColor * argLighting.mbrIntensity;
         Color varResAmbient = varShade * _fieldAmbient;
         if (argInShadow) return varResAmbient;
-        Vector varLight = (argLighting.mbrPosition - argPosition).GetNormal();
+        SpaceTuple varLight = (argLighting.mbrPosition - argPosition).GetNormal();
         double varLightDotNormal = varLight.GetDotProduct(argNormal);
         Color varResDiffuse = new Color(0,0,0);
         Color varResSpecular = new Color(0,0,0);
-        Vector varReflect;
+        SpaceTuple varReflect;
         double varReflectDotEye;
         // double varFactor;
         if (varLightDotNormal >= 0.0) {

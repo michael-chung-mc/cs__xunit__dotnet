@@ -12,20 +12,21 @@ namespace LibForm;
 public class Form {
 	public bool _fieldCastsShadow;
 	public bool _fieldClosed;
-	public Point _fieldOrigin;
+	public SpaceTuple _fieldOrigin;
 	public double _fieldRadius;
 	public double _fieldHeightMax;
 	public double _fieldHeightMin;
 	public Matrix _fieldTransform;
 	public Matrix _fieldTransformInverse;
+	public Matrix _fieldTransformInverseTranspose;
 	public Material _fieldMaterial;
 	public Ray _fieldObjectRay;
-	public Point _fieldVertexOne;
-	public Point _fieldVertexTwo;
-	public Point _fieldVertexThree;
-	public Vector _fieldEdgeOneTwo;
-	public Vector _fieldEdgeOneThree;
-	public Vector _fieldNormal;
+	public SpaceTuple _fieldVertexOne;
+	public SpaceTuple _fieldVertexTwo;
+	public SpaceTuple _fieldVertexThree;
+	public SpaceTuple _fieldEdgeOneTwo;
+	public SpaceTuple _fieldEdgeOneThree;
+	public SpaceTuple _fieldNormal;
 	public Form? _fieldParent;
 	public List<Form> _fieldForms;
 	public Form()
@@ -58,7 +59,8 @@ public class Form {
 	}
 	public Intersections GetIntersections(Ray argRay)
 	{
-		this._fieldObjectRay = argRay.Transform(this._fieldTransformInverse);
+		this._fieldObjectRay = argRay.GetTransform(this._fieldTransformInverse);
+		// this._fieldObjectRay.ChangeTransform(this._fieldTransformInverse);
 		return GetIntersectionsLocal(_fieldObjectRay);
 	}
 	public virtual Intersections GetIntersectionsLocal(Ray argRay)
@@ -74,7 +76,7 @@ public class Form {
 			&& _fieldObjectRay.CheckEqual(argOther._fieldObjectRay)
 			&& _fieldCastsShadow == argOther._fieldCastsShadow;
 	}
-	public Vector GetNormal(Point argPoint)
+	public SpaceTuple GetNormal(SpaceTuple argPoint)
 	{
 		// Point varObjectPoint = _fieldTransformInverse * argPoint;
 		// Vector varObjectNormal = GetNormalLocal(varObjectPoint);
@@ -82,15 +84,15 @@ public class Form {
 		// Vector varWorldNormal = varTransform * varObjectNormal;
 		// varWorldNormal._fieldW = 0;
 		// return varWorldNormal.GetNormal();
-		Point varObjectPoint = GetObjectPointFromWorldSpace(argPoint);
-		Vector varObjectNormal = GetNormalLocal(varObjectPoint);
+		SpaceTuple varObjectPoint = GetObjectPointFromWorldSpace(argPoint);
+		SpaceTuple varObjectNormal = GetNormalLocal(varObjectPoint);
 		return GetWorldNormalFromObjectSpace(varObjectNormal);
 	}
-	public virtual Vector GetNormalLocal(Point argPoint)
+	public virtual SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
 		return new Vector(argPoint._fieldX,argPoint._fieldY,argPoint._fieldZ);
 	}
-	public Color GetColor(PointSource argLighting, Point argWorldPosition, Vector argEye, Vector argNormal, bool argInShadow)
+	public Color GetColor(PointSource argLighting, SpaceTuple argWorldPosition, SpaceTuple argEye, SpaceTuple argNormal, bool argInShadow)
 	{
 		// Point varObjP = (this._fieldTransformInverse) * argPosition;
 		// Point varPatternP = (this._fieldMaterial._fieldPattern._fieldTransformInverse) * varObjP;
@@ -111,12 +113,12 @@ public class Form {
 		// Point varPatternP = this._fieldMaterial._fieldPattern._fieldTransformInverse * varObjP;
 		return this._fieldMaterial._fieldPattern.GetColor(this, argPosition);
 	}
-	public Point GetObjectPointFromWorldSpace(Point argPosition) {
-		if (_fieldParent != null) { argPosition = new Point(_fieldParent.GetObjectPointFromWorldSpace(argPosition)); }
-		return _fieldTransform.GetInverse() * argPosition;
+	public SpaceTuple GetObjectPointFromWorldSpace(SpaceTuple argPosition) {
+		if (_fieldParent != null) { argPosition = new SpaceTuple(_fieldParent.GetObjectPointFromWorldSpace(argPosition)); }
+		return _fieldTransformInverse * argPosition;
 	}
-	public Vector GetWorldNormalFromObjectSpace(Vector argNormal) {
-		Vector varNormal = _fieldTransform.GetInverse().GetTranspose() * argNormal;
+	public SpaceTuple GetWorldNormalFromObjectSpace(SpaceTuple argNormal) {
+		SpaceTuple varNormal = _fieldTransformInverseTranspose * argNormal;
 		varNormal._fieldW = 0;
 		varNormal = varNormal.GetNormal();
 		if (_fieldParent != null) {
@@ -127,6 +129,7 @@ public class Form {
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
 		this._fieldTransformInverse = argMatrix.GetInverse();
+		this._fieldTransformInverseTranspose = this._fieldTransformInverse.GetTranspose();
 	}
 	public void SetMaterial(Material argMaterial) {
 		this._fieldMaterial = argMaterial;
@@ -153,7 +156,7 @@ public class UnitSphere : Form {
 	public override Intersections GetIntersectionsLocal(Ray argRay)
 	{
 		Intersections varIntersections = new Intersections();
-		Vector sphereToRay = argRay._fieldOrigin - new Point(0, 0, 0);
+		SpaceTuple sphereToRay = argRay._fieldOrigin - new Point(0, 0, 0);
 		double a = argRay._fieldDirection.GetDotProduct(argRay._fieldDirection);
 		double b = 2 * argRay._fieldDirection.GetDotProduct(sphereToRay);
 		double c = sphereToRay.GetDotProduct(sphereToRay) - 1;
@@ -165,9 +168,9 @@ public class UnitSphere : Form {
 		varIntersections.SetIntersect(intersectTwo, this);
 		return varIntersections;
 	}
-	public override Vector GetNormalLocal(Point argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
-		Vector varObjectNormal = argPoint - _fieldOrigin;
+		SpaceTuple varObjectNormal = argPoint - _fieldOrigin;
 		return varObjectNormal.GetNormal();
 	}
 	public override bool CheckEqual(Form argOther)
@@ -194,7 +197,7 @@ public class UnitSphereGlass : UnitSphere {
 
 public class UnitPlane : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
-	public override Vector GetNormalLocal(Point argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
 		return new Vector(0, 1, 0);
 	}
@@ -211,7 +214,7 @@ public class UnitPlane : Form {
 
 public class UnitAABBox : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
-	public override Vector GetNormalLocal(Point argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
 		double varMax = Math.Max(Math.Abs(argPoint._fieldX), Math.Max(Math.Abs(argPoint._fieldY),Math.Abs(argPoint._fieldZ)));
 		if (varMax == Math.Abs(argPoint._fieldX)) {
@@ -260,7 +263,7 @@ public class UnitCylinder : Form {
 		_fieldHeightMax = double.MaxValue;
 		_fieldHeightMin = double.MinValue;
 	}
-	public override Vector GetNormalLocal(Point argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
 		double varDistance = argPoint._fieldX * argPoint._fieldX + argPoint._fieldZ * argPoint._fieldZ;
 		if (varDistance < 1 && argPoint._fieldY >= _fieldHeightMax - _fieldPM.GetEpsilon()) { return new Vector(0,1,0); }
@@ -312,7 +315,7 @@ public class UnitDNCone : Form {
 		_fieldHeightMax = double.MaxValue;
 		_fieldHeightMin = double.MinValue;
 	}
-	public override Vector GetNormalLocal(Point argPoint)
+	public virtual SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
 		double varY = Math.Sqrt(argPoint._fieldX * argPoint._fieldX + argPoint._fieldZ * argPoint._fieldZ);
 		varY = argPoint._fieldY > 0 ? -varY : varY;
@@ -366,7 +369,7 @@ public class UnitDNCone : Form {
 }
 
 public class CompositeGroup : Form {
-	public override Vector GetNormalLocal(Point argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
 		throw new InvalidOperationException("Groups Don't Have Normals");
 	}
@@ -399,25 +402,25 @@ public class UnitTriangle : Form{	private ProjectMeta _fieldPM = new ProjectMeta
 		_fieldEdgeOneThree = _fieldVertexThree - _fieldVertexOne;
 		_fieldNormal = (_fieldEdgeOneThree.GetCrossProduct(_fieldEdgeOneTwo)).GetNormal();
 	}
-	public override Vector GetNormalLocal(Point argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
 		return _fieldNormal;
 	}
 	public override Intersections GetIntersectionsLocal(Ray argRay) {
 		Intersections varXs = new Intersections();
-		Vector varDirCrossEdge = argRay._fieldDirection.GetCrossProduct(_fieldEdgeOneThree);
+		SpaceTuple varDirCrossEdge = argRay._fieldDirection.GetCrossProduct(_fieldEdgeOneThree);
 		double varDeterminant = _fieldEdgeOneTwo.GetDotProduct(varDirCrossEdge);
 		double varUncertainty = _fieldPM.GetEpsilon();
 		if (Math.Abs(varDeterminant) <= varUncertainty) {
 			return varXs;
 		}
 		double varF = 1.0 / varDeterminant;
-		Vector varPointToOrigin = argRay._fieldOrigin - _fieldVertexOne;
+		SpaceTuple varPointToOrigin = argRay._fieldOrigin - _fieldVertexOne;
 		double varU = varF * varPointToOrigin.GetDotProduct(varDirCrossEdge);
 		if (varU < 0 || varU > 1) {
 			return varXs;
 		}
-		Vector varOriginCrossEdgeOne = varPointToOrigin.GetCrossProduct(_fieldEdgeOneTwo);
+		SpaceTuple varOriginCrossEdgeOne = varPointToOrigin.GetCrossProduct(_fieldEdgeOneTwo);
 		double varV = varF * argRay._fieldDirection.GetDotProduct(varOriginCrossEdgeOne);
 		if (varV < 0 || (varU + varV) > 1) {
 			return varXs;

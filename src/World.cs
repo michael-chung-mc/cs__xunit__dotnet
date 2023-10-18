@@ -101,16 +101,16 @@ public class World {
         double varSinThetaTSquared = (varNToN*varNToN) * (1.0-(varCosThetaI*varCosThetaI));
         if (varSinThetaTSquared > 1) { return new Color(0,0,0); }
         double varCosThetaT = Math.Sqrt(1.0-varSinThetaTSquared);
-        Vector varRefractDirection = (argIntersectionState._fieldNormal * ((varNToN * varCosThetaI) - varCosThetaT)) - (argIntersectionState._fieldPov * varNToN);
+        SpaceTuple varRefractDirection = (argIntersectionState._fieldNormal * ((varNToN * varCosThetaI) - varCosThetaT)) - (argIntersectionState._fieldPov * varNToN);
         Ray varRefractRay = new Ray(argIntersectionState._fieldUnderPoint, varRefractDirection);
         Color varRefractColor = GetColor(varRefractRay, argLimit-1) * argIntersectionState._fieldObject._fieldMaterial._fieldTransparency;
         return varRefractColor;
     }
-    public bool CheckShadowed(PointSource argLight, Point argPoint) {
+    public bool CheckShadowed(PointSource argLight, SpaceTuple argPoint) {
         bool varFlagShadow = false;
-        Vector varDirection = argLight.mbrPosition - argPoint;
+        SpaceTuple varDirection = argLight.mbrPosition - argPoint;
         double varDistance = varDirection.GetMagnitude();
-         Vector varDirectionNormalized = varDirection.GetNormal();
+        SpaceTuple varDirectionNormalized = varDirection.GetNormal();
         Ray varRay = new Ray (argPoint, varDirectionNormalized);
         Intersection varHit = GetIntersect(varRay).GetHit();
         bool varShadow = varHit._fieldExists && (varHit._fieldTime < varDistance) && varHit._fieldObject._fieldCastsShadow;

@@ -7,12 +7,12 @@ namespace LibIntersection;
 public class IntersectionState {
 	public double _fieldTime;
 	public Form _fieldObject;
-	public Point _fieldPoint;
-	public Point _fieldOverPoint;
-	public Point _fieldUnderPoint;
-	public Vector _fieldPov;
-	public Vector _fieldNormal;
-	public Vector _fieldReflect;
+	public SpaceTuple _fieldPoint;
+	public SpaceTuple _fieldOverPoint;
+	public SpaceTuple _fieldUnderPoint;
+	public SpaceTuple _fieldPov;
+	public SpaceTuple _fieldNormal;
+	public SpaceTuple _fieldReflect;
 	public bool _fieldInside;
 	public double _fieldRefractiveIndexOne;
 	public double _fieldRefractiveIndexTwo;

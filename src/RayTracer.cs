@@ -12,12 +12,13 @@ using LibProjectMeta;
 using LibMatrix;
 using LibCamera;
 using LibWorld;
+using LibParser;
 namespace LibRayTracer;
 
 public class Projectile {
-	public Point position;
-	public Vector velocity;
-	public Projectile(Point pos, Vector vel)
+	public SpaceTuple position;
+	public SpaceTuple velocity;
+	public Projectile(SpaceTuple pos, SpaceTuple vel)
 	{
 		position = pos;
 		velocity = vel;
@@ -40,8 +41,8 @@ public class Simulation {
     }
 	public Projectile tick(Environment env, Projectile ball)
 	{
-		Point position = ball.position + ball.velocity;
-		Vector velocity = ball.velocity + env.gravity + env.wind;
+		SpaceTuple position = ball.position + ball.velocity;
+		SpaceTuple velocity = ball.velocity + env.gravity + env.wind;
 		return new Projectile(position, velocity);
 	}
 	public void Fire(int power) {
@@ -116,10 +117,14 @@ public class RayTracer {
         // ExampleMirrorRoom();
         // ExampleCubesRoom();
         // ExampleCylinders();
-        ExampleCompositeHexagon();
+        // ExampleCompositeHexagon();
         // World varEmptyRoom = GetMirrorRoom();
         // CameraRender("EmptyRoom", varEmptyRoom);
-
+        // RenderOBJOctahedron();
+        // RenderOBJPyramid();
+        // RenderOBJHumanoidTri();
+        // RenderOBJHumanoidQuad();
+        RenderOBJTeapot();
 //         // cameraRenderSpheres();
 //         // cameraRenderPlanes();
 
@@ -128,6 +133,73 @@ public class RayTracer {
 //         // cameraRenderReflections();
 //         // cameraRenderReflectRefract();
     }
+
+    public void RenderOBJTeapot() {
+        World varEnv = new World();
+        PointSource varLight = new PointSource(new Point(0,5,0), new Color(1,1,1));
+        varEnv.SetLight(varLight);
+        String varData = File.ReadAllText("../data/utah-teapot.obj");
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        varParser.ParseWaveFrontObj(varData);
+        varEnv.SetObject(varParser.GetGroup());
+        Camera varCamera = new Camera(200,100,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(0,2.5,-2.5), new Point(0,0,0), new Vector(0,1,0)));
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("teapot");        
+    }
+    public void RenderOBJOctahedron() {
+        World varEnv = new World();
+        PointSource varLight = new PointSource(new Point(0,5,0), new Color(1,1,1));
+        varEnv.SetLight(varLight);
+        String varData = File.ReadAllText("../data/octahedron.obj");
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        varParser.ParseWaveFrontObj(varData);
+        varEnv.SetObject(varParser.GetGroup());
+        Camera varCamera = new Camera(200,100,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(0,2.5,-2.5), new Point(0,0,0), new Vector(0,1,0)));
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("octahedron");        
+    }
+    public void RenderOBJPyramid() {
+        World varEnv = new World();
+        PointSource varLight = new PointSource(new Point(0,5,0), new Color(1,1,1));
+        varEnv.SetLight(varLight);
+        String varData = File.ReadAllText("../data/pyramid.obj");
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        varParser.ParseWaveFrontObj(varData);
+        varEnv.SetObject(varParser.GetGroup());
+        Camera varCamera = new Camera(200,100,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(0,5,-5), new Point(0,0,0), new Vector(0,1,0)));
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("pyramid");
+    }
+    public void RenderOBJHumanoidTri() {
+        World varEnv = new World();
+        PointSource varLight = new PointSource(new Point(0,10,0), new Color(1,1,1));
+        varEnv.SetLight(varLight);
+        String varData = File.ReadAllText("../data/humanoid_tri.obj");
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        varParser.ParseWaveFrontObj(varData);
+        varEnv.SetObject(varParser.GetGroup());
+        Camera varCamera = new Camera(200,100,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(10,10,-10), new Point(0,0,0), new Vector(0,1,0)));
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("humanoid_tri");        
+    }
+    public void RenderOBJHumanoidQuad() {
+        World varEnv = new World();
+        PointSource varLight = new PointSource(new Point(0,10,0), new Color(1,1,1));
+        varEnv.SetLight(varLight);
+        String varData = File.ReadAllText("../data/humanoid_quad.obj");
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        varParser.ParseWaveFrontObj(varData);
+        varEnv.SetObject(varParser.GetGroup());
+        Camera varCamera = new Camera(200,100,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(0,0,-10), new Point(0,0,0), new Vector(0,1,0)));
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("humanoid_quad");        
+    }
+
     public void DirectTracerShadow(String argSpecs, Point argPov, int argScreenWidth, double argScreenZ, int argScreenPixels, Color argColor)
     {
         double wallXY = (double)argScreenWidth/2;
@@ -153,7 +225,7 @@ public class RayTracer {
         }
         canvas.RenderFile(argSpecs);
     }
-    void DirectRenderSphere(String argSpecs, Point argPov, PointSource argLight, int argScreenWidth, double argScreenZ, int argScreenPixels, Color argSphereColor)
+    void DirectRenderSphere(String argSpecs, SpaceTuple argPov, PointSource argLight, int argScreenWidth, double argScreenZ, int argScreenPixels, Color argSphereColor)
     {
         Canvas varCanvas = new Canvas(argScreenPixels,argScreenPixels);
         double varScreenXY = (double)argScreenWidth/2;
@@ -169,14 +241,14 @@ public class RayTracer {
             for (int j = 0; j <= argScreenPixels; ++j)
             {
                 double varWorldX = -varScreenXY + varPixelSize * j;
-                Point varWorldPosition = new Point(varWorldX, varWorldY, argScreenZ);
+                SpaceTuple varWorldPosition = new Point(varWorldX, varWorldY, argScreenZ);
                 Ray r = new Ray(argPov, (varWorldPosition-argPov).GetNormal());
                 List<Intersection> xs = varObj.GetIntersections(r)._fieldIntersections;
                 if (xs.Count() != 0)
                 {
-                    Point p = r.GetPosition(xs[0]._fieldTime);
-                    Vector normal = xs[0]._fieldObject.GetNormal(p);
-                    Vector pov = -r._fieldDirection;
+                    SpaceTuple p = r.GetPosition(xs[0]._fieldTime);
+                    SpaceTuple normal = xs[0]._fieldObject.GetNormal(p);
+                    SpaceTuple pov = -r._fieldDirection;
                     Color shade = varObj._fieldMaterial.GetColor(varObj, argLight, p, pov, normal, false);
                     varCanvas.SetPixel(i,j,shade);
                 }
