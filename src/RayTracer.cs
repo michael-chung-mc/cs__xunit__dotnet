@@ -123,8 +123,9 @@ public class RayTracer {
         // RenderOBJPyramid();
         // RenderOBJHumanoidTri();
         // RenderOBJHumanoidQuad();
-        RenderOBJTeapot();
-
+        // RenderOBJTeapot();
+        // RenderOBJCow();
+        RenderOBJTeddy();
 //         // cameraRenderSpheres();
 //         // cameraRenderPlanes();
 
@@ -137,23 +138,45 @@ public class RayTracer {
     public void RenderOBJTeapot() {
         World varEnv = new World();
         varEnv.SetLight(new PointSource(new Point(0,120,0), new Color(1,1,1)));
-        // varEnv.SetLight(new PointSource(new Point(0,3,0), new Color(1,1,1)));
-        // varEnv.SetLight(new PointSource(new Point(0,-3,0), new Color(1,1,1)));
-        // varEnv.SetLight(new PointSource(new Point(0,0,300), new Color(1,1,1)));
-        // varEnv.SetLight(new PointSource(new Point(0,0,-300), new Color(1,1,1)));
-        // varEnv.SetLight(new PointSource(new Point(300,0,0), new Color(1,1,1)));
-        // varEnv.SetLight(new PointSource(new Point(-300,0,0), new Color(1,1,1)));
         String varData = File.ReadAllText("../data/utah-teapot.obj");
-        // String varData = File.ReadAllText("../data/diamond.obj");
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         varParser.ParseWaveFrontObj(varData);
         CompositeGroup varObj = varParser.GetGroup();
-        varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2);
+        // varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2));
+        // varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2));
+        varObj.SetTransform(new TranslationMatrix(-1,0,0));
         varEnv.SetObject(varObj);
         Camera varCamera = new Camera(100,100,1.152);
-        varCamera.SetTransform(new ViewMatrix(new Point(1,-1,0), new Point(0,0,0), new Vector(0,1,0)));
+        varCamera.SetTransform(new ViewMatrix(new Point(10,0,0), new Point(0,0,0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("teapot");        
+    }
+    public void RenderOBJCow() {
+        World varEnv = new World();
+        varEnv.SetLight(new PointSource(new Point(0,120,0), new Color(1,1,1)));
+        String varData = File.ReadAllText("../data/cow-nonormals.obj");
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        varParser.ParseWaveFrontObj(varData);
+        CompositeGroup varObj = varParser.GetGroup();
+        varObj.SetTransform(new YRotationMatrix(-_fieldPM.GetPI()/4).GetRotateX(-_fieldPM.GetPI()/2));
+        varEnv.SetObject(varObj);
+        Camera varCamera = new Camera(100,100,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(0,-1,0), new Point(0,0,0), new Vector(0,1,0)));
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("cow");        
+    }
+    public void RenderOBJTeddy() {
+        World varEnv = new World();
+        varEnv.SetLight(new PointSource(new Point(20,20,20), new Color(1,1,1)));
+        String varData = File.ReadAllText("../data/teddy.obj");
+        ParserWaveFrontObj varParser = new ParserWaveFrontObj();
+        varParser.ParseWaveFrontObj(varData);
+        CompositeGroup varObj = varParser.GetGroup();
+        varEnv.SetObject(varObj);
+        Camera varCamera = new Camera(200,200,1.152);
+        varCamera.SetTransform(new ViewMatrix(new Point(40,20,40), new Point(0,0,0), new Vector(0,1,0)));
+        Canvas img = varCamera.RenderCanvas(varEnv);
+        img.RenderFile("teddy");        
     }
     public void RenderOBJOctahedron() {
         World varEnv = new World();
