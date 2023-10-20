@@ -92,10 +92,6 @@ public class Point : SpaceTuple {
 	    _fieldZ = argZ;
 	    _fieldW = 1.0;
     }
-    // public static Vector operator-(Point argSelf, Point argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    // public static Point operator-(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    // public static Point operator+(Point argSelf, SpaceTuple argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
-    // public static Point operator+(Point argSelf, Vector argOther) { return new Point(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
 }
 public class Vector : SpaceTuple {
     public Vector() {
@@ -116,11 +112,4 @@ public class Vector : SpaceTuple {
 	    _fieldZ = argZ;
 	    _fieldW = 0.0;
     }
-    // public static Vector operator*(Vector argSelf, double multiple) {
-    // 	return new Vector(argSelf._fieldX * multiple, argSelf._fieldY * multiple, argSelf._fieldZ * multiple);
-    // }
-    // public static Vector operator-(Vector argSelf) { return new Vector(-argSelf._fieldX, -argSelf._fieldY, -argSelf._fieldZ); }
-    // public static Vector operator-(Vector argSelf, SpaceTuple argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    // public static Vector operator-(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX-argOther._fieldX, argSelf._fieldY-argOther._fieldY, argSelf._fieldZ-argOther._fieldZ); }
-    // public static Vector operator+(Vector argSelf, Vector argOther) { return new Vector(argSelf._fieldX+argOther._fieldX, argSelf._fieldY+argOther._fieldY, argSelf._fieldZ+argOther._fieldZ); }
 }
