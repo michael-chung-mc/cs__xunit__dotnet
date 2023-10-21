@@ -51,7 +51,7 @@ public class SpaceTuple {
         return varComp.CheckTuple(this, argOther);
     }
     public virtual void RenderConsole() {
-        Console.WriteLine($"Tuple::renderConsole() -> {{mbrX:{_fieldX}, mbrY:{_fieldY}, mbrZ:{_fieldZ}, mbrW:{_fieldW}}}");
+        Console.WriteLine($"Tuple::RenderConsole()::{{mbrX:{_fieldX}, mbrY:{_fieldY}, mbrZ:{_fieldZ}, mbrW:{_fieldW}}}");
     }
     public void SetAdd (SpaceTuple argOther) {
         _fieldX += argOther._fieldX;
