@@ -1089,4 +1089,71 @@ public class AABBTest {
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-5,0,-3)));
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(7,2,0)));
 	}
+	[Fact]
+	public void Sphere_AABB__With_Default__Expect_Origin_Length_1 () {
+		UnitSphere varObj = new UnitSphere();
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-1,-1,-1)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(1,1,1)));
+	}
+	[Fact]
+	public void Plane_AABB__With_Default__Expect_Origin_Length_Infinity_In_X_Z () {
+		UnitPlane varObj = new UnitPlane();
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(double.MinValue, 0, double.MinValue)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(double.MaxValue, 0, double.MaxValue)));
+	}
+	[Fact]
+	public void CubeAABB_WithDefault_ExpectOriginLength1 () {
+		UnitCube varObj = new UnitCube();
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-1,-1,-1)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(1,1,1)));
+	}
+	[Fact]
+	public void CylinderAABB_WithDefault_ExpectOriginLength1ExtendInfinityInY () {
+		UnitCylinder varObj = new UnitCylinder();
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-1,double.MinValue,-1)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(1,double.MaxValue,1)));
+	}
+	[Fact]
+	public void CylinderAABB_WithBounded3n5_ExpectOriginLength1Extend3n5 () {
+		UnitCylinder varObj = new UnitCylinder();
+		varObj._fieldHeightMin = -5;
+		varObj._fieldHeightMax = 3;
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-1,-5,-1)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(1,3,1)));
+	}
+	[Fact]
+	public void ConeAABB_WithDefault_ExpectOriginExtendInfinity () {
+		UnitDNCone varObj = new UnitDNCone();
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(double.MinValue,double.MinValue,double.MinValue)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(double.MaxValue,double.MaxValue,double.MaxValue)));
+	}
+	[Fact]
+	public void ConeAABB_WithBounded_n5_3_ExpectOriginLength1Extend3n5 () {
+		UnitDNCone varObj = new UnitDNCone();
+		varObj._fieldHeightMin = -5;
+		varObj._fieldHeightMax = 3;
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-5,-5,-5)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(5,3,5)));
+	}
+	[Fact]
+	public void TriangleAABB_WithPoints_ExpectBoundedByMinMaxPoints () {
+		UnitTriangle varObj = new UnitTriangle(new Point(-3,7,2), new Point(6,2,-4), new Point(2,-1,-1));
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-3,-1,-4)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(6,7,2)));
+	}
+	[Fact]
+	public void FormAABB_WithDfault_ExpectOriginLength1 () {
+		Form varObj = new Form();
+		AABB varBox = varObj.GetBounds();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-1,-1,-1)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(1,1,1)));
+	}
 }

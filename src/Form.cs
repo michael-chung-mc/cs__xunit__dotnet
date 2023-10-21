@@ -126,7 +126,7 @@ public class Form {
 		return varNormal;
 	}
 	public virtual AABB GetBounds() {
-		return new AABB();
+		return new AABB(new Point(-1,-1,-1), new Point(1,1,1));
 	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
@@ -215,6 +215,9 @@ public class UnitPlane : Form {
 		double varTime = -argRay._fieldOrigin._fieldY / argRay._fieldDirection._fieldY;
 		return new Intersections(varTime, this);
 	}
+	public virtual AABB GetBounds() {
+		return new AABB(new Point(double.MinValue,0,double.MinValue), new Point(double.MaxValue,0,double.MaxValue));
+	}
 };
 
 public class UnitCube : Form {
@@ -260,6 +263,9 @@ public class UnitCube : Form {
 		}
 		return new Tuple<double, double> (varMin, varMax);
 	}
+	public virtual AABB GetBounds() {
+		return new AABB(new Point(-1,-1,-1), new Point(1,1,1));
+	}
 }
 
 public class UnitCylinder : Form {
@@ -303,6 +309,9 @@ public class UnitCylinder : Form {
 		double varX = argRay._fieldOrigin._fieldX + time * argRay._fieldDirection._fieldX;
 		double varZ = argRay._fieldOrigin._fieldZ + time * argRay._fieldDirection._fieldZ;
 		return (varX*varX + varZ*varZ) <= 1.0;
+	}
+	public virtual AABB GetBounds() {
+		return new AABB(new Point(-1,_fieldHeightMin,-1), new Point(1,_fieldHeightMax,1));
 	}
 	public void SetIntersectionsCaps (Ray argRay, ref Intersections argXs) {
 		if (_fieldClosed && Math.Abs(argRay._fieldDirection._fieldY) > _fieldPM.GetEpsilon()) {
@@ -362,6 +371,10 @@ public class UnitDNCone : Form {
 		double varX = argRay._fieldOrigin._fieldX + time * argRay._fieldDirection._fieldX;
 		double varZ = argRay._fieldOrigin._fieldZ + time * argRay._fieldDirection._fieldZ;
 		return (varX*varX + varZ*varZ) <= argHeight * argHeight;
+	}
+	public virtual AABB GetBounds() {
+		double limit = Math.Max(Math.Abs(_fieldHeightMin), Math.Abs(_fieldHeightMax));
+		return new AABB(new Point(-limit,_fieldHeightMin,-limit), new Point(limit,_fieldHeightMax,limit));
 	}
 	public void SetIntersectionsCaps (Ray argRay, ref Intersections argXs) {
 		if (_fieldClosed && Math.Abs(argRay._fieldDirection._fieldY) > _fieldPM.GetEpsilon()) {
@@ -435,6 +448,13 @@ public class UnitTriangle : Form {
 		varXs.SetIntersect(varTime, this);
 		return varXs;
 	}
+	public virtual AABB GetBounds() {
+		AABB varBounds = new AABB();
+		varBounds.SetPoint(_fieldVertexOne);
+		varBounds.SetPoint(_fieldVertexTwo);
+		varBounds.SetPoint(_fieldVertexThree);
+		return varBounds;
+	}
 }
 
 public class AABB : Form {
@@ -448,7 +468,7 @@ public class AABB : Form {
 		_fieldMin = argMin;
 		_fieldMax = argMax;
 	}
-	public void SetPoint(Point argPoint) {
+	public void SetPoint(SpaceTuple argPoint) {
 		double varMinX = Math.Min(_fieldMin._fieldX,argPoint._fieldX);
 		double varMinY = Math.Min(_fieldMin._fieldY,argPoint._fieldY);
 		double varMinZ = Math.Min(_fieldMin._fieldZ,argPoint._fieldZ);
