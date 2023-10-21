@@ -366,7 +366,7 @@ public class PlaneTest {
 		Assert.True(varIx._fieldIntersections[0]._fieldObject.CheckEqual(varPlane));
 	}
 }
-public class AABBTest {
+public class CubeTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
     [Fact]
@@ -376,7 +376,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Intersect_Cube__Positive_X() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(5,0.5,0), new Vector(-1,0,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
@@ -385,7 +385,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Intersect_Cube__Negative_X() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(-5,0.5,0), new Vector(1,0,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
@@ -394,7 +394,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Intersect_Cube__Positive_Y() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,5,0), new Vector(0,-1,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
@@ -403,7 +403,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Intersect_Cube__Negative_Y() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,-5,0), new Vector(0,1,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
@@ -412,7 +412,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Intersect_Cube__Positive_Z() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,0,5), new Vector(0,0,-1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
@@ -421,7 +421,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Intersect_Cube__Negative_Z() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,0,-5), new Vector(0,0,1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
@@ -430,7 +430,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Intersect_Cube__Interior() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,0.5,0), new Vector(0,0,1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
@@ -439,49 +439,49 @@ public class AABBTest {
 	}
     [Fact]
 	public void Ray_Miss_Cube__Away_X() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(-2,0,0), new Vector(0.2673,0.5345,0.8018));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
 	public void Ray_Miss_Cube__Away_Y() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,-2,0), new Vector(0.8018,0.2673,0.5345));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
 	public void Ray_Miss_Cube__Away_Z() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,0,-2), new Vector(0.5345, 0.8018,0.2673));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
 	public void Ray_Miss_Cube__Parallel_X_Z() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(2,0,2), new Vector(0,0,-1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
 	public void Ray_Miss_Cube__Parallel_Y_Z() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,2,2), new Vector(0,-1,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
 	public void Ray_Miss_Cube__Parallel_X_Y() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(2,2,0), new Vector(-1,0,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
 	public void Cube_Normal__Positive_X() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(1,0.5,-0.8);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(1,0,0);
@@ -489,7 +489,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Cube_Normal__Negative_X() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-1,-0.2,0.9);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(-1,0,0);
@@ -497,7 +497,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Cube_Normal__Positive_Y() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-0.4,1,-0.1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(0,1,0);
@@ -505,7 +505,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Cube_Normal__Negative_Y() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(0.3,-1,1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(0,-1,0);
@@ -513,7 +513,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Cube_Normal__Positive_Z() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-0.6,0.3,1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(0,0,1);
@@ -521,7 +521,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Cube_Normal__Negative_Z() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(0.4,0.4,-1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(0,0,-1);
@@ -529,7 +529,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Cube_Normal__Corner_X() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(1,1,1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(1,0,0);
@@ -537,7 +537,7 @@ public class AABBTest {
 	}
     [Fact]
 	public void Cube_Normal__Corner_Negative_X() {
-		UnitAABBox varCube = new UnitAABBox();
+		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-1,-1,-1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
 		Vector varExpectedNormal = new Vector(-1,0,0);
@@ -1054,5 +1054,39 @@ public class TriangleTest {
 		List<Intersection> varXs = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Equal(1, varXs.Count);
 		Assert.True(_fieldComp.CheckFloat(2,varXs[0]._fieldTime));
+	}
+}
+
+public class AABBTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta _fieldPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+	[Fact]
+	public void AABB_Default_Constructor__With_No_Values__Expect_Infinity () {
+		AABB varBox = new AABB();
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(double.MinValue,double.MinValue,double.MinValue)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(double.MaxValue,double.MaxValue,double.MaxValue)));
+	}
+	[Fact]
+	public void AABB_Constructor__With_Values__Expect_Values () {
+		Point varMin = new Point(-1,-2,-3);
+		Point varMax = new Point(3,2,1);
+		AABB varBox = new AABB(varMin, varMax);
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, varMin));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, varMax));
+	}
+	[Fact]
+	public void AABB_Set_Point__With_New_Points__Expect_Resize_Min_Max () {
+		AABB varBox = new AABB();
+		Point varMin = new Point(-5,2,0);
+		Point varMax = new Point(7,0,-3);
+		varBox.SetPoint(varMin);
+		varBox.SetPoint(varMax);
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-5,0,-3)));
+		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(7,2,0)));
 	}
 }

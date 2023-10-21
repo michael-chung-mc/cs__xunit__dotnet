@@ -53,6 +53,12 @@ public class SpaceTuple {
     public virtual void RenderConsole() {
         Console.WriteLine($"Tuple::RenderConsole()::{{mbrX:{_fieldX}, mbrY:{_fieldY}, mbrZ:{_fieldZ}, mbrW:{_fieldW}}}");
     }
+    public void SetPoints (double argX, double argY, double argZ, double argW) {
+        _fieldX = argX;
+        _fieldY = argY;
+        _fieldZ = argZ;
+        _fieldW = argW;
+    }
     public void SetAdd (SpaceTuple argOther) {
         _fieldX += argOther._fieldX;
         _fieldY += argOther._fieldY;
@@ -92,6 +98,11 @@ public class Point : SpaceTuple {
 	    _fieldZ = argZ;
 	    _fieldW = 1.0;
     }
+    public void SetPoints (double argX, double argY, double argZ) {
+        _fieldX = argX;
+        _fieldY = argY;
+        _fieldZ = argZ;
+    }
 }
 public class Vector : SpaceTuple {
     public Vector() {
@@ -111,5 +122,10 @@ public class Vector : SpaceTuple {
 	    _fieldY = argY;
 	    _fieldZ = argZ;
 	    _fieldW = 0.0;
+    }
+    public void SetPoints (double argX, double argY, double argZ) {
+        _fieldX = argX;
+        _fieldY = argY;
+        _fieldZ = argZ;
     }
 }

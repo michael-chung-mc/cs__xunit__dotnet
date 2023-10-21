@@ -589,7 +589,7 @@ public class RayTracer {
         PointSource varLight = new PointSource(new Point(0,6.9,-5), new Color(1,1,0.9));
         varEnv.SetLight(varLight);
 
-        UnitAABBox varFloorCeiling = new UnitAABBox();
+        UnitCube varFloorCeiling = new UnitCube();
         varFloorCeiling.SetTransform(new ScalingMatrix(20,7,20).GetTranslate(0,1,0));
         varFloorCeiling.SetMaterial(new Material());
         varFloorCeiling._fieldMaterial.SetPattern(new PatternChecker(new Color(0,0,0), new Color(0.25,0.25,0.25)));
@@ -601,7 +601,7 @@ public class RayTracer {
         varFloorCeiling._fieldMaterial._fieldReflective = 0.1;
         varEnv.SetObject(varFloorCeiling);
 
-        UnitAABBox varWalls = new UnitAABBox();
+        UnitCube varWalls = new UnitCube();
         // varWallWest.SetTransform(new YRotationMatrix(1.5708).GetRotateZ(1.5708).GetTranslate(-5,0,0));
         varWalls.SetTransform(new ScalingMatrix(10,10,10));
         varWalls.SetMaterial(new Material());
@@ -614,7 +614,7 @@ public class RayTracer {
         varWalls._fieldMaterial._fieldReflective = 0.1;
         varEnv.SetObject(varWalls);
 
-        UnitAABBox varTableTop = new UnitAABBox();
+        UnitCube varTableTop = new UnitCube();
         varTableTop.SetTransform(new TranslationMatrix(0,3.1,0).GetScale(3,.1,2));
         varTableTop.SetMaterial(new Material());
         varTableTop._fieldMaterial.SetPattern(new PatternStripe(new Color(0.5529,0.4235,0.3255), new Color(0.6588, 0.5098, 0.4)));
@@ -626,7 +626,7 @@ public class RayTracer {
         varTableTop._fieldMaterial._fieldReflective = 0.2;
         varEnv.SetObject(varTableTop);
 
-        UnitAABBox varTableLeg1 = new UnitAABBox();
+        UnitCube varTableLeg1 = new UnitCube();
         varTableLeg1.SetTransform(new TranslationMatrix(2.7,1.5,-1.7).GetScale(.1,1.5,.1));
         varTableLeg1.SetMaterial(new Material());
         varTableLeg1._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
@@ -634,7 +634,7 @@ public class RayTracer {
         varTableLeg1._fieldMaterial._fieldDiffuse = 0.7;
         varEnv.SetObject(varTableLeg1);
 
-        UnitAABBox varTableLeg2 = new UnitAABBox();
+        UnitCube varTableLeg2 = new UnitCube();
         varTableLeg2.SetTransform(new TranslationMatrix(2.7,1.5,1.7).GetScale(.1,1.5,.1));
         varTableLeg2.SetMaterial(new Material());
         varTableLeg2._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
@@ -642,7 +642,7 @@ public class RayTracer {
         varTableLeg2._fieldMaterial._fieldDiffuse = 0.7;
         varEnv.SetObject(varTableLeg2);
 
-        UnitAABBox varTableLeg3 = new UnitAABBox();
+        UnitCube varTableLeg3 = new UnitCube();
         varTableLeg3.SetTransform(new TranslationMatrix(-2.7,1.5,-1.7).GetScale(.1,1.5,.1));
         varTableLeg3.SetMaterial(new Material());
         varTableLeg3._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
@@ -650,7 +650,7 @@ public class RayTracer {
         varTableLeg3._fieldMaterial._fieldDiffuse = 0.7;
         varEnv.SetObject(varTableLeg3);
 
-        UnitAABBox varTableLeg4 = new UnitAABBox();
+        UnitCube varTableLeg4 = new UnitCube();
         varTableLeg4.SetTransform(new TranslationMatrix(-2.7,1.5,1.7).GetScale(.1,1.5,.1));
         varTableLeg4.SetMaterial(new Material());
         varTableLeg4._fieldMaterial._fieldColor = new Color(0.5529,0.4235,0.3255);
@@ -658,7 +658,7 @@ public class RayTracer {
         varTableLeg4._fieldMaterial._fieldDiffuse = 0.7;
         varEnv.SetObject(varTableLeg4);
 
-        UnitAABBox varCubeGlass = new UnitAABBox();
+        UnitCube varCubeGlass = new UnitCube();
         varCubeGlass.SetTransform(new TranslationMatrix(0,3.45001,0).GetRotateY(0.2).GetScale(.25,.25,.25));
         varCubeGlass._fieldCastsShadow = false;
         varCubeGlass.SetMaterial(new Material());
@@ -672,7 +672,7 @@ public class RayTracer {
         varCubeGlass._fieldMaterial._fieldRefractiveIndex = 1.5;
         varEnv.SetObject(varCubeGlass);
 
-        UnitAABBox varCubeMini1 = new UnitAABBox();
+        UnitCube varCubeMini1 = new UnitCube();
         varCubeMini1.SetTransform(new TranslationMatrix(1,3.35,-0.9).GetRotateY(-0.4).GetScale(.15,.15,.15));
         varCubeMini1.SetMaterial(new Material());
         varCubeMini1._fieldMaterial._fieldColor = new Color(1,.5,.5);
@@ -680,52 +680,52 @@ public class RayTracer {
         varCubeMini1._fieldMaterial._fieldReflective = 0.6;
         varEnv.SetObject(varCubeMini1);
 
-        UnitAABBox varCubeMini2 = new UnitAABBox();
+        UnitCube varCubeMini2 = new UnitCube();
         varCubeMini2.SetTransform(new TranslationMatrix(-1.5,3.27,.3).GetRotateY(0.4).GetScale(.15,.07,.15));
         varCubeMini2.SetMaterial(new Material());
         varCubeMini2._fieldMaterial._fieldColor = new Color(1,1,.5);
         varEnv.SetObject(varCubeMini2);
 
-        UnitAABBox varCubeMini3 = new UnitAABBox();
+        UnitCube varCubeMini3 = new UnitCube();
         varCubeMini3.SetTransform(new TranslationMatrix(0,3.25,1).GetRotateY(0.4).GetScale(.2,0.05,0.05));
         varCubeMini3.SetMaterial(new Material());
         varCubeMini3._fieldMaterial._fieldColor = new Color(.5,1,.5);
         varEnv.SetObject(varCubeMini3);
 
-        UnitAABBox varCubeMini4 = new UnitAABBox();
+        UnitCube varCubeMini4 = new UnitCube();
         varCubeMini4.SetTransform(new TranslationMatrix(-0.6,3.4,-1).GetRotateY(0.8).GetScale(.05,.2,.05));
         varCubeMini4.SetMaterial(new Material());
         varCubeMini4._fieldMaterial._fieldColor = new Color(.5,.5,1);
         varEnv.SetObject(varCubeMini4);
 
-        UnitAABBox varCubeMini5 = new UnitAABBox();
+        UnitCube varCubeMini5 = new UnitCube();
         varCubeMini5.SetTransform(new TranslationMatrix(2,3.4,1).GetRotateY(0.8).GetScale(.05,.2,.05));
         varCubeMini5.SetMaterial(new Material());
         varCubeMini5._fieldMaterial._fieldColor = new Color(.5,1,1);
         varEnv.SetObject(varCubeMini5);
 
-        UnitAABBox varFrame1 = new UnitAABBox();
+        UnitCube varFrame1 = new UnitCube();
         varFrame1.SetTransform(new TranslationMatrix(-10,4,1).GetScale(.05,1,1));
         varFrame1.SetMaterial(new Material());
         varFrame1._fieldMaterial._fieldColor = new Color(.7098,.2471,.2196);
         varFrame1._fieldMaterial._fieldDiffuse = 0.6;
         varEnv.SetObject(varFrame1);
 
-        UnitAABBox varFrame2 = new UnitAABBox();
+        UnitCube varFrame2 = new UnitCube();
         varFrame2.SetTransform(new TranslationMatrix(-10,3.4,2.7).GetScale(.05,.4,.4));
         varFrame2.SetMaterial(new Material());
         varFrame2._fieldMaterial._fieldColor = new Color(.2667,.2706,.6902);
         varFrame2._fieldMaterial._fieldDiffuse = 0.6;
         varEnv.SetObject(varFrame2);
 
-        UnitAABBox varFrame3 = new UnitAABBox();
+        UnitCube varFrame3 = new UnitCube();
         varFrame3.SetTransform(new TranslationMatrix(-10,4.6,2.7).GetScale(.05,.4,.4));
         varFrame3.SetMaterial(new Material());
         varFrame3._fieldMaterial._fieldColor = new Color(.3098,.5961,.3098);
         varFrame3._fieldMaterial._fieldDiffuse = 0.6;
         varEnv.SetObject(varFrame3);
 
-        UnitAABBox varMirror = new UnitAABBox();
+        UnitCube varMirror = new UnitCube();
         varMirror.SetTransform(new TranslationMatrix(-2,3.5,9.95).GetScale(4.8,1.4,.06));
         varMirror.SetMaterial(new Material());
         varMirror._fieldMaterial._fieldColor = new Color(0,0,0);
@@ -736,7 +736,7 @@ public class RayTracer {
         varMirror._fieldMaterial._fieldReflective = 1;
         varEnv.SetObject(varMirror);
 
-        UnitAABBox varMirrorFrame = new UnitAABBox();
+        UnitCube varMirrorFrame = new UnitCube();
         varMirrorFrame.SetTransform(new TranslationMatrix(-2,3.5,9.95).GetScale(5,1.5,.05));
         varMirrorFrame.SetMaterial(new Material());
         varMirrorFrame._fieldMaterial._fieldColor = new Color(.3882,.2627,.1882);

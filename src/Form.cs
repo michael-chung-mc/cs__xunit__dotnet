@@ -125,6 +125,9 @@ public class Form {
 		}
 		return varNormal;
 	}
+	public virtual AABB GetBounds() {
+		return new AABB();
+	}
 	public void SetTransform(Matrix argMatrix) {
 		this._fieldTransform = argMatrix;
 		this._fieldTransformInverse = argMatrix.GetInverse();
@@ -172,6 +175,9 @@ public class UnitSphere : Form {
 		SpaceTuple varObjectNormal = argPoint - _fieldOrigin;
 		return varObjectNormal.GetNormal();
 	}
+	public virtual AABB GetBounds() {
+		return new AABB(new Point(-1,-1,-1), new Point(1,1,1));
+	}
 	public override bool CheckEqual(Form argOther)
 	{
 		Comparinator ce = new Comparinator();
@@ -211,7 +217,7 @@ public class UnitPlane : Form {
 	}
 };
 
-public class UnitAABBox : Form {
+public class UnitCube : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
 	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
 	{
@@ -392,7 +398,8 @@ public class CompositeGroup : Form {
 	}
 }
 
-public class UnitTriangle : Form{	private ProjectMeta _fieldPM = new ProjectMeta();
+public class UnitTriangle : Form {
+	private ProjectMeta _fieldPM = new ProjectMeta();
 	public UnitTriangle(Point argVertexOne, Point argVertexTwo, Point argVertexThree) {
 		_fieldVertexOne = argVertexOne;
 		_fieldVertexTwo = argVertexTwo;
@@ -427,5 +434,28 @@ public class UnitTriangle : Form{	private ProjectMeta _fieldPM = new ProjectMeta
 		double varTime = varF * _fieldEdgeOneThree.GetDotProduct(varOriginCrossEdgeOne);
 		varXs.SetIntersect(varTime, this);
 		return varXs;
+	}
+}
+
+public class AABB : Form {
+	public SpaceTuple _fieldMin;
+	public SpaceTuple _fieldMax;
+	public AABB () {
+		_fieldMin = new Point(double.MaxValue, double.MaxValue, double.MaxValue);
+		_fieldMax = new Point(double.MinValue, double.MinValue, double.MinValue);
+	}
+	public AABB (SpaceTuple argMin, SpaceTuple argMax) {
+		_fieldMin = argMin;
+		_fieldMax = argMax;
+	}
+	public void SetPoint(Point argPoint) {
+		double varMinX = Math.Min(_fieldMin._fieldX,argPoint._fieldX);
+		double varMinY = Math.Min(_fieldMin._fieldY,argPoint._fieldY);
+		double varMinZ = Math.Min(_fieldMin._fieldZ,argPoint._fieldZ);
+		_fieldMin.SetPoints(varMinX, varMinY, varMinZ, 1);
+		double varMaxX = Math.Max(_fieldMax._fieldX,argPoint._fieldX);
+		double varMaxY = Math.Max(_fieldMax._fieldY,argPoint._fieldY);
+		double varMaxZ = Math.Max(_fieldMax._fieldZ,argPoint._fieldZ);
+		_fieldMax.SetPoints(varMaxX, varMaxY, varMaxZ, 1);
 	}
 }
