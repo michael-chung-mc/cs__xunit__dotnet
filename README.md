@@ -37,7 +37,7 @@ Ray Tracer implemented in C# following Test Driven Development methodology using
 ![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
 ![Cube-Room-Made-Of-Cubes-Example](./examples/cube_room_made_of_aabb_cubes.png)
 ![Cylinders-Example](./examples/cylinders.png)
-![WaveFrontTeddyBear.Obj](./examples/obj__teddy.png)
+![WaveFrontTeapot.Obj](./examples/obj__teapot.png)
 ## Methodology
 ### Requirements
 ### Design
@@ -69,6 +69,7 @@ Ray Tracer implemented in C# following Test Driven Development methodology using
     - [X] Triangle
     - [X] WaveFront.Obj
         - [x] OBJ Mesh Normalization
+        - [x] Smooth Shading 
     - [ ] CSG = Constructive Solid Geometry
     - [ ] Torus
 - [x] Material

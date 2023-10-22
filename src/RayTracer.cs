@@ -147,7 +147,7 @@ public class RayTracer {
         // varObj.SetTransform(new ScalingMatrix(1,1,1).GetRotateX(-_fieldPM.GetPI()/2));
         varEnv.SetObject(varObj);
         Camera varCamera = new Camera(200,200,_fieldPM.GetPI()/2);
-        varCamera.SetTransform(new ViewMatrix(new Point(0.4, 0.4, -0.4), new Point(0, 0.1, 0), new Vector(0,1,0)));
+        varCamera.SetTransform(new ViewMatrix(new Point(0.1, 0.4, -0.4), new Point(0, 0.1, 0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("teapot");
     }
