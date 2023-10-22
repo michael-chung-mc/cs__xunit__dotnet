@@ -78,6 +78,8 @@ public class IntersectionState {
 public class Intersection {
 	public bool _fieldExists;
 	public double _fieldTime;
+	public double _fieldU;
+	public double _fieldV;
 	public Form _fieldObject;
 	protected ProjectMeta varPM = new ProjectMeta();
 	public Intersection()
@@ -97,6 +99,14 @@ public class Intersection {
 		_fieldTime = argTime;
 		_fieldExists = true;
 	}
+	public Intersection(double argTime, Form argObj, double argU, double argV)
+	{
+		SetObject(argObj);
+		_fieldTime = argTime;
+		_fieldExists = true;
+		_fieldU = argU;
+		_fieldV = argV;
+	}
 	public bool CheckEqual(Intersection argOther)
 	{
 		return _fieldTime == argOther._fieldTime && _fieldObject.CheckEqual(argOther._fieldObject) && _fieldExists == argOther._fieldExists;
@@ -106,9 +116,10 @@ public class Intersection {
 		IntersectionState varIs = new IntersectionState();
 		varIs._fieldTime = _fieldTime;
 		varIs.SetObject(_fieldObject);
+		Intersection varHit = new Intersection(varIs._fieldTime, varIs._fieldObject, _fieldU, _fieldV);
 		varIs._fieldPoint = argRay.GetPosition(varIs._fieldTime);
 		varIs._fieldPov = -argRay._fieldDirection;
-		varIs._fieldNormal = varIs._fieldObject.GetNormal(varIs._fieldPoint);
+		varIs._fieldNormal = varIs._fieldObject.GetNormal(varIs._fieldPoint, varHit);
 		if (varIs._fieldNormal.GetDotProduct(varIs._fieldPov) < 0) {
 			varIs._fieldInside = true;
 			varIs._fieldNormal = -varIs._fieldNormal;
@@ -120,7 +131,6 @@ public class Intersection {
 		varIs._fieldUnderPoint = varIs._fieldPoint - (varIs._fieldNormal * varPM.GetEpsilon());
 		varIs._fieldReflect = argRay._fieldDirection.GetReflect(varIs._fieldNormal);
 		List<Form> varHitObjects = new List<Form>();
-		Intersection varHit = new Intersection(varIs._fieldTime, varIs._fieldObject);
 		for (int i = 0; i < argIntersections.Count; ++i) {
 			if (varHit.CheckEqual(argIntersections[i])) {
 				if (varHitObjects.Count == 0) { varIs._fieldRefractiveIndexOne = 1.0; }
@@ -168,6 +178,11 @@ public class Intersections {
 		_fieldIntersections = new List<Intersection>();
 		SetIntersect(argTime, argObj);
 	}
+	public Intersections(double argTime, Form argObj, double argU, double argV)
+	{
+		_fieldIntersections = new List<Intersection>();
+		SetIntersect(argTime, argObj, argU, argV);
+	}
 	public Intersection GetHit() {
 		int index = -1;
 		for (int i = 0; i < _fieldIntersections.Count(); ++i)
@@ -191,6 +206,11 @@ public class Intersections {
 	public void SetIntersect(double argTime, Form argObject)
 	{
 		_fieldIntersections.Add(new Intersection(argTime, argObject));
+		SortIntersections();
+	}
+	public void SetIntersect(double argTime, Form argObject, double argU, double argV)
+	{
+		_fieldIntersections.Add(new Intersection(argTime, argObject, argU, argV));
 		SortIntersections();
 	}
 	public void SetIntersect(Intersection argIx) {

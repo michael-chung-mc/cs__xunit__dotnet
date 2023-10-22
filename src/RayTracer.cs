@@ -136,18 +136,18 @@ public class RayTracer {
     }
 
     public void RenderOBJTeapot() {
-        // World varEnv = new World();
-        World varEnv = GetMirrorRoom();
-        // varEnv.SetLight(new PointSource(new Point(-20,20,-20), new Color(1,1,1)));
-        String varData = File.ReadAllText("../data/utah-teapot.obj");
+        World varEnv = new World();
+        // World varEnv = GetMirrorRoom();
+        varEnv.SetLight(new PointSource(new Point(-20,20,-20), new Color(1,1,1)));
+        String varData = File.ReadAllText("../data/teapot.obj");
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         varParser.ParseWaveFrontObj(varData);
         CompositeGroup varObj = varParser.GetGroup();
         // varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2).GetScale(2,2,2));
-        varObj.SetTransform(new ScalingMatrix(1,1,1).GetRotateX(-_fieldPM.GetPI()/2));
+        // varObj.SetTransform(new ScalingMatrix(1,1,1).GetRotateX(-_fieldPM.GetPI()/2));
         varEnv.SetObject(varObj);
-        Camera varCamera = new Camera(100,100,_fieldPM.GetPI()/2);
-        varCamera.SetTransform(new ViewMatrix(new Point(-4.5, 0.85, -4), new Point(0, 0.85, 0), new Vector(0,1,0)));
+        Camera varCamera = new Camera(200,200,_fieldPM.GetPI()/2);
+        varCamera.SetTransform(new ViewMatrix(new Point(0.4, 0.4, -0.4), new Point(0, 0.1, 0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(varEnv);
         img.RenderFile("teapot");
     }
@@ -278,7 +278,7 @@ public class RayTracer {
                 if (xs.Count() != 0)
                 {
                     SpaceTuple p = r.GetPosition(xs[0]._fieldTime);
-                    SpaceTuple normal = xs[0]._fieldObject.GetNormal(p);
+                    SpaceTuple normal = xs[0]._fieldObject.GetNormal(p, new Intersection());
                     SpaceTuple pov = -r._fieldDirection;
                     Color shade = varObj._fieldMaterial.GetColor(varObj, argLight, p, pov, normal, false);
                     varCanvas.SetPixel(i,j,shade);

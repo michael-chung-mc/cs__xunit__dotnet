@@ -8,43 +8,80 @@ public class Parser { }
 
 public class ParserWaveFrontObj : Parser {
     public List<Point> _fieldVertices;
+    public List<Vector> _fieldNormals;
     public Dictionary<String, CompositeGroup> _fieldGroups;
     private Regex _fieldRgxVertex;
+    private Regex _fieldRgxVertexNormal;
     private Regex _fieldRgxFace;
-    private Regex _fieldRgxFaceVertex;
+    private Regex _fieldRgxIndexNormal;
+    private Regex _fieldRgxIndexTextureNormal;
+    private Regex _fieldRgxIndex;
     private Regex _fieldRgxGroup;
     public ParserWaveFrontObj () {
         _fieldVertices = new List<Point>{new Point(0,0,0)};
+        _fieldNormals = new List<Vector>{new Vector(0,0,0)};
         _fieldGroups = new Dictionary<String, CompositeGroup>();
         _fieldRgxVertex = new Regex(@"^v\s+(?<PointOne>-?\d*\.?\d*)\s+(?<PointTwo>-?\d*\.?\d*)\s+(?<PointThree>-?\d*\.?\d*)");
-        _fieldRgxFace = new Regex(@"^f(?<Vertex>\s+\d)+");
-        _fieldRgxFaceVertex = new Regex(@"\d+");
+        _fieldRgxVertexNormal = new Regex(@"^vn\s+(?<PointOne>-?\d*\.?\d*)\s+(?<PointTwo>-?\d*\.?\d*)\s+(?<PointThree>-?\d*\.?\d*)");
+        _fieldRgxFace = new Regex(@"^f(?<Vertex>\s+\d+\/?\d*\/?\d*)+");
+        _fieldRgxIndex = new Regex(@"\d+");
+        _fieldRgxIndexNormal = new Regex(@"\d+\/\/\d+");
+        _fieldRgxIndexTextureNormal = new Regex(@"\d+\/\d+\/\d+");
         _fieldRgxGroup = new Regex(@"^g\s.*");
     }
-    public int ParseWaveFrontObj(String argData) {
+    public int ParseWaveFrontObj(String argData, bool argNormalize = true) {
         int varSkipped = 0;
         String varGroupName = "default";
         using (StringReader varRdr = new StringReader(argData)) {
             String varLine;
             while ((varLine = varRdr.ReadLine()) != null) {
-                if (_fieldRgxVertex.IsMatch(varLine)) {
+                if (_fieldRgxVertexNormal.IsMatch(varLine)) {
+                    GroupCollection varGroups = _fieldRgxVertexNormal.Matches(varLine)[0].Groups;
+                    _fieldNormals.Add(new Vector(double.Parse(varGroups[1].Value), double.Parse(varGroups[2].Value), double.Parse(varGroups[3].Value)));
+                } else if (_fieldRgxVertex.IsMatch(varLine)) {
                     GroupCollection varGroups = _fieldRgxVertex.Matches(varLine)[0].Groups;
                     _fieldVertices.Add(new Point(double.Parse(varGroups[1].Value), double.Parse(varGroups[2].Value), double.Parse(varGroups[3].Value)));
                 } else if (_fieldRgxFace.IsMatch(varLine)) {
-                    if (_fieldGroups.Count==0) {
+                    if (_fieldGroups.Count==0 && argNormalize) {
                         SetTriangleMeshNormalization();
                     }
-                    // Console.WriteLine($"ParseWaveFrontObj()::Face({varLine}");
-                    MatchCollection varGroups = _fieldRgxFaceVertex.Matches(varLine);
-                    for (int i = 1; i < varGroups.Count-1; ++i) {
-                        UnitTriangle varFace = new UnitTriangle(_fieldVertices[int.Parse(varGroups[0].Value)], _fieldVertices[int.Parse(varGroups[i].Value)], _fieldVertices[int.Parse(varGroups[i+1].Value)]);
-                        if (!_fieldGroups.ContainsKey(varGroupName)) {
-                            _fieldGroups[varGroupName] = new CompositeGroup();
+                    if (_fieldRgxIndexNormal.IsMatch(varLine)) {
+                        MatchCollection varGroups = _fieldRgxIndexNormal.Matches(varLine);
+                        for (int i = 1; i < varGroups.Count-1; ++i) {
+                            MatchCollection varVertexNormalOne = _fieldRgxIndex.Matches(varGroups[0].Value);
+                            MatchCollection varVertexNormalTwo = _fieldRgxIndex.Matches(varGroups[i].Value);
+                            MatchCollection varVertexNormalThree = _fieldRgxIndex.Matches(varGroups[i+1].Value);
+                            SmoothTriangle varFace = new SmoothTriangle(_fieldVertices[int.Parse(varVertexNormalOne[0].Value)], _fieldVertices[int.Parse(varVertexNormalTwo[0].Value)], _fieldVertices[int.Parse(varVertexNormalThree[0].Value)], _fieldNormals[int.Parse(varVertexNormalOne[1].Value)], _fieldNormals[int.Parse(varVertexNormalTwo[1].Value)], _fieldNormals[int.Parse(varVertexNormalThree[1].Value)]);
+                            if (!_fieldGroups.ContainsKey(varGroupName)) {
+                                _fieldGroups[varGroupName] = new CompositeGroup();
+                            }
+                            _fieldGroups[varGroupName].SetObject(varFace);
                         }
-                        _fieldGroups[varGroupName].SetObject(varFace);
-                        // varFace._fieldVertexOne.RenderConsole();
-                        // varFace._fieldVertexTwo.RenderConsole();
-                        // varFace._fieldVertexThree.RenderConsole();
+                    } else if (_fieldRgxIndexTextureNormal.IsMatch(varLine)) {
+                        MatchCollection varGroups = _fieldRgxIndexTextureNormal.Matches(varLine);
+                        for (int i = 1; i < varGroups.Count-1; ++i) {
+                            MatchCollection varVertexNormalOne = _fieldRgxIndex.Matches(varGroups[0].Value);
+                            MatchCollection varVertexNormalTwo = _fieldRgxIndex.Matches(varGroups[i].Value);
+                            MatchCollection varVertexNormalThree = _fieldRgxIndex.Matches(varGroups[i+1].Value);
+                            SmoothTriangle varFace = new SmoothTriangle(_fieldVertices[int.Parse(varVertexNormalOne[0].Value)], _fieldVertices[int.Parse(varVertexNormalTwo[0].Value)], _fieldVertices[int.Parse(varVertexNormalThree[0].Value)], _fieldNormals[int.Parse(varVertexNormalOne[2].Value)], _fieldNormals[int.Parse(varVertexNormalTwo[2].Value)], _fieldNormals[int.Parse(varVertexNormalThree[2].Value)]);
+                            if (!_fieldGroups.ContainsKey(varGroupName)) {
+                                _fieldGroups[varGroupName] = new CompositeGroup();
+                            }
+                            _fieldGroups[varGroupName].SetObject(varFace);
+                        }
+                    } else {
+                        // Console.WriteLine($"ParseWaveFrontObj()::Face({varLine}");
+                        MatchCollection varGroups = _fieldRgxIndex.Matches(varLine);
+                        for (int i = 1; i < varGroups.Count-1; ++i) {
+                            UnitTriangle varFace = new UnitTriangle(_fieldVertices[int.Parse(varGroups[0].Value)], _fieldVertices[int.Parse(varGroups[i].Value)], _fieldVertices[int.Parse(varGroups[i+1].Value)]);
+                            if (!_fieldGroups.ContainsKey(varGroupName)) {
+                                _fieldGroups[varGroupName] = new CompositeGroup();
+                            }
+                            _fieldGroups[varGroupName].SetObject(varFace);
+                            // varFace._fieldVertexOne.RenderConsole();
+                            // varFace._fieldVertexTwo.RenderConsole();
+                            // varFace._fieldVertexThree.RenderConsole();
+                        }
                     }
                 } else if (_fieldRgxGroup.IsMatch(varLine)) {
                     varGroupName = varLine.Split(" ")[1];

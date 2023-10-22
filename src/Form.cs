@@ -27,6 +27,9 @@ public class Form {
 	public SpaceTuple _fieldEdgeOneTwo;
 	public SpaceTuple _fieldEdgeOneThree;
 	public SpaceTuple _fieldNormal;
+	public SpaceTuple _fieldNormalOne;
+	public SpaceTuple _fieldNormalTwo;
+	public SpaceTuple _fieldNormalThree;
 	public Form? _fieldParent;
 	public List<Form> _fieldForms;
 	public Form()
@@ -75,7 +78,7 @@ public class Form {
 			&& _fieldObjectRay.CheckEqual(argOther._fieldObjectRay)
 			&& _fieldCastsShadow == argOther._fieldCastsShadow;
 	}
-	public SpaceTuple GetNormal(SpaceTuple argPoint)
+	public SpaceTuple GetNormal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		// Point varObjectPoint = _fieldTransformInverse * argPoint;
 		// Vector varObjectNormal = GetNormalLocal(varObjectPoint);
@@ -84,10 +87,10 @@ public class Form {
 		// varWorldNormal._fieldW = 0;
 		// return varWorldNormal.GetNormal();
 		SpaceTuple varObjectPoint = GetObjectPointFromWorldSpace(argPoint);
-		SpaceTuple varObjectNormal = GetNormalLocal(varObjectPoint);
+		SpaceTuple varObjectNormal = GetNormalLocal(varObjectPoint, argIntersection);
 		return GetWorldNormalFromObjectSpace(varObjectNormal);
 	}
-	public virtual SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public virtual SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		return new Vector(argPoint._fieldX,argPoint._fieldY,argPoint._fieldZ);
 	}
@@ -170,7 +173,7 @@ public class UnitSphere : Form {
 		varIntersections.SetIntersect(intersectTwo, this);
 		return varIntersections;
 	}
-	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		SpaceTuple varObjectNormal = argPoint - _fieldOrigin;
 		return varObjectNormal.GetNormal();
@@ -202,7 +205,7 @@ public class UnitSphereGlass : UnitSphere {
 
 public class UnitPlane : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
-	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		return new Vector(0, 1, 0);
 	}
@@ -222,7 +225,7 @@ public class UnitPlane : Form {
 
 public class UnitCube : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
-	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		double varMax = Math.Max(Math.Abs(argPoint._fieldX), Math.Max(Math.Abs(argPoint._fieldY),Math.Abs(argPoint._fieldZ)));
 		if (varMax == Math.Abs(argPoint._fieldX)) {
@@ -274,7 +277,7 @@ public class UnitCylinder : Form {
 		_fieldHeightMax = double.MaxValue;
 		_fieldHeightMin = double.MinValue;
 	}
-	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		double varDistance = argPoint._fieldX * argPoint._fieldX + argPoint._fieldZ * argPoint._fieldZ;
 		if (varDistance < 1 && argPoint._fieldY >= _fieldHeightMax - _fieldPM.GetEpsilon()) { return new Vector(0,1,0); }
@@ -329,7 +332,7 @@ public class UnitDNCone : Form {
 		_fieldHeightMax = double.MaxValue;
 		_fieldHeightMin = double.MinValue;
 	}
-	public virtual SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public virtual SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		double varY = Math.Sqrt(argPoint._fieldX * argPoint._fieldX + argPoint._fieldZ * argPoint._fieldZ);
 		varY = argPoint._fieldY > 0 ? -varY : varY;
@@ -387,7 +390,7 @@ public class UnitDNCone : Form {
 }
 
 public class CompositeGroup : Form {
-	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		throw new InvalidOperationException("Groups Don't Have Normals");
 	}
@@ -413,6 +416,14 @@ public class CompositeGroup : Form {
 
 public class UnitTriangle : Form {
 	private ProjectMeta _fieldPM = new ProjectMeta();
+	public UnitTriangle() {
+		_fieldVertexOne = new Point(0,1,0);
+		_fieldVertexTwo = new Point(-1,0,0);
+		_fieldVertexThree = new Point(1,0,0);
+		_fieldEdgeOneTwo = _fieldVertexTwo - _fieldVertexOne;
+		_fieldEdgeOneThree = _fieldVertexThree - _fieldVertexOne;
+		_fieldNormal = (_fieldEdgeOneThree.GetCrossProduct(_fieldEdgeOneTwo)).GetNormal();
+	}
 	public UnitTriangle(Point argVertexOne, Point argVertexTwo, Point argVertexThree) {
 		_fieldVertexOne = argVertexOne;
 		_fieldVertexTwo = argVertexTwo;
@@ -421,7 +432,7 @@ public class UnitTriangle : Form {
 		_fieldEdgeOneThree = _fieldVertexThree - _fieldVertexOne;
 		_fieldNormal = (_fieldEdgeOneThree.GetCrossProduct(_fieldEdgeOneTwo)).GetNormal();
 	}
-	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint)
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
 	{
 		return _fieldNormal;
 	}
@@ -455,7 +466,7 @@ public class UnitTriangle : Form {
 		}
 		// double varTime = varF * _fieldEdgeOneThree.GetDotProduct(varOriginCrossEdgeOne);
 		double varTime = varF * ((_fieldEdgeOneThree._fieldX * varOriginCrossEdgeOneX) + (_fieldEdgeOneThree._fieldY * varOriginCrossEdgeOneY) + (_fieldEdgeOneThree._fieldZ * varOriginCrossEdgeOneZ) + (_fieldEdgeOneThree._fieldW * 1));
-		varXs.SetIntersect(varTime, this);
+		varXs.SetIntersect(varTime, this, varU, varV);
 		return varXs;
 	}
 	public virtual AABB GetBounds() {
@@ -487,5 +498,22 @@ public class AABB : Form {
 		double varMaxY = Math.Max(_fieldMax._fieldY,argPoint._fieldY);
 		double varMaxZ = Math.Max(_fieldMax._fieldZ,argPoint._fieldZ);
 		_fieldMax.SetPoints(varMaxX, varMaxY, varMaxZ, 1);
+	}
+}
+
+public class SmoothTriangle : UnitTriangle {
+	public SmoothTriangle(SpaceTuple argPoint1, SpaceTuple argPoint2, SpaceTuple argPoint3, SpaceTuple argNormal1, SpaceTuple argNormal2, SpaceTuple argNormal3) {
+		_fieldVertexOne = argPoint1;
+		_fieldVertexTwo = argPoint2;
+		_fieldVertexThree = argPoint3;
+		_fieldEdgeOneTwo = _fieldVertexTwo - _fieldVertexOne;
+		_fieldEdgeOneThree = _fieldVertexThree - _fieldVertexOne;
+		_fieldNormalOne = argNormal1;
+		_fieldNormalTwo = argNormal2;
+		_fieldNormalThree = argNormal3;
+	}
+	public override SpaceTuple GetNormalLocal(SpaceTuple argPoint, Intersection argIntersection)
+	{
+		return _fieldNormalTwo * argIntersection._fieldU + _fieldNormalThree * argIntersection._fieldV + _fieldNormalOne * (1-argIntersection._fieldU - argIntersection._fieldV);
 	}
 }

@@ -70,7 +70,7 @@ public class FormTest
 		varGroupOuter.SetTransform(new YRotationMatrix(_fieldPM.GetPI()/2));
 		varGroupOuter.SetObject(varGroupInner);
 		Point varPoint = new Point(1.7321, 1.1547, -5.5774);
-		SpaceTuple varTransformedNormal = varGroupOuter._fieldForms[0]._fieldForms[0].GetNormal(varPoint);
+		SpaceTuple varTransformedNormal = varGroupOuter._fieldForms[0]._fieldForms[0].GetNormal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(0.2857, 0.4286, -0.8571);
 		Assert.True(_fieldComp.CheckTuple(varTransformedNormal, varExpectedNormal));
 	}
@@ -220,7 +220,7 @@ public class SphereTest
 	public void SphereNormalX() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(1,0,0);
-		SpaceTuple normal = s.GetNormal(p);
+		SpaceTuple normal = s.GetNormal(p, new Intersection());
 		Vector expectedV = new Vector(1,0,0);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
@@ -228,7 +228,7 @@ public class SphereTest
 	public void SphereNormalY() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(0,1,0);
-		SpaceTuple normal = s.GetNormal(p);
+		SpaceTuple normal = s.GetNormal(p, new Intersection());
 		Vector expectedV = new Vector(0,1,0);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
@@ -236,7 +236,7 @@ public class SphereTest
 	public void SphereNormalZ() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(0,0,1);
-		SpaceTuple normal = s.GetNormal(p);
+		SpaceTuple normal = s.GetNormal(p, new Intersection());
 		Vector expectedV = new Vector(0,0,1);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
@@ -244,7 +244,7 @@ public class SphereTest
 	public void SphereNormal() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
-		SpaceTuple normal = s.GetNormal(p);
+		SpaceTuple normal = s.GetNormal(p, new Intersection());
 		Vector expectedV = new Vector(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
@@ -252,7 +252,7 @@ public class SphereTest
 	public void SphereNormalNormalized() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
-		SpaceTuple normal = s.GetNormal(p);
+		SpaceTuple normal = s.GetNormal(p, new Intersection());
 		SpaceTuple expectedV = normal.GetNormal();
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
@@ -262,7 +262,7 @@ public class SphereTest
 		Matrix t = new TranslationMatrix(0,1,0);
 		s.SetTransform(t);
 		Point p = new Point(0, 1.70711, -0.70711);
-		SpaceTuple normal = s.GetNormal(p);
+		SpaceTuple normal = s.GetNormal(p, new Intersection());
 		Vector expectedV = new Vector(0, 0.70711, -0.70711);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
@@ -273,7 +273,7 @@ public class SphereTest
 		Matrix t = new ScalingMatrix(1, 0.5, 1) * new ZRotationMatrix(varPM.GetPI()/5);
 		s.SetTransform(t);
 		Point p = new Point(0,Math.Sqrt(2)/2,-Math.Sqrt(2)/2);
-		SpaceTuple normal = s.GetNormal(p);
+		SpaceTuple normal = s.GetNormal(p, new Intersection());
 		Vector expectedV = new Vector(0,0.97014,-0.24254);
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
@@ -323,9 +323,9 @@ public class PlaneTest {
     [Fact]
 	public void PlaneNormalSameEverywhere() {
 		UnitPlane varPlane = new UnitPlane();
-		SpaceTuple varN1 = varPlane.GetNormal(new Point(0,0,0));
-		SpaceTuple varN2 = varPlane.GetNormal(new Point(10,0,-10));
-		SpaceTuple varN3 = varPlane.GetNormal(new Point(-5,0,150));
+		SpaceTuple varN1 = varPlane.GetNormal(new Point(0,0,0), new Intersection());
+		SpaceTuple varN2 = varPlane.GetNormal(new Point(10,0,-10), new Intersection());
+		SpaceTuple varN3 = varPlane.GetNormal(new Point(-5,0,150), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varN1, new Vector(0,1,0)));
 		Assert.True(_fieldComp.CheckTuple(varN2, new Vector(0,1,0)));
 		Assert.True(_fieldComp.CheckTuple(varN3, new Vector(0,1,0)));
@@ -483,7 +483,7 @@ public class CubeTest {
 	public void Cube_Normal__Positive_X() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(1,0.5,-0.8);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(1,0,0);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -491,7 +491,7 @@ public class CubeTest {
 	public void Cube_Normal__Negative_X() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-1,-0.2,0.9);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(-1,0,0);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -499,7 +499,7 @@ public class CubeTest {
 	public void Cube_Normal__Positive_Y() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-0.4,1,-0.1);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(0,1,0);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -507,7 +507,7 @@ public class CubeTest {
 	public void Cube_Normal__Negative_Y() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(0.3,-1,1);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(0,-1,0);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -515,7 +515,7 @@ public class CubeTest {
 	public void Cube_Normal__Positive_Z() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-0.6,0.3,1);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(0,0,1);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -523,7 +523,7 @@ public class CubeTest {
 	public void Cube_Normal__Negative_Z() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(0.4,0.4,-1);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(0,0,-1);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -531,7 +531,7 @@ public class CubeTest {
 	public void Cube_Normal__Corner_X() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(1,1,1);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(1,0,0);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -539,7 +539,7 @@ public class CubeTest {
 	public void Cube_Normal__Corner_Negative_X() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-1,-1,-1);
-		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint);
+		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
 		Vector varExpectedNormal = new Vector(-1,0,0);
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
@@ -610,25 +610,25 @@ public class CylinderTest {
     [Fact]
 	public void Cylinder_Normal__Positive_X() {
 		UnitCylinder varObj = new UnitCylinder();
-		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(1,0,0));
+		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(1,0,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(1,0,0)));
 	}
     [Fact]
 	public void Cylinder_Normal__Negative_Z() {
 		UnitCylinder varObj = new UnitCylinder();
-		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,5,-1));
+		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,5,-1), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,-1)));
 	}
     [Fact]
 	public void Cylinder_Normal__Positive_Z() {
 		UnitCylinder varObj = new UnitCylinder();
-		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,-2,1));
+		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,-2,1), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,1)));
 	}
     [Fact]
 	public void Cylinder_Normal__Negative_x() {
 		UnitCylinder varObj = new UnitCylinder();
-		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(-1,1,0));
+		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(-1,1,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(-1,0,0)));
 	}
     [Fact]
@@ -763,7 +763,7 @@ public class CylinderTest {
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
 		varObj._fieldClosed = true;
-		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,1,0));
+		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,1,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
 	}
     [Fact]
@@ -772,7 +772,7 @@ public class CylinderTest {
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
 		varObj._fieldClosed = true;
-		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0.5,1,0));
+		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0.5,1,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
 	}
     [Fact]
@@ -781,7 +781,7 @@ public class CylinderTest {
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
 		varObj._fieldClosed = true;
-		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,1,0.5));
+		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,1,0.5), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
 	}
     [Fact]
@@ -790,7 +790,7 @@ public class CylinderTest {
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
 		varObj._fieldClosed = true;
-		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,2,0));
+		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,2,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
 	}
     [Fact]
@@ -799,7 +799,7 @@ public class CylinderTest {
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
 		varObj._fieldClosed = true;
-		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0.5,2,0));
+		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0.5,2,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
 	}
     [Fact]
@@ -808,7 +808,7 @@ public class CylinderTest {
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
 		varObj._fieldClosed = true;
-		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,2,0.5));
+		SpaceTuple varDirection = varObj.GetNormalLocal(new Point(0,2,0.5), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
 	}
 }
@@ -896,19 +896,19 @@ public class DNConeTest {
     [Fact]
 	public void Cone_Normal_Origin() {
 		UnitDNCone varObj = new UnitDNCone();
-		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,0,0));
+		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,0,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,0)));
 	}
     [Fact]
 	public void Cone_Normal_Above() {
 		UnitDNCone varObj = new UnitDNCone();
-		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(1,1,1));
+		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(1,1,1), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(1, -Math.Sqrt(2),1)));
 	}
     [Fact]
 	public void Cone_Normal_Below() {
 		UnitDNCone varObj = new UnitDNCone();
-		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(-1,-1,0));
+		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(-1,-1,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(-1, 1, 0)));
 	}
 }
@@ -1012,9 +1012,9 @@ public class TriangleTest {
 	[Fact]
 	public void Triangle_Normal () {
 		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
-		SpaceTuple varNormalOne = varObj.GetNormalLocal(new Point(0,0.5,0));
-		SpaceTuple varNormalTwo = varObj.GetNormalLocal(new Point(-0.5,0.75,0));
-		SpaceTuple varNormalThree = varObj.GetNormalLocal(new Point(0.5,0.25,0));
+		SpaceTuple varNormalOne = varObj.GetNormalLocal(new Point(0,0.5,0), new Intersection());
+		SpaceTuple varNormalTwo = varObj.GetNormalLocal(new Point(-0.5,0.75,0), new Intersection());
+		SpaceTuple varNormalThree = varObj.GetNormalLocal(new Point(0.5,0.25,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalOne));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalTwo));
 		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormal, varNormalThree));
@@ -1155,5 +1155,71 @@ public class AABBTest {
 		AABB varBox = varObj.GetBounds();
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-1,-1,-1)));
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(1,1,1)));
+	}
+}
+public class SmoothTriangleTest {
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta _fieldPM = new ProjectMeta();
+    [Fact]
+	public void CanaryTest() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+    [Fact]
+	public void SmoothTriangleConstructor_WithDefault_ExpectDefault() {
+		Point varP1 = new Point(0,1,0);
+		Point varP2 = new Point(-1,0,0);
+		Point varP3 = new Point(1,0,0);
+		Vector varN1 = new Vector(0,1,0);
+		Vector varN2 = new Vector(-1,0,0);
+		Vector varN3 = new Vector(1,0,0);
+		SmoothTriangle varObj = new SmoothTriangle(varP1, varP2, varP3, varN1, varN2, varN3);
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldVertexOne, varP1));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldVertexTwo, varP2));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldVertexThree, varP3));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormalOne, varN1));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormalTwo, varN2));
+		Assert.True(_fieldComp.CheckTuple(varObj._fieldNormalThree, varN3));
+	}
+    [Fact]
+	public void SmoothTriangleSetIntersect_WithUV_ExpectStoresUV() {
+		Point varP1 = new Point(0,1,0);
+		Point varP2 = new Point(-1,0,0);
+		Point varP3 = new Point(1,0,0);
+		Vector varN1 = new Vector(0,1,0);
+		Vector varN2 = new Vector(-1,0,0);
+		Vector varN3 = new Vector(1,0,0);
+		SmoothTriangle varObj = new SmoothTriangle(varP1, varP2, varP3, varN1, varN2, varN3);
+		Ray varRay = new Ray(new Point(-0.2,0.3,-2), new Vector(0,0,1));
+		List<Intersection> varIx = varObj.GetIntersectionsLocal(varRay)._fieldIntersections;
+		Assert.True(_fieldComp.CheckFloat(varIx[0]._fieldU, 0.45));
+		Assert.True(_fieldComp.CheckFloat(varIx[0]._fieldV, 0.25));
+	}
+    [Fact]
+	public void SmoothTriangleSetIntersect_WithUV_ExpectInterpolatesUV() {
+		Point varP1 = new Point(0,1,0);
+		Point varP2 = new Point(-1,0,0);
+		Point varP3 = new Point(1,0,0);
+		Vector varN1 = new Vector(0,1,0);
+		Vector varN2 = new Vector(-1,0,0);
+		Vector varN3 = new Vector(1,0,0);
+		SmoothTriangle varObj = new SmoothTriangle(varP1, varP2, varP3, varN1, varN2, varN3);
+		Intersection varIs = new Intersection(1,varObj, 0.45, 0.25);
+		SpaceTuple varNormal = varObj.GetNormal(new Point(0,0,0), varIs);
+		Assert.True(_fieldComp.CheckTuple(new Vector(-0.5547, 0.83205,0), varNormal));
+	}
+    [Fact]
+	public void SmoothTriangleSetIntersect_WithUV_ExpectInterpolatesUVIntersectionState() {
+		Point varP1 = new Point(0,1,0);
+		Point varP2 = new Point(-1,0,0);
+		Point varP3 = new Point(1,0,0);
+		Vector varN1 = new Vector(0,1,0);
+		Vector varN2 = new Vector(-1,0,0);
+		Vector varN3 = new Vector(1,0,0);
+		SmoothTriangle varObj = new SmoothTriangle(varP1, varP2, varP3, varN1, varN2, varN3);
+		Intersections varIx = new Intersections(1,varObj, 0.45, 0.25);
+		Ray varRay = new Ray(new Point(-0.2,0.3,-2), new Vector(0,0,1));
+		IntersectionState varIs = varIx._fieldIntersections[0].GetState(varRay, varIx._fieldIntersections);
+		Assert.True(_fieldComp.CheckTuple(new Vector(-0.5547, 0.83205,0), varIs._fieldNormal));
 	}
 }

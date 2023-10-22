@@ -23,7 +23,7 @@ public class IntersectionTest
 		Assert.True(true);
 	}
 	[Fact]
-	public void InitTest() {
+	public void IntersectionConstructor_WithSphere_ExpectSphere() {
 		UnitSphere s = new UnitSphere();
 		double t = 3.5;
 		// Intersection i = Intersection(t, std::make_unique<Sphere>(s));
@@ -246,5 +246,16 @@ public class IntersectionTest
 		IntersectionState varIx = varIs._fieldIntersections[0].GetState(varRay, varIs._fieldIntersections);
 		double varReflectance = varIx.GetSchlick();
 		Assert.True(_fieldComp.CheckFloat(0.48873, varReflectance));
+	}
+	[Fact]
+	public void IntersectionConstructor_WithTriangle_ExpectNormalized() {
+		UnitTriangle varObj = new UnitTriangle(new Point(0,1,0), new Point(-1,0,0), new Point(1,0,0));
+		Intersection varIs = new Intersection(3.5, varObj, 0.2, 0.4);
+		Assert.Equal(0.2, varIs._fieldU);
+		Assert.Equal(0.4, varIs._fieldV);
+		Intersections varIx = new Intersections();
+		varIx.SetIntersect(3.5,varObj, 0.2, 0.4);
+		Assert.Equal(0.2, varIx._fieldIntersections[0]._fieldU);
+		Assert.Equal(0.4, varIx._fieldIntersections[0]._fieldV);
 	}
 }
