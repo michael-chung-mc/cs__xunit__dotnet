@@ -167,16 +167,16 @@ public class RayTracer {
     }
     public void RenderOBJTeddy() {
         World varEnv = new World();
-        varEnv.SetLight(new PointSource(new Point(20,20,20), new Color(1,1,1)));
+        varEnv.SetLight(new PointSource(new Point(5,5,5), new Color(1,1,1)));
         String varData = File.ReadAllText("../data/teddy.obj");
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         varParser.ParseWaveFrontObj(varData);
         CompositeGroup varObj = varParser.GetGroup();
         varEnv.SetObject(varObj);
         Camera varCamera = new Camera(200,200,1.152);
-        varCamera.SetTransform(new ViewMatrix(new Point(40,20,40), new Point(0,0,0), new Vector(0,1,0)));
+        varCamera.SetTransform(new ViewMatrix(new Point(5,2,5), new Point(0,0,0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(varEnv);
-        img.RenderFile("teddy");        
+        img.RenderFile("teddy");
     }
     public void RenderOBJOctahedron() {
         World varEnv = new World();
