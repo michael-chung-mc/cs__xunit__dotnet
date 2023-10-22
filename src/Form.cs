@@ -427,24 +427,34 @@ public class UnitTriangle : Form {
 	}
 	public override Intersections GetIntersectionsLocal(Ray argRay) {
 		Intersections varXs = new Intersections();
-		SpaceTuple varDirCrossEdge = argRay._fieldDirection.GetCrossProduct(_fieldEdgeOneThree);
-		double varDeterminant = _fieldEdgeOneTwo.GetDotProduct(varDirCrossEdge);
+		// SpaceTuple varDirCrossEdge = argRay._fieldDirection.GetCrossProduct(_fieldEdgeOneThree);
+		double varDirCrossEdgeX = argRay._fieldDirection._fieldY * _fieldEdgeOneThree._fieldZ - argRay._fieldDirection._fieldZ * _fieldEdgeOneThree._fieldY;
+		double varDirCrossEdgeY = argRay._fieldDirection._fieldZ * _fieldEdgeOneThree._fieldX - argRay._fieldDirection._fieldX * _fieldEdgeOneThree._fieldZ;
+		double varDirCrossEdgeZ = argRay._fieldDirection._fieldX * _fieldEdgeOneThree._fieldY - argRay._fieldDirection._fieldY * _fieldEdgeOneThree._fieldX;
+		// double varDeterminant = _fieldEdgeOneTwo.GetDotProduct(varDirCrossEdge);
+		double varDeterminant = (_fieldEdgeOneTwo._fieldX * varDirCrossEdgeX) + (_fieldEdgeOneTwo._fieldY * varDirCrossEdgeY) + (_fieldEdgeOneTwo._fieldZ * varDirCrossEdgeZ) + (_fieldEdgeOneTwo._fieldW * 1);
 		double varUncertainty = _fieldPM.GetEpsilon();
 		if (Math.Abs(varDeterminant) <= varUncertainty) {
 			return varXs;
 		}
 		double varF = 1.0 / varDeterminant;
 		SpaceTuple varPointToOrigin = argRay._fieldOrigin - _fieldVertexOne;
-		double varU = varF * varPointToOrigin.GetDotProduct(varDirCrossEdge);
+		// double varU = varF * varPointToOrigin.GetDotProduct(varDirCrossEdge);
+		double varU = varF * ((varPointToOrigin._fieldX * varDirCrossEdgeX) + (varPointToOrigin._fieldY * varDirCrossEdgeY) + (varPointToOrigin._fieldZ * varDirCrossEdgeZ) + (varPointToOrigin._fieldW * 1));
 		if (varU < 0 || varU > 1) {
 			return varXs;
 		}
-		SpaceTuple varOriginCrossEdgeOne = varPointToOrigin.GetCrossProduct(_fieldEdgeOneTwo);
-		double varV = varF * argRay._fieldDirection.GetDotProduct(varOriginCrossEdgeOne);
+		// SpaceTuple varOriginCrossEdgeOne = varPointToOrigin.GetCrossProduct(_fieldEdgeOneTwo);
+		double varOriginCrossEdgeOneX = varPointToOrigin._fieldY * _fieldEdgeOneTwo._fieldZ - varPointToOrigin._fieldZ * _fieldEdgeOneTwo._fieldY;
+		double varOriginCrossEdgeOneY = varPointToOrigin._fieldZ * _fieldEdgeOneTwo._fieldX - varPointToOrigin._fieldX * _fieldEdgeOneTwo._fieldZ;
+		double varOriginCrossEdgeOneZ = varPointToOrigin._fieldX * _fieldEdgeOneTwo._fieldY - varPointToOrigin._fieldY * _fieldEdgeOneTwo._fieldX;
+		// double varV = varF * argRay._fieldDirection.GetDotProduct(varOriginCrossEdgeOne);
+		double varV = varF * ((argRay._fieldDirection._fieldX * varOriginCrossEdgeOneX) + (argRay._fieldDirection._fieldY * varOriginCrossEdgeOneY) + (argRay._fieldDirection._fieldZ * varOriginCrossEdgeOneZ) + (argRay._fieldDirection._fieldW * 1));
 		if (varV < 0 || (varU + varV) > 1) {
 			return varXs;
 		}
-		double varTime = varF * _fieldEdgeOneThree.GetDotProduct(varOriginCrossEdgeOne);
+		// double varTime = varF * _fieldEdgeOneThree.GetDotProduct(varOriginCrossEdgeOne);
+		double varTime = varF * ((_fieldEdgeOneThree._fieldX * varOriginCrossEdgeOneX) + (_fieldEdgeOneThree._fieldY * varOriginCrossEdgeOneY) + (_fieldEdgeOneThree._fieldZ * varOriginCrossEdgeOneZ) + (_fieldEdgeOneThree._fieldW * 1));
 		varXs.SetIntersect(varTime, this);
 		return varXs;
 	}

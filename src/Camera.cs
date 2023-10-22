@@ -27,10 +27,10 @@ public class Camera {
         _fieldTransformInverse = new Matrix();
         SetTransform(argOther._fieldTransform);
     }
-    public Camera(int argH, int argV, double argFOV)
+    public Camera(int argHorizontal, int argVertical, double argFOV)
     {
-        _fieldCanvasHorizontal = argH;
-        _fieldCanvasVertical = argV;
+        _fieldCanvasHorizontal = argHorizontal;
+        _fieldCanvasVertical = argVertical;
         _fieldFieldOfView = argFOV;
         double varHalfView = Math.Tan(_fieldFieldOfView/2);
         double varAspectRatio = (double)_fieldCanvasHorizontal/(double)_fieldCanvasVertical;

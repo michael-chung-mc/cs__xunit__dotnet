@@ -34,7 +34,7 @@ public class ParserWaveFrontObj : Parser {
                     if (_fieldGroups.Count==0) {
                         SetTriangleMeshNormalization();
                     }
-                    Console.WriteLine($"ParseWaveFrontObj()::Face({varLine}");
+                    // Console.WriteLine($"ParseWaveFrontObj()::Face({varLine}");
                     MatchCollection varGroups = _fieldRgxFaceVertex.Matches(varLine);
                     for (int i = 1; i < varGroups.Count-1; ++i) {
                         UnitTriangle varFace = new UnitTriangle(_fieldVertices[int.Parse(varGroups[0].Value)], _fieldVertices[int.Parse(varGroups[i].Value)], _fieldVertices[int.Parse(varGroups[i+1].Value)]);
@@ -42,9 +42,9 @@ public class ParserWaveFrontObj : Parser {
                             _fieldGroups[varGroupName] = new CompositeGroup();
                         }
                         _fieldGroups[varGroupName].SetObject(varFace);
-                        varFace._fieldVertexOne.RenderConsole();
-                        varFace._fieldVertexTwo.RenderConsole();
-                        varFace._fieldVertexThree.RenderConsole();
+                        // varFace._fieldVertexOne.RenderConsole();
+                        // varFace._fieldVertexTwo.RenderConsole();
+                        // varFace._fieldVertexThree.RenderConsole();
                     }
                 } else if (_fieldRgxGroup.IsMatch(varLine)) {
                     varGroupName = varLine.Split(" ")[1];

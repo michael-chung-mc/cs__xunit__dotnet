@@ -123,9 +123,9 @@ public class RayTracer {
         // RenderOBJPyramid();
         // RenderOBJHumanoidTri();
         // RenderOBJHumanoidQuad();
-        // RenderOBJTeapot();
+        RenderOBJTeapot();
         // RenderOBJCow();
-        RenderOBJTeddy();
+        // RenderOBJTeddy();
 //         // cameraRenderSpheres();
 //         // cameraRenderPlanes();
 
@@ -136,20 +136,20 @@ public class RayTracer {
     }
 
     public void RenderOBJTeapot() {
-        World varEnv = new World();
-        varEnv.SetLight(new PointSource(new Point(0,120,0), new Color(1,1,1)));
+        // World varEnv = new World();
+        World varEnv = GetMirrorRoom();
+        // varEnv.SetLight(new PointSource(new Point(-20,20,-20), new Color(1,1,1)));
         String varData = File.ReadAllText("../data/utah-teapot.obj");
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         varParser.ParseWaveFrontObj(varData);
         CompositeGroup varObj = varParser.GetGroup();
-        // varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2));
-        // varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2));
-        varObj.SetTransform(new TranslationMatrix(-1,0,0));
+        // varObj.SetTransform(new XRotationMatrix(-_fieldPM.GetPI()/2).GetScale(2,2,2));
+        varObj.SetTransform(new ScalingMatrix(1,1,1).GetRotateX(-_fieldPM.GetPI()/2));
         varEnv.SetObject(varObj);
-        Camera varCamera = new Camera(100,100,1.152);
-        varCamera.SetTransform(new ViewMatrix(new Point(10,0,0), new Point(0,0,0), new Vector(0,1,0)));
+        Camera varCamera = new Camera(100,100,_fieldPM.GetPI()/2);
+        varCamera.SetTransform(new ViewMatrix(new Point(-4.5, 0.85, -4), new Point(0, 0.85, 0), new Vector(0,1,0)));
         Canvas img = varCamera.RenderCanvas(varEnv);
-        img.RenderFile("teapot");        
+        img.RenderFile("teapot");
     }
     public void RenderOBJCow() {
         World varEnv = new World();

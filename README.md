@@ -65,8 +65,10 @@ Ray Tracer implemented in C# following Test Driven Development methodology using
     - [x] AABB = Axis Aligned Bounding Box(es)
     - [x] Cylinder(s)
     - [x] DNC = Double Napped Cone(s)
-    - [ ] Object Groups
-    - [ ] Triangle
+    - [X] Object Groups
+    - [X] Triangle
+    - [X] WaveFront.Obj
+        - [x] OBJ Mesh Normalization
     - [ ] CSG = Constructive Solid Geometry
     - [ ] Torus
 - [x] Material
