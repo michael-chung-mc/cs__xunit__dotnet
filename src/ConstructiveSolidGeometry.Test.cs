@@ -5,6 +5,7 @@ using LibProjectMeta;
 using LibForm;
 namespace LibConstructiveSolidGeometry.Test;
 
+
 public class ConstructiveSolidGeometryTest
 {
 	Comparinator _fieldComp = new Comparinator();
@@ -15,9 +16,16 @@ public class ConstructiveSolidGeometryTest
 		Assert.True(true);
 	}
     [Fact]
-	public void CSGConstructor_WithSphereCube_ExpectSphereCube() {
+	public void CSGConstructor_WithSphereCubeUnion_ExpectSphereCubeUnion() {
 		UnitSphere varSphere = new UnitSphere();
         UnitCube varCube = new UnitCube();
-        ConstructiveSolidGeometry varCSG = new ConstructiveSolidGeometry();
+		CSGOperation varOp = new CSGOperation();
+		varOp._fieldUnion = true;
+        ConstructiveSolidGeometry varCSG = new ConstructiveSolidGeometry(varOp, varSphere, varCube);
+		Assert.True(varCSG._fieldLeft.CheckEqual(varSphere));
+		Assert.True(varCSG._fieldRight.CheckEqual(varCube));
+		Assert.True(varCSG._fieldOperation._fieldUnion);
+		Assert.False(varCSG._fieldOperation._fieldIntersection);
+		Assert.False(varCSG._fieldOperation._fieldDifference);
 	}
 }
