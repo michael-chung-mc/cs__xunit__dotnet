@@ -15,17 +15,17 @@ public class FormTest
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta _fieldPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void FormTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
     [Fact]
-	public void Default_Form__Empty_Parent() {
+	public void FormConstructor_WithDefault__ExpectEmptyParent() {
 		Form varObj = new Form();
 		Assert.Null(varObj._fieldParent);
 	}
     [Fact]
-	public void World_To_Object_Space_Conversion() {
+	public void FormWorldToObjectSpaceConversion_WithGiven_ExpectTransformed() {
 		CompositeGroup varGroupInner = new CompositeGroup();
 		varGroupInner.SetTransform(new ScalingMatrix(2,2,2));
 		UnitSphere varSphere = new UnitSphere();
@@ -43,7 +43,7 @@ public class FormTest
 		Assert.True(_fieldComp.CheckTuple(varTransformedPoint, varExpectedPoint));
 	}
     [Fact]
-	public void Object_To_World_Normal_Conversion() {
+	public void FormObjectToWorldNormalConversion_WithGiven_ExpectTransformed() {
 		UnitSphere varSphere = new UnitSphere();
 		varSphere.SetTransform(new TranslationMatrix(5,0,0));
 		CompositeGroup varGroupInner = new CompositeGroup();
@@ -59,7 +59,7 @@ public class FormTest
 		Assert.True(_fieldComp.CheckTuple(varTransformedNormal, varExpectedNormal));
 	}
     [Fact]
-	public void Child_Normal_Within_Group() {
+	public void FormChildNormalWithinGroup_WithGiven_ExpectTransformed() {
 		UnitSphere varSphere = new UnitSphere();
 		varSphere.SetTransform(new TranslationMatrix(5,0,0));
 		CompositeGroup varGroupInner = new CompositeGroup();
@@ -80,18 +80,18 @@ public class SphereTest
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void SphereTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
     [Fact]
-	public void EqualityTest() {
+	public void SphereEquality_WithEqual_ExpectTrue() {
 		UnitSphere s = new UnitSphere();
 		UnitSphere t = new UnitSphere();
 		Assert.True(s.CheckEqual(t));
 	}
     [Fact]
-	public void RayIntersectTwo() {
+	public void SphereRayIntersect_BeforeSphere_ExpectTwoFront() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		Intersections varXs = s.GetIntersections(r);
@@ -100,7 +100,7 @@ public class SphereTest
 		Assert.Equal(6, varXs._fieldIntersections[1]._fieldTime);
 	}
     [Fact]
-	public void RayIntersectTangent() {
+	public void SphereRayIntersect_WithTangent_ExpectTwo() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 1, -5), new Vector(0, 0, 1));
 		Intersections varXs = s.GetIntersections(r);
@@ -109,14 +109,14 @@ public class SphereTest
 		Assert.Equal(5 , varXs._fieldIntersections[1]._fieldTime);
 	}
     [Fact]
-	public void RayIntersectMiss() {
+	public void SphereRayIntersect_WithMiss_ExpectEmpty() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 2, -5), new Vector(0, 0, 1));
 		Intersections varXs = s.GetIntersections(r);
 		Assert.Empty(varXs._fieldIntersections);
 	}
     [Fact]
-	public void RayIntersectWithinSphere() {
+	public void SphereRayIntersect_WithinSphere_ExpectFrontBackIntersections() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, 0),new Vector(0, 0, 1));
 		Intersections varXs = s.GetIntersections(r);
@@ -125,7 +125,7 @@ public class SphereTest
 		Assert.Equal(1 , varXs._fieldIntersections[1]._fieldTime);
 	}
     [Fact]
-	public void RayIntersectBehindSphere() {
+	public void SphereRayIntersect_BehindSphere_ExpectTwoBackIntersections() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, 5), new Vector(0, 0, 1));
 		Intersections varXs = s.GetIntersections(r);
@@ -134,7 +134,7 @@ public class SphereTest
 		Assert.Equal(-4 , varXs._fieldIntersections[1]._fieldTime);
 	}
     [Fact]
-	public void RayIntersectSetsObject() {
+	public void SphereRayIntersect_AheadObject_ExpectSetsObject() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		Intersections varXs = s.GetIntersections(r);
@@ -143,20 +143,20 @@ public class SphereTest
 		Assert.True(s.CheckEqual((varXs._fieldIntersections[1]._fieldObject)));
 	}
     [Fact]
-	public void SphereDefaultTransformIsIdentity() {
+	public void Sphere_WithDefault_ExpectTransformIsIdentity() {
 		UnitSphere s = new UnitSphere();
 		IdentityMatrix m = new IdentityMatrix(4, 4);
 		Assert.True(m.CheckEqual(s._fieldTransform));
 	}
     [Fact]
-	public void SphereModifyTransform() {
+	public void SphereModifyTransform_WithGiven_ExpectTransformed() {
 		UnitSphere s = new UnitSphere();
 		TranslationMatrix m = new TranslationMatrix(2, 3, 4);
 		s.SetTransform(m);
 		Assert.True(m.CheckEqual(s._fieldTransform));
 	}
     [Fact]
-	public void SphereIdentityDoesNotModifyIntersections() {
+	public void Sphere_WithIdentity_ExpectDoesNotModifyIntersections() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		ScalingMatrix m = new ScalingMatrix(1, 1, 1);
@@ -168,7 +168,7 @@ public class SphereTest
 		Assert.Equal(6, varXs._fieldIntersections[1]._fieldTime);
 	}
     [Fact]
-	public void SphereScaledModifiesIntersections() {
+	public void Sphere_WithScaledTransform_ExpectModifiesIntersections() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		ScalingMatrix m = new ScalingMatrix(2, 2, 2);
@@ -181,7 +181,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldDirection, new Vector(0,0,0.5)));
 	}
     [Fact]
-	public void SphereScaledTo5Intersections() {
+	public void Sphere_WithScaledFiveTimes_ExpectIntersections() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		ScalingMatrix m = new ScalingMatrix(5, 5, 5);
@@ -195,7 +195,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckFloat(varXs._fieldIntersections[1]._fieldTime, y));
 	}
     [Fact]
-	public void SphereTranslatedToMiss() {
+	public void Sphere_WithTranslatedAway_ExpectMiss() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		TranslationMatrix m = new TranslationMatrix(5, 0, 0);
@@ -206,7 +206,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(s._fieldObjectRay._fieldDirection, new Vector(0,0,1)));
 	}
     [Fact]
-	public void SphereTranslatedAway() {
+	public void Sphere_withTranslatedAway_ExpectHit() {
 		UnitSphere s = new UnitSphere();
 		Ray r = new Ray(new Point(0, 0, -5), new Vector(0, 0, 1));
 		TranslationMatrix m = new TranslationMatrix(0, 0, 1);
@@ -217,7 +217,7 @@ public class SphereTest
 		Assert.Equal(7, varXs._fieldIntersections[1]._fieldTime);
 	}
     [Fact]
-	public void SphereNormalX() {
+	public void SphereGetNormal_WithDefault_ExpectX() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(1,0,0);
 		SpaceTuple normal = s.GetNormal(p, new Intersection());
@@ -225,7 +225,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
     [Fact]
-	public void SphereNormalY() {
+	public void SphereGetNormal_WithDefault_ExpectY() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(0,1,0);
 		SpaceTuple normal = s.GetNormal(p, new Intersection());
@@ -233,7 +233,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
     [Fact]
-	public void SphereNormalZ() {
+	public void SphereGetNormal_WithDefault_ExpectZ() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(0,0,1);
 		SpaceTuple normal = s.GetNormal(p, new Intersection());
@@ -241,7 +241,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
     [Fact]
-	public void SphereNormal() {
+	public void SphereGetNormal_WithDefault_ExpectPerpendicular() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
 		SpaceTuple normal = s.GetNormal(p, new Intersection());
@@ -249,7 +249,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
     [Fact]
-	public void SphereNormalNormalized() {
+	public void SphereGetNormal_WithDefault_ExpectNormalizedVector() {
 		UnitSphere s = new UnitSphere();
 		Point p = new Point(Math.Sqrt(3)/3,Math.Sqrt(3)/3,Math.Sqrt(3)/3);
 		SpaceTuple normal = s.GetNormal(p, new Intersection());
@@ -257,7 +257,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
     [Fact]
-	public void SphereTranslatedNormalized() {
+	public void SphereGetNormal_WithTranslated_ExpectNormalized() {
 		UnitSphere s = new UnitSphere();
 		Matrix t = new TranslationMatrix(0,1,0);
 		s.SetTransform(t);
@@ -267,7 +267,7 @@ public class SphereTest
 		Assert.True(_fieldComp.CheckTuple(normal,expectedV));
 	}
     [Fact]
-	public void SphereTransformedNormalized() {
+	public void SphereGetNormal_WithTransformed_ExpectNormalized() {
 		UnitSphere s = new UnitSphere();
 		// Matrix t = *(ScalingMatrix(1, 0.5, 1) * ZRotationMatrix(getPI()/5));
 		Matrix t = new ScalingMatrix(1, 0.5, 1) * new ZRotationMatrix(varPM.GetPI()/5);
@@ -279,14 +279,14 @@ public class SphereTest
 	}
 
     [Fact]
-	public void SphereMaterialCtor() {
+	public void SphereMaterial_WithDefault_ExpectDefaultMaterial() {
 		UnitSphere s = new UnitSphere();
 		Material m = new Material();
 		Assert.True(m.CheckEqual(s._fieldMaterial));
 	}
 
     [Fact]
-	public void SphereMaterialAssignment() {
+	public void SphereMaterial_WithAssignment_ExpectAssignedMaterial() {
 		UnitSphere s = new UnitSphere();
 		Material m = new Material();
 		m._fieldAmbient = 1;
@@ -298,13 +298,13 @@ public class SphereGlassTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void SphereGlassTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
 
     [Fact]
-	public void GlassSphereCtor() {
+	public void GlassSphereConstructor_WithDefault_ExpectDefault() {
 		UnitSphereGlass varObj = new UnitSphereGlass();
 		Assert.True(varObj._fieldTransform.CheckEqual(new IdentityMatrix(4,4)));
 		Assert.Equal(1.0, varObj._fieldMaterial._fieldTransparency);
@@ -315,13 +315,13 @@ public class PlaneTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void PlaneTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
 
     [Fact]
-	public void PlaneNormalSameEverywhere() {
+	public void PlaneGetNormal_WithDefault_ExpectSameEverywhere() {
 		UnitPlane varPlane = new UnitPlane();
 		SpaceTuple varN1 = varPlane.GetNormal(new Point(0,0,0), new Intersection());
 		SpaceTuple varN2 = varPlane.GetNormal(new Point(10,0,-10), new Intersection());
@@ -333,7 +333,7 @@ public class PlaneTest {
 	}
 
     [Fact]
-	public void RayParallelToPlane() {
+	public void PlaneGetIntersections_WithRayParallelToPlane_ExpectMiss() {
 		UnitPlane varPlane = new UnitPlane();
 		Ray varRay = new Ray(new Point(0,10,0), new Vector(0,0,1));
 		Intersections varIx = varPlane.GetIntersections(varRay);
@@ -341,14 +341,14 @@ public class PlaneTest {
 	}
 
     [Fact]
-	public void CoplanarRayToPlane() {
+	public void PlaneGetIntersections_WithCoplanarRayToPlane_ExpectMiss() {
 		UnitPlane varPlane = new UnitPlane();
 		Ray varRay = new Ray(new Point(0,0,0), new Vector(0,0,1));
 		Intersections varIx = varPlane.GetIntersections(varRay);
 		Assert.True(varIx._fieldIntersections.Count() == 0);
 	}
     [Fact]
-	public void RayIntersectingPlaneAbove() {
+	public void PlaneGetIntersections_WithRayIntersectingPlaneAbove_ExpectMiss() {
 		UnitPlane varPlane = new UnitPlane();
 		Ray varRay = new Ray(new Point(0,1,0), new Vector(0,-1,0));
 		Intersections varIx = varPlane.GetIntersections(varRay);
@@ -357,7 +357,7 @@ public class PlaneTest {
 		Assert.True(varIx._fieldIntersections[0]._fieldObject.CheckEqual(varPlane));
 	}
     [Fact]
-	public void RayIntersectingPlaneBelow() {
+	public void PlaneGetIntersections_WithRayIntersectingPlaneBelow_ExpectMiss() {
 		UnitPlane varPlane = new UnitPlane();
 		Ray varRay = new Ray(new Point(0,-1,0), new Vector(0,1,0));
 		Intersections varIx = varPlane.GetIntersections(varRay);
@@ -370,12 +370,12 @@ public class CubeTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void CubeTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
     [Fact]
-	public void Ray_Intersect_Cube__Positive_X() {
+	public void CubeGetRayIntersect_WithPositiveX_ExpectTwoHits() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(5,0.5,0), new Vector(-1,0,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
@@ -384,7 +384,7 @@ public class CubeTest {
 		Assert.Equal(6, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Ray_Intersect_Cube__Negative_X() {
+	public void CubeGetRayIntersect_WithNegativeX_ExpectTwoHits() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(-5,0.5,0), new Vector(1,0,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
@@ -393,7 +393,7 @@ public class CubeTest {
 		Assert.Equal(6, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Ray_Intersect_Cube__Positive_Y() {
+	public void CubeGetRayIntersect_WithPositiveY_ExpectTwoHits() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,5,0), new Vector(0,-1,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
@@ -402,7 +402,7 @@ public class CubeTest {
 		Assert.Equal(6, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Ray_Intersect_Cube__Negative_Y() {
+	public void CubeGetRayIntersect_WithNegativeY_ExpectTwoHits() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,-5,0), new Vector(0,1,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
@@ -411,7 +411,7 @@ public class CubeTest {
 		Assert.Equal(6, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Ray_Intersect_Cube__Positive_Z() {
+	public void CubeGetRayIntersect_WithPositiveZ_ExpectTwoHits() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,0,5), new Vector(0,0,-1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
@@ -420,7 +420,7 @@ public class CubeTest {
 		Assert.Equal(6, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Ray_Intersect_Cube__Negative_Z() {
+	public void CubeGetRayIntersect_WithNegativeZ_ExpectTwoHits() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(.5,0,-5), new Vector(0,0,1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
@@ -429,7 +429,7 @@ public class CubeTest {
 		Assert.Equal(6, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Ray_Intersect_Cube__Interior() {
+	public void CubeGetRayIntersect_WithInterior_ExpectTwoHits() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,0.5,0), new Vector(0,0,1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
@@ -438,49 +438,49 @@ public class CubeTest {
 		Assert.Equal(1, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Ray_Miss_Cube__Away_X() {
+	public void CubeGetRayIntersect_WithAwayX_ExpectMiss() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(-2,0,0), new Vector(0.2673,0.5345,0.8018));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Ray_Miss_Cube__Away_Y() {
+	public void CubeGetRayIntersect_WithAwayY_ExpectMiss() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,-2,0), new Vector(0.8018,0.2673,0.5345));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Ray_Miss_Cube__Away_Z() {
+	public void CubeGetRayIntersect_WithAwayZ_ExpectMiss() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,0,-2), new Vector(0.5345, 0.8018,0.2673));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Ray_Miss_Cube__Parallel_X_Z() {
+	public void CubeGetRayIntersect_WithParallelXZ_ExpectMiss() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(2,0,2), new Vector(0,0,-1));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Ray_Miss_Cube__Parallel_Y_Z() {
+	public void CubeGetRayIntersect_WithParallelYZ_ExpectMiss() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(0,2,2), new Vector(0,-1,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Ray_Miss_Cube__Parallel_X_Y() {
+	public void CubeGetRayIntersect_WithParallelXY_ExpectMiss() {
 		UnitCube varCube = new UnitCube();
 		Ray varRay = new Ray(new Point(2,2,0), new Vector(-1,0,0));
 		List<Intersection> varXs = varCube.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cube_Normal__Positive_X() {
+	public void CubeGetNormal_WithDefault_ExpectPositiveX() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(1,0.5,-0.8);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -488,7 +488,7 @@ public class CubeTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
     [Fact]
-	public void Cube_Normal__Negative_X() {
+	public void CubeGetNormal_WithDefault_ExpectNegativeX() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-1,-0.2,0.9);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -496,7 +496,7 @@ public class CubeTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
     [Fact]
-	public void Cube_Normal__Positive_Y() {
+	public void CubeGetNormal_WithDefault_ExpectPositiveY() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-0.4,1,-0.1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -504,7 +504,7 @@ public class CubeTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
     [Fact]
-	public void Cube_Normal__Negative_Y() {
+	public void CubeGetNormal_WithDefault_ExpectNegativeY() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(0.3,-1,1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -512,7 +512,7 @@ public class CubeTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
     [Fact]
-	public void Cube_Normal__Positive_Z() {
+	public void CubeGetNormal_WithDefault_ExpectPositiveZ() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-0.6,0.3,1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -520,7 +520,7 @@ public class CubeTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
     [Fact]
-	public void Cube_Normal__Negative_Z() {
+	public void CubeGetNormal_WithDefault_ExpectNegativeZ() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(0.4,0.4,-1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -528,7 +528,7 @@ public class CubeTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
     [Fact]
-	public void Cube_Normal__Corner_X() {
+	public void CubeGetNormal_WithCorner_ExpectX() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(1,1,1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -536,7 +536,7 @@ public class CubeTest {
 		Assert.True(_fieldComp.CheckTuple(varExpectedNormal,varNormal));
 	}
     [Fact]
-	public void Cube_Normal__Corner_Negative_X() {
+	public void CubeGetNormal_WithNegativeCorner_ExpectNegativeX() {
 		UnitCube varCube = new UnitCube();
 		Point varPoint = new Point(-1,-1,-1);
 		SpaceTuple varNormal = varCube.GetNormalLocal(varPoint, new Intersection());
@@ -549,7 +549,7 @@ public class CylinderTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void CylinderTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}

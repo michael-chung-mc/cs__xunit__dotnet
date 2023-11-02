@@ -15,37 +15,36 @@ public class CameraTest {
 	Comparinator _fieldComp = new Comparinator();
     ProjectMeta _fieldPM = new ProjectMeta();
     [Fact]
-    public void Canary()
+    public void CameraTestCanary_WithDefault_ExpectDefault()
     {
         Assert.Equal(1, 1);
     }
-    [Fact]
-    public void Constructor_With_160_120_90_Expect_160_120_90 ()
+    [Theory]
+    [InlineData(160,120)]
+    public void CameraConstructor_WithGiven_ExpectGiven (int argHorizontal, int argVertical)
     {
-        int varH = 160;
-        int varV = 120;
-        double varFOV = _fieldPM.GetPI()/2;
         IdentityMatrix varIdentity = new IdentityMatrix(4,4);
-        Camera varCamera = new Camera(varH, varV, varFOV);
-        Assert.Equal(varCamera._fieldCanvasHorizontal, varH);
-        Assert.Equal(varCamera._fieldCanvasVertical, varV);
-        Assert.True(_fieldComp.CheckFloat(varCamera._fieldFieldOfView, varFOV));
+        Camera varCamera = new Camera(argHorizontal, argVertical, _fieldPM.GetPI()/2);
+        Assert.Equal(varCamera._fieldCanvasHorizontal, argHorizontal);
+        Assert.Equal(varCamera._fieldCanvasVertical, argVertical);
+        Assert.True(_fieldComp.CheckFloat(varCamera._fieldFieldOfView, _fieldPM.GetPI()/2));
         Assert.True(varIdentity.CheckEqual(varCamera._fieldTransform));
     }
-    [Fact]
-    public void CameraCanvasPixelSizeHorizontalGTVertical ()
+    [Theory]
+    [InlineData(200,125)]
+    public void CameraConstructor_WithCanvasPixelSizeHorizontalGTVertical_ExpectMin (int argHorizontal, int argVertical)
     {
-        Camera varCamera = new Camera(200, 125, _fieldPM.GetPI()/2);
+        Camera varCamera = new Camera(argHorizontal, argVertical, _fieldPM.GetPI()/2);
         Assert.True(_fieldComp.CheckFloat(varCamera._fieldPixelSquare, 0.01));
     }
     [Fact]
-    public void CameraCanvasPixelSizeVerticalGTHorizontal ()
+    public void CameraConstructor_WithCanvasPixelSizeVerticalGTHorizontal_ExpectMin ()
     {
         Camera varCamera = new Camera(125, 200, _fieldPM.GetPI()/2);
         Assert.True(_fieldComp.CheckFloat(varCamera._fieldPixelSquare, 0.01));
     }
     [Fact]
-    public void CameraRayCastToCanvasCenter ()
+    public void CameraGetRay_WithDefault_ExpectCastToCanvasCenter ()
     {
         Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
         Ray varCast = varCamera.GetRay(100,50);
@@ -55,7 +54,7 @@ public class CameraTest {
         Assert.True(_fieldComp.CheckTuple(varCast._fieldDirection, varExpectedDirection));
     }
     [Fact]
-    public void CameraRayCastToCanvasCorner ()
+    public void CameraGetRay_WithDefault_ExpectCastToCanvasCorner ()
     {
         Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
         Ray varCast = varCamera.GetRay(0,0);
@@ -65,7 +64,7 @@ public class CameraTest {
         Assert.True(_fieldComp.CheckTuple(varCast._fieldDirection, varExpectedDirection));
     }
     [Fact]
-    public void TransformedCameraRayCastToCanvas ()
+    public void CameraGetRay_WithTransformedCamera_ExpectCastToCanvas ()
     {
         Camera varCamera = new Camera(201, 101, _fieldPM.GetPI()/2);
         // varCamera.setTransform(YRotationMatrix(_fieldPM.getPI()/4) * TranslationMatrix(0,-2,5));
@@ -77,7 +76,7 @@ public class CameraTest {
         Assert.True(_fieldComp.CheckTuple(varCast._fieldDirection, varExpectedDirection));
     }
     [Fact]
-    public void CameraRenderDefaultWorld ()
+    public void CameraRender_WithDefaultWorld_ExpectColor ()
     {
         DefaultWorld varWorld = new DefaultWorld();
         Camera varCamera = new Camera(11, 11, _fieldPM.GetPI()/2);

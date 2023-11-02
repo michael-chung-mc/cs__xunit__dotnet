@@ -7,12 +7,12 @@ namespace LibCanvas.Test;
 public class CanvasTest {
 	Comparinator _fieldComp = new Comparinator();
     [Fact]
-    public void Canary()
+    public void CanvasTestCanary_WithDefault_ExpectDefault()
     {
         Assert.Equal(1, 1);
     }
 	[Fact]
-	public void CanvasInit ()
+	public void CanvasConstructor_WithDefault_ExpectDefault ()
 	{
 		//Scenario: Creating a canvas
 		//Given c ← new Canvas(10, 20)
@@ -25,7 +25,7 @@ public class CanvasTest {
 		Assert.True(c.CheckClean());
 	}
 	[Fact]
-	public void CanvasSetColor ()
+	public void CanvasSetColor_WithRed_ExpectRed ()
 	{
 		//Scenario: Writing pixels to a canvas
 		//Given c ← new Canvas(10, 20)
@@ -39,7 +39,7 @@ public class CanvasTest {
 		Assert.True(test.CheckEqual(red));
 	}
 	[Fact]
-	public void CanvasPPM ()
+	public void CanvasGetPPM__WithGiven_ExpectGiven ()
 	{
 		//Scenario: Constructing the PPM header
 		//And c1 ← new Color(1.5, 0, 0)
@@ -62,7 +62,7 @@ public class CanvasTest {
 		Assert.Equal(ppm, cppm);
 	}
 	[Fact]
-	public void CanvasPPMLength ()
+	public void CanvasGetPPM_WithGiven_ExpectGivenLength ()
 	{
 		//Scenario: Splitting long lines in PPM files
 		//Given c ← new Canvas(10, 2)

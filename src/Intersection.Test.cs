@@ -18,7 +18,7 @@ public class IntersectionTest
 	ProjectMeta varPM = new ProjectMeta();
 
     [Fact]
-	public void CanaryTest() {
+	public void IntersectionTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
