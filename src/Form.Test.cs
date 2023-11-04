@@ -638,7 +638,7 @@ public class CylinderTest {
 		Assert.Equal(double.MinValue, varObj._fieldHeightMin);
 	}
     [Fact]
-	public void Cylinder_Height_Constrained_1_2__Intersection_Angled() {
+	public void Cylinder_WithHeightConstrainedAngledRay_ExpectIntersectionMiss() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -648,7 +648,7 @@ public class CylinderTest {
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cylinder_Height_Constrained_1_2__Intersection_Above() {
+	public void Cylinder_WithHeightConstrainedAboveRay_ExpectIntersectionMiss() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -658,7 +658,7 @@ public class CylinderTest {
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cylinder_Height_Constrained_1_2__Intersection_Below() {
+	public void Cylinder_WithHeightConstrainedBelowRay_ExpectIntersectionMiss() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -668,7 +668,7 @@ public class CylinderTest {
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cylinder_Height_Constrained_1_2__Intersection_Max_Exclusive() {
+	public void Cylinder_WithHeightConstrainedRayAtMaxHeight_ExpectIntersectionMiss() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
