@@ -554,7 +554,7 @@ public class CylinderTest {
 		Assert.True(true);
 	}
     [Fact]
-	public void Cylinder_Intersection_Miss__On_Surface() {
+	public void CylinderGetIntersection_WithOnSurface_ExpectMiss() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varDirection = new Vector(0,1,0).GetNormal();
 		Ray varRay = new Ray(new Point(1,0,0), varDirection);
@@ -562,7 +562,7 @@ public class CylinderTest {
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cylinder_Intersection_Miss__Inside_Surface() {
+	public void CylinderGetIntersection_WithInsideSurface_ExpectMiss() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varDirection = new Vector(0,1,0).GetNormal();
 		Ray varRay = new Ray(new Point(0,0,0), varDirection);
@@ -570,7 +570,7 @@ public class CylinderTest {
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cylinder_Intersection_Miss__Away_Surface() {
+	public void CylinderGetIntersection_AwaySurface_ExpectMiss() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varDirection = new Vector(1,1,1).GetNormal();
 		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
@@ -578,7 +578,7 @@ public class CylinderTest {
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cylinder_Intersection_Hit__Tangent() {
+	public void CylinderGetIntersection_WithTangent_ExpectTwoIntersections() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varDirection = new Vector(0,0,1).GetNormal();
 		Ray varRay = new Ray(new Point(1,0,-5), varDirection);
@@ -588,7 +588,7 @@ public class CylinderTest {
 		Assert.Equal(5, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Cylinder_Intersection_Hit__Perpendicular() {
+	public void CylinderGetIntersection_WithPerpendicular_ExpectTwoIntersections() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varDirection = new Vector(0,0,1).GetNormal();
 		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
@@ -598,7 +598,7 @@ public class CylinderTest {
 		Assert.Equal(6, varXs[1]._fieldTime);
 	}
     [Fact]
-	public void Cylinder_Intersection_Hit__Skewed() {
+	public void CylinderGetIntersection_WithSkewed_ExpectTwoIntersections() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varDirection = new Vector(0.1,1,1).GetNormal();
 		Ray varRay = new Ray(new Point(0.5,0,-5), varDirection);
@@ -608,31 +608,31 @@ public class CylinderTest {
 		Assert.True(_fieldComp.CheckFloat(7.08872, varXs[1]._fieldTime));
 	}
     [Fact]
-	public void Cylinder_Normal__Positive_X() {
+	public void CylinderGetNormal_AtX_ExpectPositiveX() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(1,0,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(1,0,0)));
 	}
     [Fact]
-	public void Cylinder_Normal__Negative_Z() {
+	public void CylinderGetNormal_AtNegativeZ_ExpectNegativeZ() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,5,-1), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,-1)));
 	}
     [Fact]
-	public void Cylinder_Normal__Positive_Z() {
+	public void CylinderGetNormal_AtPositiveZ_ExpectPositiveZ() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,-2,1), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,1)));
 	}
     [Fact]
-	public void Cylinder_Normal__Negative_x() {
+	public void CylinderGetNormal_AtNegativeX_ExpectNegativeX() {
 		UnitCylinder varObj = new UnitCylinder();
 		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(-1,1,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(-1,0,0)));
 	}
     [Fact]
-	public void Cylinder_Height__Default_Infinity() {
+	public void Cylinder_WithDefault_ExpectHeightInfinity() {
 		UnitCylinder varObj = new UnitCylinder();
 		Assert.Equal(double.MaxValue, varObj._fieldHeightMax);
 		Assert.Equal(double.MinValue, varObj._fieldHeightMin);
