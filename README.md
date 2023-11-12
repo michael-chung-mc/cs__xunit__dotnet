@@ -50,5 +50,6 @@ Practice C# with xUnit for testing
 ### Run
 ## Acknowledgements
 * [Project Euler](projecteuler.net)
+* GildedRose Kata
 * "VisualStudio.gitignore" by Github
 <p align="right">(<a href="#readme-top">back to top </a>)</p>
