@@ -19,6 +19,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Config", "Config", "{96E47B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Config", "lib\Config\Config.csproj", "{A9392214-B0AB-466D-81A6-D56DDF9F64AB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "csharp", "lib\GildedRose-Refactoring-Kata\csharp.csproj", "{E815C400-D887-4E8C-8864-97CBDB64D309}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -41,6 +43,10 @@ Global
 		{A9392214-B0AB-466D-81A6-D56DDF9F64AB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A9392214-B0AB-466D-81A6-D56DDF9F64AB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A9392214-B0AB-466D-81A6-D56DDF9F64AB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E815C400-D887-4E8C-8864-97CBDB64D309}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E815C400-D887-4E8C-8864-97CBDB64D309}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E815C400-D887-4E8C-8864-97CBDB64D309}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E815C400-D887-4E8C-8864-97CBDB64D309}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -55,5 +61,6 @@ Global
 		{8B0E78B6-415D-4C15-8CCE-DD43ADD5EAB3} = {27EDFDB2-5EF8-49D6-B9E8-4A513126C8F7}
 		{96E47B3B-813A-497F-B82D-33C824C9E230} = {0B2B7D9C-9C7D-41C1-8F81-270217B45EFE}
 		{A9392214-B0AB-466D-81A6-D56DDF9F64AB} = {96E47B3B-813A-497F-B82D-33C824C9E230}
+		{E815C400-D887-4E8C-8864-97CBDB64D309} = {0B2B7D9C-9C7D-41C1-8F81-270217B45EFE}
 	EndGlobalSection
 EndGlobal
