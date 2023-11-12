@@ -41,6 +41,7 @@ Practice C# with xUnit for testing
 * Windows
 * Git
 ### Roadmap
+- (2023-11-12):Gilded Rose Kata
 ## Usage
 ### Setup
 
