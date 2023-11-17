@@ -703,7 +703,7 @@ public class CylinderTest {
 		Assert.False(varObj._fieldClosed);
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Above_Middle__2_Intersections() {
+	public void Cylinder_WithHeightConstrained_ExpectIntersectionAboveMiddleHit() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -714,7 +714,7 @@ public class CylinderTest {
 		Assert.Equal(2, varXs.Count);
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Above__2_Intersections() {
+	public void Cylinder_WithHeightConstrained_ExpectIntersectionAboveHit() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -725,7 +725,7 @@ public class CylinderTest {
 		Assert.Equal(2, varXs.Count);
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Above_Corner() {
+	public void Cylinder_WithHeightConstrained_ExpectIntersectionAboveCornerHit() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -736,7 +736,7 @@ public class CylinderTest {
 		Assert.Equal(2, varXs.Count);
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Below_2_Intersections() {
+	public void Cylinder_WithHeightConstrained_ExpectIntersectionBelowHit() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -747,7 +747,7 @@ public class CylinderTest {
 		Assert.Equal(2, varXs.Count);
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Intersection_Below_Corner() {
+	public void Cylinder_WithHeightConstrained_ExpectIntersectionBelowCornerHit() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -758,7 +758,7 @@ public class CylinderTest {
 		Assert.Equal(2, varXs.Count);
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Below_Negative() {
+	public void CylinderGetNormal_WithHeightConstrained_ExpectNormalNegativeY() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -767,7 +767,7 @@ public class CylinderTest {
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Right_Below_Negative() {
+	public void CylinderGetNormal_WithHeightConstrained_ExpectBelowRightNormalNegativeY() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -776,7 +776,7 @@ public class CylinderTest {
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Left_Below_Negative() {
+	public void CylinderGetNormal_WithHeightConstrained_ExpectBelowLeftNormalNegativeY() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -785,7 +785,7 @@ public class CylinderTest {
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,-1,0)));
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Above_Positive() {
+	public void CylinderGetNormal_WithHeightConstrained_ExpectAboveNormalPositiveY() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -794,7 +794,7 @@ public class CylinderTest {
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Right_Above_Positive() {
+	public void CylinderGetNormal_WithHeightConstrained_ExpectAboveRightNormalPositiveY() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
@@ -803,7 +803,7 @@ public class CylinderTest {
 		Assert.True(_fieldComp.CheckTuple(varDirection, new Vector(0,1,0)));
 	}
     [Fact]
-	public void Closed_Cylinder_Height_Constrained_1_2__Normal_Cap_Left_Above_Positive() {
+	public void CylinderGetNormal_WithHeightConstrained_ExpectAboveLeftNormalPositiveY() {
 		UnitCylinder varObj = new UnitCylinder();
 		varObj._fieldHeightMax = 2;
 		varObj._fieldHeightMin = 1;
