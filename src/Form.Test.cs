@@ -817,12 +817,12 @@ public class DNConeTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void ConeTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
     [Fact]
-	public void Cone_Intersection__Below() {
+	public void ConeGetIntersectionsLocal_WithBelowRay_ExpectHit() {
 		UnitDNCone varObj = new UnitDNCone();
 		SpaceTuple varDirection = new Vector (0,0,1).GetNormal();
 		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
@@ -832,7 +832,7 @@ public class DNConeTest {
 		Assert.True(_fieldComp.CheckFloat(5, varXs[1]._fieldTime));
 	}
     [Fact]
-	public void Cone_Intersection__Below_Angled() {
+	public void ConeGetIntersectionsLocal_WithBelowAngledRay_ExpectHit() {
 		UnitDNCone varObj = new UnitDNCone();
 		SpaceTuple varDirection = new Vector (1,1,1).GetNormal();
 		Ray varRay = new Ray(new Point(0,0,-5), varDirection);
@@ -842,7 +842,7 @@ public class DNConeTest {
 		Assert.True(_fieldComp.CheckFloat(8.66025, varXs[1]._fieldTime));
 	}
     [Fact]
-	public void Cone_Intersection__Above_Angled() {
+	public void ConeGetIntersectionsLocal_WithAboveAngledRay_ExpectHit() {
 		UnitDNCone varObj = new UnitDNCone();
 		SpaceTuple varDirection = new Vector (-0.5,-1,1).GetNormal();
 		Ray varRay = new Ray(new Point(1,1,-5), varDirection);
@@ -852,7 +852,7 @@ public class DNConeTest {
 		Assert.True(_fieldComp.CheckFloat(49.44994, varXs[1]._fieldTime));
 	}
     [Fact]
-	public void Cone_Intersection__Only_One_Cone() {
+	public void ConeGetIntersectionsLocal_WithOnlyOneConeAboveAngledRay_ExpectHit() {
 		UnitDNCone varObj = new UnitDNCone();
 		SpaceTuple varDirection = new Vector (0,1,1).GetNormal();
 		Ray varRay = new Ray(new Point(0,0,-1), varDirection);
@@ -872,7 +872,7 @@ public class DNConeTest {
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Cone_Intersection__End_Cap__Hit_2() {
+	public void ConeGetIntersectionsLocal_AtEndCap_ExpectHit() {
 		UnitDNCone varObj = new UnitDNCone();
 		varObj._fieldHeightMin = -0.5;
 		varObj._fieldHeightMax = 0.5;
@@ -883,7 +883,7 @@ public class DNConeTest {
 		Assert.Equal(2, varXs.Count);
 	}
     [Fact]
-	public void Cone_Intersection__End_Cap__Hit_4() {
+	public void ConeGetIntersectionsLocal_AtEndCap_ExpectFourHit() {
 		UnitDNCone varObj = new UnitDNCone();
 		varObj._fieldHeightMin = -0.5;
 		varObj._fieldHeightMax = 0.5;
@@ -894,19 +894,19 @@ public class DNConeTest {
 		Assert.Equal(4, varXs.Count);
 	}
     [Fact]
-	public void Cone_Normal_Origin() {
+	public void ConeGetNormalLocal_AtOrigin_ExpectZero() {
 		UnitDNCone varObj = new UnitDNCone();
 		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(0,0,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(0,0,0)));
 	}
     [Fact]
-	public void Cone_Normal_Above() {
+	public void ConeGetNormalLocal_AtAbove_ExpectAbove() {
 		UnitDNCone varObj = new UnitDNCone();
 		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(1,1,1), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(1, -Math.Sqrt(2),1)));
 	}
     [Fact]
-	public void Cone_Normal_Below() {
+	public void ConeGetNormalLocal_AtBelow_ExpectBelow() {
 		UnitDNCone varObj = new UnitDNCone();
 		SpaceTuple varNormal = varObj.GetNormalLocal(new Point(-1,-1,0), new Intersection());
 		Assert.True(_fieldComp.CheckTuple(varNormal, new Vector(-1, 1, 0)));
