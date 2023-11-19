@@ -917,18 +917,18 @@ public class GroupTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta _fieldPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void GroupTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
     [Fact]
-	public void Default_Group__Empty_List() {
+	public void Group_WithDefault_ExpectEmptyList() {
 		CompositeGroup varGroup = new CompositeGroup();
 		Assert.True(varGroup._fieldTransform.CheckEqual(new IdentityMatrix(4,4)));
 		Assert.Empty(varGroup._fieldForms);
 	}
     [Fact]
-	public void Add_Child_To_Group() {
+	public void GroupSetObject_WithForm_ExpectForm() {
 		CompositeGroup varGroup = new CompositeGroup();
 		Form varForm = new Form();
 		varGroup.SetObject(varForm);
@@ -937,14 +937,14 @@ public class GroupTest {
 		Assert.True(varGroup._fieldForms[0].CheckEqual(varGroup));
 	}
     [Fact]
-	public void Ray_Intersect_Empty_Group__No_Intersections() {
+	public void GroupGetIntersectionsLocal_WithEmptyGroupZRay_ExpectNoIntersections() {
 		CompositeGroup varGroup = new CompositeGroup();
 		Ray varRay = new Ray(new Point(0,0,0), new Vector(0,0,1));
 		List<Intersection> varXs = varGroup.GetIntersectionsLocal(varRay)._fieldIntersections;
 		Assert.Empty(varXs);
 	}
     [Fact]
-	public void Ray_Intersect_Group_Of_Three_Spheres__Intersects_Two() {
+	public void GroupGetIntersectionsLocal_WithThreeSpheres_ExpectIntersectsTwo() {
 		CompositeGroup varGroup = new CompositeGroup();
 		UnitSphere varSphereOne = new UnitSphere();
 		varGroup.SetObject(varSphereOne);
@@ -963,7 +963,7 @@ public class GroupTest {
 		Assert.True(varSphereOne.CheckEqual(varXs[3]._fieldObject));
 	}
     [Fact]
-	public void Group_Transform_Affects_Containing_Shape() {
+	public void GroupGetIntersections_WithTransform_ExpectGroupTransformAffectsContainingShape() {
 		CompositeGroup varGroup = new CompositeGroup();
 		varGroup.SetTransform(new ScalingMatrix(2,2,2));
 		UnitSphere varSphere = new UnitSphere();
@@ -973,19 +973,6 @@ public class GroupTest {
 		List<Intersection> varXs = varGroup.GetIntersections(varRay)._fieldIntersections;
 		Assert.Equal(2, varXs.Count);
 	}
-    // [Fact]
-	// public void Group_Transform_Affects_Containing_Group() {
-	// 	Group varGroupInner = new Group();
-	// 	varGroupInner.SetTransform(new ScalingMatrix(2,2,2));
-	// 	Sphere varSphere = new Sphere();
-	// 	varSphere.SetTransform(new TranslationMatrix(5,0,0));
-	// 	varGroupInner.SetObject(varSphere);
-	// 	Assert.True(varGroupInner._fieldForms[0]._fieldTransform.CheckEqual(varSphere._fieldTransform));
-	// 	Group varGroupOuter = new Group();
-	// 	varGroupOuter.SetTransform(new YRotationMatrix(_fieldPM.GetPI()/2));
-	// 	varGroupOuter.SetObject(varGroupInner);
-	// 	Assert.Equal(2, varGroupOuter.GetIntersections(new Ray(new Point(10,0,-10), new Vector(0,0,1)))._fieldIntersections.Count);
-	// }
 }
 
 public class TriangleTest {
