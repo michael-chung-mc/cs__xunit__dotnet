@@ -1048,18 +1048,18 @@ public class AABBTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta _fieldPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void AABBTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
 	[Fact]
-	public void AABB_Default_Constructor__With_No_Values__Expect_Infinity () {
+	public void AABBConstructor_WithNoValues__ExpectInfinity () {
 		AABB varBox = new AABB();
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(double.MinValue,double.MinValue,double.MinValue)));
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(double.MaxValue,double.MaxValue,double.MaxValue)));
 	}
 	[Fact]
-	public void AABB_Constructor__With_Values__Expect_Values () {
+	public void AABBConstructor_WithValues_ExpectValues () {
 		Point varMin = new Point(-1,-2,-3);
 		Point varMax = new Point(3,2,1);
 		AABB varBox = new AABB(varMin, varMax);
@@ -1067,7 +1067,7 @@ public class AABBTest {
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, varMax));
 	}
 	[Fact]
-	public void AABB_Set_Point__With_New_Points__Expect_Resize_Min_Max () {
+	public void AABBSetPoint_WithNewPoints_ExpectResizeMinMax () {
 		AABB varBox = new AABB();
 		Point varMin = new Point(-5,2,0);
 		Point varMax = new Point(7,0,-3);
@@ -1077,14 +1077,14 @@ public class AABBTest {
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(7,2,0)));
 	}
 	[Fact]
-	public void Sphere_AABB__With_Default__Expect_Origin_Length_1 () {
+	public void SphereAABB_WithDefault_ExpectOriginLength1 () {
 		UnitSphere varObj = new UnitSphere();
 		AABB varBox = varObj.GetBounds();
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(-1,-1,-1)));
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMax, new Point(1,1,1)));
 	}
 	[Fact]
-	public void Plane_AABB__With_Default__Expect_Origin_Length_Infinity_In_X_Z () {
+	public void PlaneAABB_WithDefault_ExpectOriginLengthInfinityInXZ () {
 		UnitPlane varObj = new UnitPlane();
 		AABB varBox = varObj.GetBounds();
 		Assert.True(_fieldComp.CheckTuple(varBox._fieldMin, new Point(double.MinValue, 0, double.MinValue)));
@@ -1148,7 +1148,7 @@ public class SmoothTriangleTest {
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta _fieldPM = new ProjectMeta();
     [Fact]
-	public void CanaryTest() {
+	public void SmoothTriangleTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
