@@ -26,82 +26,66 @@ public class IntersectionTest
 	public void IntersectionConstructor_WithSphere_ExpectSphere() {
 		UnitSphere s = new UnitSphere();
 		double t = 3.5;
-		// Intersection i = Intersection(t, std::make_unique<Sphere>(s));
 		Intersection i = new Intersection(t, s);
 		Assert.Equal(i._fieldTime, t);
 		Assert.True(i._fieldObject.CheckEqual(s));
 	}
 	[Fact]
-	public void AggregationTest() {
+	public void Intersection_WithAggregation_ExpectTwo() {
 		UnitSphere s = new UnitSphere();
 		double t1 = 1;
 		double t2 = 2;
-		// Intersections i = new Intersections(t1, std::make_unique<Sphere>(s));
-		// i.intersect(t2, std::make_unique<Sphere>(s));
 		Intersections i = new Intersections(t1, s);
 		i.SetIntersect(t2, s);
-		// std::vector<Intersection> xs = i.mbrIntersections;
-		// i.intersect(t2, s);
-		// std::vector<std::unique_ptr<Intersection>> xs = i.mbrIntersections;
 		Assert.Equal(2, i._fieldIntersections.Count());
-		// Assert.Equal(xs[0].mbrTime, t1);
-		// Assert.Equal(xs[1].mbrTime, t2);
 		Assert.Equal(i._fieldIntersections[0]._fieldTime, t1);
 		Assert.Equal(i._fieldIntersections[1]._fieldTime, t2);
 	}
 	[Fact]
-	public void PositiveT() {
+	public void Intersection_WithPositiveT_ExpectHit() {
 		UnitSphere s = new UnitSphere();
 		Intersections i = new Intersections(1, s);
-		// Intersections i = new Intersections(1, std::make_unique<Sphere>(s));
-		// i.intersect(2, std::make_unique<Sphere>(s));
 		i.SetIntersect(2, s);
-		// std::vector<std::unique_ptr<Intersection>> xs = i.mbrIntersections;
 		Intersection hit = i.GetHit();
-		// Assert.True(hit.checkEqual(xs[0]));
 		Assert.True(hit.CheckEqual(i._fieldIntersections[0]));
 	}
 	[Fact]
-	public void NegativeT() {
+	public void Intersection_WithNegativeT_ExpectHit() {
 		UnitSphere s = new UnitSphere();
 		Intersections i = new Intersections(-1, s);
-		// Intersections i = new Intersections(-1, std::make_unique<Sphere>(s));
-		// i.intersect(2, std::make_unique<Sphere>(s));
 		i.SetIntersect(2, s);
-		// std::vector<Intersection> xs = i.mbrIntersections;
-		// std::vector<std::unique_ptr<Intersection>> xs = i.mbrIntersections;
 		Intersection hit = i.GetHit();
-		// Assert.True(hit.checkEqual(xs[1]));
 		Assert.True(hit.CheckEqual(i._fieldIntersections[1]));
 	}
 	[Fact]
-	public void AllNegativeT() {
+	public void Intersection_WithAllNegativeT_ExpectHit() {
 		UnitSphere s = new UnitSphere();
-		// Intersections i = new Intersections(-1, std::make_unique<Sphere>(s));
 		Intersections i = new Intersections(-1, s);
-		// i.intersect(-2, std::make_unique<Sphere>(s));
 		i.SetIntersect(-2, s);
-		// std::vector<Intersection> xs = i.mbrIntersections;
-		// std::vector<std::unique_ptr<Intersection>> xs = i.mbrIntersections;
 		Intersection hit = i.GetHit();
 		Assert.False(hit._fieldExists);
 	}
 	[Fact]
-	public void HitvarIsNonnegativeIntersection() {
+	public void Intersection_WithGiven_ExpectHitNonNegative() {
 		UnitSphere s = new UnitSphere();
-		// Intersections i = new Intersections(5, std::make_unique<Sphere>(s));
 		Intersections i = new Intersections(5, s);
 		i.SetIntersect(7, s);
-		// i.intersect(7, std::make_unique<Sphere>(s));
 		i.SetIntersect(-3, s);
-		// i.intersect(-3, std::make_unique<Sphere>(s));
-		// i.intersect(2, std::make_unique<Sphere>(s));
 		i.SetIntersect(2, s);
-		// std::vector<Intersection> xs = i.mbrIntersections;
-		// std::vector<std::unique_ptr<Intersection>> xs = i.mbrIntersections;
 		Intersection hit = i.GetHit();
-		// Assert.True(hit.checkEqual(xs[1]));
 		Assert.True(hit.CheckEqual(i._fieldIntersections[1]));
+	}
+}
+
+public class IntersectionStateTest
+{
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
+
+    [Fact]
+	public void IntersectionStateTestCanary_WithDefault_ExpectDefault() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
 	}
 	[Fact]
 	public void PrecomputeIntersectionState() {
