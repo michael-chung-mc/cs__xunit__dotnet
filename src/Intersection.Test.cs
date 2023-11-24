@@ -75,25 +75,10 @@ public class IntersectionTest
 		Intersection hit = i.GetHit();
 		Assert.True(hit.CheckEqual(i._fieldIntersections[1]));
 	}
-}
-
-public class IntersectionStateTest
-{
-	Comparinator _fieldComp = new Comparinator();
-	ProjectMeta varPM = new ProjectMeta();
-
-    [Fact]
-	public void IntersectionStateTestCanary_WithDefault_ExpectDefault() {
-		Assert.Equal(1, 1);
-		Assert.True(true);
-	}
 	[Fact]
-	public void PrecomputeIntersectionState() {
+	public void IntersectionsGetHit_WithPrecompute_ExpectGiven() {
 		Ray r = new Ray(new Point(0,0,-5), new Vector(0,0,1));
 		UnitSphere s = new UnitSphere();
-		// Intersection i = Intersection(4, std::make_unique<Sphere>(s));
-		// Intersection i = Intersection(4, new Sphere(s));
-		// IntersectionState varIs = i.getState(r);
 		Intersections i = new Intersections(4, s);
 		IntersectionState varIs = i.GetHit().GetState(r, i._fieldIntersections);
 		Assert.True(_fieldComp.CheckFloat(varIs._fieldTime, i.GetHit()._fieldTime));
@@ -103,24 +88,18 @@ public class IntersectionStateTest
 		Assert.True(_fieldComp.CheckTuple(varIs._fieldNormal, new Vector(0,0,-1)));
 	}
 	[Fact]
-	public void PrecomputeIntersectionStateInteriorHitFalse() {
+	public void IntersectionsGetHit_WithInteriorMiss_ExpectFalse() {
 		Ray r = new Ray(new Point(0,0,-5), new Vector(0,0,1));
 		UnitSphere s = new UnitSphere();
-		// Intersection i = Intersection(4, std::make_unique<Sphere>(s));
-		// Intersection i = Intersection(4, new Sphere (s));
-		// IntersectionState varIs = i.getState(r);
 		Intersections i = new Intersections(4, s);
 		IntersectionState varIs = i.GetHit().GetState(r, i._fieldIntersections);
 		Assert.False(varIs._fieldInside);
 	}
 	[Fact]
-	public void PrecomputeIntersectionStateInteriorHitTrue() {
+	public void IntersectionsGetHit_WithInteriorHit_ExpectTrue() {
 		Ray r = new Ray(new Point(0,0,0), new Vector(0,0,1));
 		UnitSphere s = new UnitSphere();
-		// Intersection i = Intersection(1, std::make_unique<Sphere>(s));
-		// Intersection i = Intersection(1, new Sphere(s));
 		Intersections i = new Intersections(1, s);
-		// IntersectionState varIs = i.getState(r);
 		IntersectionState varIs = i.GetHit().GetState(r, i._fieldIntersections);
 		Assert.True(_fieldComp.CheckTuple(varIs._fieldPoint, new Point(0,0,1)));
 		Assert.True(_fieldComp.CheckTuple(varIs._fieldPov, new Vector(0,0,-1)));
@@ -128,31 +107,26 @@ public class IntersectionStateTest
 		Assert.True(_fieldComp.CheckTuple(varIs._fieldNormal, new Vector(0,0,-1)));
 	}
 	[Fact]
-	public void HitShouldOffsetPoint() {
+	public void IntersectionsGetHit_WithGiven_ExpectOffsetPoint() {
 		Ray varRay = new Ray(new Point(0,0,-5), new Vector(0,0,1));
 		UnitSphere varSphere = new UnitSphere();
 		varSphere.SetTransform(new TranslationMatrix(0,0,1));
-		// Intersection varIntersection = Intersection(5, std::make_unique<Sphere>(varSphere));
-		// Intersection varIntersection = Intersection(5, new Sphere(varSphere));
 		Intersections varIntersection = new Intersections(5, varSphere);
-		// IntersectionState varvarIs = varIntersection.getState(varRay);
 		IntersectionState varvarIs = varIntersection.GetHit().GetState(varRay, varIntersection._fieldIntersections);
 		Assert.True(varvarIs._fieldOverPoint._fieldZ < -varPM.GetEpsilon()/2);
 		Assert.True(varvarIs._fieldPoint._fieldZ > varvarIs._fieldOverPoint._fieldZ);
 	}
 	[Fact]
-	public void ReflectionIntersectionState()
+	public void IntersectionsGetHit_WithReflection_ExpectReflect()
 	{
 		UnitPlane varObj = new UnitPlane();
 		Ray varRay = new Ray(new Point(0,1,-1), new Vector(0,-Math.Sqrt(2)/2, Math.Sqrt(2)/2));
-		// Intersection varIx = Intersection(Math.Sqrt(2), new Plane(varObj));
 		Intersections varIx = new Intersections(Math.Sqrt(2), varObj);
-		// IntersectionState varvarIs = varIx.getState(varRay);
 		IntersectionState varvarIs = varIx.GetHit().GetState(varRay, varIx._fieldIntersections);
 		Assert.True(_fieldComp.CheckTuple(varvarIs._fieldReflect, new Vector(0,Math.Sqrt(2)/2, Math.Sqrt(2)/2)));
 	}
 	[Fact]
-	public void RefractiveIndex () {
+	public void IntersectionsGetHit_WithRefractiveIndex_ExpectBouncedHits () {
 		UnitSphereGlass varSphereA = new UnitSphereGlass();
 		varSphereA.SetTransform(new ScalingMatrix(2,2,2));
 		varSphereA._fieldMaterial._fieldRefractiveIndex = 1.5;
@@ -190,7 +164,7 @@ public class IntersectionStateTest
 		Assert.True(_fieldComp.CheckFloat(varIx5._fieldRefractiveIndexTwo, 1.0));
 	}
 	[Fact]
-	public void UnderPointUnderSurfaceByEpsilon ()
+	public void IntersectionsGetHit_WithGiven_ExpectUnderPointUnderSurfaceByEpsilon ()
 	{
 		Ray varRay = new Ray(new Point(0,0,-5), new Vector(0,0,1));
 		UnitSphereGlass varObj = new UnitSphereGlass();
@@ -201,7 +175,7 @@ public class IntersectionStateTest
 		Assert.True(varvarIs._fieldPoint._fieldZ < varvarIs._fieldUnderPoint._fieldZ);
 	}
 	[Fact]
-	public void SchlickApproximation__TotalInternalReflection () {
+	public void IntersectionsGetSchlickApproximation_WithTotalInternalReflection_ExpectOne () {
 		UnitSphereGlass varObj = new UnitSphereGlass();
 		Ray varRay = new Ray(new Point(0,0,Math.Sqrt(2)/2), new Vector(0,1,0));
 		Intersections varIs = new Intersections();
@@ -212,7 +186,7 @@ public class IntersectionStateTest
 		Assert.Equal(1.0, varReflectance);
 	}
 	[Fact]
-	public void SchlickApproximation__PerpendicularViewingAngleIsSmall () {
+	public void IntersectionsGetSchlickApproximation_WithPerpendicularViewingAngle_ExpectSmall () {
 		UnitSphereGlass varObj = new UnitSphereGlass();
 		Ray varRay = new Ray(new Point(0,0,0), new Vector(0,1,0));
 		Intersections varIs = new Intersections();
@@ -223,7 +197,7 @@ public class IntersectionStateTest
 		Assert.True(_fieldComp.CheckFloat(0.04, varReflectance));
 	}
 	[Fact]
-	public void SchlickApproximation__SmallViewingAngleIsLarge () {
+	public void IntersectionsGetSchlickApproximation_WithSmallViewingAngle_ExpectLarge () {
 		UnitSphereGlass varObj = new UnitSphereGlass();
 		Ray varRay = new Ray(new Point(0,0.99,-2), new Vector(0,0,1));
 		Intersections varIs = new Intersections(1.8589, varObj);
