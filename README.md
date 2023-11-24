@@ -112,7 +112,12 @@ Ray Tracer implemented in C# following Test Driven Development methodology using
 
 ## Usage
 ### Setup
+- Clone
+
 ### Run
+- Modify RayTracer.cs to setup scene for render
+- Call Raytracer methods in Program.cs to render
+
 ## Acnowledgements
 * "Ray Tracer Challenge" by Jamis Buck
 * "VisualStudio.gitignore" by Github
