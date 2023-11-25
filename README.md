@@ -41,10 +41,16 @@ Practice C# with xUnit for testing
 * Windows
 * Git
 ### Roadmap
-- (2023-11-12):Gilded Rose Kata
-
-- Ray Tracer
-![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
+- lib/ProjectMeta
+	- constants and globals
+- lib/Config
+	- user secrets
+- lib/Calculator
+	- coding problems/leetcode solutions
+- lib/Gilded Rose Kata
+	- gilded rose kata exercise
+- lib/RayTracer
+	- ray tracer
 ## Usage
 ### Setup
 - [ ] clone repo
