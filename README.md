@@ -44,6 +44,7 @@ Practice C# with xUnit for testing
 - (2023-11-12):Gilded Rose Kata
 
 - Ray Tracer
+![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
 ## Usage
 ### Setup
 - [ ] clone repo
