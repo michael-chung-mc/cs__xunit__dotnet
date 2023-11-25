@@ -36,12 +36,12 @@
 ## Methodology
 ### Requirements
 ### Design
-|-- lib = libraries
-|   |-- ProjectMeta = constants and globals
-|   |-- Config = user secrets
-|   |-- Calculator = coding problems/leetcode solutions
-|   |-- Gilded Rose Kata = refactoring exercise
-|   |-- lib/RayTracer = ray tracer
+|-- lib = libraries  
+|---|-- ProjectMeta = constants and globals  
+|---|-- Config = user secrets  
+|---|-- Calculator = coding problems/leetcode solutions  
+|---|-- Gilded Rose Kata = refactoring exercise  
+|---|-- lib/RayTracer = ray tracer  
 ### Tools
 * C#
 * xUnit
