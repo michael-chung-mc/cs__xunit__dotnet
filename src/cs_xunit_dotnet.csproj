@@ -7,7 +7,7 @@
 	  <Nullable>enable</Nullable>
 	  <IsPackable>false</IsPackable>
 
-    <StartupObject>wip__cs__xunit.Program</StartupObject>
+    <StartupObject>cs_xunit_dotnet.Program</StartupObject>
     <UserSecretsId>6a6db827-bf36-45d0-a291-d43707139206</UserSecretsId>
   </PropertyGroup>
 

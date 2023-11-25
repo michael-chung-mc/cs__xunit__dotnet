@@ -2,7 +2,7 @@
 using LibCalculator;
 using LibProjectMeta;
 
-namespace wip__cs__xunit.src.CalculatorCLI;
+namespace cs_xunit_dotnet.src.CalculatorCLI;
 
 public class CalculatorCLI
 {
