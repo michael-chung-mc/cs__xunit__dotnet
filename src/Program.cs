@@ -5,9 +5,9 @@ using Npgsql;
 using LibConfig;
 using LibProjectMeta;
 using LibCalculator;
+using LibRayTracer;
 using wip__cs__xunit.src.CalculatorCLI;
 
-using LibRayTracer;
 
 namespace wip__cs__xunit
 {

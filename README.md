@@ -43,84 +43,13 @@ Practice C# with xUnit for testing
 ### Roadmap
 - (2023-11-12):Gilded Rose Kata
 
-- Ray Tracer implemented in C# following Test Driven Development methodology using xUnit
-![Refraction-Air-Pocket-Background-Checker-Example](./examples/refraction__sphere_with_air_pocket__checker.png)
-![Refraction-Air-Pocket-Background-Ring-Example](./examples/refraction__sphere_with_air_pocket__ring.png)
-![Refraction-Example](./examples/refraction.png)
-![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
-![Cube-Room-Made-Of-Cubes-Example](./examples/cube_room_made_of_aabb_cubes.png)
-![Cylinders-Example](./examples/cylinders.png)
-![WaveFrontTeapot.Obj](./examples/obj__teapot.png)
-<details>
-<summary>ray tracer</summary>
-
-- [x] Operations
-    - [x] Tuples & Point & Vector
-    - [x] Matrix
-        - [x] Translation
-        - [x] Scale
-        - [x] Rotate
-        - [x] Shear
-    - [x] Rays
-- [x] Geometry
-    - [x] Sphere(s)
-    - [x] Plane(s)
-    - [x] AABB = Axis Aligned Bounding Box(es)
-    - [x] Cylinder(s)
-    - [x] DNC = Double Napped Cone(s)
-    - [X] Object Groups
-    - [X] Triangle
-    - [X] WaveFront.Obj
-        - [x] OBJ Mesh Normalization
-        - [x] Smooth Shading 
-    - [ ] CSG = Constructive Solid Geometry
-    - [ ] Torus
-- [x] Material
-    - [x] Lighting
-        - [x] Phong Model
-        - [x] Shadow
-        - [x] Reflection
-        - [x] Refraction
-        - [x] Fresnel
-            -[x] Schlick
-    - [x] Pattern
-        - [x] Striped Pattern
-        - [x] Gradient Pattern
-        - [x] Ring Pattern
-        - [x] Checkered Pattern
-        - [ ] Radial Gradient
-        - [ ] Nested Patterns
-        - [ ] Blended Patterns
-        - [ ] Preturbed Patterns
-    - [ ] Texture Map
-- [x] World
-    - [x] Canvas
-        - [x] PPM
-    - [x] Camera
-        - [ ] Focal Blur
-        - [ ] Motion Blur
-    - [x] Lights
-        - [x] Point Source
-        - [ ] Area Light
-        - [ ] Spotlight
-- [x] Render
-    - [x] Single Object Shadow/Silhouette Cast Render
-    - [x] Single Matte Shading Render
-    - [x] Multiple Matte Shading Render
-    - [x] Single Transparent Render
-    - [x] Single Refraction Render
-    - [x] Multiple Matte/Transparent/Refraction Render
-
-</details>
-
+- Ray Tracer
 ## Usage
 ### Setup
 - [ ] clone repo
 - [ ] setup user secrets
 
 ### Run
-- Modify RayTracer.cs to setup scene for render
-- Call Raytracer methods in Program.cs to render
 
 ## Acnowledgements
 * "Ray Tracer Challenge" by Jamis Buck

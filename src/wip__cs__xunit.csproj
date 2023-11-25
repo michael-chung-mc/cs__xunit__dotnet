@@ -36,6 +36,7 @@
     <ProjectReference Include="..\lib\Config\Config.csproj" />
     <ProjectReference Include="..\lib\Calculator\Calculator.csproj" />
     <ProjectReference Include="..\lib\ProjectMeta\ProjectMeta.csproj" />
+    <ProjectReference Include="..\lib\RayTracer\RayTracer.csproj" />
   </ItemGroup>
 
 </Project>

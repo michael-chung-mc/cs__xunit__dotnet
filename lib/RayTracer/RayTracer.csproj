@@ -6,8 +6,6 @@
 	  <ImplicitUsings>enable</ImplicitUsings>
 	  <Nullable>enable</Nullable>
 	  <IsPackable>false</IsPackable>
-
-    <StartupObject>app__ray_tracer.Program</StartupObject>
   </PropertyGroup>
 
   <ItemGroup>
