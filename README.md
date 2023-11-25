@@ -31,19 +31,17 @@
 .NET/C# with xUnit for testing
 ### About
 ### Preview
+
+![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
 ## Methodology
 ### Requirements
 ### Design
-- lib/ProjectMeta
-	- constants and globals
-- lib/Config
-	- user secrets
-- lib/Calculator
-	- coding problems/leetcode solutions
-- lib/Gilded Rose Kata
-	- gilded rose kata exercise
-- lib/RayTracer
-	- ray tracer
+|-- lib = libraries
+|   |-- ProjectMeta = constants and globals
+|   |-- Config = user secrets
+|   |-- Calculator = coding problems/leetcode solutions
+|   |-- Gilded Rose Kata = refactoring exercise
+|   |-- lib/RayTracer = ray tracer
 ### Tools
 * C#
 * xUnit
