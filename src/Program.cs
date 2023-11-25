@@ -93,9 +93,8 @@ namespace wip__cs__xunit
             Console.WriteLine("project euler problem 3 = largest prime factor of 600851475143");
             Console.WriteLine(varCalculator.MaxFactor(600851475143));
         }
-        static void Main()
+        static void rayTrace()
         {
-            //DatabasePostgres varDB = new();
             
             // int firepower = 10;
             // std::cout << "Firing: " << firepower << std::endl;
@@ -104,6 +103,11 @@ namespace wip__cs__xunit
 
             RayTracer varRT = new RayTracer();
             varRT.Test();
+        }
+        static void Main()
+        {
+            //DatabasePostgres varDB = new();
+            rayTrace();
         }
     }
 }
