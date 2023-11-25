@@ -41,7 +41,7 @@
 |---|-- Config = user secrets  
 |---|-- Calculator = coding problems/leetcode solutions  
 |---|-- Gilded Rose Kata = refactoring exercise  
-|---|-- lib/RayTracer = ray tracer  
+|---|-- RayTracer = ray tracer  
 ### Tools
 * C#
 * xUnit
