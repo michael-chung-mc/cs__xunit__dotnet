@@ -28,19 +28,12 @@
 </details>
 
 ## Goals
-Practice C# with xUnit for testing
+.NET/C# with xUnit for testing
 ### About
 ### Preview
 ## Methodology
 ### Requirements
 ### Design
-### Tools
-* C#
-* xUnit
-* Visual Studio
-* Windows
-* Git
-### Roadmap
 - lib/ProjectMeta
 	- constants and globals
 - lib/Config
@@ -51,6 +44,15 @@ Practice C# with xUnit for testing
 	- gilded rose kata exercise
 - lib/RayTracer
 	- ray tracer
+### Tools
+* C#
+* xUnit
+* Visual Studio
+* Git
+* Windows
+* Oracle VM VirtualBox
+* Xubuntu (Ubuntu/Linux)
+### Roadmap
 ## Usage
 ### Setup
 - [ ] clone repo

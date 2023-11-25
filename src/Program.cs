@@ -6,10 +6,10 @@ using LibConfig;
 using LibProjectMeta;
 using LibCalculator;
 using LibRayTracer;
-using cs_xunit_dotnet.src.CalculatorCLI;
+using cs__xunit__dotnet.src.CalculatorCLI;
 
 
-namespace cs_xunit_dotnet
+namespace cs__xunit__dotnet
 {
     public class DatabasePostgres
     {
