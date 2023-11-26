@@ -10,12 +10,12 @@ public class MatrixTest
 	Comparinator _fieldComp = new Comparinator();
 	ProjectMeta varPM = new ProjectMeta();
 	[Fact]
-	public void CanaryTest() {
+	public void MatrixTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
 	[Fact]
-	public void Matrix4x4ctor ()
+	public void MatrixCtor_With4x4_ExpectGiven ()
 	{
 		double a = 1;
 		double b = 2;
@@ -71,7 +71,7 @@ public class MatrixTest
 		Assert.True(mx.CheckEqual(mx2));
 	}
 	[Fact]
-	public void Matrix2x2ctor()
+	public void MatrixCtor_With2x2_ExpectGiven()
 	{
 		double a = -3;
 		double b = 5;
@@ -91,7 +91,7 @@ public class MatrixTest
 		Assert.True(mx.CheckEqual(mx2));
 	}
 	[Fact]
-	public void Matrix3x3ctor()
+	public void MatrixCtor_With3x3_ExpectGiven()
 	{
 		double a = -3;
 		double b = 5;
@@ -123,7 +123,7 @@ public class MatrixTest
 		Assert.True(mx.CheckEqual(mx2));
 	}
 	[Fact]
-	public void MatrixComparison4x4to4x4True()
+	public void MatrixComparison_With4x4to4x4_ExpectTrue()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, 1);
@@ -162,7 +162,7 @@ public class MatrixTest
 		Assert.True((mx1.CheckEqual(mx2)));
 	}
 	[Fact]
-	public void MatrixComparison4x4to4x4False()
+	public void MatrixComparison_With4x4to4x4_ExpectFalse()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, 1);
@@ -201,7 +201,7 @@ public class MatrixTest
 		Assert.False((mx1 == mx2));
 	}
 		[Fact]
-	public void MatrixMultiplication4x4to4x4()
+	public void MatrixMultiplication_With4x4_Expect4x4()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, 1);
@@ -237,7 +237,6 @@ public class MatrixTest
 		mx2.SetRC(3, 1, 2);
 		mx2.SetRC(3, 2, 7);
 		mx2.SetRC(3, 3, 8);
-		// Matrix* res = mx1 * mx2;
 		Matrix res = mx1 * mx2;
 		Matrix mx3 = new Matrix(4, 4);
 		mx3.SetRC(0, 0, 20);
@@ -257,10 +256,9 @@ public class MatrixTest
 		mx3.SetRC(3, 2, 46);
 		mx3.SetRC(3, 3, 42);
 		Assert.True(mx3.CheckEqual(res));
-		// Assert.True(mx3.CheckEqual(*res));
 	}
 		[Fact]
-	public void MatrixMultiplicationTuple()
+	public void MatrixMultiplication_WithTuple_ExpectTuple()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, 1);
@@ -285,7 +283,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res,tup2));
 	}
 	[Fact]
-	public void IdentityMatrixMultiplication()
+	public void MatrixMultiplication_WithIdentity_ExpectMatrix()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, 1);
@@ -305,13 +303,11 @@ public class MatrixTest
 		mx1.SetRC(3, 2, 0);
 		mx1.SetRC(3, 3, 1);
 		IdentityMatrix im = new IdentityMatrix(4, 4);
-		// Matrix* res = mx1 * im;
-		// Assert.True(mx1.CheckEqual(*res));
 		Matrix res = mx1 * im;
 		Assert.True(mx1.CheckEqual(res));
 	}
 	[Fact]
-	public void TransposeMatrix()
+	public void MatrixGetTranspose_WithGiven_ExpectTransposeOfGiven()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, 0);
@@ -330,7 +326,6 @@ public class MatrixTest
 		mx1.SetRC(3, 1, 0);
 		mx1.SetRC(3, 2, 5);
 		mx1.SetRC(3, 3, 8);
-		// Matrix* res = mx1.transpose();
 		Matrix res = mx1.GetTranspose();
 		Matrix mx2 = new Matrix(4, 4);
 		mx2.SetRC(0, 0, 0);
@@ -349,20 +344,17 @@ public class MatrixTest
 		mx2.SetRC(3, 1, 8);
 		mx2.SetRC(3, 2, 3);
 		mx2.SetRC(3, 3, 8);
-		// Assert.True(mx2.CheckEqual(*res));
 		Assert.True(mx2.CheckEqual(res));
 	}
 	[Fact]
-	public void TransposeIdentityMatrix ()
+	public void MatrixGetTranspose_WithIdentity_ExpectIdentity ()
 	{
 		IdentityMatrix im = new IdentityMatrix(4, 4);
-		// Matrix* res = im.transpose();
-		// Assert.True(im.CheckEqual(*res));
 		Matrix res = im.GetTranspose();
 		Assert.True(im.CheckEqual(res));
 	}
 	[Fact]
-	public void MatrixDeterminant()
+	public void MatrixGetDeterminant_With2x2_Expect17()
 	{
 		Matrix mx1 = new Matrix(2, 2);
 		mx1.SetRC(0, 0, 1);
@@ -374,7 +366,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckFloat(res, expected));
 	}
 	[Fact]
-	public void MatrixSub3x3()
+	public void MatrixGetSubMatrix_With3x3_Expect2x2()
 	{
 		Matrix mx1 = new Matrix(3, 3);
 		mx1.SetRC(0, 0, 1);
@@ -386,18 +378,16 @@ public class MatrixTest
 		mx1.SetRC(2, 0, 0);
 		mx1.SetRC(2, 1, 6);
 		mx1.SetRC(2, 2, -3);
-		// Matrix* res = mx1.submatrix(0,2);
 		Matrix res = mx1.GetSubMatrix(0,2);
 		Matrix mx2 = new Matrix(2, 2);
 		mx2.SetRC(0, 0, -3);
 		mx2.SetRC(0, 1, 2);
 		mx2.SetRC(1, 0, 0);
 		mx2.SetRC(1, 1, 6);
-		// Assert.True(mx2.CheckEqual(*res));
 		Assert.True(mx2.CheckEqual(res));
 	}
 	[Fact]
-	public void MatrixSub4x4()
+	public void MatrixGetSubMatrix_With4x4_Expect3x3()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, -6);
@@ -416,7 +406,6 @@ public class MatrixTest
 		mx1.SetRC(3, 1, 1);
 		mx1.SetRC(3, 2, -1);
 		mx1.SetRC(3, 3, 1);
-		// Matrix* res = mx1.submatrix(2, 1);
 		Matrix res = mx1.GetSubMatrix(2, 1);
 		Matrix mx2 = new Matrix(3, 3);
 		mx2.SetRC(0, 0, -6);
@@ -428,13 +417,11 @@ public class MatrixTest
 		mx2.SetRC(2, 0, -7);
 		mx2.SetRC(2, 1, -1);
 		mx2.SetRC(2, 2, 1);
-		// Assert.True(mx2.CheckEqual(*res));
 		Assert.True(mx2.CheckEqual(res));
 	}
 	[Fact]
-	public void MatrixMinor()
+	public void MatrixGetMinor_With3x3_Expect25()
 	{
-
 		Matrix mx1 = new Matrix(3, 3);
 		mx1.SetRC(0, 0, 3);
 		mx1.SetRC(0, 1, 5);
@@ -450,7 +437,7 @@ public class MatrixTest
 		Assert.Equal(res, expected);
 	}
 	[Fact]
-	public void MatrixCofactor()
+	public void MatrixGetCofactor_withGiven_ExpectExpected()
 	{
 		Matrix mx1 = new Matrix(3, 3);
 		mx1.SetRC(0, 0, 3);
@@ -470,7 +457,7 @@ public class MatrixTest
 		Assert.Equal(m2, odd);
 	}
 	[Fact]
-	public void MatrixDeteriminant3x3()
+	public void MatrixGetDeteriminant_With3x3_ExpectExpected()
 	{
 		Matrix mx1 = new Matrix(3, 3);
 		mx1.SetRC(0, 0, 1);
@@ -487,7 +474,7 @@ public class MatrixTest
 		Assert.Equal(m1d, expected);
 	}
 	[Fact]
-	public void MatrixDeteriminant4x4()
+	public void MatrixGetDeteriminant_With4x4_ExpectExpected()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, -2);
@@ -511,7 +498,7 @@ public class MatrixTest
 		Assert.Equal(m1d, expected);
 	}
 	[Fact]
-	public void MatrixInvertibility()
+	public void MatrixCheckInvertible_WithInvertable_ExpectTrue()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, 6);
@@ -551,7 +538,7 @@ public class MatrixTest
 		Assert.False(mx2.CheckInvertible());
 	}
 	[Fact]
-	public void MatrixInverse4x4()
+	public void MatrixGetInverse_With4x4_ExpectInverse()
 	{
 		Matrix mx1 = new Matrix(4, 4);
 		mx1.SetRC(0, 0, -5);
@@ -570,7 +557,6 @@ public class MatrixTest
 		mx1.SetRC(3, 1, -3);
 		mx1.SetRC(3, 2, 7);
 		mx1.SetRC(3, 3, 4);
-		// Matrix* imx1 = mx1.invert();
 		Matrix imx1 = mx1.GetInverse();
 		Matrix mx2 = new Matrix(4, 4);
 		mx2.SetRC(0, 0, 0.21805);
@@ -589,43 +575,45 @@ public class MatrixTest
 		mx2.SetRC(3, 1, -0.81391);
 		mx2.SetRC(3, 2, -0.30075);
 		mx2.SetRC(3, 3, 0.30639);
-		// Assert.True(mx2.CheckEqual(*imx1));
 		Assert.True(mx2.CheckEqual(imx1));
 		List<double> mx3arr = new List<double>{ 8,-5,9,2,7,5,6,1,-6,0,9,6,-3,0,-9,-4 };
 		Matrix mx3 = new Matrix(4, 4, mx3arr);
 		List<double> mx3iarr = new List<double>{ -0.15385 , -0.15385 , -0.28205 , -0.53846 , -0.07692 , 0.12308 , 0.02564 , 0.03077 , 0.35897 , 0.35897 , 0.43590 , 0.92308 , -0.69231 , -0.69231 , -0.76923 , -1.92308 };
 		Matrix mx3i = new Matrix(4, 4, mx3iarr);
-		// Matrix* imx3 = mx3.invert();
 		Matrix imx3 = mx3.GetInverse();
-		// Assert.True(mx3i.CheckEqual(*imx3));
 		Assert.True(mx3i.CheckEqual(imx3));
 		List<double> mx4arr = new List<double>{ 9,3,0,9,-5,-2,-6,-3,-4,9,6,4,-7,6,6,2 };
 		Matrix mx4 = new Matrix(4, 4, mx4arr);
 		List<double> mx4iarr = new List<double>{ -0.04074 , -0.07778 , 0.14444 , -0.22222 , -0.07778 , 0.03333 , 0.36667 , -0.33333 , -0.02901 , -0.14630 , -0.10926 , 0.12963 , 0.17778 , 0.06667 , -0.26667 , 0.33333 };
 		Matrix mx4i = new Matrix(4, 4, mx4iarr);
-		// Matrix* imx4 = mx4.invert();
-		// Assert.True(mx4i.CheckEqual(*imx4));
 		Matrix imx4 = mx4.GetInverse();
 		Assert.True(mx4i.CheckEqual(imx4));
 	}
 	[Fact]
-	public void MatrixProductByInverse4x4()
+	public void MatrixProduct_WithInverse4x4_ExpectExpected()
 	{
 		List<double> mx1arr = new List<double>{ 3,-9,7,3,3,-8,2,-9,-4,4,4,1,-6,5,-1,1 };
 		Matrix mx1 = new Matrix(4, 4, mx1arr);
 		List<double> mx2arr = new List<double>{ 8,2,2,2,3,-1,7,0,7,0,5,4,6,-2,0,-5 };
 		Matrix mx2 = new Matrix(4, 4, mx2arr);
-		// Matrix* mx21 = mx1 * mx2;
-		// Matrix* imx2 = mx2.invert();
-		// Matrix* mx21imx2 = (*mx21) * (*imx2);
-		// Assert.True(mx1.CheckEqual(*mx21imx2));
 		Matrix mx21 = mx1 * mx2;
 		Matrix imx2 = mx2.GetInverse();
 		Matrix mx21imx2 = mx21 * imx2;
 		Assert.True(mx1.CheckEqual(mx21imx2));
 	}
+}
+
+public class TransformationTest
+{
+	Comparinator _fieldComp = new Comparinator();
+	ProjectMeta varPM = new ProjectMeta();
 	[Fact]
-	public void TransformationTranslationMatrixMove()
+	public void TransformationTestCanary_WithDefault_ExpectDefault() {
+		Assert.Equal(1, 1);
+		Assert.True(true);
+	}
+	[Fact]
+	public void TranslationMatrix_WithPoint_ExpectMove()
 	{
 		TranslationMatrix tm = new TranslationMatrix(5, -3,2);
 		Point p = new Point(-3, 4, 5);
@@ -634,7 +622,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationInverseTranslationMatrixReverseMove()
+	public void TranslationMatrix_WithInverse_ExpectReverseMove()
 	{
 		TranslationMatrix tm = new TranslationMatrix(5, -3, 2);
 		// Matrix* itm = tm.invert();
@@ -646,7 +634,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationTranslationMatrixVectorNoEffect()
+	public void TranslationMatrix_WithVector_ExpectNoEffect()
 	{
 		TranslationMatrix tm = new TranslationMatrix(5, -3, 2);
 		Vector v = new Vector(-3, 4, 5);
@@ -655,7 +643,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationScalingMatrixPoint()
+	public void Scaling_WithPoint_ExpectMultiplied()
 	{
 		ScalingMatrix sm = new ScalingMatrix(2, 3, 4);
 		Point p = new Point(-4, 6, 8);
@@ -664,7 +652,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationScalingMatrixVector()
+	public void Scaling_WithVector_ExpectMultiplied()
 	{
 		ScalingMatrix sm = new ScalingMatrix(2, 3, 4);
 		Vector p = new Vector(-4, 6, 8);
@@ -673,7 +661,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationScalingMatrixInverseVector()
+	public void Scaling_WithInversexVector_ExpectShrunken()
 	{
 		ScalingMatrix sm = new ScalingMatrix(2, 3, 4);
 		// Matrix* im = sm.invert();
@@ -685,7 +673,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationScalingMatrixReflection()
+	public void Scaling_WithReflection_ExpectFlipped()
 	{
 		ScalingMatrix rm = new ScalingMatrix(-1, 1, 1);
 		Point p = new Point(2, 3, 4);
@@ -694,7 +682,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationRotationMatrixX()
+	public void Rotation_WithX_ExpectRotatedAroundX()
 	{
 		Point p = new Point(0, 1, 0);
 		XRotationMatrix xrm90 = new XRotationMatrix(varPM.GetPI()/4);
@@ -707,19 +695,17 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
 	}
 	[Fact]
-	public void TransformationRotationMatrixXInverse()
+	public void Rotation_WithXInverse_ExpectReverseRotation()
 	{
 		Point p = new Point(0, 1, 0);
 		XRotationMatrix xrm90 = new XRotationMatrix(varPM.GetPI() / 4);
-		// Matrix* ixrm90 = xrm90.invert();
 		Matrix ixrm90 = xrm90.GetInverse();
-		// Point res = (*ixrm90) * p;
 		SpaceTuple res = ixrm90 * p;
 		Point expected = new Point(0, Math.Sqrt(2) / 2, -Math.Sqrt(2) / 2);
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationRotationMatrixY()
+	public void Rotation_WithY_ExpectRotationY()
 	{
 		Point p = new Point(0, 0, 1);
 		YRotationMatrix yrm90 = new YRotationMatrix(varPM.GetPI() / 4);
@@ -732,7 +718,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
 	}
 	[Fact]
-	public void TransformationRotationMatrixZ()
+	public void Rotation_WithZ_ExpectRotationZ()
 	{
 		Point p = new Point(0, 1, 0);
 		ZRotationMatrix zrm90 = new ZRotationMatrix(varPM.GetPI() / 4);
@@ -745,7 +731,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res180, expected180));
 	}
 	[Fact]
-	public void TransformationShearingXToY()
+	public void Shearing_WithXToY_ExpectShearedX()
 	{
 		ShearingMatrix sm = new ShearingMatrix(1, 0, 0, 0, 0, 0);
 		Point p = new Point(2, 3, 4);
@@ -754,7 +740,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationShearingXToZ()
+	public void Shearing_WithXToZ_ExpectShearedX()
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 1, 0, 0, 0, 0);
 		Point p = new Point(2, 3, 4);
@@ -763,7 +749,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationShearingYToX()
+	public void Shearing_WithYToX_ExpectShearedY()
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 1, 0, 0, 0);
 		Point p = new Point(2, 3, 4);
@@ -772,7 +758,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationShearingYToZ()
+	public void Shearing_WithYToZ_ExpectShearedY()
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 0, 1, 0, 0);
 		Point p = new Point(2, 3, 4);
@@ -781,7 +767,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationShearingZToX()
+	public void Shearing_WithZToX_ExpectShearedZ()
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 0, 0, 1, 0);
 		Point p = new Point(2, 3, 4);
@@ -790,7 +776,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void TransformationShearingZToY()
+	public void Shearing_WithZToY_ExpectShearedY()
 	{
 		ShearingMatrix sm = new ShearingMatrix(0, 0, 0, 0, 0, 1);
 		Point p = new Point(2, 3, 4);
@@ -799,7 +785,7 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(res, expected));
 	}
 	[Fact]
-	public void ChainingTransformationInSequence()
+	public void ChainingTransformation_WithInSequence_ExpectChained()
 	{
 		Point p = new Point(1, 0, 1);
 		XRotationMatrix xrm = new XRotationMatrix(varPM.GetPI() / 2);
@@ -816,26 +802,23 @@ public class MatrixTest
 		Assert.True(_fieldComp.CheckTuple(translated, translatedExpected));
 	}
 	[Fact]
-	public void ChainingTransformationAppliedInReverseOrder()
+	public void ChainingTransformation_WithAppliedInReverseOrder_ExpectReverse()
 	{
 		Point p = new Point(1, 0, 1);
 		XRotationMatrix xrm = new XRotationMatrix(varPM.GetPI() / 2);
 		ScalingMatrix sm = new ScalingMatrix(5, 5, 5);
 		TranslationMatrix tm = new TranslationMatrix(10, 5, 7);
-		// Matrix* tsrm = *(tm * sm) * xrm;
 		Matrix tsrm = tm * sm * xrm;
-		// Point transformed = (*tsrm) * p;
 		SpaceTuple transformed = tsrm * p;
 		Point expected = new Point(15, 0, 7);
 		Assert.True(_fieldComp.CheckTuple(transformed, expected));
-		// Matrix tsrmc = *(*(*(*(Matrix(4, 4).identity())).translate(10, 5, 7)).scale(5, 5, 5)).rotateX(getPI() / 2);
 		Matrix tsrmc = new Matrix(4, 4).GetIdentity().GetTranslate(10, 5, 7).GetScale(5, 5, 5).GetRotateX(varPM.GetPI() / 2);
 		Assert.True(tsrm.CheckEqual(tsrmc));
 		SpaceTuple transformedc = tsrmc * p;
 		Assert.True(_fieldComp.CheckTuple(transformedc, expected));
 	}
 	[Fact]
-	public void ViewTransformDefault()
+	public void ViewTransform_WithDefault_ExpectDefault()
 	{
 		Point from = new Point(0,0,0);
 		Point to = new Point(0,0,-1);
@@ -845,7 +828,7 @@ public class MatrixTest
 		Assert.True(view.CheckEqual(im));
 	}
 	[Fact]
-	public void ViewTransformDefaultReverse()
+	public void ViewTransform_WithDefaultReversed_ExpectFlipped()
 	{
 		Point from = new Point(0,0,0);
 		Point to = new Point(0,0,1);
@@ -855,7 +838,7 @@ public class MatrixTest
 		Assert.True(view.CheckEqual(sm));
 	}
 	[Fact]
-	public void ViewTransformMovesWorldNotEyeP()
+	public void ViewTransform_WithGiven_ExpectMovesWorldNotEyeP()
 	{
 		Point from = new Point(0,0,8);
 		Point to = new Point(0,0,0);
@@ -865,7 +848,7 @@ public class MatrixTest
 		Assert.True(view.CheckEqual(sm));
 	}
 	[Fact]
-	public void ViewTransformAngledView ()
+	public void ViewTransform_WithAngledView_ExpectAngled ()
 	{
 		Point from = new Point(1,3,2);
 		Point to = new Point(4,-2,8);
