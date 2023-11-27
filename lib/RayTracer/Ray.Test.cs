@@ -9,12 +9,12 @@ public class RayTest
 {
 	Comparinator _fieldComp = new Comparinator();
 	[Fact]
-	public void CanaryTest() {
+	public void RayTestCanary_WithDefault_ExpectDefault() {
 		Assert.Equal(1, 1);
 		Assert.True(true);
 	}
 	[Fact]
-	public void RayCtor() {
+	public void Ray_WithDefault_ExpectDefault() {
 		Point p = new Point(1, 2, 3);
 		Vector d = new Vector(4, 5, 6);
 		Ray r = new Ray(p, d);
@@ -22,7 +22,7 @@ public class RayTest
 		Assert.True(_fieldComp.CheckTuple(r._fieldDirection,d));
 	}
 	[Fact]
-	public void RayPositionAfterTime() {
+	public void RayGetPosition_WithAfterTime_ExpectMovement() {
 		Point p = new Point(2, 3, 4);
 		Vector d = new Vector(1, 0, 0);
 		Ray r = new Ray(p, d);
@@ -40,7 +40,7 @@ public class RayTest
 		Assert.True(_fieldComp.CheckTuple(pos2p5, expos2p5));
 	}
 	[Fact]
-	public void RayTranslation() {
+	public void RayGetTransformation_WithTranslation_ExpectTranslated() {
 		Point p = new Point(1, 2, 3);
 		Vector d = new Vector(0, 1, 0);
 		Ray r = new Ray(p, d);
@@ -57,7 +57,7 @@ public class RayTest
 		Assert.True(_fieldComp.CheckTuple(r._fieldDirection, expectedV));
 	}
 	[Fact]
-	public void RayScaling() {
+	public void RayGetTransformation_WithScaling_ExpectScaledRay() {
 		Point p = new Point(1, 2, 3);
 		Vector d = new Vector(0, 1, 0);
 		Ray r = new Ray(p, d);
