@@ -9,8 +9,7 @@ public class ParserTest
 {
 	Comparinator _fieldComp = new Comparinator();
     [Fact]
-    public void Canary()
-    {
+    public void ParserTestCanary_WithDefault_ExpectDefault() {
         Assert.Equal(1, 1);
     }
 }
@@ -19,19 +18,18 @@ public class WaveFrontObjParserTest
 {
 	Comparinator _fieldComp = new Comparinator();
     [Fact]
-    public void Canary()
-    {
+    public void WaveFrontObjParserTestCanary_WithDefault_ExpectDefault() {
         Assert.Equal(1, 1);
     }
     [Fact]
-    public void ParseWaveFrontObj_With_NonWaveFrontFormattedFiveLines_Expect_FiveSkippedLines () {
+    public void ParseWaveFrontObj_WithNonWaveFrontFormattedFiveLines_ExpectFiveSkippedLines () {
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         String varData = "There was a young lady named Bright\nwho traveled much faster than light.\nShe set out one day\nin a relative way,\nand came back the previous night.";
         int SkippedLines = varParser.ParseWaveFrontObj(varData);
         Assert.Equal(5, SkippedLines);
     }
     [Fact]
-    public void ParseWaveFrontObj_With_WaveFrontFormattedFourVertices_Expect_ContainFourVertices () {
+    public void ParseWaveFrontObj_WithWaveFrontFormattedFourVertices_ExpectContainFourVertices () {
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         String varData = "v -1 1 0\nv -1.000 0.5000 0.000\nv 1 0 0\nv 1 1 0";
         int varSkippedLines = varParser.ParseWaveFrontObj(varData);
@@ -43,7 +41,7 @@ public class WaveFrontObjParserTest
         Assert.True(_fieldComp.CheckTuple(varParser._fieldVertices[4],new Point (1,1,0)));
     }
     [Fact]
-    public void ParseWaveFrontObj_With_WaveFrontFormattedFourVerticesTwoFaces_Expect_ContainTwoFacesReferencingFourVertices () {
+    public void ParseWaveFrontObj_WithWaveFrontFormattedFourVerticesTwoFaces_ExpectContainTwoFacesReferencingFourVertices () {
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         String varData = "v -1 1 0\nv -1 0 0\nv 1 0 0\nv 1 1 0\nf 1 2 3\nf 1 3 4";
         int varSkippedLines = varParser.ParseWaveFrontObj(varData, false);
@@ -64,7 +62,7 @@ public class WaveFrontObjParserTest
         Assert.True(_fieldComp.CheckTuple(varFaceTwo._fieldVertexThree, varParser._fieldVertices[4]));
     }
     [Fact]
-    public void ParseWaveFrontObj_With_WaveFrontFormattedPolygonalData_Expect_ContainFanTriangulatedPolygonalData () {
+    public void ParseWaveFrontObj_WithWaveFrontFormattedPolygonalData_ExpectContainFanTriangulatedPolygonalData () {
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         String varData = "v -1 1 0\nv -1 0 0\nv 1 0 0\nv 1 1 0\nv 0 2 0\nf 1 2 3 4 5";
         int varSkippedLines = varParser.ParseWaveFrontObj(varData, false);
@@ -90,7 +88,7 @@ public class WaveFrontObjParserTest
         Assert.True(_fieldComp.CheckTuple(varFaceThree._fieldVertexThree, varParser._fieldVertices[5]));
     }
     [Fact]
-    public void ParseWaveFrontObj_With_WaveFrontFormattedGroupedData_Expect_ContainGroupedData () {
+    public void ParseWaveFrontObj_WithWaveFrontFormattedGroupedData_ExpectContainGroupedData () {
         ParserWaveFrontObj varParser = new ParserWaveFrontObj();
         String varData = "v -1 1 0\nv -1 0 0\nv 1 0 0\nv 1 1 0\ng FirstGroup\nf 1 2 3\ng SecondGroup\nf 1 3 4";
         int varSkippedLines = varParser.ParseWaveFrontObj(varData, false);
