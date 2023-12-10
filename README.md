@@ -32,7 +32,7 @@
 ### About
 ### Preview
 
-![Reflection-Refraction-Example](./examples/reflection_refraction__scene.png)
+![Reflection-Refraction-Example](./lib/RayTracer/examples/reflection_refraction__scene.png)
 ## Methodology
 ### Requirements
 ### Design
