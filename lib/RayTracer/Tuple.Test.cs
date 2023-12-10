@@ -7,12 +7,11 @@ public class TupleTest
 {
 	Comparinator _fieldComp = new Comparinator();
     [Fact]
-    public void Canary()
-    {
+    public void TupleTestCanary_WithDefault_ExpectDefault() {
         Assert.Equal(1, 1);
     }
     [Fact]
-    public void Tuple_W_One_Is_Point ()
+    public void Tuple_WithWOne_ExpectPoint ()
     {
     	SpaceTuple a = new SpaceTuple(4.3, -4.2, 3.1, 1.0);
     	Assert.Equal(4.3, a._fieldX);
@@ -31,7 +30,7 @@ public class TupleTest
     	Assert.NotEqual(a._fieldW, av._fieldW);
     }
     [Fact]
-	public void TupleWZeroIsVector ()
+	public void Tuple_WithWZero_ExpectVector ()
 	{
 		SpaceTuple varTuple = new SpaceTuple(4.3, -4.2, 3.1, 0.0);
 		Assert.Equal(4.3,varTuple._fieldX);
@@ -50,12 +49,8 @@ public class TupleTest
 		Assert.Equal(varTuple._fieldW, av._fieldW);
 	}
     [Fact]
-	public void TuplePlusTupleEqualsTuple ()
+	public void TuplePlusTuple_ExpectEqualsTuple ()
 	{
-		//Scenario: Adding two Tuple
-		//Given a1 ← tuple(3, -2, 5, 1)
-		//And a2 ← tuple(-2, 3, 1, 0)
-		//Then a1 + a2 = new Tuple(1, 1, 6, 1)
 		SpaceTuple a = new SpaceTuple(3, -2, 5, 1);
 		SpaceTuple b = new SpaceTuple(-2, 3, 1, 0);
 		SpaceTuple c = new SpaceTuple(1, 1, 6, 1);
@@ -65,12 +60,8 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(a,c));
 	}
     [Fact]
-	public void TupleMinusTupleEqualsTuple ()
+	public void TupleMinusTuple_ExpectEqualsTuple ()
 	{
-		//Scenario: getSubtracting two Tuple
-		//Given p1 ← tuple(3, 2, 1, 1)
-		//And p2 ← tuple(5, 6, 7, 1)
-		//Then p1 - p2 = new Tuple(-2, -4, -6, 0)
 		SpaceTuple a = new SpaceTuple(3, 2, 1, 1);
 		SpaceTuple b = new SpaceTuple(5, 6, 7, 1);
 		SpaceTuple c = new SpaceTuple(-2, -4, -6, 0);
@@ -78,12 +69,8 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(c, result));
 	}
     [Fact]
-	public void PointMinusVectorEqualsPoint ()
+	public void PointMinusVector_ExpectEqualsPoint ()
 	{
-		//Scenario: getSubtracting two points
-		//Given p1 ← tuple(3, 2, 1, 1)
-		//And p2 ← tuple(5, 6, 7, 1)
-		//Then p1 - p2 = new Tuple(-2, -4, -6, 0)
 		Point a = new Point(3, 2, 1);
 		Vector b = new Vector(5, 6, 7);
 		Point c = new Point(-2, -4, -6);
@@ -91,7 +78,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(c, result));
 	}
     [Fact]
-	public void VectorMinusVectorEqualsVector ()
+	public void VectorMinusVector_ExpectEqualsVector ()
 	{
 		Vector a = new Vector(3, 2, 1);
 		Vector b = new Vector(5, 6, 7);
@@ -100,7 +87,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(c, result));
 	}
     [Fact]
-	public void ZeroMinusVectorEqualsNegatedVector ()
+	public void ZeroMinusVector_ExpectEqualsNegatedVector ()
 	{
 		Vector a = new Vector(0, 0, 0);
 		Vector b = new Vector(1, -2, 3);
@@ -109,7 +96,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(c, result));
 	}
     [Fact]
-	public void NegateTupleMethod ()
+	public void NegateTupleMethod_WithGiven_ExpectFlippedSigns ()
 	{
 		SpaceTuple a = new SpaceTuple(1, -2, 3, -4);
 		SpaceTuple an = -a;
@@ -117,7 +104,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(an, c));
 	}
     [Fact]
-	public void NegateZeroTuple ()
+	public void NegateZeroTuple_ExpectZero ()
 	{
 		SpaceTuple a = new SpaceTuple(0,0,0,0);
 		SpaceTuple an = -a;
@@ -125,7 +112,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(an, c));
 	}
     [Fact]
-	public void NegateTupleOperator ()
+	public void NegateTupleOperator_WithGiven_ExpectFlippedSigns ()
 	{
 		//Scenario: Negating a tuple
 		//Given a ← tuple(1, -2, 3, -4)
@@ -136,7 +123,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(an, c));
 	}
     [Fact]
-	public void NegateVectorOperator ()
+	public void NegateVectorOperator_WithGiven_ExpectFlippedSigns ()
 	{
 		Vector a = new Vector(1, -2, 3);
 		SpaceTuple an = -a;
@@ -144,7 +131,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(an, c));
 	}
     [Fact]
-	public void ScaleTuple ()
+	public void TupleMultiplication_WithGiven_ExpectMultipliedValues ()
 	{
 		// Scenario: Multiplying a tuple by a scalar
 		// Given a ← tuple(1, -2, 3, -4)
@@ -156,7 +143,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(b, c));
 	}
     [Fact]
-	public void ShrinkTuple ()
+	public void TupleMultiplication_WithFractional_ExpectDividedValues ()
 	{
 		// Scenario: Multiplying a tuple by a fraction
 		// Given a ← tuple(1, -2, 3, -4)
@@ -167,7 +154,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(b, c));
 	}
     [Fact]
-	public void DivideTuple ()
+	public void DivideTuple_ExpectDividedValues ()
 	{
 		// Scenario: Dividing a tuple by a scalar
 		// Given a ← tuple(1, -2, 3, -4)
