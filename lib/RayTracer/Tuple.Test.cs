@@ -165,7 +165,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(b, c));
 	}
     [Fact]
-	public void TupleGetMagnitudeUnit ()
+	public void TupleGetMagnitude_WithUnit_ExpectOne ()
 	{
 		//Scenario: Computing the GetMagnitude of vector(1, 0, 0)
 		//Given v ← vector(1, 0, 0)
@@ -184,7 +184,7 @@ public class TupleTest
 		Assert.Equal(1,c.GetMagnitude());
 	}
     [Fact]
-	public void TupleGetMagnitude ()
+	public void TupleGetMagnitude_WithNonUnit_ExpectMagnitude ()
 	{
 		Vector a = new Vector(1, 2, 3);
 		double mag = Math.Sqrt(14);
@@ -193,7 +193,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckFloat(b.GetMagnitude(), mag));
 	}
     [Fact]
-	public void TupleNormalized ()
+	public void TupleNormalized_WithGiven_ExpectNormalized ()
 	{
 		Vector unit = new Vector(1, 0, 0);
 		Vector a = new Vector(4, 0, 0);
@@ -207,7 +207,7 @@ public class TupleTest
 		Assert.Equal(1, GetMagnitude);
 	}
     [Fact]
-	public void TupleGetDotProductProduct ()
+	public void TupleGetDotProduct_WithGiven_ExpectProduct ()
 	{
 		Vector a = new Vector(1, 2, 3);
 		Vector b = new Vector(2, 3, 4);
@@ -215,7 +215,7 @@ public class TupleTest
 		Assert.Equal(20, GetDotProduct);
 	}
     [Fact]
-	public void TupleGetCrossProductProduct ()
+	public void TupleGetCrossProduct_WithGiven_ExpectProduct ()
 	{
 		Vector a = new Vector(1, 2, 3);
 		Vector b = new Vector(2, 3, 4);
@@ -227,7 +227,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(ba, c));
 	}
     [Fact]
-	public void TupleGetReflect ()
+	public void TupleGetReflect_WithGiven_ExpectReflected ()
 	{
 		Vector v = new Vector(1, -1, 0);
 		Vector n = new Vector(0, 1, 0);
@@ -236,7 +236,7 @@ public class TupleTest
 		Assert.True(_fieldComp.CheckTuple(r, expectedR));
 	}
     [Fact]
-	public void TupleGetReflectAngled ()
+	public void TupleGetReflect_WithAngled_ExpectReflected ()
 	{
 		Vector v = new Vector(0, -1, 0);
 		Vector n = new Vector(Math.Sqrt(2)/2, Math.Sqrt(2)/2, 0);
